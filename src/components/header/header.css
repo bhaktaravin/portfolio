@@ -59,14 +59,20 @@ header {
 
 
 @media screen and (max-width: 1024px){
-  header{
-      height: 68vh;
+  .container{
+    width: var(--container-width-md);
+  }
+
+  section{
+    margin-top: 6rem;
   }
 }
 
 @media screen and (max-width:600px){
-    .scroll__down{
-        display: none;
-        
+    .container{
+        width: var(--container-width-sm);
+    }
+    section> h2{
+        margin-bottom: 2rem;
     }
 }

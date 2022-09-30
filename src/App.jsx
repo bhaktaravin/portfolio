@@ -11,8 +11,8 @@ function App() {
       <Header />
       <Resume />
       <Nav />
-      <Testimonials />
       <About />
+      <Testimonials />
       <Skill />
       <Contact />
 
