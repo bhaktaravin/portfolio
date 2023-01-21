@@ -39,6 +39,7 @@ const Testimonials = () => {
     
     const deleteReview = async (id) => {
       const userDoc = doc(db, "reviews", id);
+      console.log(userDoc);
       await deleteDoc(userDoc);
     };
    
