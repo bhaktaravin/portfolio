@@ -1,10 +1,10 @@
-import Header from './components/header/Header';
-import Nav from './components/nav/Nav';
-import About from './components/about/About';
-import Contact from './components/contact/Contact';
-import Skill from './components/skills/Skill';
-import Testimonials from './components/testimonials/Testimonials';
-import Portfolio from './components/portfolio/Portfolio';
+import Header from './src/components/header/Header';
+import Nav from './src/components/nav/Nav';
+import About from './src/components/about/About';
+import Contact from './src/components/contact/Contact';
+import Skill from './src/components/skills/Skill';
+import Testimonials from './src/components/testimonials/Testimonials';
+import Portfolio from './src/components/portfolio/Portfolio';
 
 
 
