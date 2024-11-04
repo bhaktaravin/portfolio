@@ -1,21 +1,23 @@
 header {
-    height: 100vh; 
+    height: 100vh;
     padding-top: 7rem;
     overflow: hidden;
 }
 
-.header__container{
+.header__container {
     text-align: center;
     height: 100%;
     position: relative;
 }
+
 .resume {
     margin-top: 2.5rem;
     display: flex;
     gap: 1.2rem;
     justify-content: center;
 }
-.header__socials{
+
+.header__socials {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,12 +27,11 @@ header {
     bottom: 3rem;
 }
 
-.header__socials:after{
+.header__socials:after {
     content: "";
     width: 1px;
     height: 2rem;
     background: var(--color-primary);
-
 }
 
 .me {
@@ -43,11 +44,9 @@ header {
     border-radius: 12rem 12rem 0 0;
     overflow: hidden;
     padding: 5rem 1.5rem 1.5rem;
-
 }
 
-
-.scroll__down{
+.scroll__down {
     position: absolute;
     right: -2.3rem;
     bottom: 5rem;
@@ -56,23 +55,110 @@ header {
     font-size: 0.9rem;
 }
 
-
-
-@media screen and (max-width: 1024px){
-  .container{
-    width: var(--container-width-md);
-  }
-
-  section{
-    margin-top: 6rem;
-  }
+.number-fact {
+    font-size: 1.2rem;
+    color: #333;
+    text-align: center;
+    margin-top: 15px;
+    padding: 0 20px; /* Add padding for spacing */
+    transition: opacity 0.5s ease-in-out;
 }
 
-@media screen and (max-width:600px){
-    .container{
+.fade-in {
+    opacity: 1;
+}
+
+.fade-out {
+    opacity: 0;
+}
+
+.btn-random {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px; /* Slightly larger padding for easier clicking */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 20px; /* More space from other elements */
+    transition: background-color 0.3s;
+}
+
+.btn-random:hover:enabled {
+    background-color: #0056b3;
+}
+
+.btn-random:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.auto-update-toggle {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    text-align: center; /* Center-align checkbox label */
+}
+
+.auto-update-toggle input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.spinner {
+    border: 4px solid #f3f3f3; /* Light grey */
+    border-top: 4px solid #007bff; /* Blue */
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+@media screen and (max-width: 1024px) {
+    .container {
+        width: var(--container-width-md);
+    }
+
+    section {
+        margin-top: 6rem;
+    }
+    
+    .me {
+        width: 18rem; /* Reduce size on smaller screens */
+        height: 24rem;
+        left: calc(50% - 9rem); /* Centered on smaller width */
+    }
+}
+
+
+
+@media screen and (max-width: 600px) {
+    .container {
         width: var(--container-width-sm);
     }
-    section> h2{
+    section > h2 {
         margin-bottom: 2rem;
+    }
+    .scroll__down {
+        right: -1.3rem; /* Adjust positioning on mobile */
+        bottom: 2rem;
+        font-size: 0.8rem;
+    }
+    .number-fact {
+        padding: 0 10px; /* Less padding for smaller screens */
     }
 }

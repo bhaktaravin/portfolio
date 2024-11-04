@@ -33,6 +33,7 @@ html{
   display: none;
 }
 
+/*
 body{
   font-family: 'Poppins', sans-serif;
   background: var(--color-bg);
@@ -40,7 +41,7 @@ body{
   line-height: 1.7rem;
   background-image:url(./assests/bg-texture.png);
 }
-
+*/
 .container{
   width: var(--container-width-lg);
   margin: 0 auto;
