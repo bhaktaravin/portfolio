@@ -1,5 +1,5 @@
 import { collection, deleteDoc, doc, getDocs, setDoc } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Tooltip } from "reactstrap";
 import { db } from "./firebase";
@@ -42,10 +42,10 @@ const Testimonials = () => {
     getReviews();
   };
 
-  const getReviews = async () => {
+  const getReviews = useCallback(async ()=> {
     const data = await getDocs(reviewsCollectionRef);
     setLst(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  };
+  });
 
   useEffect(() => {
     getReviews();

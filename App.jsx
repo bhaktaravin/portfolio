@@ -15,21 +15,6 @@ function App() {
   return (
     <div className="App">
       <AnimatedBackground animationName="starryNight" />
-      <header
-        className="App-header"
-        style={{ backgroundImage: `url(${unsplashUrl})` }}
-      >
-        <h1>Explore the Cosmos</h1>
-        <p>Discover amazing facts from space!</p>
-        <a
-          className="App-link"
-          href="https://nasa.gov"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Visit NASA
-        </a>
-      </header>
       <Nav />
       <Header />
       <About />
