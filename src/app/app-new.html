@@ -1,36 +1,3 @@
-<!-- Animated Space Background -->
-<div class="space-background">
-  <div class="stars">
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-    <div class="star"></div>
-  </div>
-  <div class="floating-particles">
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-    <div class="particle"></div>
-  </div>
-  <div class="shooting-star"></div>
-  <div class="shooting-star shooting-star-2"></div>
-  <div class="shooting-star shooting-star-3"></div>
-  <div class="nebula nebula-1"></div>
-  <div class="nebula nebula-2"></div>
-  <div class="comet"></div>
-  <div class="constellation constellation-1"></div>
-  <div class="constellation constellation-2"></div>
-  <div class="planet planet-1"></div>
-  <div class="planet planet-2"></div>
-</div>
-
 <!-- Navigation -->
 <nav class="navbar">
   <div class="nav-container">
@@ -40,15 +7,8 @@
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#experience">Experience</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#certifications">Certifications</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li>
-        <button class="dark-mode-toggle" (click)="toggleDarkMode()" [attr.aria-label]="isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'">
-          <span class="toggle-icon">{{ isDarkMode() ? '☀️' : '🌙' }}</span>
-        </button>
-      </li>
     </ul>
   </div>
 </nav>
@@ -131,49 +91,6 @@
               <span class="experience-period">{{ job.period }}</span>
             </div>
             <p class="experience-description">{{ job.description }}</p>
-          </div>
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- Education Section -->
-  <section id="education" class="education section">
-    <div class="container">
-      <h2 class="section-title">Education</h2>
-      <div class="education-timeline">
-        @for (edu of education; track edu.institution) {
-          <div class="education-item">
-            <div class="education-header">
-              <div>
-                <h3 class="education-degree">{{ edu.degree }}</h3>
-                <p class="education-institution">{{ edu.institution }}</p>
-                @if (edu.location) {
-                  <p class="education-location">{{ edu.location }}</p>
-                }
-              </div>
-              <span class="education-period">{{ edu.period }}</span>
-            </div>
-          </div>
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- Certifications Section -->
-  <section id="certifications" class="certifications section">
-    <div class="container">
-      <h2 class="section-title">Certifications</h2>
-      <div class="certifications-grid">
-        @for (cert of certifications; track cert.title) {
-          <div class="certification-card">
-            <div class="certification-content">
-              <h3 class="certification-title">{{ cert.title }}</h3>
-              <p class="certification-issuer">{{ cert.issuer }}</p>
-              @if (cert.date) {
-                <p class="certification-date">{{ cert.date }}</p>
-              }
-            </div>
           </div>
         }
       </div>
