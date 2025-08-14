@@ -40,6 +40,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#experience">Experience</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
       <li><a href="#education">Education</a></li>
       <li><a href="#certifications">Certifications</a></li>
       <li><a href="#projects">Projects</a></li>
@@ -65,7 +66,14 @@
           <p class="description">{{ heroDescription }}</p>
           <div class="hero-buttons">
             <a href="#contact" class="btn btn-primary">Get In Touch</a>
-            <a href="{{ resumeLink }}" target="_blank" class="btn btn-secondary">Download Resume</a>
+            <button (click)="downloadResume()" class="btn btn-secondary">
+              <span class="btn-icon">📄</span>
+              Download Resume
+            </button>
+            <button (click)="viewResume()" class="btn btn-outline">
+              <span class="btn-icon">👁️</span>
+              View Resume
+            </button>
           </div>
         </div>
         <div class="hero-image">
@@ -133,6 +141,85 @@
             <p class="experience-description">{{ job.description }}</p>
           </div>
         }
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="testimonials section">
+    <div class="container">
+      <h2 class="section-title">LinkedIn Recommendations</h2>
+      <p class="section-subtitle">Professional recommendations from colleagues, managers, and clients</p>
+
+      <!-- LinkedIn Authentication Section -->
+      <div class="linkedin-auth-section">
+        @if (!isLinkedInAuthenticated()) {
+          <div class="auth-prompt">
+            <h3>Connect with LinkedIn</h3>
+            <p>Authenticate with LinkedIn to verify these recommendations and show your professional network</p>
+            <button class="linkedin-auth-btn" (click)="authenticateWithLinkedIn()">
+              <span class="linkedin-icon">💼</span>
+              Connect LinkedIn
+            </button>
+          </div>
+        } @else {
+          <div class="auth-success">
+            <span class="success-icon">✅</span>
+            <span>LinkedIn Connected</span>
+            <button class="logout-btn" (click)="logoutFromLinkedIn()">Disconnect</button>
+          </div>
+        }
+      </div>
+
+      <div class="testimonials-grid">
+        @for (testimonial of testimonials; track testimonial.name) {
+          <div class="testimonial-card">
+            @if (testimonial.isLinkedInRecommendation) {
+              <div class="linkedin-badge">
+                <span class="linkedin-icon-small">💼</span>
+                <span>LinkedIn Recommendation</span>
+                @if (isLinkedInAuthenticated()) {
+                  <span class="verified-badge">✓ Verified</span>
+                }
+              </div>
+            }
+            <div class="testimonial-content">
+              <div class="quote-icon">"</div>
+              <p class="testimonial-text">{{ testimonial.content }}</p>
+            </div>
+            <div class="testimonial-author">
+              <div class="author-info">
+                <h4 class="author-name">{{ testimonial.name }}</h4>
+                <p class="author-position">{{ testimonial.position }}</p>
+                <p class="author-company">{{ testimonial.company }}</p>
+                @if (testimonial.relationship) {
+                  <p class="author-relationship">{{ testimonial.relationship }}</p>
+                }
+                @if (testimonial.date) {
+                  <p class="recommendation-date">{{ testimonial.date }}</p>
+                }
+              </div>
+              @if (testimonial.linkedinUrl) {
+                <a [href]="testimonial.linkedinUrl" target="_blank" class="linkedin-link" title="View LinkedIn Profile">
+                  <span class="linkedin-icon">💼</span>
+                </a>
+              }
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Instructions for adding real recommendations -->
+      <div class="add-recommendations-cta">
+        <h3>Want to add your own LinkedIn recommendations?</h3>
+        <p>Follow these steps to replace the sample data with your actual LinkedIn recommendations:</p>
+        <ol>
+          <li>Go to your LinkedIn profile → Recommendations section</li>
+          <li>Copy the text from each recommendation you've received</li>
+          <li>Update the testimonials array in the TypeScript file with the real data</li>
+          <li>Include the recommender's name, current title, company, and LinkedIn URL</li>
+        </ol>
+        <p>Don't have recommendations yet? <a href="https://www.linkedin.com/help/linkedin/answer/a95468" target="_blank">Learn how to request them</a></p>
       </div>
     </div>
   </section>

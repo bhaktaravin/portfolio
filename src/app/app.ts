@@ -1,5 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { LinkedInService } from './services/linkedin.service';
+import { CommonModule } from '@angular/common';
 
 interface Stat {
   value: string;
@@ -45,33 +47,123 @@ interface Certification {
   date?: string;
 }
 
+interface Testimonial {
+  name: string;
+  position: string;
+  company: string;
+  content: string;
+  linkedinUrl?: string;
+  profileImage?: string;
+  date?: string;
+  relationship?: string;
+  isLinkedInRecommendation?: boolean;
+}
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
+export class App implements OnInit {
   protected readonly title = signal('Portfolio');
-  
+
   // Dark mode functionality
   isDarkMode = signal(false);
-  
-  constructor() {
+
+  // LinkedIn authentication status
+  isLinkedInAuthenticated = signal(false);
+
+  constructor(private linkedInService: LinkedInService) {
     // Check for saved theme preference or default to light mode
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
+
     if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
       this.isDarkMode.set(true);
       document.documentElement.classList.add('dark');
     }
+
+    // Check for LinkedIn auth code in URL
+    this.handleLinkedInCallback();
   }
-  
+
+  ngOnInit() {
+    // Component initialization
+    this.checkLinkedInAuth();
+  }
+
+  private handleLinkedInCallback(): void {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+
+    if (code) {
+      console.log('LinkedIn auth code received:', code);
+      this.linkedInService.exchangeCodeForToken(code).subscribe(
+        response => {
+          if (response) {
+            console.log('LinkedIn authentication successful:', response);
+            this.isLinkedInAuthenticated.set(true);
+            // Remove code from URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+            // Try to load LinkedIn data
+            this.loadLinkedInData();
+          }
+        },
+        error => {
+          console.error('LinkedIn authentication failed:', error);
+        }
+      );
+    }
+  }
+
+  private checkLinkedInAuth(): void {
+    if (this.linkedInService.isAuthenticated()) {
+      console.log('User is already authenticated with LinkedIn');
+      this.isLinkedInAuthenticated.set(true);
+      this.loadLinkedInData();
+    } else {
+      console.log('User is not authenticated with LinkedIn');
+    }
+  }
+
+  private loadLinkedInData(): void {
+    console.log('Loading LinkedIn data...');
+
+    // Get user profile
+    this.linkedInService.getUserProfile().subscribe(
+      profile => {
+        console.log('LinkedIn Profile loaded:', profile);
+      },
+      error => {
+        console.error('Error loading LinkedIn profile:', error);
+      }
+    );
+
+    // Note: LinkedIn API doesn't provide recommendations endpoint
+    this.linkedInService.getRecommendations().subscribe(
+      recommendations => {
+        console.log('LinkedIn Recommendations (will be empty):', recommendations);
+      }
+    );
+  }
+
+  // LinkedIn authentication methods
+  authenticateWithLinkedIn(): void {
+    console.log('Starting LinkedIn authentication...');
+    this.linkedInService.authenticate();
+  }
+
+  logoutFromLinkedIn(): void {
+    console.log('Logging out from LinkedIn...');
+    this.linkedInService.logout();
+    this.isLinkedInAuthenticated.set(false);
+  }
+
   toggleDarkMode() {
     const newMode = !this.isDarkMode();
     this.isDarkMode.set(newMode);
-    
+
     if (newMode) {
       document.documentElement.classList.add('dark');
       localStorage.setItem('theme', 'dark');
@@ -80,8 +172,8 @@ export class App {
       localStorage.setItem('theme', 'light');
     }
   }
-  
-  // Personal Information - Update these with your details
+
+  // Personal Information
   fullName = 'Ravin Bhakta';
   jobTitle = 'Mid-Level Software Engineer | Full-Stack Developer | JavaScript, TypeScript, Node.js, React | Building Scalable Web Apps | AWS | Agile';
   heroDescription = 'Skilled Software Engineer with robust experience in Rust and Java development, API integration, and agile methodologies. Demonstrates proven expertise in building and maintaining scalable enterprise solutions, optimizing system performance, and collaborating with cross-functional teams.';
@@ -89,14 +181,72 @@ export class App {
   email = 'ravin.bhakta@gmail.com';
   phone = '5107557264';
   location = 'Fremont, CA';
-  resumeLink = '#'; // Add your resume link
+  resumeLink = '/assets/Ravin_Bhakta_Resume.pdf'; // Updated to use your PDF resume
   currentYear = new Date().getFullYear();
-  
-  // Get initials for profile image
+
+  // Resume download functionality
+  downloadResume(): void {
+    console.log('Downloading resume...');
+
+    try {
+      const link = document.createElement('a');
+      link.href = this.resumeLink;
+      link.download = 'Ravin_Bhakta_Resume.pdf'; // Updated to download as PDF
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Show success feedback
+      this.showDownloadFeedback('Resume downloaded successfully!');
+    } catch (error) {
+      console.error('Error downloading resume:', error);
+      this.showDownloadFeedback('Error downloading resume. Please try again.');
+    }
+  }
+
+  // Alternative resume view functionality
+  viewResume(): void {
+    console.log('Opening resume in new tab...');
+    window.open(this.resumeLink, '_blank');
+  }
+
+  // Show download feedback
+  private showDownloadFeedback(message: string): void {
+    // Create a temporary notification
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--primary-blue);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 1000;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    `;
+
+    document.body.appendChild(notification);
+
+    // Remove notification after 3 seconds
+    setTimeout(() => {
+      notification.style.opacity = '0';
+      notification.style.transform = 'translateY(-20px)';
+      setTimeout(() => {
+        if (document.body.contains(notification)) {
+          document.body.removeChild(notification);
+        }
+      }, 300);
+    }, 3000);
+  }
+
   get initials(): string {
     return this.fullName.split(' ').map(name => name.charAt(0)).join('');
   }
-  
+
   // Statistics
   stats: Stat[] = [
     { value: '5+', label: 'Years Experience' },
@@ -104,7 +254,7 @@ export class App {
     { value: '3', label: 'Companies Worked' },
     { value: '15+', label: 'Technologies' }
   ];
-  
+
   // Skills Categories
   skillCategories: SkillCategory[] = [
     {
@@ -124,7 +274,7 @@ export class App {
       skills: ['AWS', 'Docker', 'GCP', 'Version Control (SVN/Git)', 'Agile/Scrum']
     }
   ];
-  
+
   // Work Experience
   workExperience: WorkExperience[] = [
     {
@@ -146,7 +296,7 @@ export class App {
       description: 'Increased processing speed by transitioning from XML to C# storage system. Implemented a more user-friendly website by making it look more modern using C# and Bootstrap along with KendoUI. Redesigned future applicant/current tenant housing authority portal using ASP.NET MVC with Entity, Kendo UI, and SQL Server.'
     }
   ];
-  
+
   // Featured Projects
   projects: Project[] = [
     {
@@ -178,15 +328,15 @@ export class App {
       liveUrl: ''
     }
   ];
-  
+
   // Social Links
   socialLinks: SocialLink[] = [
     { platform: 'GitHub', url: 'https://github.com/bhaktaravin', icon: '🐙' },
     { platform: 'LinkedIn', url: 'https://www.linkedin.com/in/ravin-rohitbhai-bhakta', icon: '💼' },
-    { platform: 'Email', url: 'mailto:ravin.bhakta@gmail.com', icon: '�' },
-    { platform: 'Phone', url: 'tel:5107557264', icon: '�' }
+    { platform: 'Email', url: 'mailto:ravin.bhakta@gmail.com', icon: '📧' },
+    { platform: 'Phone', url: 'tel:5107557264', icon: '📱' }
   ];
-  
+
   // Education
   education: Education[] = [
     {
@@ -196,7 +346,7 @@ export class App {
       location: 'Los Angeles, CA'
     }
   ];
-  
+
   // Certifications
   certifications: Certification[] = [
     {
@@ -204,10 +354,33 @@ export class App {
       issuer: 'Stanford Online'
     }
   ];
-  
+
+  // Sample testimonials for testing
+  testimonials: Testimonial[] = [
+    {
+      name: 'Test User 1',
+      position: 'Senior Engineering Manager',
+      company: 'Tech Solutions Inc.',
+      content: 'This is a sample testimonial for testing LinkedIn authentication functionality.',
+      linkedinUrl: 'https://linkedin.com/in/example1',
+      relationship: 'worked directly with Ravin',
+      date: '2024',
+      isLinkedInRecommendation: true
+    },
+    {
+      name: 'Test User 2',
+      position: 'Technical Lead',
+      company: 'Digital Innovations Co.',
+      content: 'Another sample testimonial to test the LinkedIn integration and authentication system.',
+      linkedinUrl: 'https://linkedin.com/in/example2',
+      relationship: 'managed Ravin directly',
+      date: '2023',
+      isLinkedInRecommendation: true
+    }
+  ];
+
   // Contact form submission
   onSubmitContact(): void {
-    // Add your contact form logic here
     alert('Thank you for your message! I will get back to you soon.');
   }
 }
