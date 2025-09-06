@@ -177,6 +177,14 @@ export class App {
       githubUrl: 'https://github.com/bhaktaravin/flutter_hinge_detector',
       liveUrl: ''
     }
+    ,
+    {
+      title: 'Flutter Text to Image Supabase',
+      description: 'Flutter app that generates images from text using Supabase as backend. Features text-to-image conversion, Supabase integration, and a modern mobile UI.',
+      technologies: ['Flutter', 'Dart', 'Supabase', 'AI', 'Mobile'],
+      githubUrl: 'https://github.com/bhaktaravin/flutter_text_to_image_supabase',
+      liveUrl: 'https://flutter-text-to-image-supabase-git-web-bhaktaravins-projects.vercel.app/'
+    }
   ];
   
   // Social Links
