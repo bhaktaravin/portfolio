@@ -1,0 +1,404 @@
+<!-- Scroll Progress Indicator -->
+<div class="scroll-progress">
+  <div class="scroll-progress-bar" [style.width.%]="scrollProgress()"></div>
+</div>
+
+<!-- Animated Space Background -->
+<div class="space-background">
+  <div class="stars">
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+  </div>
+  <div class="floating-particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+  <div class="shooting-star"></div>
+  <div class="shooting-star shooting-star-2"></div>
+  <div class="shooting-star shooting-star-3"></div>
+  <div class="nebula nebula-1"></div>
+  <div class="nebula nebula-2"></div>
+  <div class="comet"></div>
+  <div class="constellation constellation-1"></div>
+  <div class="constellation constellation-2"></div>
+  <div class="planet planet-1"></div>
+  <div class="planet planet-2"></div>
+</div>
+
+<!-- Navigation -->
+<header>
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <div class="logo" role="banner">{{ fullName }}</div>
+    
+    <!-- Desktop Navigation -->
+    <ul class="nav-links desktop-nav">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li>
+        <button class="dark-mode-toggle" (click)="toggleDarkMode()" [attr.aria-label]="isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'">
+          <span class="toggle-icon">{{ isDarkMode() ? '☀️' : '🌙' }}</span>
+        </button>
+      </li>
+    </ul>
+    
+    <!-- Mobile Navigation Toggle -->
+    <div class="mobile-nav-controls">
+      <button class="dark-mode-toggle mobile-theme-toggle" (click)="toggleDarkMode()" [attr.aria-label]="isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'">
+        <span class="toggle-icon">{{ isDarkMode() ? '☀️' : '🌙' }}</span>
+      </button>
+      <button class="mobile-menu-toggle" 
+              (click)="toggleMobileMenu()" 
+              [attr.aria-label]="isMobileMenuOpen() ? 'Close menu' : 'Open menu'" 
+              [attr.aria-expanded]="isMobileMenuOpen()"
+              [class.active]="isMobileMenuOpen()">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Mobile Navigation Menu -->
+  <div class="mobile-nav-menu" [class.active]="isMobileMenuOpen()" [attr.aria-hidden]="!isMobileMenuOpen()">
+    <div class="mobile-nav-overlay" (click)="closeMobileMenu()" aria-label="Close menu"></div>
+    <nav class="mobile-nav-content" role="navigation" aria-label="Mobile navigation">
+      <ul class="mobile-nav-links">
+        <li><a href="#home" (click)="closeMobileMenu()" tabindex="0">🏠 Home</a></li>
+        <li><a href="#about" (click)="closeMobileMenu()" tabindex="0">👨‍💻 About</a></li>
+        <li><a href="#skills" (click)="closeMobileMenu()" tabindex="0">🚀 Skills</a></li>
+        <li><a href="#experience" (click)="closeMobileMenu()" tabindex="0">💼 Experience</a></li>
+        <li><a href="#education" (click)="closeMobileMenu()" tabindex="0">🎓 Education</a></li>
+        <li><a href="#certifications" (click)="closeMobileMenu()" tabindex="0">🏆 Certifications</a></li>
+        <li><a href="#projects" (click)="closeMobileMenu()" tabindex="0">💻 Projects</a></li>
+        <li><a href="#contact" (click)="closeMobileMenu()" tabindex="0">📧 Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</nav>
+</header>
+
+<!-- Main Content -->
+<main class="main-content" role="main">
+  <!-- Hero Section -->
+  <section id="home" class="hero section" aria-labelledby="hero-heading">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text" #heroText>
+          <h1 id="hero-heading">Hello, I'm<br><span class="typed-text">{{ isTyping() ? typedText() : fullName }}</span><span class="typing-cursor" [class.blink]="isTyping()">|</span></h1>
+          <p class="subtitle animate-fade-in-up" role="doc-subtitle">{{ jobTitle }}</p>
+          <p class="description animate-fade-in-up">{{ heroDescription }}</p>
+          <div class="hero-buttons animate-fade-in-up">
+            <a href="#contact" class="btn btn-primary" (click)="onButtonClick($event)">Get In Touch</a>
+            <a href="{{ resumeLink }}" target="_blank" class="btn btn-secondary" (click)="onButtonClick($event)">Download Resume</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <div class="profile-image">
+            {{ initials }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about section scroll-animate" aria-labelledby="about-heading">
+    <div class="container">
+      <h2 id="about-heading" class="section-title animate-on-scroll">About Me</h2>
+      <div class="about-content">
+        <div class="about-text">
+          <p>{{ aboutDescription }}</p>
+        </div>
+        <div class="stats" role="region" aria-label="Professional statistics">
+          @for (stat of stats; track stat.label; let i = $index) {
+            <div class="stat animate-on-scroll" [style.animation-delay.ms]="i * 200" [attr.aria-label]="stat.value + ' ' + stat.label">
+              <span class="stat-number counter-animate">{{ stat.value }}</span>
+              <span class="stat-label">{{ stat.label }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="skills section scroll-animate">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll">Skills & Technologies</h2>
+      <div class="skills-grid">
+        @for (category of skillCategories; track category.name; let i = $index) {
+          <div class="skill-category animate-on-scroll" [style.animation-delay.ms]="i * 100">
+            <h3>{{ category.name }}</h3>
+            <div class="skill-items">
+              @for (skill of category.skills; track skill) {
+                <span class="skill-item">{{ skill }}</span>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience" class="experience section scroll-animate">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll">Work Experience</h2>
+      <div class="experience-timeline">
+        @for (job of workExperience; track job.company; let i = $index) {
+          <div class="experience-item animate-on-scroll" [style.animation-delay.ms]="i * 200">
+            <div class="experience-header">
+              <div>
+                <h3 class="experience-title">{{ job.title }}</h3>
+                <p class="experience-company">{{ job.company }}</p>
+              </div>
+              <span class="experience-period">{{ job.period }}</span>
+            </div>
+            <p class="experience-description">{{ job.description }}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section id="education" class="education section scroll-animate">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll">Education</h2>
+      <div class="education-timeline">
+        @for (edu of education; track edu.institution; let i = $index) {
+          <div class="education-item animate-on-scroll" [style.animation-delay.ms]="i * 200">
+            <div class="education-header">
+              <div>
+                <h3 class="education-degree">{{ edu.degree }}</h3>
+                <p class="education-institution">{{ edu.institution }}</p>
+                @if (edu.location) {
+                  <p class="education-location">{{ edu.location }}</p>
+                }
+              </div>
+              <span class="education-period">{{ edu.period }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications Section -->
+  <section id="certifications" class="certifications section scroll-animate">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll">Certifications</h2>
+      <div class="certifications-grid">
+        @for (cert of certifications; track cert.title; let i = $index) {
+          <div class="certification-card animate-on-scroll" [style.animation-delay.ms]="i * 150">
+            <div class="certification-content">
+              <h3 class="certification-title">{{ cert.title }}</h3>
+              <p class="certification-issuer">{{ cert.issuer }}</p>
+              @if (cert.date) {
+                <p class="certification-date">{{ cert.date }}</p>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="projects section scroll-animate">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll">Featured Projects</h2>
+      <div class="projects-grid">
+        @for (project of projects; track project.title; let i = $index) {
+          <div class="project-card animate-on-scroll" [style.animation-delay.ms]="i * 150">
+            <div class="project-image">
+              {{ project.title.charAt(0) }}
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">{{ project.title }}</h3>
+              <p class="project-description">{{ project.description }}</p>
+              <div class="project-tech">
+                @for (tech of project.technologies; track tech) {
+                  <span class="tech-tag">{{ tech }}</span>
+                }
+              </div>
+              <div class="project-links">
+                @if (project.liveUrl) {
+                  <a [href]="project.liveUrl" target="_blank" class="project-link" (click)="onButtonClick($event)">Live Demo</a>
+                }
+                @if (project.githubUrl) {
+                  <a [href]="project.githubUrl" target="_blank" class="project-link" (click)="onButtonClick($event)">GitHub</a>
+                }
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact section scroll-animate">
+    <div class="container">
+      <h2 class="section-title animate-on-scroll">Get In Touch</h2>
+      <div class="contact-content">
+        <div class="contact-info animate-on-scroll">
+          <h3>Let's Connect</h3>
+          <div class="contact-item">
+            <div class="contact-icon">📧</div>
+            <div>
+              <strong>Email</strong><br>
+              <a [href]="'mailto:' + email">{{ email }}</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📱</div>
+            <div>
+              <strong>Phone</strong><br>
+              <a [href]="'tel:' + phone">{{ phone }}</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <strong>Location</strong><br>
+              {{ location }}
+            </div>
+          </div>
+        </div>
+        <form class="contact-form animate-on-scroll" (ngSubmit)="onSubmitContact()" #contactFormRef="ngForm">
+          <!-- Form Status Message -->
+          @if (statusMessage()) {
+            <div class="form-status" 
+                 [class.success]="formStatus() === 'success'" 
+                 [class.error]="formStatus() === 'error'">
+              {{ statusMessage() }}
+            </div>
+          }
+          
+          <div class="form-group">
+            <label for="name">Name *</label>
+            <input 
+              type="text" 
+              id="name" 
+              name="name" 
+              [(ngModel)]="contactForm.name"
+              required 
+              minlength="2"
+              maxlength="50"
+              #nameInput="ngModel"
+              [class.invalid]="nameInput.invalid && nameInput.touched">
+            @if (nameInput.invalid && nameInput.touched) {
+              <div class="field-error">
+                @if (nameInput.errors?.['required']) {
+                  Name is required
+                }
+                @if (nameInput.errors?.['minlength']) {
+                  Name must be at least 2 characters
+                }
+              </div>
+            }
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              [(ngModel)]="contactForm.email"
+              required 
+              email
+              maxlength="100"
+              #emailInput="ngModel"
+              [class.invalid]="emailInput.invalid && emailInput.touched">
+            @if (emailInput.invalid && emailInput.touched) {
+              <div class="field-error">
+                @if (emailInput.errors?.['required']) {
+                  Email is required
+                }
+                @if (emailInput.errors?.['email']) {
+                  Please enter a valid email address
+                }
+              </div>
+            }
+          </div>
+          
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea 
+              id="message" 
+              name="message" 
+              [(ngModel)]="contactForm.message"
+              required 
+              minlength="10"
+              maxlength="1000"
+              rows="5"
+              placeholder="Tell me about your project or just say hello..."
+              #messageInput="ngModel"
+              [class.invalid]="messageInput.invalid && messageInput.touched"></textarea>
+            @if (messageInput.invalid && messageInput.touched) {
+              <div class="field-error">
+                @if (messageInput.errors?.['required']) {
+                  Message is required
+                }
+                @if (messageInput.errors?.['minlength']) {
+                  Message must be at least 10 characters
+                }
+              </div>
+            }
+            <div class="character-count">{{ contactForm.message.length }}/1000</div>
+          </div>
+          
+          <button 
+            type="submit" 
+            class="btn btn-primary contact-submit-btn" 
+            [class.loading]="isSubmitting()"
+            [disabled]="contactFormRef.invalid || isSubmitting()"
+            (click)="onButtonClick($event)">
+            @if (isSubmitting()) {
+              <span class="loading-spinner"></span>
+              Sending...
+            } @else {
+              Send Message
+            }
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="social-links" role="navigation" aria-label="Social media links">
+      @for (social of socialLinks; track social.platform) {
+        <a [href]="social.url" target="_blank" class="social-link" [title]="social.platform" [attr.aria-label]="'Visit my ' + social.platform + ' profile'">
+          {{ social.icon }}
+        </a>
+      }
+    </div>
+    <p>&copy; {{ currentYear }} {{ fullName }}. All rights reserved.</p>
+  </div>
+</footer>
+
+<router-outlet />
