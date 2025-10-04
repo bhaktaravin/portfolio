@@ -314,15 +314,15 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     try {
       // Replace these with your EmailJS service ID, template ID, and public key
       const result = await emailjs.send(
-        'YOUR_SERVICE_ID',    // Replace with your EmailJS service ID
-        'YOUR_TEMPLATE_ID',   // Replace with your EmailJS template ID
+        'service_w8c3wrr',    // Replace with your EmailJS service ID
+        'template_c0xfi54',   // Replace with your EmailJS template ID
         {
           from_name: this.contactForm.name,
           from_email: this.contactForm.email,
           message: this.contactForm.message,
           to_name: 'Ravin Bhakta'
         },
-        'YOUR_PUBLIC_KEY'     // Replace with your EmailJS public key
+        'Y-0DZ0nj7VobA14wb'     // Replace with your EmailJS public key
       );
       
       console.log('Email sent successfully:', result);
@@ -368,7 +368,7 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
   
   private initializeEmailJS() {
     // Replace with your EmailJS public key
-    emailjs.init('YOUR_PUBLIC_KEY'); // You'll need to replace this with your actual public key
+    emailjs.init('Y-0DZ0nj7VobA14wb'); // You'll need to replace this with your actual public key
   }
   
   ngAfterViewInit() {
