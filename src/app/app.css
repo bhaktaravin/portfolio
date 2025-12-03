@@ -372,12 +372,15 @@ a, button, .project-card, .certification-card {
   border-radius: 50%;
   width: 40px;
   height: 40px;
+  min-width: 40px;
+  min-height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-left: 1rem;
+  flex-shrink: 0;
 }
 
 .dark-mode-toggle:hover {
@@ -388,6 +391,7 @@ a, button, .project-card, .certification-card {
 .toggle-icon {
   font-size: 1.2rem;
   transition: transform 0.3s ease;
+  line-height: 1;
 }
 
 .dark-mode-toggle:hover .toggle-icon {
@@ -401,6 +405,7 @@ a, button, .project-card, .certification-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 60px;
 }
 
 .logo {
@@ -410,12 +415,16 @@ a, button, .project-card, .certification-card {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  flex-shrink: 0;
 }
 
 .nav-links {
   display: flex;
   list-style: none;
-  gap: 2rem;
+  gap: 1.5rem;
+  align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 
 .nav-links a {
@@ -423,6 +432,7 @@ a, button, .project-card, .certification-card {
   color: var(--gray-700);
   font-weight: 500;
   transition: color 0.3s ease;
+  font-size: 0.95rem;
 }
 
 .nav-links a:hover {
@@ -1099,6 +1109,10 @@ a, button, .project-card, .certification-card {
     display: none;
   }
 
+  .nav-container {
+    padding: 0 1rem;
+  }
+
   .hero-content,
   .about-content,
   .contact-content {
@@ -1120,6 +1134,20 @@ a, button, .project-card, .certification-card {
   }
 
   .container {
+    padding: 0 1rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .nav-links {
+    gap: 1rem;
+  }
+  
+  .nav-links a {
+    font-size: 0.9rem;
+  }
+  
+  .nav-container {
     padding: 0 1rem;
   }
 }
