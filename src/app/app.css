@@ -539,7 +539,7 @@ a, button, .project-card, .certification-card {
 .hero-text h1 {
   font-size: 3.5rem;
   font-weight: 800;
-  color: var(--gray-900);
+  color: #111827;
   margin-bottom: 1rem;
   line-height: 1.2;
 }
@@ -561,7 +561,7 @@ a, button, .project-card, .certification-card {
 
 .hero-text .description {
   font-size: 1.125rem;
-  color: var(--gray-600);
+  color: #4b5563;
   margin-bottom: 2rem;
   line-height: 1.7;
 }
