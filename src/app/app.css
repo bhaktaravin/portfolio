@@ -1226,6 +1226,53 @@ a, button, .project-card, .certification-card {
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
+/* Comprehensive Dark Mode Text Colors */
+:host-context(.dark) .section-title,
+:host-context(.dark) .hero-text h1,
+:host-context(.dark) .experience-title,
+:host-context(.dark) .education-degree,
+:host-context(.dark) .certification-title,
+:host-context(.dark) .project-title,
+:host-context(.dark) .skill-category h3,
+:host-context(.dark) .contact-info h3 {
+  color: var(--white) !important;
+}
+
+:host-context(.dark) .hero-text .description,
+:host-context(.dark) .about-text,
+:host-context(.dark) .experience-description,
+:host-context(.dark) .project-description,
+:host-context(.dark) .stat-label {
+  color: var(--gray-300) !important;
+}
+
+:host-context(.dark) .nav-links a {
+  color: var(--gray-300) !important;
+}
+
+:host-context(.dark) .nav-links a:hover {
+  color: var(--white) !important;
+}
+
+:host-context(.dark) .experience-period,
+:host-context(.dark) .education-period,
+:host-context(.dark) .education-location,
+:host-context(.dark) .certification-date {
+  color: var(--gray-400) !important;
+}
+
+:host-context(.dark) .contact-item {
+  color: var(--gray-300) !important;
+}
+
+:host-context(.dark) .contact-item strong {
+  color: var(--white) !important;
+}
+
+:host-context(.dark) .contact-item a {
+  color: var(--primary-blue) !important;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .section {

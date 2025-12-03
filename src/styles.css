@@ -51,6 +51,19 @@
 	color: #e5e7eb;
 }
 
+:global(.dark) .skill-category,
+:global(.dark) .experience-item,
+:global(.dark) .education-item,
+:global(.dark) .certification-card,
+:global(.dark) .project-card {
+	background: rgba(30, 41, 59, 0.8) !important;
+	color: #e5e7eb !important;
+}
+
+:global(.dark) .stat {
+	background: rgba(30, 41, 59, 0.8) !important;
+}
+
 :global(body) {
 	background: transparent;
 	margin: 0;
