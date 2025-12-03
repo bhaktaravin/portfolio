@@ -1235,23 +1235,33 @@ a, button, .project-card, .certification-card {
 :host-context(.dark) .project-title,
 :host-context(.dark) .skill-category h3,
 :host-context(.dark) .contact-info h3 {
-  color: var(--white) !important;
+  color: #ffffff !important;
+}
+
+:host-context(.dark) .hero-text .subtitle {
+  color: #60a5fa !important;
 }
 
 :host-context(.dark) .hero-text .description,
-:host-context(.dark) .about-text,
+:host-context(.dark) .about-text {
+  color: #e5e7eb !important;
+}
+
 :host-context(.dark) .experience-description,
-:host-context(.dark) .project-description,
+:host-context(.dark) .project-description {
+  color: #d1d5db !important;
+}
+
 :host-context(.dark) .stat-label {
-  color: var(--gray-300) !important;
+  color: #d1d5db !important;
 }
 
 :host-context(.dark) .nav-links a {
-  color: var(--gray-300) !important;
+  color: #d1d5db !important;
 }
 
 :host-context(.dark) .nav-links a:hover {
-  color: var(--white) !important;
+  color: #ffffff !important;
 }
 
 :host-context(.dark) .experience-period,
