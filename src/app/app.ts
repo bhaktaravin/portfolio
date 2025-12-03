@@ -233,6 +233,13 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
       technologies: ['Flutter', 'Dart', 'Supabase', 'AI', 'Mobile'],
       githubUrl: 'https://github.com/bhaktaravin/flutter_text_to_image_supabase',
       liveUrl: 'https://flutter-text-to-image-supabase-git-web-bhaktaravins-projects.vercel.app/'
+    },
+    {
+      title: 'Expense Tracker',
+      description: 'A small responsive expense tracker built with Next.js to track income, expenses with category filters.',
+      technologies: ['Next.js', 'Tailwindcss', 'Vercel', 'Supabase'],
+      githubUrl: 'https://github.com/bhaktaravin/expense-tracker-nextjs',
+      liveUrl: 'https://expense-tracker-nextjs-dusky.vercel.app'
     }
   ];
   
