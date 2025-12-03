@@ -539,13 +539,13 @@ a, button, .project-card, .certification-card {
 .hero-text h1 {
   font-size: 3.5rem;
   font-weight: 800;
-  color: #111827;
+  color: #111827 !important;
   margin-bottom: 1rem;
   line-height: 1.2;
 }
 
 :host-context(.dark) .hero-text h1 {
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 .hero-text .subtitle {
@@ -561,13 +561,13 @@ a, button, .project-card, .certification-card {
 
 .hero-text .description {
   font-size: 1.125rem;
-  color: #4b5563;
+  color: #374151 !important;
   margin-bottom: 2rem;
   line-height: 1.7;
 }
 
 :host-context(.dark) .hero-text .description {
-  color: #e5e7eb;
+  color: #e5e7eb !important;
 }
 
 .hero-buttons {

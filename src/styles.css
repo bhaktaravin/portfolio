@@ -79,6 +79,14 @@ html.dark {
 	color: #e5e7eb !important;
 }
 
+:global(.hero-text h1) {
+	color: #111827 !important;
+}
+
+:global(.hero-text .description) {
+	color: #374151 !important;
+}
+
 :global(.dark) .experience-company,
 :global(.dark) .education-institution,
 :global(.dark) .certification-issuer {
