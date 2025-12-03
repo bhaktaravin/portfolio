@@ -64,24 +64,28 @@ export class App {
     
     if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
       this.isDarkMode.set(true);
-      document.documentElement.classList.add('dark');
-      document.body.classList.add('dark');
+      this.applyDarkMode(true);
+    }
+  }
+  
+  private applyDarkMode(isDark: boolean) {
+    const htmlElement = document.documentElement;
+    const bodyElement = document.body;
+    
+    if (isDark) {
+      htmlElement.classList.add('dark');
+      bodyElement.classList.add('dark');
+    } else {
+      htmlElement.classList.remove('dark');
+      bodyElement.classList.remove('dark');
     }
   }
   
   toggleDarkMode() {
     const newMode = !this.isDarkMode();
     this.isDarkMode.set(newMode);
-    
-    if (newMode) {
-      document.documentElement.classList.add('dark');
-      document.body.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      document.body.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
+    this.applyDarkMode(newMode);
+    localStorage.setItem('theme', newMode ? 'dark' : 'light');
   }
   
   // Personal Information - Update these with your details
