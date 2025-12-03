@@ -64,10 +64,17 @@
 	background: rgba(30, 41, 59, 0.8) !important;
 }
 
-:global(.dark) .hero-text h1,
-:global(.dark) .hero-text .subtitle,
-:global(.dark) .hero-text .description {
+:global(.dark) .hero-text h1 {
 	color: #ffffff !important;
+	text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+:global(.dark) .hero-text .subtitle {
+	color: #3b82f6 !important;
+}
+
+:global(.dark) .hero-text .description {
+	color: #e5e7eb !important;
 }
 
 :global(.dark) .experience-company,

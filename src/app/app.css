@@ -544,6 +544,10 @@ a, button, .project-card, .certification-card {
   line-height: 1.2;
 }
 
+:host-context(.dark) .hero-text h1 {
+  color: #ffffff;
+}
+
 .hero-text .subtitle {
   font-size: 1.5rem;
   color: var(--primary-blue);
@@ -551,11 +555,19 @@ a, button, .project-card, .certification-card {
   margin-bottom: 1.5rem;
 }
 
+:host-context(.dark) .hero-text .subtitle {
+  color: #3b82f6;
+}
+
 .hero-text .description {
   font-size: 1.125rem;
   color: var(--gray-600);
   margin-bottom: 2rem;
   line-height: 1.7;
+}
+
+:host-context(.dark) .hero-text .description {
+  color: #e5e7eb;
 }
 
 .hero-buttons {
@@ -1228,7 +1240,6 @@ a, button, .project-card, .certification-card {
 
 /* Comprehensive Dark Mode Text Colors */
 :host-context(.dark) .section-title,
-:host-context(.dark) .hero-text h1,
 :host-context(.dark) .experience-title,
 :host-context(.dark) .education-degree,
 :host-context(.dark) .certification-title,
@@ -1238,11 +1249,6 @@ a, button, .project-card, .certification-card {
   color: #ffffff !important;
 }
 
-:host-context(.dark) .hero-text .subtitle {
-  color: #60a5fa !important;
-}
-
-:host-context(.dark) .hero-text .description,
 :host-context(.dark) .about-text {
   color: #e5e7eb !important;
 }
