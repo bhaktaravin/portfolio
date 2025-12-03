@@ -98,6 +98,20 @@ html.dark {
 	color: #d1d5db !important;
 }
 
+:global(.dark) h1,
+:global(.dark) h2,
+:global(.dark) h3,
+:global(.dark) .experience-title,
+:global(.dark) .project-title,
+:global(.dark) .education-degree,
+:global(.dark) .certification-title {
+	color: #ffffff !important;
+}
+
+:global(.dark) p {
+	color: #d1d5db !important;
+}
+
 :global(.dark) .skill-item,
 :global(.dark) .tech-tag {
 	background: rgba(51, 65, 85, 0.8) !important;
