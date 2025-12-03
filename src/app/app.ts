@@ -65,6 +65,7 @@ export class App {
     if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
       this.isDarkMode.set(true);
       document.documentElement.classList.add('dark');
+      document.body.classList.add('dark');
     }
   }
   
@@ -74,9 +75,11 @@ export class App {
     
     if (newMode) {
       document.documentElement.classList.add('dark');
+      document.body.classList.add('dark');
       localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
+      document.body.classList.remove('dark');
       localStorage.setItem('theme', 'light');
     }
   }
