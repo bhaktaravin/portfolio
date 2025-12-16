@@ -1,4 +1,5 @@
 /* Global styles moved from app.css for budget optimization */
+:root,
 :host {
 	--primary-blue: #2563eb;
 	--primary-dark: #1e40af;
@@ -26,7 +27,9 @@
 	transition: color 0.3s ease, background-color 0.3s ease;
 }
 
-:host-context(.dark) {
+:root.dark,
+:host-context(.dark),
+html.dark {
 	--gray-900: #f9fafb;
 	--gray-800: #f3f4f6;
 	--gray-700: #e5e7eb;
@@ -37,8 +40,7 @@
 	--gray-200: #374151;
 	--gray-100: #1f2937;
 	--gray-50: #111827;
-	--white: #0f172a;
-	color: var(--gray-700);
+	color: #e5e7eb;
 }
 
 :global(.dark) {
@@ -77,6 +79,14 @@
 	color: #e5e7eb !important;
 }
 
+:global(.hero-text h1) {
+	color: #111827 !important;
+}
+
+:global(.hero-text .description) {
+	color: #374151 !important;
+}
+
 :global(.dark) .experience-company,
 :global(.dark) .education-institution,
 :global(.dark) .certification-issuer {
@@ -85,6 +95,20 @@
 
 :global(.dark) .project-description,
 :global(.dark) .experience-description {
+	color: #d1d5db !important;
+}
+
+:global(.dark) h1,
+:global(.dark) h2,
+:global(.dark) h3,
+:global(.dark) .experience-title,
+:global(.dark) .project-title,
+:global(.dark) .education-degree,
+:global(.dark) .certification-title {
+	color: #ffffff !important;
+}
+
+:global(.dark) p {
 	color: #d1d5db !important;
 }
 
