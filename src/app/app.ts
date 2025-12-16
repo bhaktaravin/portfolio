@@ -163,13 +163,7 @@ export class App {
       githubUrl: 'https://github.com/ravinbhakta/mangaviewer',
       liveUrl: 'https://mangaviewer-rust-angular.vercel.app/home'
     },
-    {
-      title: 'Ruby on Rails Blog',
-      description: 'Full-featured blog application built with Ruby on Rails, featuring user authentication, post management, commenting system, and responsive design. Demonstrates MVC architecture and RESTful routing.',
-      technologies: ['Ruby', 'Ruby on Rails', 'HTML5', 'CSS3', 'SQLite', 'Bootstrap'],
-      githubUrl: 'https://github.com/bhaktaravin/ruby_on_rails_blog',
-      liveUrl: ''
-    },
+   
     {
       title: 'Flutter Personal Finance Tracker',
       description: 'Cross-platform mobile application for personal finance management built with Flutter. Features expense tracking, budget planning, financial analytics, and intuitive mobile-first design.',
@@ -183,15 +177,17 @@ export class App {
       technologies: ['Flutter', 'Dart', 'Sensor APIs', 'Foldable UI', 'Hardware Integration'],
       githubUrl: 'https://github.com/bhaktaravin/flutter_hinge_detector',
       liveUrl: ''
-    }
-    ,
+    },
     {
-      title: 'Flutter Text to Image Supabase',
-      description: 'Flutter app that generates images from text using Supabase as backend. Features text-to-image conversion, Supabase integration, and a modern mobile UI.',
-      technologies: ['Flutter', 'Dart', 'Supabase', 'AI', 'Mobile'],
-      githubUrl: 'https://github.com/bhaktaravin/flutter_text_to_image_supabase',
-      liveUrl: 'https://flutter-text-to-image-supabase-git-web-bhaktaravins-projects.vercel.app/'
+      title: 'Pokemon Palace Quest',
+      description 'A Fun Quiz web application that allows Users to choose options to guess the Gen 1 aka - The Original 151 pokemon- using the Pokemon Api",
+      technologies: ['ReactJS', 'Vite', 'Tailwindcss', 'Typescript', 'Shadcn/ui'],
+      githubUrl: 'https://github.com/bhaktaravin/poke-pal-quiz',
+      liveUrl:'https://pokemon-palace-quest.lovable.app'
+
+
     }
+
   ];
   
   // Social Links
