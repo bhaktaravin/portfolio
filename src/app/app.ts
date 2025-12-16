@@ -172,13 +172,6 @@ export class App {
       liveUrl: ''
     },
     {
-      title: 'Flutter Hinge Detector',
-      description: 'Innovative Flutter application that detects device hinge positioning for foldable devices. Demonstrates advanced mobile hardware integration, sensor management, and adaptive UI design for dual-screen experiences.',
-      technologies: ['Flutter', 'Dart', 'Sensor APIs', 'Foldable UI', 'Hardware Integration'],
-      githubUrl: 'https://github.com/bhaktaravin/flutter_hinge_detector',
-      liveUrl: ''
-    },
-    {
       title: 'Pokemon Palace Quest',
       description 'A Fun Quiz web application that allows Users to choose options to guess the Gen 1 aka - The Original 151 pokemon- using the Pokemon Api",
       technologies: ['ReactJS', 'Vite', 'Tailwindcss', 'Typescript', 'Shadcn/ui'],
