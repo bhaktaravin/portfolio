@@ -49,8 +49,10 @@ interface Certification {
   selector: 'app-root',
   imports: [RouterOutlet],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css']
 })
+
+
 export class App {
   protected readonly title = signal('Portfolio');
   
@@ -173,7 +175,7 @@ export class App {
     },
     {
       title: 'Pokemon Palace Quest',
-      description 'A Fun Quiz web application that allows Users to choose options to guess the Gen 1 aka - The Original 151 pokemon- using the Pokemon Api",
+      description: 'A Fun Quiz web application that allows Users to choose options to guess the Gen 1 aka - The Original 151 pokemon- using the Pokemon Api.',
       technologies: ['ReactJS', 'Vite', 'Tailwindcss', 'Typescript', 'Shadcn/ui'],
       githubUrl: 'https://github.com/bhaktaravin/poke-pal-quiz',
       liveUrl:'https://pokemon-palace-quest.lovable.app'
