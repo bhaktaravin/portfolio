@@ -49,3 +49,25 @@
   color: var(--card-text);
   opacity: 0.5;
 }
+
+.tech-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  border-radius: 12px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.98rem;
+  font-weight: 500;
+  margin-right: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.tech-icon svg {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 0.2em;
+}

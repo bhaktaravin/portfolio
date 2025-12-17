@@ -1,14 +1,32 @@
-<p>testimonials works!</p>
 <div class="container">
-  <h2 class="section-title">Testimonials</h2>
+  <h2 class="section-title">Testimonials
+    <button class="add-btn" (click)="showForm = !showForm" title="Add Testimonial">+</button>
+  </h2>
+  <div *ngIf="showForm" class="testimonial-form-wrapper">
+    <form (ngSubmit)="submitTestimonial()" #testimonialForm="ngForm">
+      <input type="text" name="name" [(ngModel)]="newTestimonial.name" placeholder="Your Name" required />
+      <input type="text" name="title" [(ngModel)]="newTestimonial.title" placeholder="Your Title/Role" required />
+      <input type="text" name="date" [(ngModel)]="newTestimonial.date" placeholder="Date (e.g. Dec 2025)" required />
+      <input type="text" name="relationship" [(ngModel)]="newTestimonial.relationship" placeholder="Relationship (e.g. Colleague)" required />
+      <textarea name="text" [(ngModel)]="newTestimonial.text" placeholder="Your Testimonial" required></textarea>
+      <input type="text" name="image" [(ngModel)]="newTestimonial.image" placeholder="Image URL (optional)" />
+      <button type="submit" [disabled]="testimonialForm.invalid">Submit</button>
+      <button type="button" (click)="showForm = false">Cancel</button>
+    </form>
+  </div>
   <div class="testimonials-grid">
-    <div class="testimonial-card" *ngFor="let testimonial of testimonials">
-      <div class="testimonial-content">
-        <p class="testimonial-text">"{{ testimonial.text }}"</p>
-        <div class="testimonial-author">
-          <span class="testimonial-name">- {{ testimonial.author }}</span>
+    <div class="testimonial-card" *ngFor="let testimonial of testimonials$ | async">
+      <div class="testimonial-header">
+        <img *ngIf="testimonial.image" [src]="testimonial.image" class="testimonial-avatar" alt="{{testimonial.name}}" />
+        <div class="testimonial-meta">
+          <span class="testimonial-name">{{ testimonial.name }}</span>
           <span class="testimonial-title">{{ testimonial.title }}</span>
+          <span class="testimonial-date">{{ testimonial.date }}</span>
+          <span class="testimonial-relationship">{{ testimonial.relationship }}</span>
         </div>
+      </div>
+      <div class="testimonial-content">
+        <p class="testimonial-text">{{ testimonial.text }}</p>
       </div>
     </div>
   </div>

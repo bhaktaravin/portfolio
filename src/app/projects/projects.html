@@ -10,7 +10,10 @@
         <h3 class="project-title">{{ project.title }}</h3>
         <p class="project-description">{{ project.description }}</p>
         <div class="project-tech">
-          <span class="tech-tag" *ngFor="let tech of project.technologies">{{ tech }}</span>
+          <span class="tech-tag" *ngFor="let tech of project.technologies">
+            <span class="tech-icon" [innerHTML]="getTechIcon(tech)"></span>
+            {{ tech }}
+          </span>
         </div>
         <div class="project-links">
           <a *ngIf="project.liveUrl" class="project-link" [href]="project.liveUrl" target="_blank" rel="noopener">Live Demo</a>

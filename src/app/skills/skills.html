@@ -5,7 +5,10 @@
     <div class="skill-card" *ngFor="let category of skillCategories">
       <h3 class="skill-category">{{ category.name }}</h3>
       <div class="skill-tags">
-        <span class="skill-tag" *ngFor="let skill of category.skills">{{ skill }}</span>
+        <span class="skill-tag" *ngFor="let skill of category.skills">
+          <span class="skill-icon" *ngIf="getSkillIcon(skill)" [innerHTML]="getSkillIcon(skill)"></span>
+          {{ skill }}
+        </span>
       </div>
     </div>
   </div>

@@ -7,6 +7,8 @@ import { ProjectsComponent } from './projects/projects';
 import { EducationComponent } from './education/education';
 import { CertificationsComponent } from './certifications/certifications';
 import { ContactComponent } from './contact/contact';
+import { TestimonialsComponent } from './testimonials/testimonials';
+import { environment } from '../environments/environment';
 
 
 
@@ -42,11 +44,7 @@ interface Education {
   location: string;
 }
 
-interface Certification {
-  title: string;
-  issuer: string;
-  date?: string;
-}
+
 
 @Component({
   selector: 'app-root',
@@ -58,7 +56,8 @@ interface Certification {
     ProjectsComponent,
     EducationComponent,
     CertificationsComponent,
-    ContactComponent
+    ContactComponent,
+    TestimonialsComponent
   ],
   templateUrl: './app.html',
   styleUrls: ['./app.css']

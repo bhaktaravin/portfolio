@@ -59,12 +59,24 @@
 .skill-tag {
   background: var(--tag-bg);
   color: var(--tag-text);
-  border-radius: 16px;
-  padding: 0.5rem 1.2rem;
-  font-size: 1rem;
+  border-radius: 12px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.98rem;
   font-weight: 500;
-  margin-bottom: 0.3rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
   box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+
+.skill-icon svg {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 0.2em;
 }
 
 .skills-bg-blob {
