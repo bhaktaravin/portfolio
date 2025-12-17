@@ -1,0 +1,15 @@
+<p>testimonials works!</p>
+<div class="container">
+  <h2 class="section-title">Testimonials</h2>
+  <div class="testimonials-grid">
+    <div class="testimonial-card" *ngFor="let testimonial of testimonials">
+      <div class="testimonial-content">
+        <p class="testimonial-text">"{{ testimonial.text }}"</p>
+        <div class="testimonial-author">
+          <span class="testimonial-name">- {{ testimonial.author }}</span>
+          <span class="testimonial-title">{{ testimonial.title }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

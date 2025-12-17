@@ -1,5 +1,14 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { AboutComponent } from './about/about';
+import { SkillsComponent } from './skills/skills';
+import { ExperienceComponent } from './experience/experience';
+import { ProjectsComponent } from './projects/projects';
+import { EducationComponent } from './education/education';
+import { CertificationsComponent } from './certifications/certifications';
+import { ContactComponent } from './contact/contact';
+
+
 
 interface Stat {
   value: string;
@@ -18,13 +27,7 @@ interface WorkExperience {
   description: string;
 }
 
-interface Project {
-  title: string;
-  description: string;
-  technologies: string[];
-  liveUrl?: string;
-  githubUrl?: string;
-}
+
 
 interface SocialLink {
   platform: string;
@@ -47,7 +50,16 @@ interface Certification {
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [
+    RouterOutlet,
+    AboutComponent,
+    SkillsComponent,
+    ExperienceComponent,
+    ProjectsComponent,
+    EducationComponent,
+    CertificationsComponent,
+    ContactComponent
+  ],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
@@ -155,35 +167,8 @@ export class App {
       description: 'Increased processing speed by transitioning from XML to C# storage system. Implemented a more user-friendly website by making it look more modern using C# and Bootstrap along with KendoUI. Redesigned future applicant/current tenant housing authority portal using ASP.NET MVC with Entity, Kendo UI, and SQL Server.'
     }
   ];
-  
-  // Featured Projects
-  projects: Project[] = [
-    {
-      title: 'MangaViewer',
-      description: 'Modern manga reading application built with Angular and TypeScript, featuring responsive design, chapter navigation, and optimized image loading for seamless reading experience.',
-      technologies: ['Angular', 'TypeScript', 'CSS3', 'HTML5', 'Responsive Design'],
-      githubUrl: 'https://github.com/ravinbhakta/mangaviewer',
-      liveUrl: 'https://mangaviewer-rust-angular.vercel.app/home'
-    },
-   
-    {
-      title: 'Flutter Personal Finance Tracker',
-      description: 'Cross-platform mobile application for personal finance management built with Flutter. Features expense tracking, budget planning, financial analytics, and intuitive mobile-first design.',
-      technologies: ['Flutter', 'Dart', 'SQLite', 'Material Design', 'Charts'],
-      githubUrl: 'https://github.com/bhaktaravin/flutter_personal_finance_tracker',
-      liveUrl: ''
-    },
-    {
-      title: 'Pokemon Palace Quest',
-      description: 'A Fun Quiz web application that allows Users to choose options to guess the Gen 1 aka - The Original 151 pokemon- using the Pokemon Api.',
-      technologies: ['ReactJS', 'Vite', 'Tailwindcss', 'Typescript', 'Shadcn/ui'],
-      githubUrl: 'https://github.com/bhaktaravin/poke-pal-quiz',
-      liveUrl:'https://pokemon-palace-quest.lovable.app'
 
-
-    }
-
-  ];
+ 
   
   // Social Links
   socialLinks: SocialLink[] = [
@@ -200,14 +185,6 @@ export class App {
       institution: 'California State University, Los Angeles',
       period: 'August 2015 - April 2019',
       location: 'Los Angeles, CA'
-    }
-  ];
-  
-  // Certifications
-  certifications: Certification[] = [
-    {
-      title: 'Supervised Machine Learning: Regression and Classification',
-      issuer: 'Stanford Online'
     }
   ];
   

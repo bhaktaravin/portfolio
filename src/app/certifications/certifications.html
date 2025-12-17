@@ -1,0 +1,14 @@
+<div class="certifications-section">
+  <h2 class="certifications-title">Certifications</h2>
+  <div class="certifications-grid">
+    <div class="certification-card" *ngFor="let cert of certifications">
+      <div class="certification-content">
+        <h3 class="certification-title">{{ cert.title }}</h3>
+        <p class="certification-issuer">{{ cert.issuer }}</p>
+        <p class="certification-date" *ngIf="cert.date">Issued {{ cert.date }}</p>
+        <p class="certification-id" *ngIf="cert.credentialId">Credential ID {{ cert.credentialId }}</p>
+        <a *ngIf="cert.credentialUrl" class="btn btn-secondary" [href]="cert.credentialUrl" target="_blank" rel="noopener">Show credential</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,30 +1,40 @@
 /* Global styles moved from app.css for budget optimization */
-:root,
-:host {
+
+:root {
 	--primary-blue: #2563eb;
 	--primary-dark: #1e40af;
 	--accent-purple: #7c3aed;
 	--accent-pink: #ec4899;
-	--gray-900: #111827;
-	--gray-800: #1f2937;
-	--gray-700: #374151;
-	--gray-600: #4b5563;
-	--gray-500: #6b7280;
-	--gray-400: #9ca3af;
-	--gray-300: #d1d5db;
-	--gray-200: #e5e7eb;
-	--gray-100: #f3f4f6;
-	--gray-50: #f9fafb;
-	--white: #ffffff;
-	--gradient-primary: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-purple) 100%);
-	--gradient-accent: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-pink) 100%);
+	--background: #fff;
+	--text: #232a36;
+	--card-bg: #fff;
+	--card-text: #232a36;
+	--tag-bg: #f3f4f6;
+	--tag-text: #374151;
+	--gradient-primary: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+	--gradient-accent: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
 	font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 	box-sizing: border-box;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	line-height: 1.6;
-	color: var(--gray-700);
+	color: var(--text);
+	background: var(--background);
 	transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.dark {
+	--background: #232a36;
+	--text: #f5f6fa;
+	--card-bg: #232a36;
+	--card-text: #f5f6fa;
+	--tag-bg: #394150;
+	--tag-text: #e0e6ed;
+}
+
+body, html {
+	background: var(--background);
+	color: var(--text);
 }
 
 :root.dark,
@@ -143,3 +153,74 @@ a, button, .project-card, .certification-card {
 	box-sizing: border-box;
 }
 /* You can add global styles to this file, and also import other style files */
+
+/* Enhanced dark mode overrides for readability */
+:global(.dark) .project-card,
+:global(.dark) .card,
+:global(.dark) .education-item,
+:global(.dark) .certification-card,
+:global(.dark) .experience-item {
+	background-color: #232a36 !important;
+	color: #f5f6fa !important;
+	box-shadow: 0 2px 16px 0 rgba(0,0,0,0.12);
+}
+
+:global(.dark) .tag,
+:global(.dark) .tech-tag,
+:global(.dark) .skill-item {
+	background-color: #394150 !important;
+	color: #e0e6ed !important;
+}
+
+:global(.dark) h1,
+:global(.dark) h2,
+:global(.dark) h3,
+:global(.dark) h4,
+:global(.dark) h5,
+:global(.dark) h6,
+:global(.dark) .project-title,
+:global(.dark) .experience-title,
+:global(.dark) .education-degree,
+:global(.dark) .certification-title {
+	color: #fff !important;
+}
+
+:global(.dark) p,
+:global(.dark) .project-description,
+:global(.dark) .experience-description {
+	color: #d1d5db !important;
+}
+
+:global(.dark) a {
+	color: #6cb4ff !important;
+}
+
+:global(.dark) .navbar, :global(.dark) nav {
+	background-color: #181f2a !important;
+	color: #f5f6fa !important;
+}
+
+:global(.dark) .section {
+	background-color: #232a36 !important;
+	color: #f5f6fa !important;
+}
+
+:global(.dark) .subtitle {
+	color: #7c3aed !important;
+}
+
+.animated-gradient-bg {
+  position: fixed;
+  z-index: 0;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  pointer-events: none;
+  background: linear-gradient(120deg, #2563eb 0%, #7c3aed 50%, #ec4899 100%);
+  opacity: 0.18;
+  background-size: 200% 200%;
+  animation: gradientMove 12s ease-in-out infinite alternate;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}

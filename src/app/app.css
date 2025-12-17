@@ -992,10 +992,15 @@ a, button, .project-card, .certification-card {
   margin-bottom: 1rem;
 }
 
+
 .project-description {
-  color: var(--gray-600);
+  color: #181f2a !important;
   margin-bottom: 1.5rem;
   line-height: 1.6;
+}
+
+:host-context(.dark) .project-description {
+  color: #d1d5db !important;
 }
 
 .project-tech {

@@ -1,3 +1,4 @@
+<div class="animated-gradient-bg"></div>
 <!-- Animated Space Background -->
 <div class="space-background">
   <div class="stars">
@@ -53,212 +54,42 @@
   </div>
 </nav>
 
-<!-- Main Content -->
-<main class="main-content">
-  <!-- Hero Section -->
-  <section id="home" class="hero section">
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-text">
-          <h1>Hello, I'm<br>{{ fullName }}</h1>
-          <p class="subtitle">{{ jobTitle }}</p>
-          <p class="description">{{ heroDescription }}</p>
-          <div class="hero-buttons">
-            <a href="#contact" class="btn btn-primary">Get In Touch</a>
-            <a href="{{ resumeLink }}" target="_blank" class="btn btn-secondary">Download Resume</a>
-          </div>
-        </div>
-        <div class="hero-image">
-          <div class="profile-image">
-            {{ initials }}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
+
+<main>
   <!-- About Section -->
   <section id="about" class="about section">
-    <div class="container">
-      <h2 class="section-title">About Me</h2>
-      <div class="about-content">
-        <div class="about-text">
-          <p>{{ aboutDescription }}</p>
-        </div>
-        <div class="stats">
-          @for (stat of stats; track stat.label) {
-            <div class="stat">
-              <span class="stat-number">{{ stat.value }}</span>
-              <span class="stat-label">{{ stat.label }}</span>
-            </div>
-          }
-        </div>
-      </div>
-    </div>
+    <app-about></app-about>
   </section>
 
   <!-- Skills Section -->
   <section id="skills" class="skills section">
-    <div class="container">
-      <h2 class="section-title">Skills & Technologies</h2>
-      <div class="skills-grid">
-        @for (category of skillCategories; track category.name) {
-          <div class="skill-category">
-            <h3>{{ category.name }}</h3>
-            <div class="skill-items">
-              @for (skill of category.skills; track skill) {
-                <span class="skill-item">{{ skill }}</span>
-              }
-            </div>
-          </div>
-        }
-      </div>
-    </div>
+    <app-skills></app-skills>
   </section>
 
   <!-- Experience Section -->
   <section id="experience" class="experience section">
-    <div class="container">
-      <h2 class="section-title">Work Experience</h2>
-      <div class="experience-timeline">
-        @for (job of workExperience; track job.company) {
-          <div class="experience-item">
-            <div class="experience-header">
-              <div>
-                <h3 class="experience-title">{{ job.title }}</h3>
-                <p class="experience-company">{{ job.company }}</p>
-              </div>
-              <span class="experience-period">{{ job.period }}</span>
-            </div>
-            <p class="experience-description">{{ job.description }}</p>
-          </div>
-        }
-      </div>
-    </div>
+    <app-experience></app-experience>
   </section>
 
   <!-- Education Section -->
   <section id="education" class="education section">
-    <div class="container">
-      <h2 class="section-title">Education</h2>
-      <div class="education-timeline">
-        @for (edu of education; track edu.institution) {
-          <div class="education-item">
-            <div class="education-header">
-              <div>
-                <h3 class="education-degree">{{ edu.degree }}</h3>
-                <p class="education-institution">{{ edu.institution }}</p>
-                @if (edu.location) {
-                  <p class="education-location">{{ edu.location }}</p>
-                }
-              </div>
-              <span class="education-period">{{ edu.period }}</span>
-            </div>
-          </div>
-        }
-      </div>
-    </div>
+    <app-education></app-education>
   </section>
 
   <!-- Certifications Section -->
   <section id="certifications" class="certifications section">
-    <div class="container">
-      <h2 class="section-title">Certifications</h2>
-      <div class="certifications-grid">
-        @for (cert of certifications; track cert.title) {
-          <div class="certification-card">
-            <div class="certification-content">
-              <h3 class="certification-title">{{ cert.title }}</h3>
-              <p class="certification-issuer">{{ cert.issuer }}</p>
-              @if (cert.date) {
-                <p class="certification-date">{{ cert.date }}</p>
-              }
-            </div>
-          </div>
-        }
-      </div>
-    </div>
+    <app-certifications></app-certifications>
   </section>
 
   <!-- Projects Section -->
   <section id="projects" class="projects section">
-    <div class="container">
-      <h2 class="section-title">Featured Projects</h2>
-      <div class="projects-grid">
-        @for (project of projects; track project.title) {
-          <div class="project-card">
-            <div class="project-image">
-              {{ project.title.charAt(0) }}
-            </div>
-            <div class="project-content">
-              <h3 class="project-title">{{ project.title }}</h3>
-              <p class="project-description">{{ project.description }}</p>
-              <div class="project-tech">
-                @for (tech of project.technologies; track tech) {
-                  <span class="tech-tag">{{ tech }}</span>
-                }
-              </div>
-              <div class="project-links">
-                @if (project.liveUrl) {
-                  <a [href]="project.liveUrl" target="_blank" class="project-link">Live Demo</a>
-                }
-                @if (project.githubUrl) {
-                  <a [href]="project.githubUrl" target="_blank" class="project-link">GitHub</a>
-                }
-              </div>
-            </div>
-          </div>
-        }
-      </div>
-    </div>
+    <app-projects></app-projects>
   </section>
 
   <!-- Contact Section -->
   <section id="contact" class="contact section">
-    <div class="container">
-      <h2 class="section-title">Get In Touch</h2>
-      <div class="contact-content">
-        <div class="contact-info">
-          <h3>Let's Connect</h3>
-          <div class="contact-item">
-            <div class="contact-icon">📧</div>
-            <div>
-              <strong>Email</strong><br>
-              <a [href]="'mailto:' + email">{{ email }}</a>
-            </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">📱</div>
-            <div>
-              <strong>Phone</strong><br>
-              <a [href]="'tel:' + phone">{{ phone }}</a>
-            </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">📍</div>
-            <div>
-              <strong>Location</strong><br>
-              {{ location }}
-            </div>
-          </div>
-        </div>
-        <form class="contact-form" (ngSubmit)="onSubmitContact()">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
-          </div>
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Send Message</button>
-        </form>
-      </div>
-    </div>
+    <app-contact></app-contact>
   </section>
 </main>
 
