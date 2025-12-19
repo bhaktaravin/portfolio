@@ -11,14 +11,17 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular/build:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "browser": "src/main.ts",
+            "outputPath": "dist/portfolio",
+            "index": "src/index.html",
+            "main": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
+                "output": "/"
               }
             ],
             "styles": [
@@ -50,13 +53,13 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular/build:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Portfolio:build:production"
+              "browserTarget": "Portfolio:build:production"
             },
             "development": {
-              "buildTarget": "Portfolio:build:development"
+              "browserTarget": "Portfolio:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -1,14 +1,138 @@
 .education-card {
-  background: var(--card-bg);
-  color: var(--card-text);
+  background: var(--card-bg, #23263a);
+  color: var(--card-text, #fff);
   border-radius: 20px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-  padding: 2.5rem 2rem;
+  padding: 2rem 1.5rem;
   margin-bottom: 2rem;
   transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  margin-left: 1.5em;
+  animation: fadeInUp 0.7s;
 }
 
 .education-card:hover {
   transform: translateY(-6px) scale(1.03);
   box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+}
+
+.education-card::before {
+  content: '';
+  position: absolute;
+  left: -2em;
+  top: 1.5em;
+  width: 10px;
+  height: 10px;
+  background: #4f8cff;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px #4f8cff;
+}
+
+.education-section {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2em 1em;
+  position: relative;
+  padding-left: 2.5em;
+}
+
+.education-section::before {
+  content: '';
+  position: absolute;
+  left: 0.5em;
+  top: 2.5em;
+  width: 2px;
+  height: 90%;
+  background: #4f8cff33;
+}
+
+.education-entry {
+  margin-bottom: 2em;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 1em;
+}
+
+.education-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1em;
+  margin-bottom: 0.5em;
+}
+
+.education-institution i {
+  margin-right: 0.5em;
+  color: #4f8cff;
+}
+
+.education-institution a {
+  color: #4f8cff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s, text-decoration 0.2s;
+}
+.education-institution a:hover {
+  color: #3566b5;
+  text-decoration: underline;
+}
+
+.education-location {
+  color: #b3c6ff;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.education-degree {
+  margin-top: 0.3em;
+  font-size: 1.05em;
+  color: #b3c6ff;
+}
+
+.education-dates {
+  color: #888;
+  font-size: 1em;
+  font-weight: normal;
+}
+
+.print-btn {
+  margin-top: 2em;
+  background: #4f8cff;
+  color: #fff;
+  border: none;
+  padding: 0.7em 1.5em;
+  border-radius: 6px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.print-btn:hover {
+  background: #3566b5;
+}
+
+/* Print styles */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .education-section, .education-section * {
+    visibility: visible;
+  }
+  .education-section {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    background: #fff !important;
+    color: #000 !important;
+    box-shadow: none !important;
+  }
+  .print-btn {
+    display: none;
+  }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px);}
+  to { opacity: 1; transform: translateY(0);}
 }

@@ -5,6 +5,7 @@
   <div *ngIf="showForm" class="testimonial-form-wrapper">
     <form (ngSubmit)="submitTestimonial()" #testimonialForm="ngForm">
       <input type="text" name="name" [(ngModel)]="newTestimonial.name" placeholder="Your Name" required />
+      <input type="email" name="email" [(ngModel)]="newTestimonial.email" placeholder="Email (for Gravatar)" />
       <input type="text" name="title" [(ngModel)]="newTestimonial.title" placeholder="Your Title/Role" required />
       <input type="text" name="date" [(ngModel)]="newTestimonial.date" placeholder="Date (e.g. Dec 2025)" required />
       <input type="text" name="relationship" [(ngModel)]="newTestimonial.relationship" placeholder="Relationship (e.g. Colleague)" required />
@@ -17,13 +18,18 @@
   <div class="testimonials-grid">
     <div class="testimonial-card" *ngFor="let testimonial of testimonials$ | async">
       <div class="testimonial-header">
-        <img *ngIf="testimonial.image" [src]="testimonial.image" class="testimonial-avatar" alt="{{testimonial.name}}" />
+        <img *ngIf="testimonial.image; else gravatarBlock" [src]="testimonial.image" class="testimonial-avatar" alt="{{testimonial.name}}" />
+        <ng-template #gravatarBlock>
+          <img *ngIf="testimonial.email" [src]="gravatarUrl(testimonial.email)" class="testimonial-avatar" alt="{{testimonial.name}}" />
+        </ng-template>
         <div class="testimonial-meta">
           <span class="testimonial-name">{{ testimonial.name }}</span>
           <span class="testimonial-title">{{ testimonial.title }}</span>
           <span class="testimonial-date">{{ testimonial.date }}</span>
           <span class="testimonial-relationship">{{ testimonial.relationship }}</span>
         </div>
+        <button class="delete-btn" *ngIf="testimonial.id" (click)="deleteTestimonial(testimonial.id)" title="Delete Testimonial">x</button>
+
       </div>
       <div class="testimonial-content">
         <p class="testimonial-text">{{ testimonial.text }}</p>

@@ -46,8 +46,8 @@
       <li><a href="#projects">Projects</a></li>
       <li><a href="#contact">Contact</a></li>
       <li>
-        <button class="dark-mode-toggle" (click)="toggleDarkMode()" [attr.aria-label]="isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'">
-          <span class="toggle-icon">{{ isDarkMode() ? '☀️' : '🌙' }}</span>
+        <button class="dark-mode-toggle" (click)="toggleDarkMode()" [attr.aria-label]="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'">
+          <span class="toggle-icon">{{ isDarkMode ? '☀️' : '🌙' }}</span>
         </button>
       </li>
     </ul>
@@ -102,11 +102,9 @@
 <footer class="footer">
   <div class="container">
     <div class="social-links">
-      @for (social of socialLinks; track social.platform) {
-        <a [href]="social.url" target="_blank" class="social-link" [title]="social.platform">
-          {{ social.icon }}
-        </a>
-      }
+      <a *ngFor="let social of socialLinks" [href]="social.url" target="_blank" class="social-link" [title]="social.platform">
+        {{ social.icon }}
+      </a>
     </div>
     <p>&copy; {{ currentYear }} {{ fullName }}. All rights reserved.</p>
   </div>

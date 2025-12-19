@@ -1,1 +1,37 @@
-<p>experience works!</p>
+<div class="experience-section">
+  <h2>Employment History</h2>
+  <div *ngFor="let exp of experiences" class="experience-entry">
+    <div class="experience-timeline-dot"></div>
+    <div class="experience-card">
+      <div class="experience-header">
+        <span class="experience-dates">
+          <i class="fa fa-calendar"></i> {{ exp.start }} — {{ exp.end }}
+        </span>
+        <span class="experience-title">
+          <strong>
+            <a *ngIf="exp.companyUrl" [href]="exp.companyUrl" target="_blank" rel="noopener">
+              {{ exp.title }}
+            </a>
+            <span *ngIf="!exp.companyUrl">{{ exp.title }}</span>
+          </strong>
+        </span>
+        <span class="experience-company">
+          @ 
+          <a *ngIf="exp.companyUrl" [href]="exp.companyUrl" target="_blank" rel="noopener">
+            {{ exp.company }}
+          </a>
+          <span *ngIf="!exp.companyUrl">{{ exp.company }}</span>
+        </span>
+        <span class="experience-location">
+          <i class="fa fa-map-marker"></i> {{ exp.location }}
+        </span>
+      </div>
+      <ul>
+        <li *ngFor="let detail of exp.details">
+          <span class="achievement-badge" *ngIf="detail.includes('Redesigned')">⭐</span>
+          {{ detail }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 
@@ -10,8 +9,6 @@ interface SkillCategory {
 
 @Component({
   selector: 'app-skills',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './skills.html',
   styleUrls: ['./skills.css']
 })

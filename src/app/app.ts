@@ -1,14 +1,4 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { AboutComponent } from './about/about';
-import { SkillsComponent } from './skills/skills';
-import { ExperienceComponent } from './experience/experience';
-import { ProjectsComponent } from './projects/projects';
-import { EducationComponent } from './education/education';
-import { CertificationsComponent } from './certifications/certifications';
-import { ContactComponent } from './contact/contact';
-import { TestimonialsComponent } from './testimonials/testimonials';
-import { environment } from '../environments/environment';
+import { Component } from '@angular/core';
 
 
 
@@ -48,27 +38,16 @@ interface Education {
 
 @Component({
   selector: 'app-root',
-  imports: [
-    RouterOutlet,
-    AboutComponent,
-    SkillsComponent,
-    ExperienceComponent,
-    ProjectsComponent,
-    EducationComponent,
-    CertificationsComponent,
-    ContactComponent,
-    TestimonialsComponent
-  ],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
 
 
 export class App {
-  protected readonly title = signal('Portfolio');
+  title = 'Portfolio';
   
   // Dark mode functionality
-  isDarkMode = signal(false);
+  isDarkMode = false;
   
   constructor() {
     // Check for saved theme preference or default to light mode
@@ -76,7 +55,7 @@ export class App {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     
     if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      this.isDarkMode.set(true);
+      this.isDarkMode = true;
       this.applyDarkMode(true);
     }
   }
@@ -95,10 +74,9 @@ export class App {
   }
   
   toggleDarkMode() {
-    const newMode = !this.isDarkMode();
-    this.isDarkMode.set(newMode);
-    this.applyDarkMode(newMode);
-    localStorage.setItem('theme', newMode ? 'dark' : 'light');
+    this.isDarkMode = !this.isDarkMode;
+    this.applyDarkMode(this.isDarkMode);
+    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
   }
   
   // Personal Information - Update these with your details

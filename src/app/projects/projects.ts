@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 interface Project {
@@ -22,8 +21,6 @@ const techIcons: Record<string, string> = {
 
 @Component({
   selector: 'app-projects',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './projects.html',
   styleUrls: ['./projects.css']
 })
