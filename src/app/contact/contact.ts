@@ -6,5 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./contact.css']
 })
 export class ContactComponent {
+  contact = {
+    name: '',
+    email: '',
+    message: ''
+  };
+  submitted = false;
 
+  submitContact() {
+    // Here you can add logic to send the form data to your backend or email service
+    this.submitted = true;
+    // Optionally reset the form
+    this.contact = { name: '', email: '', message: '' };
+  }
 }
