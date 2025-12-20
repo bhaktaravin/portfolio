@@ -1,4 +1,8 @@
+
 import { Component } from '@angular/core';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+import { Document, Packer, Paragraph, TextRun } from 'docx';
 
 
 
@@ -144,12 +148,12 @@ export class App {
   selectedFileType: 'pdf' | 'docx' = 'pdf';
 
   // Download resume as PDF or DOCX
+  constructor() {
+    pdfMake.vfs = pdfFonts.pdfMake.vfs;
+  }
+
   async downloadResume() {
     if (this.selectedFileType === 'pdf') {
-      // PDF generation using pdfmake
-      const pdfMake = (await import('pdfmake/build/pdfmake')).default;
-      const pdfFonts = (await import('pdfmake/build/vfs_fonts')).default;
-      pdfMake.vfs = pdfFonts.pdfMake.vfs;
       const docDefinition = {
         content: [
           { text: this.fullName, style: 'header' },
@@ -162,8 +166,6 @@ export class App {
       };
       pdfMake.createPdf(docDefinition).download(`${this.fullName}-Resume.pdf`);
     } else if (this.selectedFileType === 'docx') {
-      // DOCX generation using docx
-      const { Document, Packer, Paragraph, TextRun } = await import('docx');
       const doc = new Document({
         sections: [
           {
@@ -180,12 +182,12 @@ export class App {
         ]
       });
       const blob = await Packer.toBlob(doc);
-      const url = window.URL.createObjectURL(blob);
+      const url = globalThis.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
       a.download = `${this.fullName}-Resume.docx`;
       a.click();
-      window.URL.revokeObjectURL(url);
+      globalThis.URL.revokeObjectURL(url);
     }
   }
 
