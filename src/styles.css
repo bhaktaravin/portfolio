@@ -5,12 +5,12 @@
 	--primary-dark: #1e40af;
 	--accent-purple: #6c63ff;
 	--accent-pink: #ec4899;
-	--background: #fff;
-	--text: #232a36;
-	--card-bg: #23263a;
-	--card-text: #e0e6f7;
-	--tag-bg: #23263a;
-	--tag-text: #b3c6ff;
+	--background: #232a36;
+	--text: #f5f6fa;
+	--card-bg: #232a36;
+	--card-text: #f5f6fa;
+	--tag-bg: #394150;
+	--tag-text: #e0e6ed;
 	--gradient-primary: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
 	--gradient-accent: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
 	--bg-main: #181b23;
@@ -215,18 +215,3 @@ a, button, .project-card, .certification-card {
 	color: #7c3aed !important;
 }
 
-.animated-gradient-bg {
-  position: fixed;
-  z-index: 0;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  pointer-events: none;
-  background: linear-gradient(120deg, #2563eb 0%, #7c3aed 50%, #ec4899 100%);
-  opacity: 0.18;
-  background-size: 200% 200%;
-  animation: gradientMove 12s ease-in-out infinite alternate;
-}
-
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
-}

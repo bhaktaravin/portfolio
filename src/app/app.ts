@@ -49,35 +49,10 @@ export class App {
   // Dark mode functionality
   isDarkMode = false;
   
-  constructor() {
-    // Check for saved theme preference or default to light mode
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      this.isDarkMode = true;
-      this.applyDarkMode(true);
-    }
-  }
+  constructor() {}
   
-  private applyDarkMode(isDark: boolean) {
-    const htmlElement = document.documentElement;
-    const bodyElement = document.body;
-    
-    if (isDark) {
-      htmlElement.classList.add('dark');
-      bodyElement.classList.add('dark');
-    } else {
-      htmlElement.classList.remove('dark');
-      bodyElement.classList.remove('dark');
-    }
-  }
   
-  toggleDarkMode() {
-    this.isDarkMode = !this.isDarkMode;
-    this.applyDarkMode(this.isDarkMode);
-    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
-  }
+  
   
   // Personal Information - Update these with your details
   fullName = 'Ravin Bhakta';
