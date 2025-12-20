@@ -54,8 +54,7 @@ export class App {
   isDarkMode = false;
   
   constructor() {
-        pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
+    pdfMake.vfs = pdfFonts.vfs;
   }
   
   
