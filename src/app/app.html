@@ -62,6 +62,17 @@
 </main>
 
 <!-- Footer -->
+
+<!-- Download Resume Section -->
+<section class="download-resume">
+  <label for="fileType">Download Resume as:</label>
+  <select id="fileType" [(ngModel)]="selectedFileType">
+    <option value="pdf">PDF</option>
+    <option value="docx">DOCX</option>
+  </select>
+  <button (click)="downloadResume()">Download</button>
+</section>
+
 <footer class="footer">
   <div class="container">
     <div class="social-links">

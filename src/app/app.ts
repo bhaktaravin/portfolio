@@ -140,6 +140,55 @@ export class App {
     }
   ];
   
+  // File type selection for resume download
+  selectedFileType: 'pdf' | 'docx' = 'pdf';
+
+  // Download resume as PDF or DOCX
+  async downloadResume() {
+    if (this.selectedFileType === 'pdf') {
+      // PDF generation using pdfmake
+      const pdfMake = (await import('pdfmake/build/pdfmake')).default;
+      const pdfFonts = (await import('pdfmake/build/vfs_fonts')).default;
+      pdfMake.vfs = pdfFonts.pdfMake.vfs;
+      const docDefinition = {
+        content: [
+          { text: this.fullName, style: 'header' },
+          { text: this.jobTitle, style: 'subheader' },
+          { text: this.aboutDescription, margin: [0, 10, 0, 10] },
+          { text: 'Email: ' + this.email },
+          { text: 'Phone: ' + this.phone },
+          { text: 'Location: ' + this.location },
+        ]
+      };
+      pdfMake.createPdf(docDefinition).download(`${this.fullName}-Resume.pdf`);
+    } else if (this.selectedFileType === 'docx') {
+      // DOCX generation using docx
+      const { Document, Packer, Paragraph, TextRun } = await import('docx');
+      const doc = new Document({
+        sections: [
+          {
+            properties: {},
+            children: [
+              new Paragraph({ children: [new TextRun({ text: this.fullName, bold: true, size: 32 })] }),
+              new Paragraph({ children: [new TextRun({ text: this.jobTitle, italics: true, size: 24 })] }),
+              new Paragraph(this.aboutDescription),
+              new Paragraph('Email: ' + this.email),
+              new Paragraph('Phone: ' + this.phone),
+              new Paragraph('Location: ' + this.location),
+            ]
+          }
+        ]
+      });
+      const blob = await Packer.toBlob(doc);
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${this.fullName}-Resume.docx`;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }
+  }
+
   // Contact form submission
   onSubmitContact(): void {
     // Add your contact form logic here
