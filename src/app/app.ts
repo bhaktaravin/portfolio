@@ -53,7 +53,10 @@ export class App {
   // Dark mode functionality
   isDarkMode = false;
   
-  constructor() {}
+  constructor() {
+        pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+  }
   
   
   
@@ -147,10 +150,7 @@ export class App {
   // File type selection for resume download
   selectedFileType: 'pdf' | 'docx' = 'pdf';
 
-  // Download resume as PDF or DOCX
-  constructor() {
-    pdfMake.vfs = pdfFonts.pdfMake.vfs;
-  }
+ 
 
   async downloadResume() {
     if (this.selectedFileType === 'pdf') {
