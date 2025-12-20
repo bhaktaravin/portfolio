@@ -10,7 +10,7 @@ export class AboutComponent {
   fullName = 'Ravin Bhakta';
   jobTitle = 'Mid-Level Software Engineer | Full-Stack Developer | JavaScript, TypeScript, Node.js, React | Building Scalable Web Apps | AWS | Agile';
   heroDescription = 'Skilled Software Engineer with robust experience in Rust and Java development, API integration, and agile methodologies. Demonstrates proven expertise in building and maintaining scalable enterprise solutions, optimizing system performance, and collaborating with cross-functional teams.';
-  resumeLink = '#'; // Add your resume link
+  resumeLink = 'assets/ravinbhaktaresume.pdf';
 
   get initials(): string {
     return this.fullName.split(' ').map(name => name.charAt(0)).join('');

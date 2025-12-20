@@ -2,11 +2,9 @@
   <h2 class="section-title">Featured Projects</h2>
   <div class="projects-grid">
     <div class="project-card" *ngFor="let project of projects">
-      <div class="project-image-wrapper">
-        <img *ngIf="project.image" [src]="project.image" [alt]="project.title + ' thumbnail'" class="project-image" loading="lazy" />
-        <span *ngIf="!project.image" class="project-image-fallback">{{ project.title.charAt(0) }}</span>
-      </div>
-      <div class="project-content">
+      <img *ngIf="project.image" [src]="project.image" [alt]="project.title + ' thumbnail'" class="project-thumbnail" loading="lazy"
+           (error)="onImgError($event)" />
+      <div class="project-info">
         <h3 class="project-title">{{ project.title }}</h3>
         <p class="project-description">{{ project.description }}</p>
         <div class="project-tech">
@@ -16,8 +14,12 @@
           </span>
         </div>
         <div class="project-links">
-          <a *ngIf="project.liveUrl" class="project-link" [href]="project.liveUrl" target="_blank" rel="noopener">Live Demo</a>
-          <a *ngIf="project.githubUrl" class="project-link" [href]="project.githubUrl" target="_blank" rel="noopener">GitHub</a>
+          <a *ngIf="project.liveUrl" class="project-link btn-link" [href]="project.liveUrl" target="_blank" rel="noopener">
+            <i class="fa fa-external-link-alt"></i> Live Demo
+          </a>
+          <a *ngIf="project.githubUrl" class="project-link btn-link" [href]="project.githubUrl" target="_blank" rel="noopener">
+            <i class="fab fa-github"></i> GitHub
+          </a>
         </div>
       </div>
     </div>

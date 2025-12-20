@@ -24,6 +24,8 @@ const techIcons: Record<string, string> = {
   templateUrl: './projects.html',
   styleUrls: ['./projects.css']
 })
+
+
 export class ProjectsComponent {
   projects: Project[] = [
     {
@@ -32,7 +34,7 @@ export class ProjectsComponent {
       technologies: ['Angular', 'TypeScript', 'CSS3', 'HTML5', 'Responsive Design'],
       githubUrl: 'https://github.com/ravinbhakta/mangaviewer',
       liveUrl: 'https://mangaviewer-rust-angular.vercel.app/home',
-      image: './images/mangaviewer.png'
+      image: 'assets/mangaviewer.png'
     },
     {
       title: 'Flutter Personal Finance Tracker',
@@ -40,7 +42,7 @@ export class ProjectsComponent {
       technologies: ['Flutter', 'Dart', 'SQLite', 'Material Design', 'Charts'],
       githubUrl: 'https://github.com/bhaktaravin/flutter_personal_finance_tracker',
       liveUrl: '',
-      image: 'assets/projects/placeholder.svg'
+      image: 'assets/nothumbnail.jpg'
     },
     {
       title: 'Pokemon Palace Quest',
@@ -48,7 +50,7 @@ export class ProjectsComponent {
       technologies: ['ReactJS', 'Vite', 'Tailwindcss', 'Typescript', 'Shadcn/ui'],
       githubUrl: 'https://github.com/bhaktaravin/poke-pal-quiz',
       liveUrl:'https://pokemon-palace-quest.lovable.app',
-      image: './images/poke-pal-quiz.png'
+      image: 'assets/poke-pal-quiz.png'
     }
   ];
 
@@ -61,6 +63,9 @@ export class ProjectsComponent {
     if (tech.toLowerCase() === 'css3' || tech.toLowerCase() === 'css') return techIcons['CSS3'];
     if (tech.toLowerCase() === 'html5' || tech.toLowerCase() === 'html') return techIcons['HTML5'];
     return techIcons[tech] || null;
+  }
+  onImgError(event: Event) {
+    (event.target as HTMLImageElement).src = 'assets/placeholder.svg';
   }
 }
 

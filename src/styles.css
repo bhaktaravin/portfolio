@@ -1,18 +1,24 @@
 /* Global styles moved from app.css for budget optimization */
 
 :root {
-	--primary-blue: #2563eb;
+	--primary-blue: #4f8cff;
 	--primary-dark: #1e40af;
-	--accent-purple: #7c3aed;
+	--accent-purple: #6c63ff;
 	--accent-pink: #ec4899;
 	--background: #fff;
 	--text: #232a36;
-	--card-bg: #fff;
-	--card-text: #232a36;
-	--tag-bg: #f3f4f6;
-	--tag-text: #374151;
+	--card-bg: #23263a;
+	--card-text: #e0e6f7;
+	--tag-bg: #23263a;
+	--tag-text: #b3c6ff;
 	--gradient-primary: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
 	--gradient-accent: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+	--bg-main: #181b23;
+	--bg-card: #23263a;
+	--text-main: #e0e6f7;
+	--text-secondary: #b3c6ff;
+	--accent: #4f8cff;
+	--accent-hover: #3566b5;
 	font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 	box-sizing: border-box;
 	-webkit-font-smoothing: antialiased;

@@ -9,7 +9,7 @@
           <p class="description">{{ heroDescription }}</p>
           <div class="hero-buttons">
             <a href="#contact" class="btn btn-primary">Get In Touch</a>
-            <a href="{{ resumeLink }}" target="_blank" class="btn btn-secondary">Download Resume</a>
+            <a href="{{ resumeLink }}" download class="btn btn-secondary">Download Resume</a>
           </div>
         </div>
         <div class="hero-image">
@@ -21,19 +21,4 @@
     </div>
   </section>
 
-  <!-- About Section -->
-  <div class="container">
-    <h2 class="section-title">About Me</h2>
-    <div class="about-content">
-      <div class="about-text">
-        <p>{{ aboutDescription }}</p>
-      </div>
-      <div class="stats">
-        <div class="stat" *ngFor="let stat of stats">
-          <span class="stat-number">{{ stat.value }}</span>
-          <span class="stat-label">{{ stat.label }}</span>
-        </div>
-      </div>
-    </div>
-  </div>
 </main>
