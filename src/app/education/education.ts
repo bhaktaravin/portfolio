@@ -29,16 +29,6 @@ export class EducationComponent {
         'Bachelors of Science in Computer Science'
       ],
       institutionUrl: 'https://www.calstatela.edu/'
-    },
-    {
-      institution: 'Manvel High School',
-      degree: 'High School Diploma',
-      field: 'High School',
-      start: '',
-      end: '',
-      location: 'Manvel, TX',
-      details: [] ,
-      institutionUrl: ''
     }
   ];
 
