@@ -16,6 +16,12 @@ import { EducationComponent } from "./education/education";
 import { CertificationsComponent } from "./certifications/certifications";
 import { ContactComponent } from "./contact/contact";
 import { TestimonialsComponent } from "./testimonials/testimonials";
+import { BlogComponent } from "./blog/blog.component";
+import { NavigationComponent } from "./shared/navigation.component";
+
+// Import services
+import { ThemeService } from "./services/theme.service";
+import { AnalyticsService } from "./services/analytics.service";
 
 // --- Interfaces ---
 export interface Certification {
@@ -62,6 +68,7 @@ export interface Education {
     RouterOutlet,
     RouterModule,
     FormsModule,
+    NavigationComponent,
     HeroComponent,
     AboutComponent,
     SkillsComponent,
@@ -69,6 +76,7 @@ export interface Education {
     ProjectsComponent,
     EducationComponent,
     CertificationsComponent,
+    BlogComponent,
     ContactComponent,
     TestimonialsComponent,
   ],
@@ -77,7 +85,17 @@ export interface Education {
 })
 export class AppComponent {
   title = "Portfolio";
-  isDarkMode = false;
+
+  constructor(
+    public themeServiceInstance: ThemeService,
+    private analytics: AnalyticsService,
+  ) {
+    // Initialize analytics
+    this.analytics.trackPageView("/", "Portfolio Home");
+
+    // Set up performance monitoring
+    this.setupPerformanceMonitoring();
+  }
 
   certifications: Certification[] = [
     {
@@ -361,6 +379,76 @@ export class AppComponent {
 
   // Contact form submission
   onSubmitContact(): void {
+    this.analytics.trackFormSubmission("contact", true);
     alert("Thank you for your message! I will get back to you soon.");
+  }
+
+  // Navigation methods
+  scrollToTop(): void {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
+    this.analytics.trackClick("scroll_to_top", "navigation");
+  }
+
+  // Expose theme service for template access
+  get themeService() {
+    return this.themeServiceInstance;
+  }
+
+  // Performance monitoring
+  private setupPerformanceMonitoring(): void {
+    // Monitor Core Web Vitals
+    if ("performance" in window && "observe" in PerformanceObserver.prototype) {
+      // Largest Contentful Paint
+      const observer = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          if (entry.entryType === "largest-contentful-paint") {
+            this.analytics.trackPerformance(
+              "LCP",
+              Math.round(entry.startTime),
+              "ms",
+            );
+          }
+        }
+      });
+
+      try {
+        observer.observe({ type: "largest-contentful-paint", buffered: true });
+      } catch (e) {
+        // LCP not supported
+      }
+
+      // First Input Delay
+      const fidObserver = new PerformanceObserver((list) => {
+        for (const entry of list.getEntries()) {
+          if (entry.entryType === "first-input") {
+            const fid = (entry as any).processingStart - entry.startTime;
+            this.analytics.trackPerformance("FID", Math.round(fid), "ms");
+          }
+        }
+      });
+
+      try {
+        fidObserver.observe({ type: "first-input", buffered: true });
+      } catch (e) {
+        // FID not supported
+      }
+    }
+
+    // Monitor page load time
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        const perfData = performance.timing;
+        const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+        this.analytics.trackPerformance(
+          "PageLoad",
+          Math.round(pageLoadTime),
+          "ms",
+        );
+      }, 0);
+    });
   }
 }

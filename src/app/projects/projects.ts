@@ -66,7 +66,7 @@ export class ProjectsComponent {
         "Shadcn/ui",
       ],
       githubUrl: "https://github.com/bhaktaravin/poke-pal-quiz",
-      liveUrl: "https://pokemon-palace-quest.lovable.app",
+      liveUrl: "https://poke-pal-quiz.vercel.app/",
       image: "assets/poke-pal-quiz.png",
     },
   ];

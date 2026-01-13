@@ -1,87 +1,140 @@
+<!-- Navigation -->
+<app-navigation></app-navigation>
+
 <!-- Hero Section -->
-<section id="home" class="hero section">
+<section id="hero" class="hero section fade-in">
   <app-hero></app-hero>
 </section>
 
-<!-- Navigation -->
-<nav class="navbar">
-  <div class="nav-container">
-    <div class="logo">{{ fullName }}</div>
-    <ul class="nav-links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#certifications">Certifications</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </div>
-</nav>
-
 <main>
   <!-- About Section -->
-  <section id="about" class="about section">
+  <section id="about" class="about section fade-in">
     <app-about></app-about>
   </section>
 
   <!-- Skills Section -->
-  <section id="skills" class="skills section">
+  <section id="skills" class="skills section fade-in">
     <app-skills></app-skills>
   </section>
 
   <!-- Experience Section -->
-  <section id="experience" class="experience section">
+  <section id="experience" class="experience section fade-in">
     <app-experience></app-experience>
   </section>
 
   <!-- Education Section -->
-  <section id="education" class="education section">
+  <section id="education" class="education section fade-in">
     <app-education></app-education>
   </section>
 
   <!-- Certifications Section -->
-  <section id="certifications" class="certifications section">
+  <section id="certifications" class="certifications section fade-in">
     <app-certifications></app-certifications>
   </section>
 
   <!-- Projects Section -->
-  <section id="projects" class="projects section">
+  <section id="projects" class="projects section fade-in">
     <app-projects></app-projects>
   </section>
 
+  <!-- Blog Section -->
+  <section id="blog" class="blog section fade-in">
+    <app-blog></app-blog>
+  </section>
+
   <!-- Testimonials Section -->
-  <section id="testimonials" class="testimonials section">
+  <section id="testimonials" class="testimonials section fade-in">
     <app-testimonials></app-testimonials>
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="contact section">
+  <section id="contact" class="contact section fade-in">
     <app-contact></app-contact>
   </section>
 </main>
 
 <!-- Footer -->
-
 <footer class="footer">
   <div class="container">
-    <div class="social-links">
-      <a
-        *ngFor="let social of socialLinks"
-        [href]="social.url"
-        target="_blank"
-        class="social-link"
-        [title]="social.platform"
-        style="font-size: 1.5em; margin: 0 0.5em; text-decoration: none"
-      >
-        <span [attr.aria-label]="social.platform" role="img"
-          >{{ social.icon }}</span
-        >
-      </a>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>{{ fullName }}</h3>
+        <p>{{ jobTitle }}</p>
+        <div class="footer-social">
+          <a
+            *ngFor="let social of socialLinks"
+            [href]="social.url"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link"
+            [attr.aria-label]="'Visit my ' + social.platform"
+            [title]="social.platform"
+          >
+            <span class="social-icon" role="img">{{ social.icon }}</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-section">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Content</h4>
+          <ul>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="assets/resume.pdf" target="_blank">Resume</a></li>
+            <li><a href="mailto:{{ email }}">Email Me</a></li>
+            <li><a href="tel:{{ phone }}">Call Me</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <p>&copy; {{ currentYear }} {{ fullName }}. All rights reserved.</p>
+
+    <div class="footer-bottom">
+      <div class="footer-copyright">
+        <p>&copy; {{ currentYear }} {{ fullName }}. All rights reserved.</p>
+        <p class="footer-tagline">Built with ❤️ using Angular</p>
+      </div>
+
+      <div class="footer-meta">
+        <button
+          class="back-to-top"
+          (click)="scrollToTop()"
+          [attr.aria-label]="'Back to top'"
+          title="Back to top"
+        >
+          <span class="back-to-top-icon">↑</span>
+        </button>
+      </div>
+    </div>
   </div>
 </footer>
 
-<router-outlet />
+<!-- Router Outlet for potential future routing -->
+<router-outlet></router-outlet>
+
+<!-- Skip to main content link for accessibility -->
+<a href="#main" class="skip-link sr-only">Skip to main content</a>
+
+<!-- Loading overlay for theme transitions -->
+<div
+  class="theme-transition-overlay"
+  [class.active]="themeService.isDarkMode()"
+></div>
