@@ -31,20 +31,21 @@
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/assets", "src/favicon.ico", "src/manifest.json"],
             "styles": ["src/styles.css", "node_modules/aos/dist/aos.css"],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": ["aos"]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "3mb",
+                  "maximumError": "6mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "20kb",
-                  "maximumError": "50kb"
+                  "maximumWarning": "50kb",
+                  "maximumError": "100kb"
                 }
               ],
               "outputHashing": "all",

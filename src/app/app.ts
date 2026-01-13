@@ -22,6 +22,7 @@ import { NavigationComponent } from "./shared/navigation.component";
 // Import services
 import { ThemeService } from "./services/theme.service";
 import { AnalyticsService } from "./services/analytics.service";
+import { PerformanceService } from "./services/performance.service";
 
 // --- Interfaces ---
 export interface Certification {
@@ -89,6 +90,7 @@ export class AppComponent {
   constructor(
     public themeServiceInstance: ThemeService,
     private analytics: AnalyticsService,
+    private performance: PerformanceService,
   ) {
     // Initialize analytics
     this.analytics.trackPageView("/", "Portfolio Home");
