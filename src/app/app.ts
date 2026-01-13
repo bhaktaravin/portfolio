@@ -18,11 +18,15 @@ import { ContactComponent } from "./contact/contact";
 import { TestimonialsComponent } from "./testimonials/testimonials";
 import { BlogComponent } from "./blog/blog.component";
 import { NavigationComponent } from "./shared/navigation.component";
+import { CommandPaletteComponent } from "./shared/components/command-palette/command-palette";
+import { GitHubIntegrationComponent } from "./shared/components/github-integration/github-integration";
+import { ToastComponent } from "./shared/components/toast/toast.component";
 
 // Import services
 import { ThemeService } from "./services/theme.service";
 import { AnalyticsService } from "./services/analytics.service";
 import { PerformanceService } from "./services/performance.service";
+import { ToastService } from "./services/toast.service";
 
 // --- Interfaces ---
 export interface Certification {
@@ -80,6 +84,9 @@ export interface Education {
     BlogComponent,
     ContactComponent,
     TestimonialsComponent,
+    CommandPaletteComponent,
+    GitHubIntegrationComponent,
+    ToastComponent,
   ],
   templateUrl: "./app.html",
   styleUrls: ["./app.css"],
@@ -91,6 +98,7 @@ export class AppComponent {
     public themeServiceInstance: ThemeService,
     private analytics: AnalyticsService,
     private performance: PerformanceService,
+    private toastService: ToastService,
   ) {
     // Initialize analytics
     this.analytics.trackPageView("/", "Portfolio Home");
@@ -275,6 +283,10 @@ export class AppComponent {
         },
       };
       pdfMake.createPdf(docDefinition).download(`${this.fullName}-Resume.pdf`);
+      this.toastService.success(
+        "Download Started",
+        "Your PDF resume is being downloaded",
+      );
     } else if (type === "docx") {
       const doc = new Document({
         sections: [
@@ -376,13 +388,21 @@ export class AppComponent {
       a.download = `${this.fullName}-Resume.docx`;
       a.click();
       globalThis.URL.revokeObjectURL(url);
+      this.toastService.success(
+        "Download Started",
+        "Your Word resume is being downloaded",
+      );
     }
   }
 
   // Contact form submission
   onSubmitContact(): void {
     this.analytics.trackFormSubmission("contact", true);
-    alert("Thank you for your message! I will get back to you soon.");
+    this.toastService.success(
+      "Message Sent!",
+      "Thank you for your message! I will get back to you soon.",
+      { duration: 6000 },
+    );
   }
 
   // Navigation methods

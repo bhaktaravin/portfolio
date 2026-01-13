@@ -1,28 +1,83 @@
-<main class="main-content">
-  <!-- Hero Section -->
-  <section id="home" class="hero section">
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-text">
-          <h1>Hello, I'm<br>{{ fullName }}</h1>
-          <p class="subtitle">{{ jobTitle }}</p>
-          <p class="description">{{ heroDescription }}</p>
-          <div class="hero-buttons">
-            <a href="#contact" class="btn btn-primary">Get In Touch</a>
-            <!-- Download Resume button moved to app.html -->
-<div style="display: flex; justify-content: center; margin-top: 2em;">
-  <button class="btn btn-primary" style="font-size: 1.2em; padding: 0.7em 2em; border-radius: 8px;" (click)="downloadResume('pdf')">Download Resume</button>
-</div>
-            
-          </div>
-        </div>
-        <div class="hero-image">
-          <div class="profile-image">
-            {{ initials }}
+<section class="about-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">About Me</h2>
+      <p class="section-subtitle">
+        Passionate about building scalable solutions and driving innovation
+        through technology
+      </p>
+    </div>
+
+    <div class="about-content">
+      <!-- Professional Summary -->
+      <div class="professional-summary">
+        <h3 class="content-title">Professional Background</h3>
+        <p class="summary-text">{{ professionalSummary }}</p>
+      </div>
+
+      <!-- Core Competencies -->
+      <div class="competencies-section">
+        <h3 class="content-title">Core Competencies</h3>
+        <div class="competencies-grid">
+          <div
+            *ngFor="let competency of coreCompetencies"
+            class="competency-card"
+          >
+            <div class="competency-header">
+              <h4 class="competency-title">{{ competency.area }}</h4>
+            </div>
+            <div class="competency-content">
+              <p class="competency-description">{{ competency.description }}</p>
+              <div class="skills-list">
+                <span *ngFor="let skill of competency.skills" class="skill-tag">
+                  {{ skill }}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-</main>
+      <!-- Key Achievements -->
+      <div class="achievements-section">
+        <h3 class="content-title">Key Achievements</h3>
+        <ul class="achievements-list">
+          <li *ngFor="let achievement of achievements" class="achievement-item">
+            <div class="achievement-icon">✨</div>
+            <p class="achievement-text">{{ achievement }}</p>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Personal Values -->
+      <div class="values-section">
+        <h3 class="content-title">What Drives Me</h3>
+        <div class="values-grid">
+          <div
+            *ngFor="let value of personalValues; let i = index"
+            class="value-item"
+            [style.animation-delay]="(i * 0.1) + 's'"
+          >
+            <div class="value-number">{{ i + 1 }}</div>
+            <p class="value-text">{{ value }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Call to Action -->
+      <div class="about-cta">
+        <h3 class="cta-title">Let's Build Something Great Together</h3>
+        <p class="cta-text">
+          I'm always excited to discuss new opportunities and innovative
+          projects. Whether you're looking for technical expertise or
+          collaborative partnership, let's connect and explore how we can create
+          value together.
+        </p>
+        <div class="cta-buttons">
+          <a href="#contact" class="btn btn-primary">Start a Conversation</a>
+          <a href="#projects" class="btn btn-outline">View My Work</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

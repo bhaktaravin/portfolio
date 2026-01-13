@@ -1,27 +1,558 @@
-<section class="projects">
-  <h2 class="section-title">Featured Projects</h2>
-  <div class="projects-grid">
-    <div class="project-card" *ngFor="let project of projects">
-      <img *ngIf="project.image" [src]="project.image" [alt]="project.title + ' thumbnail'" class="project-thumbnail" loading="lazy"
-           (error)="onImgError($event)" />
-      <div class="project-info">
-        <h3 class="project-title">{{ project.title }}</h3>
-        <p class="project-description">{{ project.description }}</p>
-        <div class="project-tech">
-          <span class="tech-tag" *ngFor="let tech of project.technologies">
-            <span class="tech-icon" [innerHTML]="getTechIcon(tech)"></span>
-            {{ tech }}
+<section class="projects-enhanced" [@slideIn]>
+  <div class="section-header">
+    <h2 class="section-title">Featured Projects</h2>
+    <p class="section-subtitle">
+      Explore my latest work with interactive demos and detailed case studies
+    </p>
+  </div>
+
+  <!-- Search and Filter Controls -->
+  <div class="projects-controls">
+    <div class="search-box">
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        (input)="filterProjects()"
+        placeholder="Search projects, technologies, or tags..."
+        class="search-input"
+        aria-label="Search projects"
+      />
+      <span class="search-icon">🔍</span>
+    </div>
+
+    <div class="filter-controls">
+      <button
+        class="filter-toggle"
+        (click)="toggleFilters()"
+        [class.active]="showFilters"
+        aria-label="Toggle filters"
+      >
+        <span class="filter-icon">⚙️</span>
+        Filters
+        <span
+          class="filter-count"
+          *ngIf="searchQuery || selectedCategory !== 'all' || selectedTechnology !== 'all' || selectedDifficulty !== 'all'"
+        >
+          Active
+        </span>
+      </button>
+
+      <div class="view-toggle">
+        <button
+          [class.active]="viewMode === 'grid'"
+          (click)="viewMode = 'grid'"
+          aria-label="Grid view"
+        >
+          📋
+        </button>
+        <button
+          [class.active]="viewMode === 'list'"
+          (click)="viewMode = 'list'"
+          aria-label="List view"
+        >
+          📝
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Advanced Filters Panel -->
+  <div class="filters-panel" [class.show]="showFilters">
+    <div class="filters-grid">
+      <div class="filter-group">
+        <label for="category-filter">Category</label>
+        <select
+          id="category-filter"
+          [(ngModel)]="selectedCategory"
+          (change)="filterProjects()"
+          class="filter-select"
+        >
+          <option *ngFor="let category of categories" [value]="category">
+            {{ category === 'all' ? 'All Categories' : category }}
+          </option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="tech-filter">Technology</label>
+        <select
+          id="tech-filter"
+          [(ngModel)]="selectedTechnology"
+          (change)="filterProjects()"
+          class="filter-select"
+        >
+          <option *ngFor="let tech of technologies" [value]="tech">
+            {{ tech === 'all' ? 'All Technologies' : tech }}
+          </option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="difficulty-filter">Difficulty</label>
+        <select
+          id="difficulty-filter"
+          [(ngModel)]="selectedDifficulty"
+          (change)="filterProjects()"
+          class="filter-select"
+        >
+          <option *ngFor="let difficulty of difficulties" [value]="difficulty">
+            {{ difficulty === 'all' ? 'All Levels' : difficulty }}
+          </option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="sort-filter">Sort By</label>
+        <select
+          id="sort-filter"
+          [(ngModel)]="sortBy"
+          (change)="filterProjects()"
+          class="filter-select"
+        >
+          <option value="featured">Featured First</option>
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+          <option value="title">Alphabetical</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="filter-actions">
+      <button class="clear-filters" (click)="clearFilters()">
+        Clear All Filters
+      </button>
+    </div>
+  </div>
+
+  <!-- Projects Results Info -->
+  <div class="projects-results">
+    <p class="results-count">
+      Showing {{ filteredProjects.length }} of {{ projects.length }} projects
+    </p>
+  </div>
+
+  <!-- Projects Grid/List -->
+  <div
+    class="projects-container"
+    [class.grid-view]="viewMode === 'grid'"
+    [class.list-view]="viewMode === 'list'"
+  >
+    <div
+      *ngFor="let project of filteredProjects; trackBy: trackByProject"
+      class="project-card"
+      [class.featured]="project.featured"
+      [@cardHover]="hoveredCard === project.id ? 'hovered' : 'default'"
+      (mouseenter)="onCardHover(project.id)"
+      (mouseleave)="onCardLeave()"
+      (click)="openProjectDetails(project)"
+      (keydown)="onKeydown($event, project)"
+      tabindex="0"
+      role="button"
+      [attr.aria-label]="'View details for ' + project.title"
+    >
+      <!-- Project Image -->
+      <div class="project-image-container">
+        <img
+          *ngIf="project.image"
+          [src]="project.image"
+          [alt]="project.title + ' thumbnail'"
+          class="project-image"
+          loading="lazy"
+          (error)="onImageError($event)"
+        />
+        <div class="project-overlay">
+          <div class="project-quick-actions">
+            <button
+              *ngIf="project.liveUrl"
+              class="quick-action-btn demo-btn"
+              (click)="launchDemo(project); $event.stopPropagation()"
+              aria-label="Launch live demo"
+            >
+              🚀 Demo
+            </button>
+            <button
+              *ngIf="project.githubUrl"
+              class="quick-action-btn code-btn"
+              (click)="openGitHub(project.githubUrl); $event.stopPropagation()"
+              aria-label="View source code"
+            >
+              💻 Code
+            </button>
+          </div>
+        </div>
+
+        <!-- Project Badges -->
+        <div class="project-badges">
+          <span
+            *ngIf="project.featured"
+            class="badge featured-badge"
+            aria-label="Featured project"
+          >
+            ⭐ Featured
+          </span>
+          <span
+            class="badge difficulty-badge"
+            [style.background-color]="getDifficultyColor(project.difficulty)"
+            [attr.aria-label]="'Difficulty: ' + project.difficulty"
+          >
+            {{ project.difficulty }}
           </span>
         </div>
-        <div class="project-links">
-          <a *ngIf="project.liveUrl" class="project-link btn-link" [href]="project.liveUrl" target="_blank" rel="noopener">
-            <i class="fa fa-external-link-alt"></i> Live Demo
-          </a>
-          <a *ngIf="project.githubUrl" class="project-link btn-link" [href]="project.githubUrl" target="_blank" rel="noopener">
-            <i class="fab fa-github"></i> GitHub
-          </a>
+      </div>
+
+      <!-- Project Info -->
+      <div class="project-info">
+        <div class="project-header">
+          <h3 class="project-title">
+            <span class="category-icon"
+              >{{ getCategoryIcon(project.category) }}</span
+            >
+            {{ project.title }}
+          </h3>
+          <div class="project-meta">
+            <span class="project-category">{{ project.category }}</span>
+            <span class="project-date" *ngIf="project.completionDate">
+              {{ project.completionDate | date:'MMM yyyy' }}
+            </span>
+          </div>
+        </div>
+
+        <p class="project-description">{{ project.description }}</p>
+
+        <!-- Technology Stack -->
+        <div class="project-technologies">
+          <div
+            *ngFor="let tech of project.technologies.slice(0, 4)"
+            class="tech-item"
+            [title]="tech"
+          >
+            <span
+              class="tech-icon"
+              [innerHTML]="getTechStackInfo(tech).icon"
+            ></span>
+            <span class="tech-name">{{ tech }}</span>
+          </div>
+          <span *ngIf="project.technologies.length > 4" class="tech-more">
+            +{{ project.technologies.length - 4 }} more
+          </span>
+        </div>
+
+        <!-- Project Stats -->
+        <div class="project-stats" *ngIf="project.metrics">
+          <div
+            class="stat-item"
+            *ngFor="let metric of project.metrics.slice(0, 2)"
+          >
+            <span class="stat-value">{{ metric.value }}</span>
+            <span class="stat-label">{{ metric.label }}</span>
+          </div>
+        </div>
+
+        <!-- Project Tags -->
+        <div class="project-tags" *ngIf="project.tags">
+          <span *ngFor="let tag of project.tags.slice(0, 3)" class="tag">
+            #{{ tag }}
+          </span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="project-actions">
+          <button
+            class="action-btn primary"
+            (click)="openProjectDetails(project)"
+          >
+            View Details
+          </button>
+          <div class="external-links">
+            <a
+              *ngIf="project.liveUrl"
+              [href]="project.liveUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="action-link"
+              (click)="$event.stopPropagation()"
+              aria-label="Open live demo"
+            >
+              🔗
+            </a>
+            <a
+              *ngIf="project.githubUrl"
+              [href]="project.githubUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="action-link"
+              (click)="$event.stopPropagation()"
+              aria-label="View source code"
+            >
+              <svg
+                width="16"
+                height="16"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+                />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="filteredProjects.length === 0">
+    <div class="empty-icon">🔍</div>
+    <h3>No Projects Found</h3>
+    <p>Try adjusting your search criteria or filters to find more projects.</p>
+    <button class="clear-filters" (click)="clearFilters()">
+      Clear Filters
+    </button>
+  </div>
 </section>
+
+<!-- Project Details Modal -->
+<div
+  class="modal-overlay"
+  *ngIf="showProjectModal"
+  (click)="closeProjectModal()"
+>
+  <div
+    class="modal-content"
+    (click)="$event.stopPropagation()"
+    *ngIf="selectedProject"
+  >
+    <div class="modal-header">
+      <div class="modal-title-section">
+        <h2 class="modal-title">
+          <span class="category-icon"
+            >{{ getCategoryIcon(selectedProject.category) }}</span
+          >
+          {{ selectedProject.title }}
+        </h2>
+        <div class="modal-meta">
+          <span class="modal-category">{{ selectedProject.category }}</span>
+          <span
+            class="modal-difficulty"
+            [style.color]="getDifficultyColor(selectedProject.difficulty)"
+          >
+            {{ selectedProject.difficulty }}
+          </span>
+        </div>
+      </div>
+      <button
+        class="modal-close"
+        (click)="closeProjectModal()"
+        aria-label="Close modal"
+      >
+        ✕
+      </button>
+    </div>
+
+    <div class="modal-tabs">
+      <button
+        class="tab-btn"
+        [class.active]="activeModalTab === 'overview'"
+        (click)="setActiveTab('overview')"
+      >
+        Overview
+      </button>
+      <button
+        class="tab-btn"
+        [class.active]="activeModalTab === 'casestudy'"
+        (click)="setActiveTab('casestudy')"
+        *ngIf="selectedProject.caseStudy"
+      >
+        Case Study
+      </button>
+      <button
+        class="tab-btn"
+        [class.active]="activeModalTab === 'technical'"
+        (click)="setActiveTab('technical')"
+      >
+        Technical Details
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <!-- Overview Tab -->
+      <div class="tab-content" *ngIf="activeModalTab === 'overview'">
+        <div class="project-showcase">
+          <div class="showcase-image" *ngIf="selectedProject.image">
+            <img [src]="selectedProject.image" [alt]="selectedProject.title" />
+          </div>
+          <div class="showcase-info">
+            <p class="detailed-description">
+              {{ selectedProject.detailedDescription ||
+              selectedProject.description }}
+            </p>
+
+            <div class="project-details-grid">
+              <div class="detail-item" *ngIf="selectedProject.completionDate">
+                <strong>Completed:</strong>
+                <span
+                  >{{ selectedProject.completionDate | date:'MMMM yyyy' }}</span
+                >
+              </div>
+              <div class="detail-item" *ngIf="selectedProject.teamSize">
+                <strong>Team Size:</strong>
+                <span
+                  >{{ selectedProject.teamSize === 1 ? 'Solo Project' :
+                  selectedProject.teamSize + ' members' }}</span
+                >
+              </div>
+              <div class="detail-item" *ngIf="selectedProject.myRole">
+                <strong>My Role:</strong>
+                <span>{{ selectedProject.myRole }}</span>
+              </div>
+            </div>
+
+            <div class="metrics-showcase" *ngIf="selectedProject.metrics">
+              <h4>Key Metrics</h4>
+              <div class="metrics-grid">
+                <div
+                  class="metric-card"
+                  *ngFor="let metric of selectedProject.metrics"
+                >
+                  <div class="metric-value">{{ metric.value }}</div>
+                  <div class="metric-label">{{ metric.label }}</div>
+                  <div class="metric-improvement" *ngIf="metric.improvement">
+                    {{ metric.improvement }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Case Study Tab -->
+      <div
+        class="tab-content"
+        *ngIf="activeModalTab === 'casestudy' && selectedProject.caseStudy"
+      >
+        <div class="case-study">
+          <div class="case-study-section">
+            <h4>The Problem</h4>
+            <p>{{ selectedProject.caseStudy.problem }}</p>
+          </div>
+
+          <div class="case-study-section">
+            <h4>The Solution</h4>
+            <p>{{ selectedProject.caseStudy.solution }}</p>
+          </div>
+
+          <div class="case-study-section" *ngIf="selectedProject.challenges">
+            <h4>Challenges Faced</h4>
+            <ul class="challenge-list">
+              <li *ngFor="let challenge of selectedProject.challenges">
+                {{ challenge }}
+              </li>
+            </ul>
+          </div>
+
+          <div class="case-study-section" *ngIf="selectedProject.solutions">
+            <h4>Solutions Implemented</h4>
+            <ul class="solution-list">
+              <li *ngFor="let solution of selectedProject.solutions">
+                {{ solution }}
+              </li>
+            </ul>
+          </div>
+
+          <div class="case-study-section">
+            <h4>Development Process</h4>
+            <div class="process-timeline">
+              <div
+                class="process-step"
+                *ngFor="let step of selectedProject.caseStudy.process; let i = index"
+              >
+                <div class="step-number">{{ i + 1 }}</div>
+                <div class="step-content">{{ step }}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-study-section">
+            <h4>Results & Impact</h4>
+            <p>{{ selectedProject.caseStudy.outcome }}</p>
+            <ul class="results-list" *ngIf="selectedProject.results">
+              <li *ngFor="let result of selectedProject.results">
+                {{ result }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technical Details Tab -->
+      <div class="tab-content" *ngIf="activeModalTab === 'technical'">
+        <div class="technical-details">
+          <div class="tech-section">
+            <h4>Technology Stack</h4>
+            <div class="tech-stack-detailed">
+              <div
+                class="tech-stack-item"
+                *ngFor="let tech of selectedProject.technologies"
+              >
+                <span
+                  class="tech-icon-large"
+                  [innerHTML]="getTechStackInfo(tech).icon"
+                ></span>
+                <div class="tech-info">
+                  <strong>{{ tech }}</strong>
+                  <span class="tech-category"
+                    >{{ getTechStackInfo(tech).name }}</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tech-section" *ngIf="selectedProject.tags">
+            <h4>Project Tags</h4>
+            <div class="tags-list">
+              <span class="tech-tag" *ngFor="let tag of selectedProject.tags">
+                #{{ tag }}
+              </span>
+            </div>
+          </div>
+
+          <div class="tech-section">
+            <h4>External Links</h4>
+            <div class="external-links-list">
+              <a
+                *ngIf="selectedProject.liveUrl"
+                [href]="selectedProject.liveUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="external-link"
+              >
+                🚀 Live Demo
+              </a>
+              <a
+                *ngIf="selectedProject.githubUrl"
+                [href]="selectedProject.githubUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="external-link"
+              >
+                💻 Source Code
+              </a>
+              <a
+                *ngIf="selectedProject.stackblitzUrl"
+                [href]="selectedProject.stackblitzUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="external-link"
+              >
+                ⚡ StackBlitz
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

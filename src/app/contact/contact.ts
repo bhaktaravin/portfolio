@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, NgForm } from "@angular/forms";
 
 import { AnalyticsService } from "../services/analytics.service";
+import { ToastService } from "../services/toast.service";
 
 interface ContactForm {
   name: string;
@@ -29,6 +30,7 @@ interface FormErrors {
 })
 export class ContactComponent {
   private analytics = inject(AnalyticsService);
+  private toastService = inject(ToastService);
 
   // Form state signals
   private _isSubmitting = signal(false);
@@ -140,6 +142,13 @@ export class ContactComponent {
       this._submitCount.update((count) => count + 1);
       this.resetForm(form);
 
+      // Show success toast
+      this.toastService.success(
+        "Message Sent!",
+        "Thanks for reaching out! I'll get back to you within 24 hours.",
+        { duration: 6000 },
+      );
+
       // Track success
       this.analytics.trackFormSubmission("contact", true);
       this.analytics.trackEvent({
@@ -162,6 +171,11 @@ export class ContactComponent {
       this._errors.set({
         general: "Something went wrong. Please try again or email me directly.",
       });
+      this.toastService.error(
+        "Failed to Send",
+        "Something went wrong. Please try again or email me directly.",
+        { duration: 8000 },
+      );
       this.analytics.trackError(
         "Contact form submission failed",
         "contact_form",
@@ -315,6 +329,7 @@ Best regards,`);
     navigator.clipboard
       ?.writeText(text)
       .then(() => {
+        this.toastService.copied(type === "email" ? "Email address" : type);
         this.analytics.trackEvent({
           name: "copy_to_clipboard",
           category: "Contact",
@@ -324,6 +339,10 @@ Best regards,`);
       })
       .catch((err) => {
         console.warn("Failed to copy to clipboard:", err);
+        this.toastService.error(
+          "Copy Failed",
+          "Unable to copy to clipboard. Please select and copy manually.",
+        );
       });
   }
 

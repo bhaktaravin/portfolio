@@ -1,11 +1,12 @@
-import { Component, inject, OnInit, OnDestroy, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { Component, inject, OnInit, OnDestroy, signal } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { Router, NavigationEnd } from "@angular/router";
+import { filter } from "rxjs/operators";
+import { Subscription } from "rxjs";
 
-import { ThemeToggleComponent } from './theme-toggle.component';
-import { AnalyticsService } from '../services/analytics.service';
+import { ThemeToggleComponent } from "./theme-toggle.component";
+import { AnalyticsService } from "../services/analytics.service";
+import { ToastService } from "../services/toast.service";
 
 interface NavItem {
   id: string;
@@ -17,11 +18,15 @@ interface NavItem {
 }
 
 @Component({
-  selector: 'app-navigation',
+  selector: "app-navigation",
   standalone: true,
   imports: [CommonModule, ThemeToggleComponent],
   template: `
-    <nav class="navbar" [class.scrolled]="isScrolled()" [class.mobile-open]="isMobileMenuOpen()">
+    <nav
+      class="navbar"
+      [class.scrolled]="isScrolled()"
+      [class.mobile-open]="isMobileMenuOpen()"
+    >
       <div class="navbar-container container">
         <!-- Brand/Logo -->
         <a
@@ -57,7 +62,11 @@ interface NavItem {
                 (click)="handleNavClick(item, $event)"
                 role="menuitem"
               >
-                <span class="nav-icon" *ngIf="item.icon" [innerHTML]="item.icon"></span>
+                <span
+                  class="nav-icon"
+                  *ngIf="item.icon"
+                  [innerHTML]="item.icon"
+                ></span>
                 <span class="nav-label">{{ item.label }}</span>
                 <span class="nav-indicator"></span>
               </a>
@@ -66,6 +75,12 @@ interface NavItem {
 
           <!-- CTA Buttons -->
           <div class="nav-actions">
+            <!-- Command Palette Hint -->
+            <div class="command-hint">
+              <kbd class="command-key">⌘</kbd>
+              <kbd class="command-key">K</kbd>
+            </div>
+
             <a
               href="#contact"
               class="btn btn-outline btn-sm"
@@ -130,7 +145,11 @@ interface NavItem {
                   (click)="handleNavClick(item, $event)"
                   role="menuitem"
                 >
-                  <span class="mobile-nav-icon" *ngIf="item.icon" [innerHTML]="item.icon"></span>
+                  <span
+                    class="mobile-nav-icon"
+                    *ngIf="item.icon"
+                    [innerHTML]="item.icon"
+                  ></span>
                   <span class="mobile-nav-label">{{ item.label }}</span>
                 </a>
               </li>
@@ -146,10 +165,7 @@ interface NavItem {
                 <span class="btn-text">Contact Me</span>
               </a>
 
-              <button
-                class="btn btn-primary"
-                (click)="downloadResume()"
-              >
+              <button class="btn btn-primary" (click)="downloadResume()">
                 <span class="btn-icon">📄</span>
                 <span class="btn-text">Download Resume</span>
               </button>
@@ -170,399 +186,431 @@ interface NavItem {
       <div class="scroll-progress" [style.width.%]="scrollProgress()"></div>
     </nav>
   `,
-  styles: [`
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: var(--z-fixed);
-      background: var(--color-navbar-bg);
-      backdrop-filter: var(--color-navbar-backdrop);
-      -webkit-backdrop-filter: var(--color-navbar-backdrop);
-      border-bottom: 1px solid transparent;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .navbar.scrolled {
-      background: rgba(255, 255, 255, 0.95);
-      border-bottom-color: var(--color-border);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    }
-
-    [data-theme="dark"] .navbar.scrolled {
-      background: rgba(15, 23, 42, 0.95);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .navbar-container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem var(--container-padding);
-      min-height: 70px;
-    }
-
-    /* Brand/Logo Styles */
-    .navbar-brand {
-      text-decoration: none;
-      color: var(--color-text-primary);
-      font-weight: 700;
-      font-size: 1.25rem;
-      transition: all 0.3s ease;
-    }
-
-    .navbar-brand:hover {
-      color: var(--color-primary-600);
-      text-decoration: none;
-      transform: translateY(-1px);
-    }
-
-    .brand-content {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .brand-avatar {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      background: var(--gradient-primary);
-      border-radius: 50%;
-      color: white;
-      font-weight: 700;
-      font-size: 1rem;
-      overflow: hidden;
-    }
-
-    .brand-initials {
-      position: relative;
-      z-index: 2;
-    }
-
-    .brand-glow {
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: var(--gradient-primary);
-      border-radius: 50%;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 1;
-    }
-
-    .navbar-brand:hover .brand-glow {
-      opacity: 0.3;
-    }
-
-    .brand-text {
-      font-weight: 700;
-      letter-spacing: -0.025em;
-    }
-
-    /* Desktop Navigation */
-    .navbar-nav {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .nav-item {
-      position: relative;
-    }
-
-    .nav-link {
-      position: relative;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      color: var(--color-text-secondary);
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.875rem;
-      border-radius: 0.5rem;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      overflow: hidden;
-    }
-
-    .nav-link:hover,
-    .nav-link.active {
-      color: var(--color-primary-600);
-      background: var(--color-primary-50);
-      text-decoration: none;
-    }
-
-    [data-theme="dark"] .nav-link:hover,
-    [data-theme="dark"] .nav-link.active {
-      background: rgba(59, 130, 246, 0.1);
-    }
-
-    .nav-icon {
-      font-size: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .nav-indicator {
-      position: absolute;
-      bottom: -2px;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: var(--color-primary-600);
-      border-radius: 1px;
-      transform: translateX(-50%);
-      transition: width 0.3s ease;
-    }
-
-    .nav-link.active .nav-indicator {
-      width: 80%;
-    }
-
-    /* Navigation Actions */
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .btn-icon {
-      font-size: 0.875rem;
-    }
-
-    /* Mobile Controls */
-    .mobile-controls {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .mobile-menu-toggle {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-    }
-
-    .hamburger-line {
-      width: 24px;
-      height: 2px;
-      background: var(--color-text-primary);
-      border-radius: 2px;
-      transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      transform-origin: center;
-    }
-
-    .hamburger-line:nth-child(1) {
-      margin-bottom: 4px;
-    }
-
-    .hamburger-line:nth-child(2) {
-      margin-bottom: 4px;
-    }
-
-    .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
-      opacity: 0;
-      transform: scale(0);
-    }
-
-    .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -6px);
-    }
-
-    /* Mobile Menu */
-    .mobile-menu {
-      position: fixed;
-      top: 70px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--color-card-bg);
-      transform: translateY(-100%);
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: var(--z-modal);
-      border-top: 1px solid var(--color-border);
-    }
-
-    .mobile-menu.open {
-      transform: translateY(0);
-    }
-
-    .mobile-menu-content {
-      padding: 2rem;
-      height: 100%;
-      overflow-y: auto;
-    }
-
-    .mobile-nav-links {
-      list-style: none;
-      margin: 0 0 2rem 0;
-      padding: 0;
-    }
-
-    .mobile-nav-item {
-      margin-bottom: 0.5rem;
-    }
-
-    .mobile-nav-link {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem;
-      color: var(--color-text-secondary);
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 1.125rem;
-      border-radius: 0.75rem;
-      transition: all 0.3s ease;
-    }
-
-    .mobile-nav-link:hover,
-    .mobile-nav-link.active {
-      color: var(--color-primary-600);
-      background: var(--color-primary-50);
-      text-decoration: none;
-    }
-
-    [data-theme="dark"] .mobile-nav-link:hover,
-    [data-theme="dark"] .mobile-nav-link.active {
-      background: rgba(59, 130, 246, 0.1);
-    }
-
-    .mobile-nav-icon {
-      font-size: 1.25rem;
-      width: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .mobile-nav-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: auto;
-      padding-top: 2rem;
-      border-top: 1px solid var(--color-border);
-    }
-
-    .mobile-menu-backdrop {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: var(--z-modal-backdrop);
-    }
-
-    .mobile-menu-backdrop.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    /* Scroll Progress */
-    .scroll-progress {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      height: 2px;
-      background: var(--gradient-primary);
-      transition: width 0.1s ease;
-    }
-
-    /* Responsive Design */
-    .desktop-only {
-      display: flex;
-    }
-
-    .mobile-only {
-      display: none;
-    }
-
-    @media (max-width: 768px) {
-      .desktop-only {
-        display: none;
+  styles: [
+    `
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: var(--z-fixed);
+        background: var(--color-navbar-bg);
+        backdrop-filter: var(--color-navbar-backdrop);
+        -webkit-backdrop-filter: var(--color-navbar-backdrop);
+        border-bottom: 1px solid transparent;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
-      .mobile-only {
-        display: flex;
+      .navbar.scrolled {
+        background: rgba(255, 255, 255, 0.95);
+        border-bottom-color: var(--color-border);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      [data-theme="dark"] .navbar.scrolled {
+        background: rgba(15, 23, 42, 0.95);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
       }
 
       .navbar-container {
-        padding: 0.75rem 1rem;
-        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem var(--container-padding);
+        min-height: 70px;
       }
 
-      .mobile-menu {
-        top: 60px;
+      /* Brand/Logo Styles */
+      .navbar-brand {
+        text-decoration: none;
+        color: var(--color-text-primary);
+        font-weight: 700;
+        font-size: 1.25rem;
+        transition: all 0.3s ease;
+      }
+
+      .navbar-brand:hover {
+        color: var(--color-primary-600);
+        text-decoration: none;
+        transform: translateY(-1px);
+      }
+
+      .brand-content {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .brand-avatar {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        color: white;
+        font-weight: 700;
+        font-size: 1rem;
+        overflow: hidden;
+      }
+
+      .brand-initials {
+        position: relative;
+        z-index: 2;
+      }
+
+      .brand-glow {
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 1;
+      }
+
+      .navbar-brand:hover .brand-glow {
+        opacity: 0.3;
       }
 
       .brand-text {
+        font-weight: 700;
+        letter-spacing: -0.025em;
+      }
+
+      /* Desktop Navigation */
+      .navbar-nav {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-item {
+        position: relative;
+      }
+
+      .nav-link {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.875rem;
+        border-radius: 0.5rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        color: var(--color-primary-600);
+        background: var(--color-primary-50);
+        text-decoration: none;
+      }
+
+      [data-theme="dark"] .nav-link:hover,
+      [data-theme="dark"] .nav-link.active {
+        background: rgba(59, 130, 246, 0.1);
+      }
+
+      .nav-icon {
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .nav-indicator {
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: var(--color-primary-600);
+        border-radius: 1px;
+        transform: translateX(-50%);
+        transition: width 0.3s ease;
+      }
+
+      .nav-link.active .nav-indicator {
+        width: 80%;
+      }
+
+      /* Navigation Actions */
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      /* Command Palette Hint */
+      .command-hint {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        margin-right: 0.5rem;
+        opacity: 0.6;
+        transition: opacity 0.3s ease;
+      }
+
+      .command-hint:hover {
+        opacity: 1;
+      }
+
+      .command-key {
+        background: var(--color-card-bg);
+        color: var(--color-text-secondary);
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        font-family:
+          "SF Mono", "Monaco", "Cascadia Code", "Roboto Mono", monospace;
+        border: 1px solid var(--color-border);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        min-width: 20px;
+        text-align: center;
+      }
+
+      .btn-icon {
+        font-size: 0.875rem;
+      }
+
+      /* Mobile Controls */
+      .mobile-controls {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .mobile-menu-toggle {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+      }
+
+      .hamburger-line {
+        width: 24px;
+        height: 2px;
+        background: var(--color-text-primary);
+        border-radius: 2px;
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        transform-origin: center;
+      }
+
+      .hamburger-line:nth-child(1) {
+        margin-bottom: 4px;
+      }
+
+      .hamburger-line:nth-child(2) {
+        margin-bottom: 4px;
+      }
+
+      .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+
+      .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+        opacity: 0;
+        transform: scale(0);
+      }
+
+      .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+      }
+
+      /* Mobile Menu */
+      .mobile-menu {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--color-card-bg);
+        transform: translateY(-100%);
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: var(--z-modal);
+        border-top: 1px solid var(--color-border);
+      }
+
+      .mobile-menu.open {
+        transform: translateY(0);
+      }
+
+      .mobile-menu-content {
+        padding: 2rem;
+        height: 100%;
+        overflow-y: auto;
+      }
+
+      .mobile-nav-links {
+        list-style: none;
+        margin: 0 0 2rem 0;
+        padding: 0;
+      }
+
+      .mobile-nav-item {
+        margin-bottom: 0.5rem;
+      }
+
+      .mobile-nav-link {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1.125rem;
+        border-radius: 0.75rem;
+        transition: all 0.3s ease;
+      }
+
+      .mobile-nav-link:hover,
+      .mobile-nav-link.active {
+        color: var(--color-primary-600);
+        background: var(--color-primary-50);
+        text-decoration: none;
+      }
+
+      [data-theme="dark"] .mobile-nav-link:hover,
+      [data-theme="dark"] .mobile-nav-link.active {
+        background: rgba(59, 130, 246, 0.1);
+      }
+
+      .mobile-nav-icon {
+        font-size: 1.25rem;
+        width: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .mobile-nav-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: auto;
+        padding-top: 2rem;
+        border-top: 1px solid var(--color-border);
+      }
+
+      .mobile-menu-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: var(--z-modal-backdrop);
+      }
+
+      .mobile-menu-backdrop.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* Scroll Progress */
+      .scroll-progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        background: var(--gradient-primary);
+        transition: width 0.1s ease;
+      }
+
+      /* Responsive Design */
+      .desktop-only {
+        display: flex;
+      }
+
+      .mobile-only {
         display: none;
       }
-    }
 
-    /* Accessibility */
-    @media (prefers-reduced-motion: reduce) {
-      .navbar,
-      .nav-link,
-      .mobile-menu,
-      .hamburger-line,
-      .scroll-progress {
-        transition: none;
+      @media (max-width: 768px) {
+        .desktop-only {
+          display: none;
+        }
+
+        .mobile-only {
+          display: flex;
+        }
+
+        .navbar-container {
+          padding: 0.75rem 1rem;
+          min-height: 60px;
+        }
+
+        .mobile-menu {
+          top: 60px;
+        }
+
+        .brand-text {
+          display: none;
+        }
       }
-    }
 
-    /* Focus styles */
-    .nav-link:focus,
-    .mobile-nav-link:focus,
-    .mobile-menu-toggle:focus {
-      outline: 2px solid var(--color-primary-500);
-      outline-offset: 2px;
-      border-radius: 0.25rem;
-    }
-  `]
+      /* Accessibility */
+      @media (prefers-reduced-motion: reduce) {
+        .navbar,
+        .nav-link,
+        .mobile-menu,
+        .hamburger-line,
+        .scroll-progress {
+          transition: none;
+        }
+      }
+
+      /* Focus styles */
+      .nav-link:focus,
+      .mobile-nav-link:focus,
+      .mobile-menu-toggle:focus {
+        outline: 2px solid var(--color-primary-500);
+        outline-offset: 2px;
+        border-radius: 0.25rem;
+      }
+    `,
+  ],
 })
 export class NavigationComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private analytics = inject(AnalyticsService);
+  private toastService = inject(ToastService);
 
   // Signals for reactive state
   private _isScrolled = signal(false);
   private _isMobileMenuOpen = signal(false);
-  private _activeSection = signal('hero');
+  private _activeSection = signal("hero");
   private _scrollProgress = signal(0);
 
   // Public readonly signals
@@ -575,54 +623,61 @@ export class NavigationComponent implements OnInit, OnDestroy {
   private scrollListenerAdded = false;
 
   // Brand information
-  brandName = 'Ravin Bhakta';
-  brandLabel = 'Ravin Bhakta - Full-Stack Engineer Portfolio';
-  initials = 'RB';
+  brandName = "Ravin Bhakta";
+  brandLabel = "Ravin Bhakta - Full-Stack Engineer Portfolio";
+  initials = "RB";
 
   // Navigation items
   navItems: NavItem[] = [
     {
-      id: 'hero',
-      label: 'Home',
-      href: '#hero',
-      icon: '🏠',
-      analyticsLabel: 'home'
+      id: "hero",
+      label: "Home",
+      href: "#hero",
+      icon: "🏠",
+      analyticsLabel: "home",
     },
     {
-      id: 'about',
-      label: 'About',
-      href: '#about',
-      icon: '👨‍💻',
-      analyticsLabel: 'about'
+      id: "about",
+      label: "About",
+      href: "#about",
+      icon: "👨‍💻",
+      analyticsLabel: "about",
     },
     {
-      id: 'experience',
-      label: 'Experience',
-      href: '#experience',
-      icon: '💼',
-      analyticsLabel: 'experience'
+      id: "experience",
+      label: "Experience",
+      href: "#experience",
+      icon: "💼",
+      analyticsLabel: "experience",
     },
     {
-      id: 'skills',
-      label: 'Skills',
-      href: '#skills',
-      icon: '🛠️',
-      analyticsLabel: 'skills'
+      id: "skills",
+      label: "Skills",
+      href: "#skills",
+      icon: "🛠️",
+      analyticsLabel: "skills",
     },
     {
-      id: 'projects',
-      label: 'Projects',
-      href: '#projects',
-      icon: '🚀',
-      analyticsLabel: 'projects'
+      id: "projects",
+      label: "Projects",
+      href: "#projects",
+      icon: "🚀",
+      analyticsLabel: "projects",
     },
     {
-      id: 'education',
-      label: 'Education',
-      href: '#education',
-      icon: '🎓',
-      analyticsLabel: 'education'
-    }
+      id: "blog",
+      label: "Blog",
+      href: "#blog",
+      icon: "📝",
+      analyticsLabel: "blog",
+    },
+    {
+      id: "education",
+      label: "Education",
+      href: "#education",
+      icon: "🎓",
+      analyticsLabel: "education",
+    },
   ];
 
   ngOnInit(): void {
@@ -643,7 +698,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const documentHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
 
       // Update scroll state
       this._isScrolled.set(scrollY > 50);
@@ -653,7 +709,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
       this._scrollProgress.set(Math.min(100, Math.max(0, progress)));
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     this.scrollListenerAdded = true;
   }
 
@@ -664,7 +720,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   private setupRouterListener(): void {
     this.routerSubscription = this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
+      .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
         // Close mobile menu on navigation
         this._isMobileMenuOpen.set(false);
@@ -674,12 +730,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
   private setupIntersectionObserver(): void {
     const options = {
       root: null,
-      rootMargin: '-20% 0px -60% 0px',
-      threshold: 0
+      rootMargin: "-20% 0px -60% 0px",
+      threshold: 0,
     };
 
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const sectionId = entry.target.id;
           this._activeSection.set(sectionId);
@@ -689,7 +745,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
     // Observe sections after a short delay to ensure DOM is ready
     setTimeout(() => {
-      this.navItems.forEach(item => {
+      this.navItems.forEach((item) => {
         const section = document.getElementById(item.id);
         if (section) {
           observer.observe(section);
@@ -700,7 +756,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   handleNavClick(item: NavItem, event: Event): void {
     // Track analytics
-    this.analytics.trackClick(`nav_${item.analyticsLabel || item.id}`, 'navigation');
+    this.analytics.trackClick(
+      `nav_${item.analyticsLabel || item.id}`,
+      "navigation",
+    );
 
     if (!item.external) {
       event.preventDefault();
@@ -723,11 +782,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
       window.scrollTo({
         top: elementPosition,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
 
       // Track analytics
-      this.analytics.trackClick(`scroll_to_${sectionId}`, 'navigation');
+      this.analytics.trackClick(`scroll_to_${sectionId}`, "navigation");
     }
 
     // Close mobile menu
@@ -740,31 +799,39 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
     // Prevent body scroll when menu is open
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = "";
     }
 
     // Track analytics
-    this.analytics.trackClick(`mobile_menu_${isOpen ? 'open' : 'close'}`, 'navigation');
+    this.analytics.trackClick(
+      `mobile_menu_${isOpen ? "open" : "close"}`,
+      "navigation",
+    );
   }
 
   closeMobileMenu(): void {
     this._isMobileMenuOpen.set(false);
-    document.body.style.overflow = '';
+    document.body.style.overflow = "";
   }
 
   downloadResume(): void {
     // Track analytics
-    this.analytics.trackDownload('Ravin_Bhakta_Resume.pdf', 'pdf');
+    this.analytics.trackDownload("Ravin_Bhakta_Resume.pdf", "pdf");
 
-    // Trigger download
-    const link = document.createElement('a');
-    link.href = 'assets/resume.pdf';
-    link.download = 'Ravin_Bhakta_Resume.pdf';
-    document.body.appendChild(link);
+    // Create download link
+    const link = document.createElement("a");
+    link.href = "assets/resume.pdf";
+    link.download = "Ravin_Bhakta_Resume.pdf";
     link.click();
-    document.body.removeChild(link);
+
+    // Show success toast
+    this.toastService.success(
+      "Download Started",
+      "Your resume is being downloaded",
+      { duration: 3000 },
+    );
 
     // Close mobile menu
     this._isMobileMenuOpen.set(false);
