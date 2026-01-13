@@ -197,7 +197,7 @@ export class ToastComponent implements OnInit, OnDestroy {
   toasts: Toast[] = [];
   config = this.toastService.getConfig();
   showDebugInfo = false;
-  showDebugControls = true; // Set to true for development
+  showDebugControls = false; // Set to true for development
 
   private subscription?: Subscription;
   private pausedTimers = new Set<string>();

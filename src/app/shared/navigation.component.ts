@@ -186,52 +186,65 @@ interface NavItem {
       <div class="scroll-progress" [style.width.%]="scrollProgress()"></div>
     </nav>
   `,
+  styleUrls: [],
   styles: [
     `
+      /* Clean navbar styles */
       .navbar {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
-        z-index: var(--z-fixed);
-        background: var(--color-navbar-bg);
-        backdrop-filter: var(--color-navbar-backdrop);
-        -webkit-backdrop-filter: var(--color-navbar-backdrop);
+        z-index: var(--z-fixed, 1030);
+        background: var(--color-navbar-bg, rgba(255, 255, 255, 0.9));
+        backdrop-filter: var(--color-navbar-backdrop, blur(10px));
+        -webkit-backdrop-filter: var(--color-navbar-backdrop, blur(10px));
         border-bottom: 1px solid transparent;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        min-height: 70px;
       }
 
       .navbar.scrolled {
         background: rgba(255, 255, 255, 0.95);
-        border-bottom-color: var(--color-border);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        border-bottom: 1px solid var(--color-border, #e5e7eb);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      [data-theme="dark"] .navbar {
+        background: rgba(15, 23, 42, 0.9);
       }
 
       [data-theme="dark"] .navbar.scrolled {
         background: rgba(15, 23, 42, 0.95);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
       }
 
       .navbar-container {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 1rem var(--container-padding);
-        min-height: 70px;
+        padding: 1rem var(--container-padding, 2rem);
+        max-width: var(--container-max-width, 1200px);
+        margin: 0 auto;
+        width: 100%;
+        height: 70px;
       }
 
-      /* Brand/Logo Styles */
+      /* Brand/Logo */
       .navbar-brand {
+        display: flex;
+        align-items: center;
         text-decoration: none;
-        color: var(--color-text-primary);
+        color: var(--color-text-primary, #1f2937);
         font-weight: 700;
         font-size: 1.25rem;
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
+        z-index: 10;
       }
 
       .navbar-brand:hover {
-        color: var(--color-primary-600);
-        text-decoration: none;
+        color: var(--color-primary-600, #2563eb);
         transform: translateY(-1px);
       }
 
@@ -242,40 +255,22 @@ interface NavItem {
       }
 
       .brand-avatar {
-        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
         width: 40px;
         height: 40px;
-        background: var(--gradient-primary);
+        background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%);
         border-radius: 50%;
         color: white;
         font-weight: 700;
         font-size: 1rem;
-        overflow: hidden;
+        position: relative;
       }
 
       .brand-initials {
-        position: relative;
         z-index: 2;
-      }
-
-      .brand-glow {
-        position: absolute;
-        top: -2px;
-        left: -2px;
-        right: -2px;
-        bottom: -2px;
-        background: var(--gradient-primary);
-        border-radius: 50%;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        z-index: 1;
-      }
-
-      .navbar-brand:hover .brand-glow {
-        opacity: 0.3;
+        position: relative;
       }
 
       .brand-text {
@@ -284,16 +279,35 @@ interface NavItem {
       }
 
       /* Desktop Navigation */
+      /* Desktop Navigation */
       .navbar-nav {
         display: flex;
         align-items: center;
         gap: 2rem;
       }
 
+      /* Utility Classes */
+      .desktop-only {
+        display: flex;
+      }
+
+      .mobile-only {
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        .desktop-only {
+          display: none !important;
+        }
+        .mobile-only {
+          display: flex !important;
+        }
+      }
+
       .nav-links {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 2rem;
         list-style: none;
         margin: 0;
         padding: 0;
@@ -309,25 +323,26 @@ interface NavItem {
         align-items: center;
         gap: 0.5rem;
         padding: 0.5rem 1rem;
-        color: var(--color-text-secondary);
+        color: var(--color-text-secondary, #6b7280);
         text-decoration: none;
         font-weight: 500;
         font-size: 0.875rem;
         border-radius: 0.5rem;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        overflow: hidden;
+        transition: all 0.2s ease;
+        white-space: nowrap;
       }
 
       .nav-link:hover,
       .nav-link.active {
-        color: var(--color-primary-600);
-        background: var(--color-primary-50);
+        color: var(--color-primary-600, #2563eb);
+        background: var(--color-primary-50, rgba(59, 130, 246, 0.1));
         text-decoration: none;
       }
 
       [data-theme="dark"] .nav-link:hover,
       [data-theme="dark"] .nav-link.active {
-        background: rgba(59, 130, 246, 0.1);
+        background: rgba(59, 130, 246, 0.15);
+        color: var(--color-primary-400, #60a5fa);
       }
 
       .nav-icon {
@@ -358,6 +373,7 @@ interface NavItem {
         display: flex;
         align-items: center;
         gap: 0.75rem;
+        flex-shrink: 0;
       }
 
       /* Command Palette Hint */
@@ -375,18 +391,23 @@ interface NavItem {
       }
 
       .command-key {
-        background: var(--color-card-bg);
-        color: var(--color-text-secondary);
+        background: var(--color-surface, #f8fafc);
+        color: var(--color-text-secondary, #6b7280);
         padding: 0.25rem 0.5rem;
         border-radius: 4px;
         font-size: 0.75rem;
         font-weight: 600;
-        font-family:
-          "SF Mono", "Monaco", "Cascadia Code", "Roboto Mono", monospace;
-        border: 1px solid var(--color-border);
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        font-family: var(--font-family-mono, monospace);
+        border: 1px solid var(--color-border, #e5e7eb);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
         min-width: 20px;
         text-align: center;
+      }
+
+      [data-theme="dark"] .command-key {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0.7);
       }
 
       .btn-icon {
@@ -548,13 +569,64 @@ interface NavItem {
         transition: width 0.1s ease;
       }
 
-      /* Responsive Design */
-      .desktop-only {
-        display: flex;
+      /* Button Styles */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+        text-decoration: none;
+        border-radius: 0.5rem;
+        transition: all 0.2s ease;
+        border: none;
+        cursor: pointer;
+        white-space: nowrap;
       }
 
-      .mobile-only {
-        display: none;
+      .btn-sm {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.875rem;
+      }
+
+      .btn-primary {
+        background: var(--color-primary-600, #2563eb);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: var(--color-primary-700, #1d4ed8);
+        transform: translateY(-1px);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: var(--color-primary-600, #2563eb);
+        border: 1px solid var(--color-primary-600, #2563eb);
+      }
+
+      .btn-outline:hover {
+        background: var(--color-primary-600, #2563eb);
+        color: white;
+        text-decoration: none;
+      }
+
+      [data-theme="dark"] .btn-primary {
+        background: var(--color-primary-500, #3b82f6);
+      }
+
+      [data-theme="dark"] .btn-primary:hover {
+        background: var(--color-primary-400, #60a5fa);
+      }
+
+      [data-theme="dark"] .btn-outline {
+        color: var(--color-primary-400, #60a5fa);
+        border-color: var(--color-primary-400, #60a5fa);
+      }
+
+      [data-theme="dark"] .btn-outline:hover {
+        background: var(--color-primary-400, #60a5fa);
+        color: var(--color-surface, #1e293b);
       }
 
       @media (max-width: 768px) {
