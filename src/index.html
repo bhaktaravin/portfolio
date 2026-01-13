@@ -1,13 +1,268 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Portfolio</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
-  <app-root></app-root>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Ravin Bhakta - Full-Stack Engineer Portfolio</title>
+    <base href="/" />
+
+    <!-- Viewport and Mobile</title> Optimization -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Ravin Bhakta - Full-Stack Engineer with 5+ years of experience building enterprise APIs, internal tools, and scalable cloud solutions. Specialized in Angular, React, Java Spring, Python/Django, and AWS."
+    />
+    <meta
+      name="keywords"
+      content="full-stack engineer, software developer, angular, react, java spring, python django, aws, enterprise applications, api development, ravin bhakta"
+    />
+    <meta name="author" content="Ravin Bhakta" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ravinbhakta.com/" />
+    <meta
+      property="og:title"
+      content="Ravin Bhakta - Full-Stack Engineer Portfolio"
+    />
+    <meta
+      property="og:description"
+      content="Full-Stack Engineer with 5+ years of experience building enterprise APIs, internal tools, and scalable cloud solutions."
+    />
+    <meta
+      property="og:image"
+      content="https://ravinbhakta.com/assets/og-image.png"
+    />
+    <meta property="og:site_name" content="Ravin Bhakta Portfolio" />
+
+    <!-- Twitter Card -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://ravinbhakta.com/" />
+    <meta
+      property="twitter:title"
+      content="Ravin Bhakta - Full-Stack Engineer Portfolio"
+    />
+    <meta
+      property="twitter:description"
+      content="Full-Stack Engineer with 5+ years of experience building enterprise APIs, internal tools, and scalable cloud solutions."
+    />
+    <meta
+      property="twitter:image"
+      content="https://ravinbhakta.com/assets/twitter-image.png"
+    />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/icons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/icons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/icons/favicon-16x16.png"
+    />
+    <link
+      rel="mask-icon"
+      href="assets/icons/safari-pinned-tab.svg"
+      color="#4f8cff"
+    />
+
+    <!-- Theme Colors -->
+    <meta name="theme-color" content="#4f8cff" />
+    <meta name="msapplication-TileColor" content="#232a36" />
+    <meta
+      name="msapplication-config"
+      content="assets/icons/browserconfig.xml"
+    />
+
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://api.github.com" />
+    <link rel="preconnect" href="https://firebaseio.com" />
+
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+    <link rel="dns-prefetch" href="//api.github.com" />
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Critical CSS for faster loading -->
+    <style>
+      /* Critical CSS - Above the fold styling */
+      body {
+        margin: 0;
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        background: #232a36;
+        color: #f5f6fa;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      app-root {
+        display: block;
+        min-height: 100vh;
+      }
+
+      /* Loading spinner */
+      .loading-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #232a36;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(79, 140, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #4f8cff;
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Hide loading when app is ready */
+      app-root:not(:empty) + .loading-container {
+        display: none;
+      }
+    </style>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Ravin Bhakta",
+        "jobTitle": "Full-Stack Engineer",
+        "description": "Full-Stack Engineer with 5+ years of experience building enterprise APIs, internal tools, and scalable cloud solutions.",
+        "url": "https://ravinbhakta.com",
+        "sameAs": [
+          "https://github.com/bhaktaravin",
+          "https://www.linkedin.com/in/ravin-rohitbhai-bhakta"
+        ],
+        "knowsAbout": [
+          "Angular",
+          "React",
+          "Java Spring",
+          "Python Django",
+          "AWS",
+          "Enterprise Applications",
+          "API Development",
+          "Cloud Solutions"
+        ],
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "California State University, Los Angeles"
+        },
+        "workLocation": {
+          "@type": "Place",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Fremont",
+            "addressRegion": "CA"
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <app-root></app-root>
+
+    <!-- Loading fallback -->
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Noscript fallback -->
+    <noscript>
+      <div
+        style="
+          padding: 2rem;
+          text-align: center;
+          background: #232a36;
+          color: #f5f6fa;
+          min-height: 100vh;
+        "
+      >
+        <h1>Ravin Bhakta - Full-Stack Engineer</h1>
+        <p>
+          This portfolio requires JavaScript to be enabled. Please enable
+          JavaScript in your browser and refresh the page.
+        </p>
+        <p>You can also contact me directly:</p>
+        <ul style="list-style: none; padding: 0">
+          <li>
+            📧
+            <a href="mailto:ravin.bhakta@gmail.com" style="color: #4f8cff"
+              >ravin.bhakta@gmail.com</a
+            >
+          </li>
+          <li>
+            📞 <a href="tel:5107557264" style="color: #4f8cff">510-755-7264</a>
+          </li>
+          <li>
+            🔗
+            <a
+              href="https://www.linkedin.com/in/ravin-rohitbhai-bhakta"
+              style="color: #4f8cff"
+              >LinkedIn</a
+            >
+          </li>
+          <li>
+            🐙
+            <a href="https://github.com/bhaktaravin" style="color: #4f8cff"
+              >GitHub</a
+            >
+          </li>
+        </ul>
+      </div>
+    </noscript>
+  </body>
 </html>

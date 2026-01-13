@@ -1,0 +1,173 @@
+<section class="hero" id="home">
+  <div class="hero-container">
+    <!-- Background Elements -->
+    <div class="hero-bg">
+      <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="hero-content">
+      <!-- Left Side - Text Content -->
+      <div class="hero-text" data-aos="fade-up" data-aos-delay="100">
+        <div class="hero-greeting">
+          <span class="greeting-text">👋 Hello, I'm</span>
+        </div>
+
+        <h1 class="hero-name">
+          <span class="name-highlight">{{ fullName }}</span>
+        </h1>
+
+        <h2 class="hero-title">{{ jobTitle }}</h2>
+
+        <p class="hero-tagline">{{ tagline }}</p>
+
+        <p class="hero-description">{{ description }}</p>
+
+        <!-- Tech Stack Pills -->
+        <div class="tech-stack" data-aos="fade-up" data-aos-delay="300">
+          <span class="stack-label">Tech Stack:</span>
+          <div class="tech-pills">
+            <span
+              *ngFor="let tech of techStack; let i = index"
+              class="tech-pill"
+              [style.animation-delay.ms]="(i * 100) + 400"
+            >
+              {{ tech }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="hero-actions" data-aos="fade-up" data-aos-delay="400">
+          <button
+            class="btn btn-primary"
+            (click)="viewProjects()"
+            [attr.aria-label]="'View my projects'"
+          >
+            <span class="btn-text">View My Work</span>
+            <span class="btn-icon">🚀</span>
+          </button>
+
+          <button
+            class="btn btn-secondary"
+            (click)="downloadResume()"
+            [attr.aria-label]="'Download my resume'"
+          >
+            <span class="btn-text">Download Resume</span>
+            <span class="btn-icon">📄</span>
+          </button>
+
+          <button
+            class="btn btn-outline"
+            (click)="contactMe()"
+            [attr.aria-label]="'Contact me'"
+          >
+            <span class="btn-text">Let's Connect</span>
+            <span class="btn-icon">💬</span>
+          </button>
+        </div>
+
+        <!-- Social Links -->
+        <div class="hero-social" data-aos="fade-up" data-aos-delay="500">
+          <span class="social-label">Find me on:</span>
+          <div class="social-links">
+            <a
+              *ngFor="let social of socialLinks"
+              [href]="social.url"
+              target="_blank"
+              class="social-link"
+              [attr.aria-label]="social.ariaLabel"
+              [title]="social.platform"
+            >
+              <span class="social-icon">{{ social.icon }}</span>
+              <span class="social-text">{{ social.platform }}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side - Avatar & Stats -->
+      <div class="hero-visual" data-aos="fade-left" data-aos-delay="200">
+        <!-- Avatar Section -->
+        <div class="hero-avatar">
+          <div class="avatar-container">
+            <div class="avatar-bg"></div>
+            <div class="avatar-initials">{{ initials }}</div>
+            <div class="avatar-ring"></div>
+          </div>
+
+          <!-- Location Badge -->
+          <div class="location-badge">
+            <span class="location-icon">📍</span>
+            <span class="location-text">{{ location }}</span>
+          </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="hero-stats" data-aos="fade-up" data-aos-delay="600">
+          <div
+            *ngFor="let stat of stats; let i = index"
+            class="stat-item"
+            [style.animation-delay.ms]="(i * 100) + 700"
+          >
+            <span class="stat-value">{{ stat.value }}</span>
+            <span class="stat-label">{{ stat.label }}</span>
+          </div>
+        </div>
+
+        <!-- Floating Code Snippet -->
+        <div class="code-snippet" data-aos="zoom-in" data-aos-delay="800">
+          <div class="code-header">
+            <div class="code-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <span class="code-title">ravin.dev</span>
+          </div>
+          <div class="code-content">
+            <span class="code-comment"
+              >// Building the future, one line at a time</span
+            >
+            <span class="code-line">
+              <span class="code-keyword">const</span>
+              <span class="code-variable">developer</span> = {{ '{' }}
+            </span>
+            <span class="code-line code-indent">
+              name: <span class="code-string">'{{ fullName }}'</span>,
+            </span>
+            <span class="code-line code-indent">
+              skills:
+              <span class="code-array">['Full-Stack', 'Cloud', 'APIs']</span>,
+            </span>
+            <span class="code-line code-indent">
+              passion:
+              <span class="code-string">'Building great software'</span>
+            </span>
+            <span class="code-line">{{ '}' }};</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="1000">
+      <button
+        class="scroll-btn"
+        (click)="scrollTo('about')"
+        [attr.aria-label]="'Scroll to about section'"
+      >
+        <span class="scroll-text">Scroll to explore</span>
+        <div class="scroll-arrow">
+          <span class="arrow-line"></span>
+          <span class="arrow-point">↓</span>
+        </div>
+      </button>
+    </div>
+  </div>
+</section>

@@ -1,4 +1,7 @@
-
+<!-- Hero Section -->
+<section id="home" class="hero section">
+  <app-hero></app-hero>
+</section>
 
 <!-- Navigation -->
 <nav class="navbar">
@@ -16,8 +19,6 @@
     </ul>
   </div>
 </nav>
-
-
 
 <main>
   <!-- About Section -->
@@ -63,21 +64,20 @@
 
 <!-- Footer -->
 
-<!-- Download Resume Section -->
-<section class="download-resume">
-  <label for="fileType">Download Resume as:</label>
-  <select id="fileType" [(ngModel)]="selectedFileType">
-    <option value="pdf">PDF</option>
-    <option value="docx">DOCX</option>
-  </select>
-  <button (click)="downloadResume()">Download</button>
-</section>
-
 <footer class="footer">
   <div class="container">
     <div class="social-links">
-      <a *ngFor="let social of socialLinks" [href]="social.url" target="_blank" class="social-link" [title]="social.platform">
-        {{ social.icon }}
+      <a
+        *ngFor="let social of socialLinks"
+        [href]="social.url"
+        target="_blank"
+        class="social-link"
+        [title]="social.platform"
+        style="font-size: 1.5em; margin: 0 0.5em; text-decoration: none"
+      >
+        <span [attr.aria-label]="social.platform" role="img"
+          >{{ social.icon }}</span
+        >
       </a>
     </div>
     <p>&copy; {{ currentYear }} {{ fullName }}. All rights reserved.</p>

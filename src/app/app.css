@@ -15,13 +15,33 @@
   --gray-100: #f3f4f6;
   --gray-50: #f9fafb;
   --white: #ffffff;
-  --gradient-primary: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-purple) 100%);
-  --gradient-secondary: linear-gradient(135deg, var(--accent-pink) 0%, var(--accent-purple) 100%);
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--primary-blue) 0%,
+    var(--accent-purple) 100%
+  );
+  --gradient-secondary: linear-gradient(
+    135deg,
+    var(--accent-pink) 0%,
+    var(--accent-purple) 100%
+  );
 }
 
 /* Space and animation styles (unchanged) */
-.star, .floating-particles, .particle, .shooting-star, .shooting-star-2, .shooting-star-3,
-.nebula, .nebula-1, .nebula-2, .comet, .constellation, .planet, .planet-1, .planet-2 {
+.star,
+.floating-particles,
+.particle,
+.shooting-star,
+.shooting-star-2,
+.shooting-star-3,
+.nebula,
+.nebula-1,
+.nebula-2,
+.comet,
+.constellation,
+.planet,
+.planet-1,
+.planet-2 {
   position: absolute;
   width: 2px;
   height: 2px;
@@ -31,16 +51,66 @@
   animation: twinkle 3s infinite;
 }
 
-.star:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; animation-duration: 2s; }
-.star:nth-child(2) { top: 80%; left: 90%; animation-delay: 1s; animation-duration: 3s; }
-.star:nth-child(3) { top: 40%; left: 70%; animation-delay: 2s; animation-duration: 2.5s; }
-.star:nth-child(4) { top: 10%; left: 50%; animation-delay: 0.5s; animation-duration: 3.5s; }
-.star:nth-child(5) { top: 70%; left: 30%; animation-delay: 1.5s; animation-duration: 2.8s; }
-.star:nth-child(6) { top: 30%; left: 10%; animation-delay: 2.5s; animation-duration: 3.2s; }
-.star:nth-child(7) { top: 90%; left: 60%; animation-delay: 3s; animation-duration: 2.3s; }
-.star:nth-child(8) { top: 50%; left: 80%; animation-delay: 0.3s; animation-duration: 3.8s; }
-.star:nth-child(9) { top: 15%; left: 85%; animation-delay: 1.8s; animation-duration: 2.6s; }
-.star:nth-child(10) { top: 85%; left: 15%; animation-delay: 2.2s; animation-duration: 3.3s; }
+.star:nth-child(1) {
+  top: 20%;
+  left: 20%;
+  animation-delay: 0s;
+  animation-duration: 2s;
+}
+.star:nth-child(2) {
+  top: 80%;
+  left: 90%;
+  animation-delay: 1s;
+  animation-duration: 3s;
+}
+.star:nth-child(3) {
+  top: 40%;
+  left: 70%;
+  animation-delay: 2s;
+  animation-duration: 2.5s;
+}
+.star:nth-child(4) {
+  top: 10%;
+  left: 50%;
+  animation-delay: 0.5s;
+  animation-duration: 3.5s;
+}
+.star:nth-child(5) {
+  top: 70%;
+  left: 30%;
+  animation-delay: 1.5s;
+  animation-duration: 2.8s;
+}
+.star:nth-child(6) {
+  top: 30%;
+  left: 10%;
+  animation-delay: 2.5s;
+  animation-duration: 3.2s;
+}
+.star:nth-child(7) {
+  top: 90%;
+  left: 60%;
+  animation-delay: 3s;
+  animation-duration: 2.3s;
+}
+.star:nth-child(8) {
+  top: 50%;
+  left: 80%;
+  animation-delay: 0.3s;
+  animation-duration: 3.8s;
+}
+.star:nth-child(9) {
+  top: 15%;
+  left: 85%;
+  animation-delay: 1.8s;
+  animation-duration: 2.6s;
+}
+.star:nth-child(10) {
+  top: 85%;
+  left: 15%;
+  animation-delay: 2.2s;
+  animation-duration: 3.3s;
+}
 
 .floating-particles {
   position: absolute;
@@ -57,25 +127,35 @@
   animation: float 8s ease-in-out infinite;
 }
 
-.particle:nth-child(1) { 
-  top: 10%; left: 10%; 
-  animation-delay: 0s; animation-duration: 8s;
+.particle:nth-child(1) {
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+  animation-duration: 8s;
 }
-.particle:nth-child(2) { 
-  top: 60%; left: 80%; 
-  animation-delay: 2s; animation-duration: 10s;
+.particle:nth-child(2) {
+  top: 60%;
+  left: 80%;
+  animation-delay: 2s;
+  animation-duration: 10s;
 }
-.particle:nth-child(3) { 
-  top: 30%; left: 60%; 
-  animation-delay: 4s; animation-duration: 7s;
+.particle:nth-child(3) {
+  top: 30%;
+  left: 60%;
+  animation-delay: 4s;
+  animation-duration: 7s;
 }
-.particle:nth-child(4) { 
-  top: 80%; left: 20%; 
-  animation-delay: 1s; animation-duration: 9s;
+.particle:nth-child(4) {
+  top: 80%;
+  left: 20%;
+  animation-delay: 1s;
+  animation-duration: 9s;
 }
-.particle:nth-child(5) { 
-  top: 50%; left: 40%; 
-  animation-delay: 3s; animation-duration: 6s;
+.particle:nth-child(5) {
+  top: 50%;
+  left: 40%;
+  animation-delay: 3s;
+  animation-duration: 6s;
 }
 
 .shooting-star {
@@ -89,8 +169,6 @@
   left: 10%;
   box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.3);
 }
-
-  
 
 /* Multiple shooting stars */
 .shooting-star-2 {
@@ -119,7 +197,12 @@
 .nebula-1 {
   width: 300px;
   height: 200px;
-  background: radial-gradient(circle, rgba(147, 51, 234, 0.4) 0%, rgba(79, 70, 229, 0.2) 50%, transparent 100%);
+  background: radial-gradient(
+    circle,
+    rgba(147, 51, 234, 0.4) 0%,
+    rgba(79, 70, 229, 0.2) 50%,
+    transparent 100%
+  );
   top: 20%;
   right: 10%;
   animation-delay: 0s;
@@ -128,7 +211,12 @@
 .nebula-2 {
   width: 250px;
   height: 180px;
-  background: radial-gradient(circle, rgba(236, 72, 153, 0.3) 0%, rgba(139, 69, 19, 0.2) 50%, transparent 100%);
+  background: radial-gradient(
+    circle,
+    rgba(236, 72, 153, 0.3) 0%,
+    rgba(139, 69, 19, 0.2) 50%,
+    transparent 100%
+  );
   bottom: 30%;
   left: 15%;
   animation-delay: 10s;
@@ -147,11 +235,15 @@
 }
 
 .comet::before {
-  content: '';
+  content: "";
   position: absolute;
   width: 40px;
   height: 2px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.8) 0%, transparent 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.8) 0%,
+    transparent 100%
+  );
   right: 4px;
   top: 1px;
   border-radius: 1px;
@@ -180,13 +272,13 @@
 
 .constellation::before,
 .constellation::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 2px;
   height: 2px;
   background: rgba(255, 255, 255, 0.8);
   border-radius: 50%;
-  box-shadow: 
+  box-shadow:
     20px 10px 0 rgba(255, 255, 255, 0.6),
     40px 30px 0 rgba(255, 255, 255, 0.7),
     60px 5px 0 rgba(255, 255, 255, 0.5),
@@ -203,7 +295,11 @@
 .planet-1 {
   width: 30px;
   height: 30px;
-  background: radial-gradient(circle at 30% 30%, rgba(220, 38, 127, 0.8), rgba(147, 51, 234, 0.6));
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(220, 38, 127, 0.8),
+    rgba(147, 51, 234, 0.6)
+  );
   top: 40%;
   right: 5%;
   animation-duration: 45s;
@@ -213,7 +309,11 @@
 .planet-2 {
   width: 20px;
   height: 20px;
-  background: radial-gradient(circle at 40% 40%, rgba(59, 130, 246, 0.8), rgba(37, 99, 235, 0.6));
+  background: radial-gradient(
+    circle at 40% 40%,
+    rgba(59, 130, 246, 0.8),
+    rgba(37, 99, 235, 0.6)
+  );
   bottom: 20%;
   left: 8%;
   animation-duration: 35s;
@@ -221,20 +321,108 @@
   box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
 }
 
-
 /* Animations */
-@keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
-@keyframes float { 0%, 100% { transform: translateY(0px) translateX(0px); } 25% { transform: translateY(-20px) translateX(10px); } 50% { transform: translateY(-10px) translateX(-15px); } 75% { transform: translateY(-30px) translateX(5px); } }
-@keyframes shooting-star { 0% { transform: translateX(-100px) translateY(-100px); opacity: 0; } 2% { opacity: 1; } 4% { transform: translateX(200px) translateY(200px); opacity: 0; } 100% { transform: translateX(200px) translateY(200px); opacity: 0; } }
-@keyframes nebula-pulse { 0%, 100% { opacity: 0.2; transform: scale(1) rotate(0deg); } 50% { opacity: 0.4; transform: scale(1.1) rotate(5deg); } }
-@keyframes comet-orbit { 0% { transform: translateX(0) translateY(0) rotate(0deg); } 25% { transform: translateX(-150px) translateY(100px) rotate(90deg); } 50% { transform: translateX(-300px) translateY(0) rotate(180deg); } 75% { transform: translateX(-150px) translateY(-100px) rotate(270deg); } 100% { transform: translateX(0) translateY(0) rotate(360deg); } }
-@keyframes constellation-twinkle { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.8; } }
-@keyframes planet-rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px);
+  }
+  50% {
+    transform: translateY(-10px) translateX(-15px);
+  }
+  75% {
+    transform: translateY(-30px) translateX(5px);
+  }
+}
+@keyframes shooting-star {
+  0% {
+    transform: translateX(-100px) translateY(-100px);
+    opacity: 0;
+  }
+  2% {
+    opacity: 1;
+  }
+  4% {
+    transform: translateX(200px) translateY(200px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(200px) translateY(200px);
+    opacity: 0;
+  }
+}
+@keyframes nebula-pulse {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.1) rotate(5deg);
+  }
+}
+@keyframes comet-orbit {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(-150px) translateY(100px) rotate(90deg);
+  }
+  50% {
+    transform: translateX(-300px) translateY(0) rotate(180deg);
+  }
+  75% {
+    transform: translateX(-150px) translateY(-100px) rotate(270deg);
+  }
+  100% {
+    transform: translateX(0) translateY(0) rotate(360deg);
+  }
+}
+@keyframes constellation-twinkle {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+@keyframes planet-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
 /* Reset and base styles */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-body, .section, main, .navbar, .footer {
+body,
+.section,
+main,
+.navbar,
+.footer {
   background: #181a20 !important;
   color: #f5f6fa !important;
 }
@@ -255,8 +443,20 @@ body, .section, main, .navbar, .footer {
   box-shadow: none !important;
 }
 
-.card, .skills-card, .experience-card, .education-card, .certifications-card, .projects-card, .testimonials-card, .contact-card,
-.project-card, .experience-item, .education-item, .certification-card, .stat, .skill-category {
+.card,
+.skills-card,
+.experience-card,
+.education-card,
+.certifications-card,
+.projects-card,
+.testimonials-card,
+.contact-card,
+.project-card,
+.experience-item,
+.education-item,
+.certification-card,
+.stat,
+.skill-category {
   background: #23272f !important;
   color: #f5f6fa !important;
   box-shadow: none !important;
@@ -272,13 +472,18 @@ body, .section, main, .navbar, .footer {
   color: #ffffff !important;
 }
 
-a, .nav-links a {
+a,
+.nav-links a {
   color: #f5f6fa !important;
 }
 
 /* Remove all backdrop-filter, light backgrounds, and color overrides */
-.stat-number { color: var(--primary-blue); }
-.stat-label { color: #b0b3b8; }
+.stat-number {
+  color: var(--primary-blue);
+}
+.stat-label {
+  color: #b0b3b8;
+}
 
 .btn-primary {
   background: var(--gradient-primary);
@@ -287,7 +492,9 @@ a, .nav-links a {
 
 .btn-primary:hover {
   transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3), 0 0 20px rgba(147, 51, 234, 0.2);
+  box-shadow:
+    0 10px 25px rgba(37, 99, 235, 0.3),
+    0 0 20px rgba(147, 51, 234, 0.2);
 }
 
 .btn-secondary {
@@ -306,8 +513,12 @@ a, .nav-links a {
   color: var(--white);
 }
 
-.project-link { color: var(--primary-blue); }
-.project-link:hover { text-decoration: underline; }
+.project-link {
+  color: var(--primary-blue);
+}
+.project-link:hover {
+  text-decoration: underline;
+}
 
 /* Navbar styles */
 .navbar {
@@ -360,18 +571,44 @@ a, .nav-links a {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .nav-links { display: none; }
-  .nav-container { padding: 0 1rem; }
-  .hero-content, .about-content, .contact-content { grid-template-columns: 1fr; gap: 2rem; }
-  .hero-text h1 { font-size: 2.5rem; }
-  .section-title { font-size: 2rem; }
-  .experience-header { flex-direction: column; align-items: flex-start; }
-  .container { padding: 0 1rem; }
-  .section { padding: 3rem 0; }
+  .nav-links {
+    display: none;
+  }
+  .nav-container {
+    padding: 0 1rem;
+  }
+  .hero-content,
+  .about-content,
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .hero-text h1 {
+    font-size: 2.5rem;
+  }
+  .section-title {
+    font-size: 2rem;
+  }
+  .experience-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .container {
+    padding: 0 1rem;
+  }
+  .section {
+    padding: 3rem 0;
+  }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-  .nav-links { gap: 1rem; }
-  .nav-links a { font-size: 0.9rem; }
-  .nav-container { padding: 0 1rem; }
+  .nav-links {
+    gap: 1rem;
+  }
+  .nav-links a {
+    font-size: 0.9rem;
+  }
+  .nav-container {
+    padding: 0 1rem;
+  }
 }

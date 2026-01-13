@@ -1,7 +1,16 @@
-import { Component, inject } from '@angular/core';
-import { Firestore, collection, addDoc, collectionData, deleteDoc, doc } from '@angular/fire/firestore';
-import { Query } from 'firebase/firestore';
-import { Observable } from 'rxjs';
+import { Component, inject } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import {
+  Firestore,
+  collection,
+  addDoc,
+  collectionData,
+  deleteDoc,
+  doc,
+} from "@angular/fire/firestore";
+import { Query } from "firebase/firestore";
+import { Observable } from "rxjs";
 
 interface NewTestimonial {
   name: string;
@@ -22,20 +31,59 @@ function md5(str: string): string {
   // Source: https://stackoverflow.com/a/16573331
   let xl;
   let k, AA, BB, CC, DD, a, b, c, d;
-  function cmn(q: number, a: number, b: number, x: number, s: number, t: number) {
+  function cmn(
+    q: number,
+    a: number,
+    b: number,
+    x: number,
+    s: number,
+    t: number,
+  ) {
     a = add32(add32(a, q), add32(x, t));
     return add32((a << s) | (a >>> (32 - s)), b);
   }
-  function ff(a: number, b: number, c: number, d: number, x: number, s: number, t: number) {
+  function ff(
+    a: number,
+    b: number,
+    c: number,
+    d: number,
+    x: number,
+    s: number,
+    t: number,
+  ) {
     return cmn((b & c) | (~b & d), a, b, x, s, t);
   }
-  function gg(a: number, b: number, c: number, d: number, x: number, s: number, t: number) {
+  function gg(
+    a: number,
+    b: number,
+    c: number,
+    d: number,
+    x: number,
+    s: number,
+    t: number,
+  ) {
     return cmn((b & d) | (c & ~d), a, b, x, s, t);
   }
-  function hh(a: number, b: number, c: number, d: number, x: number, s: number, t: number) {
+  function hh(
+    a: number,
+    b: number,
+    c: number,
+    d: number,
+    x: number,
+    s: number,
+    t: number,
+  ) {
     return cmn(b ^ c ^ d, a, b, x, s, t);
   }
-  function ii(a: number, b: number, c: number, d: number, x: number, s: number, t: number) {
+  function ii(
+    a: number,
+    b: number,
+    c: number,
+    d: number,
+    x: number,
+    s: number,
+    t: number,
+  ) {
     return cmn(c ^ (b | ~d), a, b, x, s, t);
   }
   function md51(s: string) {
@@ -47,7 +95,8 @@ function md5(str: string): string {
     }
     s = s.substring(i - 64);
     let tail = Array(16).fill(0);
-    for (i = 0; i < s.length; i++) tail[i >> 2] |= s.charCodeAt(i) << ((i % 4) << 3);
+    for (i = 0; i < s.length; i++)
+      tail[i >> 2] |= s.charCodeAt(i) << ((i % 4) << 3);
     tail[s.length >> 2] |= 0x80 << ((s.length % 4) << 3);
     if (s.length > 55) {
       md5cycle(state, tail);
@@ -58,7 +107,8 @@ function md5(str: string): string {
     return state;
   }
   function md5blk(s: string) {
-    let md5blks = [], i;
+    let md5blks = [],
+      i;
     for (i = 0; i < 64; i += 4) {
       md5blks[i >> 2] =
         s.charCodeAt(i) +
@@ -69,7 +119,10 @@ function md5(str: string): string {
     return md5blks;
   }
   function md5cycle(x: number[], k: number[]) {
-    let a = x[0], b = x[1], c = x[2], d = x[3];
+    let a = x[0],
+      b = x[1],
+      c = x[2],
+      d = x[3];
     a = ff(a, b, c, d, k[0], 7, -680876936);
     d = ff(d, a, b, c, k[1], 12, -389564586);
     c = ff(c, d, a, b, k[2], 17, 606105819);
@@ -143,12 +196,16 @@ function md5(str: string): string {
     return (a + b) & 0xffffffff;
   }
   function rhex(n: number) {
-    let s = '', j = 0;
-    for (; j < 4; j++) s += ((n >> (j * 8 + 4)) & 0x0f).toString(16) + ((n >> (j * 8)) & 0x0f).toString(16);
+    let s = "",
+      j = 0;
+    for (; j < 4; j++)
+      s +=
+        ((n >> (j * 8 + 4)) & 0x0f).toString(16) +
+        ((n >> (j * 8)) & 0x0f).toString(16);
     return s;
   }
   function hex(x: number[]) {
-    let out = '';
+    let out = "";
     for (let i = 0; i < x.length; i++) out += rhex(x[i]);
     return out;
   }
@@ -156,9 +213,11 @@ function md5(str: string): string {
 }
 
 @Component({
-  selector: 'app-testimonials',
-  templateUrl: './testimonials.html',
-  styleUrls: ['./testimonials.css']
+  selector: "app-testimonials",
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: "./testimonials.html",
+  styleUrls: ["./testimonials.css"],
 })
 export class TestimonialsComponent {
   private readonly firestore: Firestore = inject(Firestore);
@@ -166,39 +225,56 @@ export class TestimonialsComponent {
 
   showForm = false;
   newTestimonial: NewTestimonial = {
-    name: '',
-    title: '',
-    date: '',
-    relationship: '',
-    text: '',
-    image: ''
+    name: "",
+    email: "",
+    title: "",
+    date: "",
+    relationship: "",
+    text: "",
+    image: "",
   };
 
   constructor() {
-    const testimonialsRef = collection(this.firestore, 'testimonials');
-    this.testimonials$ = collectionData(testimonialsRef as unknown as Query, { idField: 'id' }) as Observable<Testimonial[]>;
+    const testimonialsRef = collection(this.firestore, "testimonials");
+    this.testimonials$ = collectionData(testimonialsRef as unknown as Query, {
+      idField: "id",
+    }) as Observable<Testimonial[]>;
     this.testimonials$.subscribe((data: Testimonial[]) => {
-      console.log('Firestore testimonials:', data);
+      console.log("Firestore testimonials:", data);
     });
   }
 
   gravatarUrl(email?: string, size: number = 120): string {
-    if (!email) return '';
+    if (!email) return "";
     return `https://www.gravatar.com/avatar/${md5(email.trim().toLowerCase())}?s=${size}&d=identicon`;
   }
 
   async submitTestimonial() {
-    if (!this.newTestimonial.name || !this.newTestimonial.title || !this.newTestimonial.date || !this.newTestimonial.relationship || !this.newTestimonial.text) {
+    if (
+      !this.newTestimonial.name ||
+      !this.newTestimonial.title ||
+      !this.newTestimonial.date ||
+      !this.newTestimonial.relationship ||
+      !this.newTestimonial.text
+    ) {
       return;
     }
-    const testimonialsRef = collection(this.firestore, 'testimonials');
+    const testimonialsRef = collection(this.firestore, "testimonials");
     await addDoc(testimonialsRef, { ...this.newTestimonial });
-    this.newTestimonial = { name: '', title: '', date: '', relationship: '', text: '', image: '' };
+    this.newTestimonial = {
+      name: "",
+      email: "",
+      title: "",
+      date: "",
+      relationship: "",
+      text: "",
+      image: "",
+    };
     this.showForm = false;
   }
 
   async deleteTestimonial(id: string) {
-    const testimonialsRef = collection(this.firestore, 'testimonials');
+    const testimonialsRef = collection(this.firestore, "testimonials");
     await deleteDoc(doc(testimonialsRef, id));
   }
 }

@@ -1,0 +1,62 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "projects/**/*"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "extends": [
+        "eslint:recommended",
+        "@typescript-eslint/recommended",
+        "@angular-eslint/recommended",
+        "@angular-eslint/template/process-inline-templates"
+      ],
+      "rules": {
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ],
+        "@typescript-eslint/no-explicit-any": "warn",
+        "@typescript-eslint/no-unused-vars": "error",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-inferrable-types": "error",
+        "prefer-const": "error",
+        "no-var": "error",
+        "no-console": "warn",
+        "no-debugger": "error"
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "@angular-eslint/template/recommended",
+        "@angular-eslint/template/accessibility"
+      ],
+      "rules": {
+        "@angular-eslint/template/interactive-supports-focus": "error",
+        "@angular-eslint/template/click-events-have-key-events": "error",
+        "@angular-eslint/template/mouse-events-have-key-events": "error",
+        "@angular-eslint/template/no-autofocus": "error",
+        "@angular-eslint/template/no-positive-tabindex": "error"
+      }
+    }
+  ]
+}
