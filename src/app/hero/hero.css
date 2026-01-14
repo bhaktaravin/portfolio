@@ -8,6 +8,7 @@
   overflow: hidden;
   background: linear-gradient(135deg, #232a36 0%, #1a1f2e 50%, #0f1419 100%);
   color: var(--text-main, #f5f6fa);
+  padding-top: 80px;
 }
 
 .hero-container {
@@ -38,7 +39,11 @@
 .shape {
   position: absolute;
   border-radius: 50%;
-  background: linear-gradient(45deg, rgba(79, 140, 255, 0.1), rgba(108, 99, 255, 0.1));
+  background: linear-gradient(
+    45deg,
+    rgba(79, 140, 255, 0.1),
+    rgba(108, 99, 255, 0.1)
+  );
   animation: float 20s infinite linear;
 }
 
@@ -75,7 +80,8 @@
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate(0, 0) rotate(0deg);
     opacity: 0.3;
   }
@@ -134,7 +140,7 @@
 }
 
 .name-highlight::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -5px;
   left: 0;
@@ -463,9 +469,15 @@
   border-radius: 50%;
 }
 
-.dot-red { background: #ff5f56; }
-.dot-yellow { background: #ffbd2e; }
-.dot-green { background: #27ca3f; }
+.dot-red {
+  background: #ff5f56;
+}
+.dot-yellow {
+  background: #ffbd2e;
+}
+.dot-green {
+  background: #27ca3f;
+}
 
 .code-title {
   font-size: 0.8rem;
@@ -474,7 +486,7 @@
 
 .code-content {
   padding: 1rem;
-  font-family: 'Fira Code', 'Monaco', monospace;
+  font-family: "Fira Code", "Monaco", monospace;
   font-size: 0.75rem;
   line-height: 1.6;
 }
@@ -488,11 +500,21 @@
   padding-left: 1rem;
 }
 
-.code-comment { color: #6b7280; }
-.code-keyword { color: #c678dd; }
-.code-variable { color: #e06c75; }
-.code-string { color: #98c379; }
-.code-array { color: #61dafb; }
+.code-comment {
+  color: #6b7280;
+}
+.code-keyword {
+  color: #c678dd;
+}
+.code-variable {
+  color: #e06c75;
+}
+.code-string {
+  color: #98c379;
+}
+.code-array {
+  color: #61dafb;
+}
 
 /* Scroll Indicator */
 .scroll-indicator {
@@ -614,7 +636,11 @@
 }
 
 @keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
     transform: translateY(0);
   }
   40% {

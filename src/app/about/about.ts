@@ -33,6 +33,17 @@ export class AboutComponent {
     { value: "15+", label: "Technologies" },
   ];
 
+  location = "Fremont, CA";
+
+  techStack = [
+    "Angular",
+    "React",
+    "Java Spring",
+    "Python/Django",
+    "AWS",
+    "TypeScript",
+  ];
+
   downloadResume(format: string): void {
     // Logic to download resume in specified format
     const link = document.createElement("a");

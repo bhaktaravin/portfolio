@@ -526,7 +526,7 @@ a,
   background: #232a36;
   color: #f5f6fa;
   padding: 1rem 0;
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 1000;
 }
