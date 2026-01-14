@@ -11,6 +11,14 @@ import { CommonModule } from "@angular/common";
 export class CertificationsComponent {
   certifications = [
     {
+      title: "Machine Learning with Python",
+      issuer: "Coursera(Authorized by IBM)",
+      date: "Jan 2026",
+      credentialId: "",
+      credentialUrl:
+        "https://www.credly.com/badges/e649df27-1069-4a73-8b61-644c375f0186/public_url",
+    },
+    {
       title: "Introduction to Scrum Master Profession",
       issuer: "IBM",
       date: "Sep 2025",
