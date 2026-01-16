@@ -22,6 +22,8 @@ import { CommandPaletteComponent } from "./shared/components/command-palette/com
 import { GitHubIntegrationComponent } from "./shared/components/github-integration/github-integration";
 import { ToastComponent } from "./shared/components/toast/toast.component";
 
+import { MissionControlComponent } from "./mission-control/mission-control.component";
+
 // Import services
 import { ThemeService } from "./services/theme.service";
 import { AnalyticsService } from "./services/analytics.service";
@@ -87,6 +89,7 @@ export interface Education {
     CommandPaletteComponent,
     GitHubIntegrationComponent,
     ToastComponent,
+    MissionControlComponent,
   ],
   templateUrl: "./app.html",
   styleUrls: ["./app.css"],

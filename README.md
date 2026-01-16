@@ -14,6 +14,7 @@ A cutting-edge, responsive portfolio website built with Angular 16+ showcasing m
 - **Core Web Vitals** monitoring and optimization
 - **PWA ready** with enhanced service worker
 - **Performance analytics** with real-time metrics
+- **Mission Control** - Integrated AI dashboard via Hugging Face Spaces
 
 ### 🎨 Advanced User Experience
 - **Dynamic theme system** (Light/Dark/Auto) with localStorage persistence
@@ -49,6 +50,7 @@ portfolio/
 │   │   ├── education/            # Education timeline
 │   │   ├── experience/           # Work experience
 │   │   ├── projects/             # Portfolio projects
+│   │   ├── mission-control/      # AI Dashboard integration
 │   │   ├── skills/               # Technical skills
 │   │   ├── testimonials/         # Client testimonials
 │   │   ├── services/             # Core services
