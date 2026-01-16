@@ -7,6 +7,7 @@ import { Subscription } from "rxjs";
 import { ThemeToggleComponent } from "./theme-toggle.component";
 import { AnalyticsService } from "../services/analytics.service";
 import { ToastService } from "../services/toast.service";
+import { ThemeService } from "../services/theme.service";
 
 interface NavItem {
   id: string;
@@ -26,6 +27,7 @@ interface NavItem {
       class="navbar"
       [class.scrolled]="isScrolled()"
       [class.mobile-open]="isMobileMenuOpen()"
+      [class.dark-theme]="themeService.isDarkMode()"
     >
       <div class="navbar-container container">
         <!-- Brand/Logo -->
@@ -212,11 +214,13 @@ interface NavItem {
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       }
 
-      /* Dark mode specific overrides using host-context to see parent theme attribute */
-      :host-context([data-theme="dark"]) .navbar.scrolled {
-        background: var(--color-navbar-bg, rgba(15, 23, 42, 0.9));
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      /* Dark mode specific overrides using explicit class binding */
+      /* Dark mode specific overrides using explicit class binding */
+      .navbar.dark-theme.scrolled {
+        background: rgba(15, 23, 42, 0.95) !important; /* Force dark background */
+        backdrop-filter: blur(12px) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
       }
 
       .navbar-container {
@@ -677,6 +681,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private analytics = inject(AnalyticsService);
   private toastService = inject(ToastService);
+  public themeService = inject(ThemeService);
 
   // Signals for reactive state
   private _isScrolled = signal(false);
