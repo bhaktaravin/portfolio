@@ -212,7 +212,8 @@ interface NavItem {
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       }
 
-      [data-theme="dark"] .navbar.scrolled {
+      /* Dark mode specific overrides using host-context to see parent theme attribute */
+      :host-context([data-theme="dark"]) .navbar.scrolled {
         background: var(--color-navbar-bg, rgba(15, 23, 42, 0.9));
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
