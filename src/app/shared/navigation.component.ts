@@ -196,26 +196,24 @@ interface NavItem {
         left: 0;
         right: 0;
         z-index: var(--z-fixed, 1030);
-        background: var(--color-navbar-bg, rgba(255, 255, 255, 0.9));
-        backdrop-filter: var(--color-navbar-backdrop, blur(10px));
-        -webkit-backdrop-filter: var(--color-navbar-backdrop, blur(10px));
+        background: transparent; /* Start transparent */
+        backdrop-filter: none; /* No blur initially for clean hero look */
+        -webkit-backdrop-filter: none;
         border-bottom: 1px solid transparent;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         min-height: 70px;
       }
 
       .navbar.scrolled {
-        background: rgba(255, 255, 255, 0.95);
+        background: var(--color-navbar-bg, rgba(255, 255, 255, 0.9));
+        backdrop-filter: var(--color-navbar-backdrop, blur(10px));
+        -webkit-backdrop-filter: var(--color-navbar-backdrop, blur(10px));
         border-bottom: 1px solid var(--color-border, #e5e7eb);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       }
 
-      [data-theme="dark"] .navbar {
-        background: rgba(15, 23, 42, 0.9);
-      }
-
       [data-theme="dark"] .navbar.scrolled {
-        background: rgba(15, 23, 42, 0.95);
+        background: var(--color-navbar-bg, rgba(15, 23, 42, 0.9));
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
       }

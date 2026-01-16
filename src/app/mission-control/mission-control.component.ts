@@ -9,19 +9,19 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
   templateUrl: './mission-control.component.html',
   styleUrls: ['./mission-control.component.css']
 })
-export class MissionControlComponent implements OnInit{
-  
-   safeUrl: SafeResourceUrl;
+export class MissionControlComponent implements OnInit {
+
+  safeUrl: SafeResourceUrl;
   // REPLACE THIS with your actual Hugging Face Space URL
-  spaceUrl = 'https://huggingface.co/spaces/bhaktaravin/futuristic-mission-control?logs=container';
+  spaceUrl = 'https://bhaktaravin-futuristic-mission-control.hf.space';
   constructor(private sanitizer: DomSanitizer) {
     this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.spaceUrl);
   }
-  ngOnInit(): void {}
-  
-  
-  
-  
+  ngOnInit(): void { }
+
+
+
+
 
 
 }
