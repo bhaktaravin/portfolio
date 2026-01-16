@@ -849,7 +849,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
     const element = document.getElementById(sectionId);
     if (element) {
       const offset = 80; // Account for fixed navbar
-      const elementPosition = element.offsetTop - offset;
+      // Use getBoundingClientRect().top + window.scrollY for absolute position relative to document
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY - offset;
 
       window.scrollTo({
         top: elementPosition,

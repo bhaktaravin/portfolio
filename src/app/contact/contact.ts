@@ -4,6 +4,7 @@ import { FormsModule, NgForm } from "@angular/forms";
 
 import { AnalyticsService } from "../services/analytics.service";
 import { ToastService } from "../services/toast.service";
+import { EmailService } from "../services/email.service";
 
 interface ContactForm {
   name: string;
@@ -31,6 +32,7 @@ interface FormErrors {
 export class ContactComponent {
   private analytics = inject(AnalyticsService);
   private toastService = inject(ToastService);
+  private emailService = inject(EmailService);
 
   // Form state signals
   private _isSubmitting = signal(false);
@@ -186,24 +188,18 @@ export class ContactComponent {
   }
 
   private async sendMessage(): Promise<void> {
-    // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    // Map form fields to EmailJS template parameters
+    // Ensure your EmailJS template uses these variable names:
+    // {{from_name}}, {{from_email}}, {{subject}}, {{message}}, {{reply_to}}
+    const templateParams = {
+      from_name: this.contact.name,
+      from_email: this.contact.email,
+      subject: this.contact.subject,
+      message: this.contact.message,
+      reply_to: this.contact.email,
+    };
 
-    // In a real implementation, this would send the email
-    // For now, we'll just log it and show success
-    console.log("Contact form submission:", {
-      ...this.contact,
-      honeypot: undefined, // Don't log honeypot
-      timestamp: new Date().toISOString(),
-      userAgent: navigator.userAgent,
-      referrer: document.referrer,
-    });
-
-    // You could integrate with services like:
-    // - EmailJS
-    // - Netlify Forms
-    // - AWS SES
-    // - Custom backend API
+    await this.emailService.sendEmail(templateParams);
   }
 
   private validateForm(): { isValid: boolean; errors: FormErrors } {
