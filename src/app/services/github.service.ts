@@ -148,8 +148,9 @@ export class GitHubService {
     const user$ = this.fetchUser();
     const repos$ = this.fetchRepositories();
     const events$ = this.fetchRecentEvents();
+    const contributions$ = this.fetchContributions();
 
-    // Combine all requests
+    // Combine critical requests (User + Repos)
     user$
       .pipe(
         switchMap((user) => {
@@ -182,13 +183,22 @@ export class GitHubService {
         }),
       )
       .subscribe((data) => {
-        // Fetch events separately as they're less critical
+        // Fetch non-critical data (Events + Contributions) separately
+        // so they don't block the main dashboard update
+
+        // 1. Contributions
+        contributions$.subscribe((contributions) => {
+          this.updateStats({ contributions });
+        });
+
+        // 2. Events
         events$.subscribe(
           (events) => {
             const finalStats: GitHubStats = {
               ...data,
               events,
-              contributions: this.generateMockContributions(), // GitHub API doesn't provide this without GraphQL
+              // We'll update contributions via its own subscription or keep existing if null
+              contributions: this.statsSubject.value.contributions,
               isLoading: false,
               lastUpdated: new Date(),
               error: null,
@@ -198,11 +208,11 @@ export class GitHubService {
             this.cacheData(finalStats);
           },
           () => {
-            // Events failed, but continue with other data
+            // Events failed, but continue
             const finalStats: GitHubStats = {
               ...data,
               events: [],
-              contributions: this.generateMockContributions(),
+              contributions: this.statsSubject.value.contributions,
               isLoading: false,
               lastUpdated: new Date(),
               error: null,
@@ -327,33 +337,89 @@ export class GitHubService {
     return languageStats;
   }
 
-  private generateMockContributions(): GitHubContributions {
-    // Generate mock contribution data since GitHub's contribution graph requires GraphQL API
-    const contributions: GitHubContributions = {
-      totalCommits: Math.floor(Math.random() * 1000) + 500,
-      currentStreak: Math.floor(Math.random() * 30) + 5,
-      longestStreak: Math.floor(Math.random() * 100) + 50,
-      contributionDays: [],
-    };
+  private fetchContributions(): Observable<GitHubContributions | null> {
+    return this.http
+      .get<any>(`https://github-contributions-api.jogruber.de/v4/${this.GITHUB_USERNAME}`)
+      .pipe(
+        map((data) => {
+          const contributions = data.contributions;
+          const contributionDays = contributions.map((day: any) => ({
+            date: day.date,
+            count: day.count,
+            level: day.level,
+          }));
 
-    // Generate last 365 days of contribution data
-    const today = new Date();
-    for (let i = 364; i >= 0; i--) {
-      const date = new Date(today);
-      date.setDate(date.getDate() - i);
+          // Calc total commits
+          const totalCommits = contributionDays.reduce(
+            (sum: number, day: any) => sum + day.count,
+            0
+          );
 
-      const count = Math.random() > 0.7 ? Math.floor(Math.random() * 8) + 1 : 0;
-      const level =
-        count === 0 ? 0 : count <= 2 ? 1 : count <= 4 ? 2 : count <= 6 ? 3 : 4;
+          // Calc streaks
+          let currentStreak = 0;
+          let longestStreak = 0;
+          let tempStreak = 0;
 
-      contributions.contributionDays.push({
-        date: date.toISOString().split("T")[0],
-        count,
-        level,
-      });
-    }
+          // Sort by date ascending explicitly to be safe, though API usually returns sorted
+          const sortedDays = [...contributionDays].sort((a, b) =>
+            new Date(a.date).getTime() - new Date(b.date).getTime()
+          );
 
-    return contributions;
+          // Check current streak (working backwards from today)
+          const today = new Date().toISOString().split('T')[0];
+          const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+
+          // Find index of today or yesterday to start counting current streak
+          let lastContributionIndex = sortedDays.length - 1;
+
+          // If the last day in data is today or yesterday and has contributions, we might be in a streak
+          /* 
+             Note: The API returns all days including today. 
+             We need to iterate backwards to find the current active streak.
+          */
+          for (let i = sortedDays.length - 1; i >= 0; i--) {
+            const day = sortedDays[i];
+            if (day.count > 0) {
+              currentStreak++;
+            } else {
+              // If we hit a 0 count day
+              const dayDate = day.date;
+              // If it's today and 0, the streak isn't broken yet if we contributed yesterday
+              // If it's yesterday and 0, and today is 0, streak is 0.
+              if (dayDate === today && day.count === 0) {
+                continue;
+              }
+              break;
+            }
+          }
+
+          // Calculate longest streak
+          for (const day of sortedDays) {
+            if (day.count > 0) {
+              tempStreak++;
+            } else {
+              if (tempStreak > longestStreak) {
+                longestStreak = tempStreak;
+              }
+              tempStreak = 0;
+            }
+          }
+          if (tempStreak > longestStreak) {
+            longestStreak = tempStreak;
+          }
+
+          return {
+            totalCommits,
+            currentStreak,
+            longestStreak,
+            contributionDays,
+          };
+        }),
+        catchError((error) => {
+          console.error("Failed to fetch contribution data:", error);
+          return of(null);
+        })
+      );
   }
 
   private updateStats(partialStats: Partial<GitHubStats>): void {
