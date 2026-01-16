@@ -319,6 +319,51 @@ export class ProjectsComponent implements OnInit {
         { label: "Load Time", value: "0.8s", improvement: "Initial game load" },
       ],
     },
+    {
+      id: "mission-control",
+      title: "Mission Control",
+      description:
+        "AI-powered dashboard for monitoring and managing projects.",
+      detailedDescription:
+        "A comprehensive AI dashboard built with Angular and TypeScript, featuring advanced image optimization, chapter management, and seamless user experience across all devices.",
+      technologies: ["Angular", "TypeScript", "CSS3", "HTML5", "PWA"],
+      category: "Web Application",
+      difficulty: "Intermediate",
+      featured: true,
+      completionDate: "2023-12",
+      teamSize: 1,
+      myRole: "Full Stack Developer",
+      githubUrl: "https://github.com/ravinbhakta/mission-control",
+      liveUrl: "https://huggingface.co/spaces/bhaktaravin/futuristic-mission-control",
+      demoType: "live",
+      image: "assets/mission-control.png",
+      images: ["assets/mission-control.png", "assets/mission-control-mobile.png"],
+      tags: ["Responsive", "PWA", "Performance"],
+      challenges: [
+        "Optimizing large image loading for manga pages",
+        "Creating smooth reading experience across devices",
+        "Implementing efficient chapter navigation",
+      ],
+      solutions: [
+        "Implemented lazy loading and image preloading strategies",
+        "Built responsive design with touch gestures for mobile",
+        "Created efficient caching mechanism for chapter data",
+      ],
+      results: [
+        "Engaging gameplay with multiple modes",
+        "Fast loading with optimized API calls",
+        "Smooth experience across all devices",
+      ],
+      metrics: [
+        { label: "Game Sessions", value: "1000+", improvement: "Daily plays" },
+        {
+          label: "Completion Rate",
+          value: "68%",
+          improvement: "Users finish quiz",
+        },
+        { label: "Load Time", value: "0.8s", improvement: "Initial game load" },
+      ],
+    },
   ];
 
   // Computed properties
