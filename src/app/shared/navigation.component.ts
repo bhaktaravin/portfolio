@@ -127,7 +127,7 @@ interface NavItem {
 
         <!-- Mobile Menu -->
         <div
-          class="mobile-menu"
+          class="mobile-menu mobile-only"
           [class.open]="isMobileMenuOpen()"
           [attr.aria-hidden]="!isMobileMenuOpen()"
         >
@@ -217,7 +217,12 @@ interface NavItem {
       /* Dark mode specific overrides using explicit class binding */
       /* Dark mode specific overrides using explicit class binding */
       .navbar.dark-theme.scrolled {
-        background: rgba(15, 23, 42, 0.95) !important; /* Force dark background */
+        background: rgba(
+          15,
+          23,
+          42,
+          0.95
+        ) !important; /* Force dark background */
         backdrop-filter: blur(12px) !important;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
@@ -855,7 +860,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
     if (element) {
       const offset = 80; // Account for fixed navbar
       // Use getBoundingClientRect().top + window.scrollY for absolute position relative to document
-      const elementPosition = element.getBoundingClientRect().top + window.scrollY - offset;
+      const elementPosition =
+        element.getBoundingClientRect().top + window.scrollY - offset;
 
       window.scrollTo({
         top: elementPosition,
