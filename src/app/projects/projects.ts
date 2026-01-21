@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import {
@@ -85,9 +85,59 @@ const techStackData: Record<string, TechStack> = {
   },
   Python: {
     name: "Python",
-    icon: `<svg width="20" height="20" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="106.25" cy="20.48" r="8.32" fill="#306998"/></svg>`,
-    color: "#306998",
+    icon: `<svg viewBox="0 0 256 256" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#3776AB" d="M126.9 0c-65.3 0-61.2 28.3-61.2 28.3l.1 29.3h62.3v8.8H41.1S0 63.6 0 128c0 64.4 36 62.1 36 62.1h21.5v-30.3s-1.2-36.1 35.5-36.1h61.1s34.4.6 34.4-33.2V33.2S194.6 0 126.9 0z"/>
+      <path fill="#FFD43B" d="M129.1 256c65.3 0 61.2-28.3 61.2-28.3l-.1-29.3h-62.3v-8.8h87s41.1 2.8 41.1-61.6c0-64.4-36-62.1-36-62.1h-21.5v30.3s1.2 36.1-35.5 36.1H101.9s-34.4-.6-34.4 33.2v57.3S61.4 256 129.1 256z"/>
+    </svg>`,
+    color: "#3776AB",
   },
+
+  Flask: {
+    name: "Flask",
+    icon: `<svg viewBox="0 0 256 256" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#000000" d="M96 0h64v32l-16 32v64l48 80v48H64v-48l48-80V64L96 32V0z"/>
+    </svg>`,
+    color: "#000000",
+  },
+
+  FastAPI: {
+    name: "FastAPI",
+    icon: `<svg viewBox="0 0 256 256" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="128" cy="128" r="128" fill="#009688"/>
+      <path fill="#ffffff" d="M80 80h96v24h-36v72h-24v-72H80z"/>
+    </svg>`,
+    color: "#009688",
+  },
+
+  SQLite: {
+    name: "SQLite",
+    icon: `<svg viewBox="0 0 256 256" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="128" cy="40" rx="96" ry="32" fill="#0C4B6E"/>
+      <path fill="#0C4B6E" d="M32 40v136c0 17.7 43 32 96 32s96-14.3 96-32V40"/>
+      <ellipse cx="128" cy="176" rx="96" ry="32" fill="#1E88C9"/>
+    </svg>`,
+    color: "#1E88C9",
+  },
+
+  SQLAlchemy: {
+    name: "SQLAlchemy",
+    icon: `<svg viewBox="0 0 256 256" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+      <rect width="256" height="256" rx="40" fill="#B30000"/>
+      <path fill="#ffffff" d="M72 72h32l80 112h-32zM112 72h32l40 56h-32z"/>
+    </svg>`,
+    color: "#B30000",
+  },
+
+  Pandas: {
+    name: "Pandas",
+    icon: `<svg viewBox="0 0 256 256" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+      <rect x="40" y="24" width="24" height="208" fill="#150458"/>
+      <rect x="96" y="24" width="24" height="208" fill="#150458"/>
+      <rect x="152" y="24" width="24" height="208" fill="#150458"/>
+    </svg>`,
+    color: "#150458",
+  },
+
   Node: {
     name: "Node.js",
     icon: `<svg width="20" height="20" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="128" cy="128" r="60" fill="#8CC84B"/></svg>`,
@@ -119,7 +169,6 @@ const techStackData: Record<string, TechStack> = {
   ],
 })
 export class ProjectsComponent implements OnInit {
-  // Filter and search properties
   searchQuery = "";
   selectedCategory = "all";
   selectedTechnology = "all";
@@ -128,15 +177,14 @@ export class ProjectsComponent implements OnInit {
   viewMode: "grid" | "list" = "grid";
   showFilters = false;
 
-  // Modal properties
   selectedProject: Project | null = null;
   showProjectModal = false;
   activeModalTab = "overview";
 
-  // Animation properties
   hoveredCard: string | null = null;
 
   projects: Project[] = [
+    // Angular MangaViewer
     {
       id: "mangaviewer",
       title: "MangaViewer",
@@ -185,88 +233,65 @@ export class ProjectsComponent implements OnInit {
           improvement: "Average session time",
         },
       ],
-      caseStudy: {
-        problem:
-          "Traditional manga readers suffer from poor mobile experience and slow loading times, leading to frustrated users.",
-        solution:
-          "Built a modern Progressive Web App with optimized image handling and responsive design.",
-        process: [
-          "Research existing solutions and identify pain points",
-          "Design responsive layouts with mobile-first approach",
-          "Implement advanced image optimization techniques",
-          "Add Progressive Web App capabilities",
-          "Conduct user testing and performance optimization",
-        ],
-        outcome:
-          "Created a fast, mobile-friendly manga reader that significantly improved user experience and engagement.",
-      },
     },
+    // Python Job Recommender
     {
-      id: "finance-tracker",
-      title: "Flutter Personal Finance Tracker",
+      id: "smart-job-recommender",
+      title: "Python Job Recommender",
       description:
-        "Cross-platform mobile app for comprehensive personal finance management.",
+        "Automated job scraper and recommender system built with Python and FastAPI.",
       detailedDescription:
-        "A full-featured personal finance tracking application built with Flutter, offering expense tracking, budget planning, financial analytics, and intelligent insights to help users manage their money better.",
-      technologies: ["Flutter", "Dart", "SQLite", "Material Design", "Charts"],
-      category: "Mobile Application",
-      difficulty: "Advanced",
+        "A backend-focused project that scrapes job listings, analyzes user preferences, and recommends suitable jobs. Built with Python, Flask, SQLite, SQLAlchemy, and FastAPI, featuring RESTful endpoints and automated recommendation logic.",
+      technologies: [
+        "Python",
+        "Flask",
+        "SQLite",
+        "SQLAlchemy",
+        "FastAPI",
+        "Pandas",
+      ],
+      category: "Web Application",
+      difficulty: "Intermediate",
       featured: true,
-      completionDate: "2023-10",
+      completionDate: "2026-01",
       teamSize: 1,
-      myRole: "Mobile Developer",
-      githubUrl:
-        "https://github.com/bhaktaravin/flutter_personal_finance_tracker",
-      demoType: "video",
-      image: "assets/nothumbnail.jpg",
-      tags: ["Cross-platform", "Finance", "Analytics"],
+      myRole: "Full Stack / Backend Developer",
+      githubUrl: "https://github.com/yourusername/python-job-recommender",
+      demoType: "live",
+      image: "assets/python-job-recommender.png",
+      tags: ["Python", "Automation", "Job Recommendations"],
       challenges: [
-        "Managing complex financial data relationships",
-        "Creating intuitive data visualization",
-        "Ensuring data security and privacy",
+        "Efficiently scraping large volumes of job data",
+        "Designing a recommendation engine based on user preferences",
+        "Integrating Flask APIs with FastAPI endpoints for better scalability",
       ],
       solutions: [
-        "Designed normalized database schema with SQLite",
-        "Built interactive charts with customizable time ranges",
-        "Implemented local encryption for sensitive data",
+        "Implemented asynchronous scraping using `aiohttp`",
+        "Built a recommendation algorithm using Pandas and user profiling",
+        "Structured backend using Flask for core logic and FastAPI for API endpoints",
       ],
       results: [
-        "Comprehensive finance tracking in one app",
-        "Visual insights into spending patterns",
-        "Improved financial awareness for users",
+        "Automated job recommendations for users based on skills and experience",
+        "Reduced manual job searching effort",
+        "Modular and scalable backend architecture",
       ],
       metrics: [
         {
-          label: "Data Points",
-          value: "500K+",
-          improvement: "Transactions tracked",
+          label: "Jobs Scraped",
+          value: "50K+",
+          improvement: "Automated daily scraping",
         },
         {
-          label: "User Retention",
-          value: "75%",
-          improvement: "Monthly active users",
+          label: "Recommendation Accuracy",
+          value: "85%",
+          improvement: "Based on user feedback",
         },
         {
-          label: "Financial Insights",
-          value: "12",
-          improvement: "Automated reports",
+          label: "API Response Time",
+          value: "200ms",
+          improvement: "Optimized FastAPI endpoints",
         },
       ],
-      caseStudy: {
-        problem:
-          "Most finance apps are either too simple or overly complex, lacking the right balance of features and usability.",
-        solution:
-          "Developed a comprehensive yet intuitive finance tracker with smart categorization and visual analytics.",
-        process: [
-          "Research user needs and existing app limitations",
-          "Design user-friendly interface with Material Design",
-          "Implement secure local data storage",
-          "Build comprehensive reporting and analytics",
-          "Add smart categorization and budgeting features",
-        ],
-        outcome:
-          "Delivered a feature-rich finance app that simplifies money management while providing deep insights.",
-      },
     },
     {
       id: "pokemon-quiz",
@@ -293,7 +318,16 @@ export class ProjectsComponent implements OnInit {
       demoType: "interactive",
       stackblitzUrl: "https://stackblitz.com/github/bhaktaravin/poke-pal-quiz",
       image: "assets/poke-pal-quiz.png",
-      tags: ["Game", "API Integration", "Animations"],
+      tags: [
+        "Game",
+        "API Integration",
+        "Animations",
+        "Responsive Design",
+        "User Interface",
+        "User Experience",
+        "Firebase Firestore",
+        "Firebase Authentication",
+      ],
       challenges: [
         "Creating engaging game mechanics",
         "Managing API data efficiently",
@@ -319,10 +353,8 @@ export class ProjectsComponent implements OnInit {
         { label: "Load Time", value: "0.8s", improvement: "Initial game load" },
       ],
     },
-
   ];
 
-  // Computed properties
   categories: string[] = [];
   technologies: string[] = [];
   difficulties: string[] = [];
@@ -348,7 +380,6 @@ export class ProjectsComponent implements OnInit {
   filterProjects() {
     let filtered = this.projects;
 
-    // Search filter
     if (this.searchQuery.trim()) {
       const query = this.searchQuery.toLowerCase();
       filtered = filtered.filter(
@@ -363,30 +394,25 @@ export class ProjectsComponent implements OnInit {
       );
     }
 
-    // Category filter
     if (this.selectedCategory !== "all") {
       filtered = filtered.filter(
         (project) => project.category === this.selectedCategory,
       );
     }
 
-    // Technology filter
     if (this.selectedTechnology !== "all") {
       filtered = filtered.filter((project) =>
         project.technologies.includes(this.selectedTechnology),
       );
     }
 
-    // Difficulty filter
     if (this.selectedDifficulty !== "all") {
       filtered = filtered.filter(
         (project) => project.difficulty === this.selectedDifficulty,
       );
     }
 
-    // Sort projects
     filtered = this.sortProjects(filtered);
-
     this.filteredProjects = filtered;
   }
 
@@ -506,7 +532,6 @@ export class ProjectsComponent implements OnInit {
     }
   }
 
-  // Keyboard navigation for accessibility
   onKeydown(event: KeyboardEvent, project: Project) {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
