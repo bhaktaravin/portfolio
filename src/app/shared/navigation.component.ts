@@ -477,13 +477,21 @@ interface NavItem {
         bottom: 0;
         background: var(--color-card-bg);
         transform: translateY(-100%);
-        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                    opacity 0.4s ease,
+                    visibility 0.4s ease;
         z-index: var(--z-modal);
         border-top: 1px solid var(--color-border);
       }
 
       .mobile-menu.open {
         transform: translateY(0);
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
       }
 
       .mobile-menu-content {
