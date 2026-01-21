@@ -470,6 +470,7 @@ interface NavItem {
 
       /* Mobile Menu */
       .mobile-menu {
+        display: none; /* Hidden by default on desktop */
         position: fixed;
         top: 70px;
         left: 0;
@@ -480,6 +481,13 @@ interface NavItem {
         transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: var(--z-modal);
         border-top: 1px solid var(--color-border);
+      }
+
+      /* Only show mobile menu on mobile screens */
+      @media (max-width: 768px) {
+        .mobile-menu {
+          display: block;
+        }
       }
 
       .mobile-menu.open {
