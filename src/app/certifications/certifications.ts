@@ -1,10 +1,11 @@
 import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { CardTiltDirective } from "../shared/directives/card-tilt.directive";
 
 @Component({
   selector: "app-certifications",
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CardTiltDirective],
   templateUrl: "./certifications.html",
   styleUrls: ["./certifications.css"],
 })

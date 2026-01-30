@@ -21,6 +21,8 @@ import { NavigationComponent } from "./shared/navigation.component";
 import { CommandPaletteComponent } from "./shared/components/command-palette/command-palette";
 import { GitHubIntegrationComponent } from "./shared/components/github-integration/github-integration";
 import { ToastComponent } from "./shared/components/toast/toast.component";
+import { ScrollToTopComponent } from "./shared/scroll-to-top.component";
+import { SmoothScrollSectionDirective } from "./shared/directives/smooth-scroll-section.directive";
 
 import { MissionControlComponent } from "./mission-control/mission-control.component";
 
@@ -89,7 +91,9 @@ export interface Education {
     CommandPaletteComponent,
     GitHubIntegrationComponent,
     ToastComponent,
+    ScrollToTopComponent,
     MissionControlComponent,
+    SmoothScrollSectionDirective,
   ],
   templateUrl: "./app.html",
   styleUrls: ["./app.css"],

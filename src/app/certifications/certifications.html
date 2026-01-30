@@ -1,7 +1,7 @@
 <div class="certifications-section">
   <h2 class="certifications-title">Certifications</h2>
   <div class="certifications-grid">
-    <div class="certification-card" *ngFor="let cert of certifications">
+    <div class="certification-card" appCardTilt *ngFor="let cert of certifications">
       <div class="certification-content">
         <h3 class="certification-title">{{ cert.title }}</h3>
         <p class="certification-issuer">{{ cert.issuer }}</p>

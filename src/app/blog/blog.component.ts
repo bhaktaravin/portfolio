@@ -41,10 +41,30 @@ import { AnalyticsService } from "../services/analytics.service";
               <span class="stat-label">Categories</span>
             </div>
           </div>
+
+          <div class="blog-cta">
+            <button
+              class="btn btn-primary"
+              type="button"
+              (click)="openRailsBlog()"
+              [attr.aria-label]="'View full blog on GitHub'"
+            >
+              View Full Blog
+            </button>
+            <a
+              class="btn btn-outline"
+              [href]="railsBlogUrl"
+              target="_blank"
+              rel="noopener"
+              [attr.aria-label]="'Open rails_blog repository'"
+            >
+              rails_blog Repo
+            </a>
+          </div>
         </div>
 
         <!-- Filters and Search -->
-        <div class="blog-controls">
+        <div class="blog-controls" *ngIf="!previewMode">
           <div class="search-container">
             <div class="search-input-wrapper">
               <input
@@ -204,12 +224,12 @@ import { AnalyticsService } from "../services/analytics.service";
             <h2 class="section-title">
               {{ getPostsTitle() }}
               <span class="post-count"
-                >({{ blogService.filteredPosts().length }})</span
+                >({{ getDisplayedCount() }})</span
               >
             </h2>
 
             <!-- Active Filters -->
-            <div class="active-filters" *ngIf="hasActiveFilters()">
+            <div class="active-filters" *ngIf="hasActiveFilters() && !previewMode">
               <span class="filter-label">Active filters:</span>
               <button
                 *ngIf="searchQuery"
@@ -286,7 +306,7 @@ import { AnalyticsService } from "../services/analytics.service";
           >
             <article
               *ngFor="
-                let post of blogService.filteredPosts();
+                let post of getDisplayedPosts();
                 trackBy: trackPost;
                 let i = index
               "
@@ -383,7 +403,7 @@ import { AnalyticsService } from "../services/analytics.service";
             *ngIf="
               !blogService.loading() &&
               !blogService.error() &&
-              blogService.filteredPosts().length === 0
+              getDisplayedPosts().length === 0
             "
           >
             <div class="empty-content">
@@ -401,6 +421,20 @@ import { AnalyticsService } from "../services/analytics.service";
                 Clear Filters
               </button>
             </div>
+          </div>
+
+          <div class="blog-preview-cta" *ngIf="previewMode">
+            <p class="preview-note">
+              Want the full archive? Visit the Rails blog for all posts.
+            </p>
+            <button
+              class="btn btn-primary"
+              type="button"
+              (click)="openRailsBlog()"
+              [attr.aria-label]="'View all posts on the Rails blog'"
+            >
+              View All Posts
+            </button>
           </div>
         </div>
 
@@ -498,6 +532,14 @@ import { AnalyticsService } from "../services/analytics.service";
         margin-top: 2rem;
       }
 
+      .blog-cta {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+      }
+
       .stat {
         text-align: center;
       }
@@ -514,6 +556,16 @@ import { AnalyticsService } from "../services/analytics.service";
         opacity: 0.8;
         text-transform: uppercase;
         letter-spacing: 0.05em;
+      }
+
+      .blog-preview-cta {
+        text-align: center;
+        margin-top: 2rem;
+      }
+
+      .preview-note {
+        color: var(--color-text-secondary);
+        margin-bottom: 1rem;
       }
 
       /* Controls Section */
@@ -1243,6 +1295,11 @@ export class BlogComponent implements OnInit {
   selectedSort: BlogSortBy = "publishedAt";
   newsletterEmail = "";
 
+  // Preview mode (show top posts only)
+  previewMode = true;
+  previewLimit = 3;
+  railsBlogUrl = "https://github.com/bhaktaravin/rails_blog";
+
   private _showFeaturedOnly = signal(false);
   readonly showFeaturedOnly = this._showFeaturedOnly.asReadonly();
 
@@ -1348,13 +1405,19 @@ export class BlogComponent implements OnInit {
       },
     });
 
-    // In a real app, this would navigate to the post detail page
-    // this.router.navigate(['/blog', post.slug]);
+    // Open Rails blog (full content hosted externally)
+    window.open(this.railsBlogUrl, "_blank", "noopener");
+  }
 
-    // For now, we'll show an alert
-    alert(
-      `Opening post: ${post.title}\n\nThis would navigate to /blog/${post.slug} in a real application.`,
-    );
+  openRailsBlog(): void {
+    this.analytics.trackEvent({
+      name: "blog_open_full_blog",
+      category: "Blog",
+      action: "click",
+      label: "rails_blog",
+    });
+
+    window.open(this.railsBlogUrl, "_blank", "noopener");
   }
 
   toggleLike(postId: string, event: Event): void {
@@ -1444,8 +1507,21 @@ export class BlogComponent implements OnInit {
     return !!(filters.search || filters.category || filters.featured);
   }
 
+  getDisplayedPosts(): BlogPost[] {
+    const posts = this.blogService.filteredPosts();
+    return this.previewMode ? posts.slice(0, this.previewLimit) : posts;
+  }
+
+  getDisplayedCount(): number {
+    return this.getDisplayedPosts().length;
+  }
+
   getPostsTitle(): string {
     const filters = this.blogService.filters();
+
+    if (!this.hasActiveFilters() && this.previewMode) {
+      return "Top Posts";
+    }
 
     if (filters.search) {
       return `Search Results for "${filters.search}"`;

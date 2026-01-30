@@ -8,6 +8,7 @@ import { ThemeToggleComponent } from "./theme-toggle.component";
 import { AnalyticsService } from "../services/analytics.service";
 import { ToastService } from "../services/toast.service";
 import { ThemeService } from "../services/theme.service";
+import { ResumeService } from "../services/resume.service";
 
 interface NavItem {
   id: string;
@@ -707,6 +708,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private analytics = inject(AnalyticsService);
   private toastService = inject(ToastService);
+  private resumeService = inject(ResumeService);
   public themeService = inject(ThemeService);
 
   // Signals for reactive state
@@ -929,16 +931,13 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
     try {
       // Track analytics
-      this.analytics.trackDownload("Ravin_Bhakta_Resume.pdf", "pdf");
+      this.analytics.trackDownload("Ravin_Bhakta_Resume.txt", "text");
 
-      // Simulate loading for better UX (remove in production if not needed)
+      // Simulate loading for better UX
       await new Promise(resolve => setTimeout(resolve, 500));
 
-      // Create download link
-      const link = document.createElement("a");
-      link.href = "assets/resume.pdf";
-      link.download = "Ravin_Bhakta_Resume.pdf";
-      link.click();
+      // Download resume using the service
+      this.resumeService.downloadResume("Ravin_Bhakta_Resume.txt");
 
       // Show success toast
       this.toastService.success(

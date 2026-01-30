@@ -260,11 +260,34 @@
   margin-bottom: 0.25rem;
 }
 
+.company-logo-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .company-logo {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   border-radius: 4px;
   object-fit: cover;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+}
+
+.company-initials {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--primary-color);
 }
 
 .company-name {

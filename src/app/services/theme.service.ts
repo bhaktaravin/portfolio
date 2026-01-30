@@ -208,4 +208,21 @@ export class ThemeService {
       }, 150);
     });
   }
+
+  // Get suggested theme based on time of day
+  getSuggestedThemeByTime(): 'light' | 'dark' {
+    const hour = new Date().getHours();
+    // Dark mode between 7 PM and 6 AM
+    if (hour >= 19 || hour < 6) {
+      return 'dark';
+    }
+    return 'light';
+  }
+
+  // Check if should enable reduced motion
+  prefersReducedMotion(): boolean {
+    if (typeof window === 'undefined') return false;
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
 }
+

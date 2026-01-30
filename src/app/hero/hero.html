@@ -16,6 +16,10 @@
       <div class="hero-text" data-aos="fade-up" data-aos-delay="100">
         <div class="hero-greeting">
           <span class="greeting-text">👋 Hello, I'm</span>
+          <span class="availability-badge" [class]="availability.status">
+            <span class="status-icon">{{ availability.icon }}</span>
+            <span class="status-text">{{ availability.text }}</span>
+          </span>
         </div>
 
         <h1 class="hero-name">
@@ -24,7 +28,9 @@
 
         <h2 class="hero-title">{{ jobTitle }}</h2>
 
-        <p class="hero-tagline">{{ tagline }}</p>
+        <p class="hero-tagline">
+          {{ typedTagline }}<span class="typing-cursor">|</span>
+        </p>
 
         <p class="hero-description">{{ description }}</p>
 

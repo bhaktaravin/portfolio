@@ -2,58 +2,58 @@
 <app-navigation></app-navigation>
 
 <!-- Hero Section -->
-<section id="hero" class="hero section fade-in">
+<section id="hero" class="hero section">
   <app-hero></app-hero>
 </section>
 
 <main>
   <!-- About Section -->
-  <section id="about" class="about section fade-in">
+  <section id="about" class="about section scroll-section" appSmoothScrollSection="fade-up" [scrollDelay]="0">
     <app-about></app-about>
   </section>
 
   <!-- Skills Section -->
-  <section id="skills" class="skills section fade-in">
+  <section id="skills" class="skills section scroll-section" appSmoothScrollSection="fade-up" [scrollDelay]="100">
     <app-skills></app-skills>
   </section>
 
   <!-- Experience Section -->
-  <section id="experience" class="experience section fade-in">
+  <section id="experience" class="experience section scroll-section" appSmoothScrollSection="fade-left" [scrollDelay]="0">
     <app-experience></app-experience>
   </section>
 
   <!-- Education Section -->
-  <section id="education" class="education section fade-in">
+  <section id="education" class="education section scroll-section" appSmoothScrollSection="fade-right" [scrollDelay]="0">
     <app-education></app-education>
   </section>
 
   <!-- Certifications Section -->
-  <section id="certifications" class="certifications section fade-in">
+  <section id="certifications" class="certifications section scroll-section" appSmoothScrollSection="scale" [scrollDelay]="50">
     <app-certifications></app-certifications>
   </section>
 
   <!-- Projects Section -->
-  <section id="projects" class="projects section fade-in">
+  <section id="projects" class="projects section scroll-section" appSmoothScrollSection="fade-up" [scrollDelay]="0">
     <app-projects></app-projects>
   </section>
 
   <!-- Blog Section -->
-  <section id="blog" class="blog section fade-in">
+  <section id="blog" class="blog section scroll-section" appSmoothScrollSection="fade-left" [scrollDelay]="0">
     <app-blog></app-blog>
   </section>
 
   <!-- GitHub Integration Section -->
-  <section id="github" class="github section fade-in">
+  <section id="github" class="github section scroll-section" appSmoothScrollSection="fade-right" [scrollDelay]="0">
     <app-github-integration></app-github-integration>
   </section>
 
   <!-- Testimonials Section -->
-  <section id="testimonials" class="testimonials section fade-in">
+  <section id="testimonials" class="testimonials section scroll-section" appSmoothScrollSection="fade-up" [scrollDelay]="0">
     <app-testimonials></app-testimonials>
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="contact section fade-in">
+  <section id="contact" class="contact section scroll-section" appSmoothScrollSection="scale" [scrollDelay]="0">
     <app-contact></app-contact>
   </section>
 </main>
@@ -140,6 +140,9 @@
 
 <!-- Toast Notifications -->
 <app-toast></app-toast>
+
+<!-- Scroll to Top Button -->
+<app-scroll-to-top></app-scroll-to-top>
 
 <!-- Loading overlay for theme transitions -->
 <div

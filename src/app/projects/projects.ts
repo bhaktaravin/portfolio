@@ -8,6 +8,7 @@ import {
   transition,
   animate,
 } from "@angular/animations";
+import { CardTiltDirective } from "../shared/directives/card-tilt.directive";
 
 interface Project {
   id: string;
@@ -148,7 +149,7 @@ const techStackData: Record<string, TechStack> = {
 @Component({
   selector: "app-projects",
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, CardTiltDirective],
   templateUrl: "./projects.html",
   styleUrls: ["./projects.css"],
   animations: [

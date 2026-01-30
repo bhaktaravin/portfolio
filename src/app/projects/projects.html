@@ -140,6 +140,7 @@
     <div
       *ngFor="let project of filteredProjects; trackBy: trackByProject"
       class="project-card"
+      appCardTilt
       [class.featured]="project.featured"
       [@cardHover]="hoveredCard === project.id ? 'hovered' : 'default'"
       (mouseenter)="onCardHover(project.id)"

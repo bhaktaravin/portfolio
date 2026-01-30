@@ -3,6 +3,9 @@
   <div *ngFor="let exp of experiences" class="experience-entry">
     <div class="experience-timeline-dot"></div>
     <div class="experience-card">
+      <div class="experience-logo" *ngIf="exp.companyLogo">
+        <img [src]="exp.companyLogo" [alt]="exp.company + ' logo'" onerror="this.style.display='none'" />
+      </div>
       <div class="experience-header">
         <span class="experience-dates">
           <i class="fa fa-calendar"></i> {{ exp.start }} — {{ exp.end }}

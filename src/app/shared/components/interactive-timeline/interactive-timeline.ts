@@ -95,12 +95,18 @@ export interface TimelineItem {
                   <div class="title-section">
                     <h3 class="item-title">{{ item.title }}</h3>
                     <div class="item-company">
-                      <img
-                        *ngIf="item.companyLogo"
-                        [src]="item.companyLogo"
-                        [alt]="item.company + ' logo'"
-                        class="company-logo"
-                      />
+                      <div class="company-logo-wrapper">
+                        <img
+                          *ngIf="item.companyLogo"
+                          [src]="item.companyLogo"
+                          [alt]="item.company + ' logo'"
+                          class="company-logo"
+                          (error)="onImageError($event)"
+                        />
+                        <div class="company-initials" [style.background-color]="item.color || '#0066CC'">
+                          {{ getCompanyInitials(item.company) }}
+                        </div>
+                      </div>
                       <span class="company-name">{{ item.company }}</span>
                       <span class="item-location" *ngIf="item.location"
                         >📍 {{ item.location }}</span
@@ -451,5 +457,21 @@ export class InteractiveTimelineComponent implements OnInit {
       projectsCompleted: projects,
       technologiesUsed: allTechnologies.size,
     };
+  }
+
+  getCompanyInitials(company: string): string {
+    return company
+      .split(" ")
+      .map((word) => word[0])
+      .join("")
+      .toUpperCase()
+      .substring(0, 2);
+  }
+
+  onImageError(event: Event): void {
+    const target = event.target as HTMLImageElement;
+    if (target) {
+      target.style.display = 'none';
+    }
   }
 }

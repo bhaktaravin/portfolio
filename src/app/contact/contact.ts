@@ -5,6 +5,7 @@ import { FormsModule, NgForm } from "@angular/forms";
 import { AnalyticsService } from "../services/analytics.service";
 import { ToastService } from "../services/toast.service";
 import { EmailService } from "../services/email.service";
+import { ConfettiService } from "../services/confetti.service";
 
 interface ContactForm {
   name: string;
@@ -33,6 +34,7 @@ export class ContactComponent {
   private analytics = inject(AnalyticsService);
   private toastService = inject(ToastService);
   private emailService = inject(EmailService);
+  private confettiService = inject(ConfettiService);
 
   // Form state signals
   private _isSubmitting = signal(false);
@@ -150,6 +152,9 @@ export class ContactComponent {
         "Thanks for reaching out! I'll get back to you within 24 hours.",
         { duration: 6000 },
       );
+
+      // Celebrate with confetti! 🎉
+      this.confettiService.celebrate({ duration: 3000, particleCount: 60 });
 
       // Track success
       this.analytics.trackFormSubmission("contact", true);
