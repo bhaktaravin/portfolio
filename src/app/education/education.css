@@ -136,3 +136,76 @@
   from { opacity: 0; transform: translateY(30px);}
   to { opacity: 1; transform: translateY(0);}
 }
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .education-section {
+    padding: 1.5em 0.5em;
+    padding-left: 2em;
+  }
+
+  .education-section::before {
+    left: 0.3em;
+  }
+
+  .education-card {
+    padding: 1.5rem 1rem;
+    margin-left: 1em;
+  }
+
+  .education-card::before {
+    left: -1.5em;
+    width: 8px;
+    height: 8px;
+  }
+
+  .education-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .education-dates {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  .education-section {
+    padding: 1em 0.5em;
+    padding-left: 1.5em;
+  }
+
+  .education-section::before {
+    left: 0.2em;
+  }
+
+  .education-card {
+    padding: 1.2rem 0.8rem;
+    margin-left: 0.8em;
+    margin-bottom: 1.5rem;
+  }
+
+  .education-card::before {
+    left: -1.2em;
+    width: 6px;
+    height: 6px;
+  }
+
+  .education-header {
+    font-size: 1em;
+  }
+
+  .education-degree {
+    font-size: 0.95em;
+  }
+
+  .education-dates {
+    font-size: 0.85em;
+  }
+
+  .print-btn {
+    width: 100%;
+    padding: 0.8em 1em;
+  }
+}

@@ -480,11 +480,16 @@ interface NavItem {
         left: 0;
         right: 0;
         bottom: 0;
-        background: var(--color-card-bg);
+        background: var(--color-background);
+        backdrop-filter: blur(10px);
         transform: translateY(-100%);
         transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: var(--z-modal);
         border-top: 1px solid var(--color-border);
+      }
+
+      [data-theme="dark"] .mobile-menu {
+        background: rgba(15, 23, 42, 0.95);
       }
 
       .mobile-menu.open {
@@ -522,14 +527,21 @@ interface NavItem {
 
       .mobile-nav-link:hover,
       .mobile-nav-link.active {
+        color: var(--color-primary-500);
+        background: rgba(59, 130, 246, 0.1);
+        text-decoration: none;
+      }
+
+      [data-theme="light"] .mobile-nav-link:hover,
+      [data-theme="light"] .mobile-nav-link.active {
         color: var(--color-primary-600);
         background: var(--color-primary-50);
-        text-decoration: none;
       }
 
       [data-theme="dark"] .mobile-nav-link:hover,
       [data-theme="dark"] .mobile-nav-link.active {
-        background: rgba(59, 130, 246, 0.1);
+        background: rgba(59, 130, 246, 0.15);
+        color: var(--color-primary-400);
       }
 
       .mobile-nav-icon {

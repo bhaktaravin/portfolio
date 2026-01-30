@@ -250,6 +250,9 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  /* Better touch handling on mobile */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none;
 }
 
 body {
@@ -262,6 +265,7 @@ body {
   transition: var(--theme-transition, var(--transition-normal));
   min-height: 100vh;
   overflow-x: hidden;
+  width: 100%;
 }
 
 /* === UTILITIES === */
@@ -704,6 +708,10 @@ a:focus {
     --container-padding: var(--spacing-lg);
   }
 
+  .container {
+    padding: 0 var(--spacing-md);
+  }
+
   .navbar-nav {
     gap: var(--spacing-md);
   }
@@ -715,6 +723,22 @@ a:focus {
 
   .card {
     padding: var(--spacing-lg);
+  }
+
+  /* Prevent horizontal overflow */
+  img, video, iframe {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Better touch targets */
+  .btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  a, button {
+    min-height: 44px;
   }
 }
 
@@ -728,6 +752,10 @@ a:focus {
     --container-padding: var(--spacing-md);
   }
 
+  .container {
+    padding: 0 var(--spacing-sm);
+  }
+
   .navbar-container {
     padding: var(--spacing-sm) var(--container-padding);
   }
@@ -735,6 +763,11 @@ a:focus {
   .btn-lg {
     padding: var(--spacing-md) var(--spacing-lg);
     font-size: var(--font-size-base);
+  }
+
+  /* Smaller text inputs on mobile */
+  input, textarea, select {
+    font-size: 16px; /* Prevents zoom on iOS */
   }
 }
 

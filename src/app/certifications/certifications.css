@@ -83,3 +83,71 @@
   background: var(--gradient-primary);
   color: #fff;
 }
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .certifications-section {
+    padding: 2rem 1rem 3rem 1rem;
+  }
+
+  .certifications-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .certifications-grid {
+    gap: 2rem 1.5rem;
+  }
+
+  .certification-card {
+    min-width: 240px;
+    max-width: 100%;
+    padding: 2rem 1.5rem;
+  }
+
+  .certification-title {
+    font-size: 1.2rem;
+  }
+
+  .certification-issuer {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .certifications-section {
+    padding: 1.5rem 0.5rem 2rem 0.5rem;
+  }
+
+  .certifications-title {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .certifications-grid {
+    gap: 1.5rem;
+    flex-direction: column;
+  }
+
+  .certification-card {
+    min-width: 100%;
+    max-width: 100%;
+    padding: 1.5rem 1.2rem;
+  }
+
+  .certification-title {
+    font-size: 1.1rem;
+  }
+
+  .certification-issuer,
+  .certification-date,
+  .certification-id {
+    font-size: 0.9rem;
+  }
+
+  .btn-secondary {
+    width: 100%;
+    text-align: center;
+    padding: 0.6rem 1rem;
+  }
+}
