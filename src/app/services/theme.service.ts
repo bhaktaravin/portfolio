@@ -36,6 +36,9 @@ export class ThemeService {
   }
 
   setTheme(theme: Theme): void {
+    // Add smooth transition overlay
+    this.createTransitionOverlay();
+    
     this._theme.set(theme);
     this.updateDarkModeState();
   }
@@ -169,5 +172,40 @@ export class ThemeService {
 
   disableTransitions(): void {
     document.documentElement.style.setProperty('--theme-transition', 'none');
+  }
+
+  private createTransitionOverlay(): void {
+    // Check if overlay already exists
+    if (document.querySelector('.theme-transition-overlay')) return;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'theme-transition-overlay';
+    overlay.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--color-background);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transition: opacity 0.3s ease;
+    `;
+    
+    document.body.appendChild(overlay);
+    
+    // Trigger animation
+    requestAnimationFrame(() => {
+      overlay.style.opacity = '1';
+      
+      setTimeout(() => {
+        overlay.style.opacity = '0';
+        
+        setTimeout(() => {
+          overlay.remove();
+        }, 300);
+      }, 150);
+    });
   }
 }

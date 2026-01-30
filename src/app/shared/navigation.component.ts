@@ -96,10 +96,11 @@ interface NavItem {
             <button
               class="btn btn-primary btn-sm"
               (click)="downloadResume()"
+              [disabled]="isDownloadingResume()"
               [attr.aria-label]="'Download ' + brandName + ' resume'"
             >
-              <span class="btn-icon">📄</span>
-              <span class="btn-text">Resume</span>
+              <span class="btn-icon">{{ isDownloadingResume() ? '⏳' : '📄' }}</span>
+              <span class="btn-text">{{ isDownloadingResume() ? 'Downloading...' : 'Resume' }}</span>
             </button>
           </div>
 
@@ -167,9 +168,13 @@ interface NavItem {
                 <span class="btn-text">Contact Me</span>
               </a>
 
-              <button class="btn btn-primary" (click)="downloadResume()">
-                <span class="btn-icon">📄</span>
-                <span class="btn-text">Download Resume</span>
+              <button 
+                class="btn btn-primary" 
+                (click)="downloadResume()"
+                [disabled]="isDownloadingResume()"
+              >
+                <span class="btn-icon">{{ isDownloadingResume() ? '⏳' : '📄' }}</span>
+                <span class="btn-text">{{ isDownloadingResume() ? 'Downloading...' : 'Download Resume' }}</span>
               </button>
             </div>
           </div>
@@ -486,6 +491,8 @@ interface NavItem {
         transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         z-index: var(--z-modal);
         border-top: 1px solid var(--color-border);
+        visibility: hidden;
+        opacity: 0;
       }
 
       [data-theme="dark"] .mobile-menu {
@@ -494,6 +501,8 @@ interface NavItem {
 
       .mobile-menu.open {
         transform: translateY(0);
+        visibility: visible;
+        opacity: 1;
       }
 
       .mobile-menu-content {
@@ -705,12 +714,14 @@ export class NavigationComponent implements OnInit, OnDestroy {
   private _isMobileMenuOpen = signal(false);
   private _activeSection = signal("hero");
   private _scrollProgress = signal(0);
+  private _isDownloadingResume = signal(false);
 
   // Public readonly signals
   readonly isScrolled = this._isScrolled.asReadonly();
   readonly isMobileMenuOpen = this._isMobileMenuOpen.asReadonly();
   readonly activeSection = this._activeSection.asReadonly();
   readonly scrollProgress = this._scrollProgress.asReadonly();
+  readonly isDownloadingResume = this._isDownloadingResume.asReadonly();
 
   private routerSubscription?: Subscription;
   private scrollListenerAdded = false;
@@ -911,25 +922,42 @@ export class NavigationComponent implements OnInit, OnDestroy {
     document.body.style.overflow = "";
   }
 
-  downloadResume(): void {
-    // Track analytics
-    this.analytics.trackDownload("Ravin_Bhakta_Resume.pdf", "pdf");
+  async downloadResume(): Promise<void> {
+    if (this._isDownloadingResume()) return;
 
-    // Create download link
-    const link = document.createElement("a");
-    link.href = "assets/resume.pdf";
-    link.download = "Ravin_Bhakta_Resume.pdf";
-    link.click();
+    this._isDownloadingResume.set(true);
 
-    // Show success toast
-    this.toastService.success(
-      "Download Started",
-      "Your resume is being downloaded",
-      { duration: 3000 },
-    );
+    try {
+      // Track analytics
+      this.analytics.trackDownload("Ravin_Bhakta_Resume.pdf", "pdf");
 
-    // Close mobile menu
-    this._isMobileMenuOpen.set(false);
+      // Simulate loading for better UX (remove in production if not needed)
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      // Create download link
+      const link = document.createElement("a");
+      link.href = "assets/resume.pdf";
+      link.download = "Ravin_Bhakta_Resume.pdf";
+      link.click();
+
+      // Show success toast
+      this.toastService.success(
+        "Download Started!",
+        "Resume downloaded successfully 📄",
+        { duration: 3000 },
+      );
+
+      // Close mobile menu
+      this._isMobileMenuOpen.set(false);
+    } catch (error) {
+      this.toastService.error(
+        "Download Failed",
+        "Could not download resume. Please try again.",
+        { duration: 4000 },
+      );
+    } finally {
+      this._isDownloadingResume.set(false);
+    }
   }
 
   trackNavItem(index: number, item: NavItem): string {

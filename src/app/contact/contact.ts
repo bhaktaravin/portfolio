@@ -218,7 +218,9 @@ export class ContactComponent {
     if (!this.contact.email.trim()) {
       errors.email = "Email is required";
     } else if (!this.isValidEmail(this.contact.email)) {
-      errors.email = "Please enter a valid email address";
+      errors.email = "Please enter a valid email (e.g., name@example.com)";
+    } else if (this.contact.email.length > 254) {
+      errors.email = "Email is too long";
     }
 
     // Subject validation

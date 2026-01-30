@@ -107,7 +107,19 @@ export const routes: Routes = [
     },
   },
   {
+    path: "404",
+    loadComponent: () =>
+      import("./not-found/not-found.component").then((m) => m.NotFoundComponent),
+    title: "404 - Page Not Found",
+    data: {
+      description: "The page you're looking for doesn't exist.",
+      animation: "fadeIn",
+    },
+  },
+  {
     path: "**",
-    redirectTo: "/home",
+    loadComponent: () =>
+      import("./not-found/not-found.component").then((m) => m.NotFoundComponent),
+    title: "404 - Page Not Found",
   },
 ];

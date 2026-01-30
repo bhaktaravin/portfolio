@@ -5,33 +5,120 @@
     #contactForm="ngForm"
     class="contact-form"
   >
-    <div class="form-group">
+    <!-- Name Field -->
+    <div class="form-group" [class.has-error]="errors().name">
       <label for="name">Name</label>
-      <input id="name" name="name" [(ngModel)]="contact.name" required />
+      <input 
+        id="name" 
+        name="name" 
+        [(ngModel)]="contact.name"
+        (focus)="onFieldFocus('name')"
+        required
+        minlength="2"
+        maxlength="100"
+        [class.error]="errors().name"
+      />
+      <span class="error-message" *ngIf="errors().name">
+        {{ errors().name }}
+      </span>
     </div>
-    <div class="form-group">
+
+    <!-- Email Field -->
+    <div class="form-group" [class.has-error]="errors().email">
       <label for="email">Email</label>
       <input
         id="email"
         name="email"
         type="email"
         [(ngModel)]="contact.email"
+        (focus)="onFieldFocus('email')"
         required
+        [class.error]="errors().email"
+        placeholder="name@example.com"
       />
+      <span class="error-message" *ngIf="errors().email">
+        {{ errors().email }}
+      </span>
     </div>
-    <div class="form-group">
+
+    <!-- Subject Field -->
+    <div class="form-group" [class.has-error]="errors().subject">
+      <label for="subject">Subject</label>
+      <select
+        id="subject"
+        name="subject"
+        [(ngModel)]="contact.subject"
+        (change)="onSubjectChange()"
+        required
+        [class.error]="errors().subject"
+      >
+        <option value="" disabled>Select a subject</option>
+        <option *ngFor="let option of subjectOptions" [value]="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+      <span class="error-message" *ngIf="errors().subject">
+        {{ errors().subject }}
+      </span>
+    </div>
+
+    <!-- Message Field -->
+    <div class="form-group" [class.has-error]="errors().message">
       <label for="message">Message</label>
       <textarea
         id="message"
         name="message"
         [(ngModel)]="contact.message"
+        (focus)="onFieldFocus('message')"
         rows="5"
         required
+        minlength="10"
+        maxlength="5000"
+        [class.error]="errors().message"
+        placeholder="Tell me about your project or inquiry..."
       ></textarea>
+      <div class="character-count">
+        {{ contact.message.length }} / 5000
+      </div>
+      <span class="error-message" *ngIf="errors().message">
+        {{ errors().message }}
+      </span>
     </div>
-    <button type="submit" [disabled]="contactForm.invalid">Send</button>
+
+    <!-- Honeypot (Anti-Spam) -->
+    <input
+      type="text"
+      name="honeypot"
+      [(ngModel)]="contact.honeypot"
+      style="display: none;"
+      tabindex="-1"
+      autocomplete="off"
+    />
+
+    <!-- General Error -->
+    <div class="error-message" *ngIf="errors().general">
+      {{ errors().general }}
+    </div>
+
+    <!-- Submit Button -->
+    <button 
+      type="submit" 
+      [disabled]="!canSubmit()"
+      [class.loading]="isSubmitting()"
+      [class.success]="submitted()"
+    >
+      <span class="btn-icon">{{ submitButtonIcon() }}</span>
+      <span class="btn-text">{{ submitButtonText() }}</span>
+    </button>
+
+    <!-- Rate Limit Warning -->
+    <div class="info-message" *ngIf="submitCount() >= 3">
+      ⚠️ You've reached the maximum number of submissions for this session.
+    </div>
   </form>
-  <div *ngIf="submitted" class="contact-success">
-    Thank you for reaching out! I will get back to you soon.
+
+  <!-- Success Message -->
+  <div *ngIf="submitted()" class="contact-success">
+    {{ successMessage() }}
   </div>
 </div>
