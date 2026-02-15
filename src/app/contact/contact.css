@@ -1,10 +1,19 @@
-.contact-section {
-  max-width: 500px;
+/* === Two-column tile layout === */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+  max-width: 1100px;
   margin: 2em auto;
+  padding: 0 var(--spacing-md);
+  align-items: start;
+}
+
+.contact-section {
   background: #23263a;
   padding: 2em;
   border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
 }
 
 .contact-form .form-group {
@@ -150,10 +159,19 @@ select:focus {
 }
 
 /* Responsive Styles */
+@media (max-width: 900px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+  }
+}
+
 @media (max-width: 768px) {
+  .contact-layout {
+    padding: 0 var(--spacing-sm);
+  }
+
   .contact-section {
-    max-width: 100%;
-    margin: 1.5em 1em;
     padding: 1.5em;
   }
 
@@ -169,7 +187,6 @@ select:focus {
 
 @media (max-width: 480px) {
   .contact-section {
-    margin: 1em 0.5em;
     padding: 1.2em;
     border-radius: 12px;
   }
@@ -199,4 +216,257 @@ select:focus {
   color: #4f8cff;
   font-weight: 600;
   text-align: center;
+}
+
+/* ========================================
+   Freelance Availability Banner
+   ======================================== */
+.availability-banner {
+  position: relative;
+  background: var(--gradient-primary);
+  border-radius: var(--border-radius-2xl);
+  padding: var(--spacing-xl);
+  color: #fff;
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+/* Decorative background glow */
+.availability-banner::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.availability-banner::after {
+  content: "";
+  position: absolute;
+  bottom: -30%;
+  left: -10%;
+  width: 240px;
+  height: 240px;
+  background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* --- Header --- */
+.availability-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.availability-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.availability-icon {
+  font-size: 1.6rem;
+}
+
+.availability-header h3 {
+  margin: 0;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+  line-height: var(--line-height-tight);
+}
+
+.availability-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--border-radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  width: fit-content;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6);
+  animation: pulseDot 2s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6); }
+  50%      { box-shadow: 0 0 0 6px rgba(74, 222, 128, 0); }
+}
+
+.availability-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-lg);
+  transition: background var(--transition-fast);
+}
+
+.availability-card:hover {
+  background: rgba(255,255,255,0.16);
+}
+
+.availability-card h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 var(--spacing-md);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.card-icon {
+  font-size: 1.15rem;
+}
+
+/* Specializations */
+.spec-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.spec-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-snug);
+}
+
+.spec-bullet {
+  color: rgba(255,255,255,0.6);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Rates */
+.rate-items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.rate-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.rate-label {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.75;
+  font-weight: var(--font-weight-semibold);
+}
+
+.rate-value {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.rate-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.18);
+}
+
+/* --- CTA --- */
+.availability-cta {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid rgba(255,255,255,0.18);
+  padding-top: var(--spacing-lg);
+}
+
+.availability-cta p {
+  margin: 0 0 var(--spacing-md);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  opacity: 0.9;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #fff;
+  color: var(--color-primary-700);
+  border: none;
+  padding: 0.7rem 1.6rem;
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+}
+
+.cta-button:active {
+  transform: translateY(0);
+}
+
+.cta-arrow {
+  transition: transform var(--transition-fast);
+  font-size: 1.15em;
+}
+
+.cta-button:hover .cta-arrow {
+  transform: translateX(3px);
+}
+
+/* --- Banner Responsive --- */
+@media (max-width: 768px) {
+  .availability-banner {
+    padding: var(--spacing-lg);
+  }
+
+  .availability-header h3 {
+    font-size: var(--font-size-xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .availability-banner {
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-xl);
+  }
+
+  .availability-card {
+    padding: var(--spacing-md);
+  }
+
+  .cta-button {
+    width: 100%;
+    justify-content: center;
+  }
 }

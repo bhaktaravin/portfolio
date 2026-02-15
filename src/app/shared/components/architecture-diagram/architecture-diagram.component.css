@@ -1,0 +1,187 @@
+.architecture-diagram-container {
+  margin: 2rem 0;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.architecture-diagram-container h3 {
+  background: var(--color-background-secondary);
+  margin: 0;
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.architecture-diagram {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+  background: var(--color-background-tertiary);
+  overflow: hidden;
+}
+
+.connections-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.connection-line {
+  stroke: var(--color-text-tertiary);
+  stroke-width: 2;
+}
+
+.architecture-component {
+  position: absolute;
+  z-index: 2;
+  background: white;
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1rem;
+  width: 120px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.architecture-component:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.architecture-component.selected {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+.component-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.component-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.component-details {
+  background: var(--color-background-secondary);
+  padding: 1.5rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.component-details h4 {
+  margin-top: 0;
+  color: var(--color-primary);
+}
+
+.technologies h5,
+.metrics h5 {
+  margin-bottom: 0.5rem;
+  color: var(--color-text-secondary);
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tech-tag {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+.metric {
+  background: white;
+  padding: 0.75rem;
+  border-radius: 6px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.metric-value {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.metric-label {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  margin: 0.25rem 0;
+}
+
+.metric-improvement {
+  font-size: 0.75rem;
+  color: var(--color-success);
+  font-weight: 500;
+}
+
+/* Component type colors */
+.frontend {
+  color: #3b82f6;
+}
+
+.backend {
+  color: #10b981;
+}
+
+.database {
+  color: #f59e0b;
+}
+
+.api {
+  color: #8b5cf6;
+}
+
+.cloud {
+  color: #0ea5e9;
+}
+
+.cdn {
+  color: #ec4899;
+}
+
+.auth {
+  color: #ef4444;
+}
+
+.storage {
+  color: #64748b;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .architecture-diagram {
+    min-height: 300px;
+  }
+
+  .architecture-component {
+    width: 100px;
+    padding: 0.75rem;
+  }
+
+  .component-name {
+    font-size: 0.75rem;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

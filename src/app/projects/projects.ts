@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
+
 import { CommonModule } from "@angular/common";
+
 import { FormsModule } from "@angular/forms";
+
 import {
   trigger,
   state,
@@ -8,7 +11,9 @@ import {
   transition,
   animate,
 } from "@angular/animations";
+
 import { CardTiltDirective } from "../shared/directives/card-tilt.directive";
+import { ArchitectureDiagramComponent } from "../shared/components/architecture-diagram/architecture-diagram.component";
 
 interface Project {
   id: string;
@@ -149,7 +154,12 @@ const techStackData: Record<string, TechStack> = {
 @Component({
   selector: "app-projects",
   standalone: true,
-  imports: [CommonModule, FormsModule, CardTiltDirective],
+  imports: [
+    CommonModule,
+    FormsModule,
+    CardTiltDirective,
+    ArchitectureDiagramComponent,
+  ],
   templateUrl: "./projects.html",
   styleUrls: ["./projects.css"],
   animations: [

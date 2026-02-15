@@ -359,6 +359,15 @@
       >
         Overview
       </button>
+
+      <button
+        class="tab-btn"
+        [class.active]="activeModalTab === 'architecture'"
+        (click)="setActiveTab('architecture')"
+        *ngIf="selectedProject.metrics"
+      >
+        Architecture
+      </button>
       <button
         class="tab-btn"
         [class.active]="activeModalTab === 'casestudy'"
@@ -487,7 +496,22 @@
         </div>
       </div>
 
+      <!-- Architecture Tab -->
+      <div
+        class="tab-content"
+        *ngIf="activeModalTab === 'architecture' && selectedProject.metrics"
+      >
+        <div class="architecture-section">
+          <app-architecture-diagram
+            [projectId]="selectedProject.id"
+            [projectName]="selectedProject.title"
+          >
+          </app-architecture-diagram>
+        </div>
+      </div>
+
       <!-- Technical Details Tab -->
+
       <div class="tab-content" *ngIf="activeModalTab === 'technical'">
         <div class="technical-details">
           <div class="tech-section">

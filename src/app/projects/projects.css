@@ -1145,3 +1145,19 @@
     }
   }
 }
+
+/* Architecture Section Styles */
+.architecture-section {
+  padding: 1rem 0;
+}
+
+.architecture-section h4 {
+  margin-top: 0;
+  color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .architecture-section {
+    padding: 0.5rem 0;
+  }
+}

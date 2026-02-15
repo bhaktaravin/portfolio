@@ -48,6 +48,29 @@ export class ContactComponent {
   readonly errors = this._errors.asReadonly();
   readonly submitCount = this._submitCount.asReadonly();
 
+  // Freelance/Consulting Availability
+  freelanceAvailability = {
+    showBanner: true,
+    statusText: "Currently accepting new projects",
+    specializations: [
+      "Full-Stack Web Development (Angular, React, Node.js)",
+      "Cloud Architecture (AWS, Heroku, Firebase)",
+      "API Development & Integration",
+      "Performance Optimization",
+      "System Modernization",
+    ],
+    rates: {
+      hourly: "$120/hr",
+      projectBased: "Custom pricing based on scope",
+    },
+  };
+
+  scrollToForm() {
+    document.querySelector(".contact-form")?.scrollIntoView({
+      behavior: "smooth",
+    });
+  }
+
   // Form data
   contact: ContactForm = {
     name: "",

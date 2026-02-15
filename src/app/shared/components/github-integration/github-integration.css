@@ -322,58 +322,59 @@
   color: var(--text-secondary);
 }
 
-/* Commits Section */
-.commits-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+/* Contribution Graph Section */
+.contributions-section {
+  grid-column: 1 / -1;
 }
 
-.commit-item {
+.ghchart-container {
   background: var(--background-color);
   border-radius: 12px;
-  padding: 1rem;
+  padding: 1.25rem;
   border: 1px solid var(--border-color);
-  transition: all 0.3s ease;
+  overflow: hidden;
 }
 
-.commit-item:hover {
-  transform: translateX(4px);
-  border-color: var(--primary-color);
-  box-shadow: 0 2px 8px rgba(var(--primary-rgb), 0.1);
+.ghchart-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  /* Invert for dark backgrounds so green squares show correctly */
+  filter: brightness(1.1);
 }
 
-.commit-message {
-  margin-bottom: 0.5rem;
-}
-
-.commit-link {
-  color: var(--text-primary);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.95rem;
-  line-height: 1.4;
-}
-
-.commit-link:hover {
-  color: var(--primary-color);
-  text-decoration: underline;
-}
-
-.commit-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.8rem;
+.ghchart-fallback {
+  text-align: center;
+  padding: 2rem;
   color: var(--text-secondary);
 }
 
-.commit-repo {
-  background: rgba(var(--primary-rgb), 0.1);
+.ghchart-fallback a {
   color: var(--primary-color);
-  padding: 0.2rem 0.6rem;
-  border-radius: 8px;
+  text-decoration: none;
   font-weight: 600;
+}
+
+.ghchart-fallback a:hover {
+  text-decoration: underline;
+}
+
+.contribution-streak-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.streak-badge {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: rgba(var(--primary-rgb), 0.08);
+  padding: 0.35rem 0.75rem;
+  border-radius: 10px;
+  white-space: nowrap;
 }
 
 /* Languages Section */
@@ -447,7 +448,7 @@
 
 .contribution-stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
 }
 
@@ -475,76 +476,7 @@
   font-weight: 600;
 }
 
-/* Contribution Calendar */
-.contribution-calendar {
-  background: var(--background-color);
-  border-radius: 12px;
-  padding: 1.5rem;
-  border: 1px solid var(--border-color);
-}
-
-.calendar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.calendar-title {
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.calendar-legend {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-}
-
-.legend-levels {
-  display: flex;
-  gap: 2px;
-}
-
-.legend-level {
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-}
-
-.legend-level.level-0 { background: var(--hover-color); }
-.legend-level.level-1 { background: #0e4429; }
-.legend-level.level-2 { background: #006d32; }
-.legend-level.level-3 { background: #26a641; }
-.legend-level.level-4 { background: #39d353; }
-
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 3px;
-  max-width: 100%;
-}
-
-.contribution-day {
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.contribution-day:hover {
-  transform: scale(1.2);
-  border: 1px solid var(--text-secondary);
-}
-
-.contribution-day.level-0 { background: var(--hover-color); }
-.contribution-day.level-1 { background: #0e4429; }
-.contribution-day.level-2 { background: #006d32; }
-.contribution-day.level-3 { background: #26a641; }
-.contribution-day.level-4 { background: #39d353; }
+/* -- Old calendar removed, using heatmap now -- */
 
 /* Loading State */
 .loading-state {
@@ -658,18 +590,8 @@
   }
 
   .contribution-stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
-  }
-
-  .calendar-header {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: flex-start;
-  }
-
-  .calendar-grid {
-    grid-template-columns: repeat(7, 1fr);
   }
 }
 
@@ -690,16 +612,8 @@
     padding: 1rem;
   }
 
-  .contribution-grid {
-    gap: 1.5rem;
-  }
-
-  .contribution-calendar {
-    padding: 1rem;
-  }
-
-  .calendar-grid {
-    grid-template-columns: repeat(6, 1fr);
+  .contribution-stats {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -714,24 +628,17 @@
   .dashboard-section:hover {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
   }
-
-  .legend-level.level-0,
-  .contribution-day.level-0 {
-    background: rgba(255, 255, 255, 0.1);
-  }
 }
 
 /* High Contrast Mode */
 @media (prefers-contrast: high) {
   .stat-card,
   .dashboard-section,
-  .repository-item,
-  .commit-item {
+  .repository-item {
     border: 2px solid var(--text-primary);
   }
 
-  .language-progress,
-  .contribution-calendar {
+  .language-progress {
     border: 1px solid var(--text-primary);
   }
 }
@@ -741,7 +648,6 @@
   .stat-card,
   .dashboard-section,
   .repository-item,
-  .commit-item,
   .refresh-icon,
   .loading-spinner {
     transition: none;
@@ -750,8 +656,7 @@
 
   .stat-card:hover,
   .dashboard-section:hover,
-  .repository-item:hover,
-  .commit-item:hover {
+  .repository-item:hover {
     transform: none;
   }
 

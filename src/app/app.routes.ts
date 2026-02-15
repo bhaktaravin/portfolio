@@ -109,7 +109,9 @@ export const routes: Routes = [
   {
     path: "404",
     loadComponent: () =>
-      import("./not-found/not-found.component").then((m) => m.NotFoundComponent),
+      import("./not-found/not-found.component").then(
+        (m) => m.NotFoundComponent,
+      ),
     title: "404 - Page Not Found",
     data: {
       description: "The page you're looking for doesn't exist.",
@@ -119,7 +121,19 @@ export const routes: Routes = [
   {
     path: "**",
     loadComponent: () =>
-      import("./not-found/not-found.component").then((m) => m.NotFoundComponent),
+      import("./not-found/not-found.component").then(
+        (m) => m.NotFoundComponent,
+      ),
     title: "404 - Page Not Found",
+  },
+
+  // In app.routes.ts
+  {
+    path: "dashboard",
+    loadComponent: () =>
+      import("./dashboard/dashboard.component").then(
+        (m) => m.DashboardComponent,
+      ),
+    title: "Dashboard - Ravin Bhakta",
   },
 ];

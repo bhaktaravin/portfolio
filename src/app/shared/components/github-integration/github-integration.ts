@@ -2,20 +2,15 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   trigger,
-  state,
   style,
   transition,
   animate,
-  query,
-  stagger,
 } from '@angular/animations';
 import { Subscription } from 'rxjs';
 import {
   GitHubService,
   GitHubStats,
   GitHubRepository,
-  GitHubCommit,
-  GitHubLanguageStats,
 } from '../../../services/github.service';
 
 @Component({
@@ -140,37 +135,34 @@ import {
             </div>
           </div>
 
-          <!-- Recent Commits -->
-          <div class="dashboard-section commits-section" [@slideInRight]>
+          <!-- Contribution Graph -->
+          <div class="dashboard-section contributions-section" [@slideInUp]>
             <div class="section-header">
-              <h3>Recent Commits</h3>
-              <span class="section-count">{{ stats.recentCommits.length }}</span>
+              <h3>Contribution Activity</h3>
+              <span class="activity-summary" *ngIf="stats.contributions">
+                {{ stats.contributions.totalCommits }} total contributions
+              </span>
             </div>
-            <div class="commits-list">
-              <div
-                *ngFor="let commit of stats.recentCommits.slice(0, 8); trackBy: trackByCommit"
-                class="commit-item"
-                [@commitAnimation]
-              >
-                <div class="commit-message">
-                  <a
-                    [href]="commit.html_url"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="commit-link"
-                  >
-                    {{ truncateCommitMessage(commit.commit.message) }}
-                  </a>
-                </div>
-                <div class="commit-meta">
-                  <span class="commit-repo" *ngIf="commit.repository">
-                    {{ commit.repository.name }}
-                  </span>
-                  <span class="commit-date">
-                    {{ getTimeAgo(commit.commit.author.date) }}
-                  </span>
-                </div>
+            <div class="ghchart-container">
+              <img
+                [src]="ghChartUrl"
+                alt="GitHub Contribution Graph"
+                class="ghchart-img"
+                loading="lazy"
+                (error)="ghChartError = true"
+                *ngIf="!ghChartError"
+              />
+              <div class="ghchart-fallback" *ngIf="ghChartError">
+                <p>Unable to load contribution graph.</p>
+                <a [href]="githubService.getProfileUrl()" target="_blank" rel="noopener noreferrer">
+                  View on GitHub →
+                </a>
               </div>
+            </div>
+            <div class="contribution-streak-row" *ngIf="stats.contributions">
+              <span class="streak-badge">🔥 {{ stats.contributions.currentStreak }} day streak</span>
+              <span class="streak-badge">🏆 {{ stats.contributions.longestStreak }} longest</span>
+              <span class="streak-badge">📅 {{ getThisWeekContributions() }} this week</span>
             </div>
           </div>
 
@@ -204,14 +196,17 @@ import {
             </div>
           </div>
 
-          <!-- Contribution Activity -->
+          <!-- Contribution Stats -->
           <div class="dashboard-section activity-section" [@slideInUp]>
             <div class="section-header">
-              <h3>Contribution Activity</h3>
-              <span class="activity-summary">{{ stats.contributions?.totalCommits || 0 }} total commits</span>
+              <h3>Stats Breakdown</h3>
             </div>
             <div class="contribution-grid" *ngIf="stats.contributions">
               <div class="contribution-stats">
+                <div class="contribution-stat">
+                  <span class="stat-value">{{ stats.contributions.totalCommits }}</span>
+                  <span class="stat-label">Total Commits</span>
+                </div>
                 <div class="contribution-stat">
                   <span class="stat-value">{{ stats.contributions.currentStreak }}</span>
                   <span class="stat-label">Current Streak</span>
@@ -223,30 +218,6 @@ import {
                 <div class="contribution-stat">
                   <span class="stat-value">{{ getThisWeekContributions() }}</span>
                   <span class="stat-label">This Week</span>
-                </div>
-              </div>
-              <div class="contribution-calendar">
-                <div class="calendar-header">
-                  <span class="calendar-title">Last 12 weeks</span>
-                  <div class="calendar-legend">
-                    <span>Less</span>
-                    <div class="legend-levels">
-                      <div class="legend-level level-0"></div>
-                      <div class="legend-level level-1"></div>
-                      <div class="legend-level level-2"></div>
-                      <div class="legend-level level-3"></div>
-                      <div class="legend-level level-4"></div>
-                    </div>
-                    <span>More</span>
-                  </div>
-                </div>
-                <div class="calendar-grid">
-                  <div
-                    *ngFor="let day of getRecentContributions(); trackBy: trackByContribution"
-                    class="contribution-day"
-                    [class]="'level-' + day.level"
-                    [title]="day.count + ' contributions on ' + (day.date | date:'mediumDate')"
-                  ></div>
                 </div>
               </div>
             </div>
@@ -308,12 +279,6 @@ import {
         animate('300ms ease-out', style({ opacity: 1, transform: 'scale(1)' }))
       ])
     ]),
-    trigger('commitAnimation', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateX(-10px)' }),
-        animate('250ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
-      ])
-    ]),
     trigger('languageAnimation', [
       transition(':enter', [
         style({ opacity: 0, transform: 'scaleX(0)' }),
@@ -336,6 +301,9 @@ export class GitHubIntegrationComponent implements OnInit, OnDestroy {
   };
 
   private subscription?: Subscription;
+
+  ghChartUrl = 'https://ghchart.rshah.org/2563eb/bhaktaravin';
+  ghChartError = false;
 
   constructor(public githubService: GitHubService) {}
 
@@ -415,8 +383,6 @@ export class GitHubIntegrationComponent implements OnInit, OnDestroy {
 
   getRecentContributions() {
     if (!this.stats.contributions) return [];
-
-    // Get last 84 days (12 weeks)
     return this.stats.contributions.contributionDays.slice(-84);
   }
 
@@ -430,10 +396,6 @@ export class GitHubIntegrationComponent implements OnInit, OnDestroy {
   // Track by functions for performance
   trackByRepo(index: number, repo: GitHubRepository): number {
     return repo.id;
-  }
-
-  trackByCommit(index: number, commit: GitHubCommit): string {
-    return commit.sha;
   }
 
   trackByLanguage(index: number, lang: any): string {

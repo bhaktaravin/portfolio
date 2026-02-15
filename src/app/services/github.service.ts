@@ -189,6 +189,10 @@ export class GitHubService {
         // 1. Contributions
         contributions$.subscribe((contributions) => {
           this.updateStats({ contributions });
+          // Re-cache with contributions data to avoid null on reload
+          if (contributions) {
+            this.cacheData(this.statsSubject.value);
+          }
         });
 
         // 2. Events
@@ -429,7 +433,7 @@ export class GitHubService {
 
   private getCachedData(): GitHubStats | null {
     try {
-      const cached = localStorage.getItem("github-stats");
+      const cached = localStorage.getItem("github-stats-v2");
       if (cached) {
         const data = JSON.parse(cached);
         data.lastUpdated = new Date(data.lastUpdated);
@@ -443,7 +447,7 @@ export class GitHubService {
 
   private cacheData(stats: GitHubStats): void {
     try {
-      localStorage.setItem("github-stats", JSON.stringify(stats));
+      localStorage.setItem("github-stats-v2", JSON.stringify(stats));
     } catch (error) {
       console.error("Failed to cache GitHub data:", error);
     }
@@ -456,7 +460,7 @@ export class GitHubService {
 
   // Public methods for manual refresh
   public forceRefresh(): void {
-    localStorage.removeItem("github-stats");
+    localStorage.removeItem("github-stats-v2");
     this.refreshData();
   }
 

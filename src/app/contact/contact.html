@@ -1,4 +1,66 @@
-<div class="contact-section">
+<div class="contact-layout">
+  <!-- LEFT TILE: Freelance/Consulting Availability -->
+  <div class="availability-banner" *ngIf="freelanceAvailability.showBanner">
+    <!-- Header -->
+    <div class="availability-header">
+      <div class="availability-title-row">
+        <span class="availability-icon">💼</span>
+        <h3>Available for Freelance & Consulting Work</h3>
+      </div>
+      <div class="availability-badge">
+        <span class="pulse-dot"></span>
+        <span>{{ freelanceAvailability.statusText }}</span>
+      </div>
+    </div>
+
+    <!-- Specializations -->
+    <div class="availability-card specializations-card">
+      <h4>
+        <span class="card-icon">🛠️</span>
+        Specializations
+      </h4>
+      <ul class="spec-list">
+        <li *ngFor="let spec of freelanceAvailability.specializations">
+          <span class="spec-bullet">▸</span>
+          <span>{{ spec }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Rates -->
+    <div class="availability-card rates-card">
+      <h4>
+        <span class="card-icon">💰</span>
+        Rates
+      </h4>
+      <div class="rate-items">
+        <div class="rate-item">
+          <span class="rate-label">Hourly</span>
+          <span class="rate-value">{{ freelanceAvailability.rates.hourly }}</span>
+        </div>
+        <div class="rate-divider"></div>
+        <div class="rate-item">
+          <span class="rate-label">Project-based</span>
+          <span class="rate-value">{{ freelanceAvailability.rates.projectBased }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="availability-cta">
+      <p>
+        Interested in working together? Select <strong>"Freelance Project"</strong> or
+        <strong>"Technical Consultation"</strong> in the subject dropdown below.
+      </p>
+      <button class="cta-button" (click)="scrollToForm()">
+        <span>Get Started</span>
+        <span class="cta-arrow">→</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- RIGHT TILE: Contact Form -->
+  <div class="contact-section">
   <h2>Contact Me</h2>
   <form
     (ngSubmit)="submitContact(contactForm)"
@@ -8,9 +70,9 @@
     <!-- Name Field -->
     <div class="form-group" [class.has-error]="errors().name">
       <label for="name">Name</label>
-      <input 
-        id="name" 
-        name="name" 
+      <input
+        id="name"
+        name="name"
         [(ngModel)]="contact.name"
         (focus)="onFieldFocus('name')"
         required
@@ -77,9 +139,7 @@
         [class.error]="errors().message"
         placeholder="Tell me about your project or inquiry..."
       ></textarea>
-      <div class="character-count">
-        {{ contact.message.length }} / 5000
-      </div>
+      <div class="character-count">{{ contact.message.length }} / 5000</div>
       <span class="error-message" *ngIf="errors().message">
         {{ errors().message }}
       </span>
@@ -90,7 +150,7 @@
       type="text"
       name="honeypot"
       [(ngModel)]="contact.honeypot"
-      style="display: none;"
+      style="display: none"
       tabindex="-1"
       autocomplete="off"
     />
@@ -101,8 +161,8 @@
     </div>
 
     <!-- Submit Button -->
-    <button 
-      type="submit" 
+    <button
+      type="submit"
       [disabled]="!canSubmit()"
       [class.loading]="isSubmitting()"
       [class.success]="submitted()"
@@ -118,7 +178,6 @@
   </form>
 
   <!-- Success Message -->
-  <div *ngIf="submitted()" class="contact-success">
-    {{ successMessage() }}
+  <div *ngIf="submitted()" class="contact-success">{{ successMessage() }}</div>
   </div>
 </div>
