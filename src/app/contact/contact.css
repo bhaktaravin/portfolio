@@ -10,7 +10,7 @@
 }
 
 .contact-section {
-  background: #23263a;
+  background: var(--card-bg, #23263a);
   padding: 2em;
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
@@ -23,7 +23,7 @@
 .contact-form label {
   display: block;
   margin-bottom: 0.4em;
-  color: #b3c6ff;
+  color: var(--color-text-secondary, #b3c6ff);
   font-weight: 500;
 }
 
@@ -33,8 +33,8 @@
   padding: 0.7em;
   border: 1px solid #4f8cff;
   border-radius: 8px;
-  background: #1a1d2b;
-  color: #fff;
+  background: var(--color-surface, #1a1d2b);
+  color: var(--color-text-primary, #fff);
   font-size: 1em;
   transition: border 0.2s;
 }
@@ -135,8 +135,8 @@ select {
   padding: 0.7em;
   border: 1px solid #4f8cff;
   border-radius: 8px;
-  background: #1a1d2b;
-  color: #fff;
+  background: var(--color-surface, #1a1d2b);
+  color: var(--color-text-primary, #fff);
   font-size: 1em;
   transition: border 0.2s;
   cursor: pointer;

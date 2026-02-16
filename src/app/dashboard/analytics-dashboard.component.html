@@ -1,0 +1,102 @@
+<section class="dashboard-section">
+  <div class="section-header">
+    <a routerLink="/" class="back-link">← Back to Portfolio</a>
+    <div class="header-badge">
+      <span class="badge-icon">📊</span>
+      <span class="badge-text">Live Data</span>
+    </div>
+    <h2 class="section-title">Visitor Analytics</h2>
+    <p class="section-subtitle">Real-time insights into how visitors interact with this portfolio</p>
+  </div>
+
+  <!-- Controls -->
+  <div class="dashboard-controls">
+    <div class="control-left">
+      <span class="live-indicator" [class.active]="isLiveMode()">
+        <span class="live-dot"></span>
+        {{ isLiveMode() ? 'Live' : 'Paused' }}
+      </span>
+      <span class="browser-badge">🌐 {{ browserInfo() }}</span>
+    </div>
+    <div class="control-right">
+      <button class="ctrl-btn" (click)="toggleLiveMode()">
+        {{ isLiveMode() ? '⏸️ Pause' : '▶️ Resume' }}
+      </button>
+      <button class="ctrl-btn" (click)="loadAnalytics()">🔄 Refresh</button>
+      <button class="ctrl-btn danger" (click)="clearAnalytics()">🗑️ Clear</button>
+    </div>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="stats-grid">
+    <div *ngFor="let stat of stats()" class="stat-card">
+      <span class="stat-icon">{{ stat.icon }}</span>
+      <div class="stat-content">
+        <span class="stat-value">{{ stat.value }}</span>
+        <span class="stat-label">{{ stat.label }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-grid">
+    <!-- Page Views -->
+    <div class="dashboard-card">
+      <h3 class="card-title">📄 Page Views</h3>
+      <div class="page-views-list">
+        <div *ngFor="let pv of pageViews()" class="page-view-item">
+          <div class="pv-info">
+            <span class="pv-page">{{ pv.page }}</span>
+            <span class="pv-count">{{ pv.views }}</span>
+          </div>
+          <div class="pv-bar-track">
+            <div class="pv-bar-fill" [style.width.%]="pv.percentage"></div>
+          </div>
+        </div>
+        <div *ngIf="pageViews().length === 0" class="empty-state">
+          No page views recorded yet
+        </div>
+      </div>
+    </div>
+
+    <!-- Event Categories -->
+    <div class="dashboard-card">
+      <h3 class="card-title">📋 Event Categories</h3>
+      <div class="categories-list">
+        <div *ngFor="let cat of eventCategories()" class="category-item">
+          <div class="cat-header">
+            <div class="cat-color" [style.background]="cat.color"></div>
+            <span class="cat-name">{{ cat.category }}</span>
+            <span class="cat-count">{{ cat.count }}</span>
+          </div>
+          <div class="cat-bar-track">
+            <div class="cat-bar-fill" [style.width.%]="cat.percentage" [style.background]="cat.color"></div>
+          </div>
+        </div>
+        <div *ngIf="eventCategories().length === 0" class="empty-state">
+          No events recorded yet
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Activity -->
+  <div class="dashboard-card full-width">
+    <h3 class="card-title">🕐 Recent Activity</h3>
+    <div class="activity-list">
+      <div *ngFor="let event of recentEvents()" class="activity-item">
+        <span class="activity-icon">{{ getEventIcon(event.name) }}</span>
+        <div class="activity-info">
+          <span class="activity-action">{{ event.action }}</span>
+          <span class="activity-label" *ngIf="event.label">{{ event.label }}</span>
+        </div>
+        <span class="activity-category" [style.color]="categoryColors[event.category] || '#6b7280'">
+          {{ event.category }}
+        </span>
+        <span class="activity-time">{{ formatEventTime(event) }}</span>
+      </div>
+      <div *ngIf="recentEvents().length === 0" class="empty-state">
+        No activity yet — navigate around to generate events!
+      </div>
+    </div>
+  </div>
+</section>

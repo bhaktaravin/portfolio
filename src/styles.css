@@ -198,6 +198,42 @@
 
   --color-hero-bg: var(--gradient-hero);
   --color-hero-overlay: rgba(255, 255, 255, 0.1);
+
+  /* Aliases used by individual components */
+  --card-bg: #ffffff;
+  --card-text: #1e293b;
+  --bg-main: #ffffff;
+  --background: #ffffff;
+  --text-main: #1e293b;
+  --tag-text: #1e293b;
+  --accent: #4f8cff;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --primary-color: #3b82f6;
+  --accent-color: #0ea5e9;
+  --surface-color: #f8fafc;
+  --hover-color: #f1f5f9;
+  --border-color: #e2e8f0;
+  --background-color: #ffffff;
+  --primary-rgb: 59, 130, 246;
+  --color-primary-rgb: 59, 130, 246;
+  --color-bg-secondary: #f1f5f9;
+  --color-bg: #ffffff;
+  --color-primary: #3b82f6;
+  --color-background-secondary: #f1f5f9;
+  --color-background-tertiary: #e2e8f0;
+  --color-primary-light: #dbeafe;
+  --color-primary-dark: #1d4ed8;
+  --gradient-accent: linear-gradient(135deg, #0ea5e9, #06b6d4);
+  --bg-primary: #ffffff;
+  --gray-50: #f9fafb;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-700: #374151;
+  --gray-900: #111827;
+  --primary-blue: #3b82f6;
+  --accent-purple: #8b5cf6;
+  --tag-bg: #f1f5f9;
 }
 
 /* === DARK THEME === */
@@ -230,6 +266,42 @@
 
   --color-hero-bg: linear-gradient(135deg, #1e293b 0%, #334155 100%);
   --color-hero-overlay: rgba(0, 0, 0, 0.2);
+
+  /* Aliases used by individual components */
+  --card-bg: #23263a;
+  --card-text: #fff;
+  --bg-main: #0f172a;
+  --background: #0f172a;
+  --text-main: #f5f6fa;
+  --tag-text: #fff;
+  --accent: #4f8cff;
+  --text-primary: #f8fafc;
+  --text-secondary: #e2e8f0;
+  --primary-color: #3b82f6;
+  --accent-color: #0ea5e9;
+  --surface-color: #1e293b;
+  --hover-color: #334155;
+  --border-color: #334155;
+  --background-color: #0f172a;
+  --primary-rgb: 59, 130, 246;
+  --color-primary-rgb: 59, 130, 246;
+  --color-bg-secondary: #334155;
+  --color-bg: #0f172a;
+  --color-primary: #3b82f6;
+  --color-background-secondary: #334155;
+  --color-background-tertiary: #475569;
+  --color-primary-light: #1e3a5f;
+  --color-primary-dark: #93c5fd;
+  --gradient-accent: linear-gradient(135deg, #0ea5e9, #06b6d4);
+  --bg-primary: #0f172a;
+  --gray-50: #1e293b;
+  --gray-200: #334155;
+  --gray-300: #475569;
+  --gray-700: #cbd5e1;
+  --gray-900: #f1f5f9;
+  --primary-blue: #3b82f6;
+  --accent-purple: #a78bfa;
+  --tag-bg: #334155;
 }
 
 /* === BASE RESET === */
@@ -932,4 +1004,47 @@ body {
   --scroll-y: 0;
   --viewport-width: 100vw;
   --viewport-height: 100vh;
+}
+
+/* === EASTER EGG EFFECTS === */
+
+/* Konami Code - Rainbow shimmer */
+.konami-active * {
+  animation: konami-rainbow 0.5s linear infinite !important;
+}
+
+@keyframes konami-rainbow {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+/* Retro Mode - 90s vibes */
+.retro-mode {
+  font-family: 'Courier New', Courier, monospace !important;
+  image-rendering: pixelated;
+}
+
+.retro-mode * {
+  font-family: inherit !important;
+  border-radius: 0 !important;
+  transition: none !important;
+}
+
+.retro-mode body,
+.retro-mode .navbar,
+.retro-mode section {
+  border: 2px solid currentColor !important;
+}
+
+/* Party Mode - Color pulse */
+.party-mode {
+  animation: party-pulse 0.3s ease infinite alternate;
+}
+
+@keyframes party-pulse {
+  0% { filter: hue-rotate(0deg) saturate(1.5); }
+  25% { filter: hue-rotate(90deg) saturate(1.8); }
+  50% { filter: hue-rotate(180deg) saturate(1.5); }
+  75% { filter: hue-rotate(270deg) saturate(1.8); }
+  100% { filter: hue-rotate(360deg) saturate(1.5); }
 }

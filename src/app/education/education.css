@@ -1,6 +1,6 @@
 .education-card {
-  background: var(--card-bg, #23263a);
-  color: var(--card-text, #fff);
+  background: var(--color-card-bg, #23263a);
+  color: var(--color-text-primary, #fff);
   border-radius: 20px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.06);
   padding: 2rem 1.5rem;
@@ -25,7 +25,7 @@
   height: 10px;
   background: #4f8cff;
   border-radius: 50%;
-  border: 2px solid #fff;
+  border: 2px solid var(--color-background, #fff);
   box-shadow: 0 0 0 2px #4f8cff;
 }
 
@@ -78,7 +78,7 @@
 }
 
 .education-location {
-  color: #b3c6ff;
+  color: var(--color-text-secondary, #b3c6ff);
   font-style: normal;
   font-weight: 400;
 }
@@ -86,11 +86,11 @@
 .education-degree {
   margin-top: 0.3em;
   font-size: 1.05em;
-  color: #b3c6ff;
+  color: var(--color-text-secondary, #b3c6ff);
 }
 
 .education-dates {
-  color: #888;
+  color: var(--color-text-muted, #888);
   font-size: 1em;
   font-weight: normal;
 }

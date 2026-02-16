@@ -443,35 +443,55 @@
         *ngIf="activeModalTab === 'casestudy' && selectedProject.caseStudy"
       >
         <div class="case-study">
-          <div class="case-study-section">
+          <!-- Case Study Sub-Navigation -->
+          <div class="case-study-nav">
+            <button *ngFor="let section of ['overview', 'problem', 'solution', 'process', 'results', 'lessons']"
+              class="cs-nav-btn"
+              [class.active]="activeCaseStudySection === section"
+              (click)="setCaseStudySection(section)"
+            >
+              {{ section === 'overview' ? '📋' : section === 'problem' ? '⚠️' : section === 'solution' ? '💡' : section === 'process' ? '⚙️' : section === 'results' ? '📊' : '🎓' }}
+              {{ section | titlecase }}
+            </button>
+          </div>
+
+          <!-- Overview -->
+          <div class="case-study-section" *ngIf="activeCaseStudySection === 'overview'">
+            <h4>Overview</h4>
+            <p>{{ selectedProject.caseStudy.overview }}</p>
+
+            <h4 *ngIf="selectedProject.metrics">Key Metrics</h4>
+            <div class="cs-metrics-grid" *ngIf="selectedProject.metrics">
+              <div class="cs-metric-card" *ngFor="let metric of selectedProject.metrics">
+                <span class="cs-metric-value">{{ metric.value }}</span>
+                <span class="cs-metric-label">{{ metric.label }}</span>
+                <span class="cs-metric-improvement" *ngIf="metric.improvement">{{ metric.improvement }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Problem -->
+          <div class="case-study-section" *ngIf="activeCaseStudySection === 'problem'">
             <h4>The Problem</h4>
             <p>{{ selectedProject.caseStudy.problem }}</p>
-          </div>
 
-          <div class="case-study-section">
-            <h4>The Solution</h4>
-            <p>{{ selectedProject.caseStudy.solution }}</p>
-          </div>
-
-          <div class="case-study-section" *ngIf="selectedProject.challenges">
-            <h4>Challenges Faced</h4>
+            <h4>Key Challenges</h4>
             <ul class="challenge-list">
-              <li *ngFor="let challenge of selectedProject.challenges">
+              <li *ngFor="let challenge of selectedProject.caseStudy.challenges">
+                <span class="challenge-icon">⚡</span>
                 {{ challenge }}
               </li>
             </ul>
           </div>
 
-          <div class="case-study-section" *ngIf="selectedProject.solutions">
-            <h4>Solutions Implemented</h4>
-            <ul class="solution-list">
-              <li *ngFor="let solution of selectedProject.solutions">
-                {{ solution }}
-              </li>
-            </ul>
+          <!-- Solution -->
+          <div class="case-study-section" *ngIf="activeCaseStudySection === 'solution'">
+            <h4>The Solution</h4>
+            <p>{{ selectedProject.caseStudy.solution }}</p>
           </div>
 
-          <div class="case-study-section">
+          <!-- Process -->
+          <div class="case-study-section" *ngIf="activeCaseStudySection === 'process'">
             <h4>Development Process</h4>
             <div class="process-timeline">
               <div
@@ -484,14 +504,34 @@
             </div>
           </div>
 
-          <div class="case-study-section">
-            <h4>Results & Impact</h4>
+          <!-- Results -->
+          <div class="case-study-section" *ngIf="activeCaseStudySection === 'results'">
+            <h4>Results &amp; Impact</h4>
             <p>{{ selectedProject.caseStudy.outcome }}</p>
             <ul class="results-list" *ngIf="selectedProject.results">
               <li *ngFor="let result of selectedProject.results">
                 {{ result }}
               </li>
             </ul>
+
+            <div class="cs-metrics-grid" *ngIf="selectedProject.metrics">
+              <div class="cs-metric-card" *ngFor="let metric of selectedProject.metrics">
+                <span class="cs-metric-value">{{ metric.value }}</span>
+                <span class="cs-metric-label">{{ metric.label }}</span>
+                <span class="cs-metric-improvement" *ngIf="metric.improvement">{{ metric.improvement }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lessons -->
+          <div class="case-study-section" *ngIf="activeCaseStudySection === 'lessons'">
+            <h4>Lessons Learned</h4>
+            <div class="lessons-list">
+              <div class="lesson-item" *ngFor="let lesson of selectedProject.caseStudy.lessons; let i = index">
+                <span class="lesson-number">{{ i + 1 }}</span>
+                <p>{{ lesson }}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -1,0 +1,138 @@
+<section class="playground-section">
+  <div class="section-header">
+    <a routerLink="/" class="back-link">← Back to Portfolio</a>
+    <div class="header-badge">
+      <span class="badge-icon">⚡</span>
+      <span class="badge-text">Interactive</span>
+    </div>
+    <h2 class="section-title">Live Code Playground</h2>
+    <p class="section-subtitle">Write HTML, CSS & JavaScript — see instant results</p>
+  </div>
+
+  <div class="playground-wrapper" [class.fullscreen]="isFullscreen()">
+    <!-- Toolbar -->
+    <div class="playground-toolbar">
+      <div class="toolbar-left">
+        <button class="toolbar-btn templates-btn" (click)="showTemplates.set(!showTemplates())" title="Templates">
+          <span>📦</span> Templates
+        </button>
+        <button class="toolbar-btn" (click)="runCode()" title="Run Code">
+          <span>▶️</span> Run
+        </button>
+        <button class="toolbar-btn" (click)="clearCode()" title="Clear All">
+          <span>🗑️</span>
+        </button>
+        <button class="toolbar-btn" (click)="copyCode()" title="Copy Code">
+          <span>📋</span>
+        </button>
+      </div>
+      <div class="toolbar-right">
+        <label class="auto-run-toggle">
+          <input type="checkbox" [checked]="autoRun()" (change)="autoRun.set(!autoRun())" />
+          <span class="toggle-label">Auto-run</span>
+        </label>
+        <button class="toolbar-btn" (click)="toggleConsole()" [class.active]="showConsole()" title="Console">
+          <span>🖥️</span>
+        </button>
+        <button class="toolbar-btn" (click)="toggleFullscreen()" title="Fullscreen">
+          <span>{{ isFullscreen() ? '⊡' : '⊞' }}</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Templates Dropdown -->
+    <div class="templates-dropdown" *ngIf="showTemplates()">
+      <div class="template-card" *ngFor="let template of templates" (click)="loadTemplate(template)">
+        <span class="template-icon">{{ template.icon }}</span>
+        <div class="template-info">
+          <strong>{{ template.name }}</strong>
+          <span>{{ template.description }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="playground-body">
+      <!-- Editor Panel -->
+      <div class="editor-panel">
+        <!-- Tab Bar -->
+        <div class="editor-tabs">
+          <button
+            class="tab-btn"
+            [class.active]="activeTab() === 'html'"
+            (click)="setTab('html')"
+          >
+            <span class="tab-icon html-icon">◇</span> HTML
+          </button>
+          <button
+            class="tab-btn"
+            [class.active]="activeTab() === 'css'"
+            (click)="setTab('css')"
+          >
+            <span class="tab-icon css-icon">◈</span> CSS
+          </button>
+          <button
+            class="tab-btn"
+            [class.active]="activeTab() === 'js'"
+            (click)="setTab('js')"
+          >
+            <span class="tab-icon js-icon">◆</span> JS
+          </button>
+        </div>
+
+        <!-- Code Editor -->
+        <div class="code-editor">
+          <div class="line-numbers">
+            <span *ngFor="let line of getLineCount(getActiveCode())">{{ line }}</span>
+          </div>
+          <textarea
+            class="code-input"
+            [value]="getActiveCode()"
+            (input)="onCodeChange(activeTab(), $any($event.target).value)"
+            spellcheck="false"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+          ></textarea>
+        </div>
+
+        <!-- Console Output -->
+        <div class="console-panel" *ngIf="showConsole()">
+          <div class="console-header">
+            <span>Console</span>
+            <button class="console-clear" (click)="clearConsole()">Clear</button>
+          </div>
+          <div class="console-output">
+            <div
+              *ngFor="let entry of consoleOutput()"
+              class="console-entry"
+              [class.error]="entry.type === 'error'"
+              [class.warn]="entry.type === 'warn'"
+            >
+              <span class="console-prefix">{{ entry.type === 'error' ? '✕' : entry.type === 'warn' ? '⚠' : '›' }}</span>
+              {{ entry.message }}
+            </div>
+            <div *ngIf="consoleOutput().length === 0" class="console-empty">
+              No console output yet
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview Panel -->
+      <div class="preview-panel">
+        <div class="preview-header">
+          <span class="preview-dot red"></span>
+          <span class="preview-dot yellow"></span>
+          <span class="preview-dot green"></span>
+          <span class="preview-title">Preview</span>
+        </div>
+        <iframe
+          #previewFrame
+          class="preview-iframe"
+          sandbox="allow-scripts allow-modals"
+          title="Code Preview"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</section>

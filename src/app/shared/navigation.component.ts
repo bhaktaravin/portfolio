@@ -16,6 +16,7 @@ interface NavItem {
   href: string;
   icon?: string;
   external?: boolean;
+  route?: string;
   analyticsLabel?: string;
 }
 
@@ -30,7 +31,7 @@ interface NavItem {
       [class.mobile-open]="isMobileMenuOpen()"
       [class.dark-theme]="themeService.isDarkMode()"
     >
-      <div class="navbar-container container">
+      <div class="navbar-container">
         <!-- Brand/Logo -->
         <a
           href="#hero"
@@ -209,7 +210,7 @@ interface NavItem {
         -webkit-backdrop-filter: none;
         border-bottom: 1px solid transparent;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        min-height: 70px;
+        min-height: 60px;
       }
 
       .navbar.scrolled {
@@ -238,11 +239,11 @@ interface NavItem {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 1rem var(--container-padding, 2rem);
-        max-width: var(--container-max-width, 1200px);
+        padding: 0.75rem var(--container-padding, 1.5rem);
+        max-width: 1440px;
         margin: 0 auto;
         width: 100%;
-        height: 70px;
+        height: 64px;
       }
 
       /* Brand/Logo */
@@ -293,11 +294,10 @@ interface NavItem {
       }
 
       /* Desktop Navigation */
-      /* Desktop Navigation */
       .navbar-nav {
         display: flex;
         align-items: center;
-        gap: 2rem;
+        gap: 0.5rem;
       }
 
       /* Utility Classes */
@@ -321,7 +321,7 @@ interface NavItem {
       .nav-links {
         display: flex;
         align-items: center;
-        gap: 2rem;
+        gap: 0.15rem;
         list-style: none;
         margin: 0;
         padding: 0;
@@ -335,12 +335,11 @@ interface NavItem {
         position: relative;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
-        padding: 0.5rem 1rem;
+        padding: 0.4rem 0.65rem;
         color: var(--color-text-secondary, #6b7280);
         text-decoration: none;
         font-weight: 500;
-        font-size: 0.875rem;
+        font-size: 0.85rem;
         border-radius: 0.5rem;
         transition: all 0.2s ease;
         white-space: nowrap;
@@ -357,13 +356,6 @@ interface NavItem {
       [data-theme="dark"] .nav-link.active {
         background: rgba(59, 130, 246, 0.15);
         color: var(--color-primary-400, #60a5fa);
-      }
-
-      .nav-icon {
-        font-size: 1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
       }
 
       .nav-indicator {
@@ -386,18 +378,24 @@ interface NavItem {
       .nav-actions {
         display: flex;
         align-items: center;
-        gap: 0.75rem;
+        gap: 0.5rem;
         flex-shrink: 0;
       }
 
       /* Command Palette Hint */
       .command-hint {
-        display: flex;
+        display: none;
         align-items: center;
         gap: 0.25rem;
         margin-right: 0.5rem;
         opacity: 0.6;
         transition: opacity 0.3s ease;
+      }
+
+      @media (min-width: 1200px) {
+        .command-hint {
+          display: flex;
+        }
       }
 
       .command-hint:hover {
@@ -430,7 +428,6 @@ interface NavItem {
 
       /* Mobile Controls */
       .mobile-controls {
-        display: flex;
         align-items: center;
         gap: 1rem;
       }
@@ -615,8 +612,8 @@ interface NavItem {
       }
 
       .btn-sm {
-        padding: 0.375rem 0.75rem;
-        font-size: 0.875rem;
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
       }
 
       .btn-primary {
@@ -736,53 +733,54 @@ export class NavigationComponent implements OnInit, OnDestroy {
   // Navigation items
   navItems: NavItem[] = [
     {
-      id: "hero",
-      label: "Home",
-      href: "#hero",
-      icon: "🏠",
-      analyticsLabel: "home",
-    },
-    {
       id: "about",
       label: "About",
       href: "#about",
-      icon: "👨‍💻",
       analyticsLabel: "about",
     },
     {
       id: "experience",
       label: "Experience",
       href: "#experience",
-      icon: "💼",
       analyticsLabel: "experience",
     },
     {
       id: "skills",
       label: "Skills",
       href: "#skills",
-      icon: "🛠️",
       analyticsLabel: "skills",
     },
     {
       id: "projects",
       label: "Projects",
       href: "#projects",
-      icon: "🚀",
       analyticsLabel: "projects",
     },
     {
       id: "blog",
       label: "Blog",
       href: "#blog",
-      icon: "📝",
       analyticsLabel: "blog",
     },
     {
       id: "education",
       label: "Education",
       href: "#education",
-      icon: "🎓",
       analyticsLabel: "education",
+    },
+    {
+      id: "playground",
+      label: "Playground",
+      href: "/playground",
+      route: "/playground",
+      analyticsLabel: "playground",
+    },
+    {
+      id: "terminal",
+      label: "Terminal",
+      href: "/terminal",
+      route: "/terminal",
+      analyticsLabel: "terminal",
     },
   ];
 
@@ -867,7 +865,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
       "navigation",
     );
 
-    if (!item.external) {
+    if (item.route) {
+      event.preventDefault();
+      this.router.navigate([item.route]);
+    } else if (!item.external) {
       event.preventDefault();
       this.scrollToSection(item.id);
     }

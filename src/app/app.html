@@ -1,6 +1,14 @@
 <!-- Navigation -->
 <app-navigation></app-navigation>
 
+<!-- Standalone routed pages (playground, case studies, dashboard) -->
+<main *ngIf="isSubPage()" class="routed-page">
+  <router-outlet></router-outlet>
+</main>
+
+<!-- Main portfolio page (all inline sections) -->
+<ng-container *ngIf="!isSubPage()">
+
 <!-- Hero Section -->
 <section id="hero" class="hero section">
   <app-hero></app-hero>
@@ -135,6 +143,8 @@
 <!-- Skip to main content link for accessibility -->
 <a href="#main" class="skip-link sr-only">Skip to main content</a>
 
+</ng-container>
+
 <!-- Command Palette -->
 <app-command-palette></app-command-palette>
 
@@ -149,3 +159,9 @@
   class="theme-transition-overlay"
   [class.active]="themeService.isDarkMode()"
 ></div>
+
+<!-- AI Chatbot Widget -->
+<app-chatbot></app-chatbot>
+
+<!-- Easter Egg Tracker -->
+<app-egg-tracker></app-egg-tracker>

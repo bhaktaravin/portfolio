@@ -805,7 +805,130 @@
 .case-study {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
+}
+
+/* Case Study Sub-Navigation */
+.case-study-nav {
+  display: flex;
+  gap: 0.25rem;
+  background: var(--hover-color);
+  border-radius: 12px;
+  padding: 0.25rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.cs-nav-btn {
+  padding: 0.6rem 1rem;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.cs-nav-btn:hover {
+  color: var(--text-primary);
+  background: rgba(var(--color-primary-rgb, 99, 102, 241), 0.1);
+}
+
+.cs-nav-btn.active {
+  background: var(--color-primary-500, #6366f1);
+  color: white;
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+}
+
+/* Case Study Metrics Grid */
+.cs-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.cs-metric-card {
+  background: var(--hover-color);
+  border-radius: 12px;
+  padding: 1.25rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.cs-metric-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary-500, #6366f1);
+}
+
+.cs-metric-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cs-metric-improvement {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* Lessons List */
+.lessons-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.lesson-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1rem;
+  background: var(--hover-color);
+  border-radius: 12px;
+}
+
+.lesson-number {
+  background: var(--color-primary-500, #6366f1);
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.lesson-item p {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  padding-top: 0.2rem;
+}
+
+/* Challenge List with icons */
+.challenge-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.challenge-icon {
+  flex-shrink: 0;
 }
 
 .case-study-section h4 {

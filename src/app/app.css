@@ -8,6 +8,13 @@ main {
   min-height: 100vh;
 }
 
+/* Standalone routed pages (playground, case studies, dashboard) */
+.routed-page {
+  padding-top: 90px;
+  min-height: 100vh;
+  padding-bottom: var(--spacing-3xl);
+}
+
 /* === SECTION ANIMATIONS === */
 .section {
   transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);

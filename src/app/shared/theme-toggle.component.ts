@@ -46,6 +46,7 @@ import { ThemeService } from '../services/theme.service';
         [attr.aria-label]="showOptions ? 'Hide theme options' : 'Show theme options'"
         (click)="toggleOptions()"
         type="button"
+        style="display: none;"
       >
         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
           <path d="M3 6l5 5 5-5H3z"/>
@@ -65,19 +66,19 @@ import { ThemeService } from '../services/theme.service';
       position: relative;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
+      gap: 0.35rem;
+      padding: 0.4rem 0.75rem;
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: 2rem;
       color: var(--color-text-primary);
-      font-size: 0.875rem;
+      font-size: 0.8rem;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       overflow: hidden;
       user-select: none;
-      min-width: 120px;
+      min-width: 100px;
       justify-content: center;
     }
 

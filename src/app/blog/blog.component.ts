@@ -2,6 +2,7 @@ import { Component, inject, OnInit, signal, computed } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { Router } from "@angular/router";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 
 import {
   BlogService,
@@ -473,6 +474,80 @@ import { AnalyticsService } from "../services/analytics.service";
         </div>
       </div>
     </section>
+
+    <!-- Article Reader Modal -->
+    <div class="reader-overlay" *ngIf="selectedPost()" (click)="closePost()">
+      <div class="reader-container" (click)="$event.stopPropagation()" (scroll)="onReaderScroll($event)">
+        <!-- Reading Progress Bar -->
+        <div class="reading-progress-bar">
+          <div class="reading-progress-fill" [style.width.%]="readingProgress()"></div>
+        </div>
+
+        <!-- Reader Header -->
+        <div class="reader-header">
+          <button class="reader-close" (click)="closePost()" aria-label="Close article">
+            ← Back to articles
+          </button>
+          <div class="reader-actions">
+            <button class="reader-action-btn"
+              [class.liked]="isPostLiked(selectedPost()!.id)"
+              (click)="toggleLike(selectedPost()!.id, $event)">
+              {{ isPostLiked(selectedPost()!.id) ? '❤️' : '🤍' }}
+              {{ selectedPost()!.analytics.likes }}
+            </button>
+            <a class="reader-action-btn"
+              [href]="railsBlogUrl" target="_blank" rel="noopener"
+              aria-label="View on GitHub">
+              🐙 View on GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Article Meta -->
+        <div class="reader-meta">
+          <span class="reader-category"
+            [style.background]="selectedPost()!.category.color + '20'"
+            [style.color]="selectedPost()!.category.color">
+            {{ selectedPost()!.category.name }}
+          </span>
+          <span class="reader-date">{{ formatDate(selectedPost()!.publishedAt) }}</span>
+          <span class="reader-reading-time">📖 {{ selectedPost()!.readingTime }} min read</span>
+        </div>
+
+        <h1 class="reader-title">{{ selectedPost()!.title }}</h1>
+
+        <!-- Author -->
+        <div class="reader-author">
+          <div class="author-avatar">RB</div>
+          <div class="author-info">
+            <span class="author-name">{{ selectedPost()!.author.name }}</span>
+            <span class="author-bio">{{ selectedPost()!.author.bio }}</span>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="reader-tags">
+          <span *ngFor="let tag of selectedPost()!.tags" class="reader-tag">#{{ tag }}</span>
+        </div>
+
+        <!-- Rendered Markdown Content -->
+        <article class="reader-content markdown-body" [innerHTML]="renderedContent()"></article>
+
+        <!-- Related Posts -->
+        <div class="reader-related" *ngIf="getRelatedPosts().length > 0">
+          <h3>Related Articles</h3>
+          <div class="related-grid">
+            <div *ngFor="let related of getRelatedPosts()"
+              class="related-card"
+              (click)="openPost(related)">
+              <span class="related-category" [style.color]="related.category.color">{{ related.category.name }}</span>
+              <h4>{{ related.title }}</h4>
+              <p>{{ related.excerpt | slice:0:80 }}...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   `,
   styles: [
     `
@@ -1281,6 +1356,335 @@ import { AnalyticsService } from "../services/analytics.service";
           max-width: none;
         }
       }
+
+      /* ====== Article Reader ====== */
+      .reader-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(8px);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .reader-container {
+        width: 100%;
+        max-width: 820px;
+        background: var(--bg-primary, #fff);
+        overflow-y: auto;
+        padding: 2rem 3rem 4rem;
+        position: relative;
+      }
+
+      .reading-progress-bar {
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--hover-color, #eee);
+        z-index: 10;
+      }
+
+      .reading-progress-fill {
+        height: 100%;
+        background: var(--color-primary-500, #6366f1);
+        transition: width 0.15s ease;
+      }
+
+      .reader-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 1.5rem 0 2rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .reader-close {
+        background: none;
+        border: none;
+        color: var(--color-primary-500, #6366f1);
+        font-size: 0.95rem;
+        font-weight: 500;
+        cursor: pointer;
+        padding: 0.5rem 0;
+        transition: opacity 0.2s;
+      }
+
+      .reader-close:hover { opacity: 0.7; }
+
+      .reader-actions {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+      }
+
+      .reader-action-btn {
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        border: 1px solid var(--border-color, #e5e7eb);
+        background: var(--hover-color, #f3f4f6);
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.2s;
+      }
+
+      .reader-action-btn:hover {
+        background: var(--color-primary-500, #6366f1);
+        color: white;
+        border-color: transparent;
+      }
+
+      .reader-action-btn.liked {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.1);
+      }
+
+      .reader-meta {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+      }
+
+      .reader-category {
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+
+      .reader-date, .reader-reading-time {
+        color: var(--text-secondary);
+        font-size: 0.85rem;
+      }
+
+      .reader-title {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        line-height: 1.3;
+        margin-bottom: 1.5rem;
+      }
+
+      .reader-author {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--border-color, #e5e7eb);
+      }
+
+      .author-avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--color-primary-500, #6366f1);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+      }
+
+      .author-name {
+        font-weight: 600;
+        color: var(--text-primary);
+        display: block;
+      }
+
+      .author-bio {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+      }
+
+      .reader-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .reader-tag {
+        padding: 0.25rem 0.6rem;
+        background: var(--hover-color, #f3f4f6);
+        color: var(--color-primary-500, #6366f1);
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+
+      /* Markdown Content Styles */
+      .markdown-body {
+        color: var(--text-primary);
+        line-height: 1.8;
+        font-size: 1.05rem;
+      }
+
+      .markdown-body h1 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 2rem 0 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--border-color, #e5e7eb);
+      }
+
+      .markdown-body h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 2rem 0 0.75rem;
+        color: var(--color-primary-600, #4f46e5);
+      }
+
+      .markdown-body h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 1.5rem 0 0.5rem;
+      }
+
+      .markdown-body p {
+        margin: 0.75rem 0;
+      }
+
+      .markdown-body ul, .markdown-body ol {
+        padding-left: 1.5rem;
+        margin: 0.75rem 0;
+      }
+
+      .markdown-body li {
+        margin: 0.4rem 0;
+      }
+
+      .markdown-body strong {
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .markdown-body hr {
+        border: none;
+        border-top: 2px solid var(--border-color, #e5e7eb);
+        margin: 2rem 0;
+      }
+
+      .markdown-body a {
+        color: var(--color-primary-500, #6366f1);
+        text-decoration: underline;
+      }
+
+      .code-block {
+        position: relative;
+        margin: 1.5rem 0;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #1e1e2e;
+      }
+
+      .code-lang {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.75rem;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #6c7086;
+        font-weight: 600;
+      }
+
+      .code-block pre {
+        margin: 0;
+        padding: 1.25rem;
+        overflow-x: auto;
+      }
+
+      .code-block code {
+        font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+        font-size: 0.88rem;
+        color: #cdd6f4;
+        line-height: 1.6;
+        white-space: pre;
+      }
+
+      .inline-code {
+        background: var(--hover-color, #f3f4f6);
+        color: var(--color-primary-600, #4f46e5);
+        padding: 0.15rem 0.4rem;
+        border-radius: 4px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.88em;
+      }
+
+      /* Related Posts */
+      .reader-related {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 2px solid var(--border-color, #e5e7eb);
+      }
+
+      .reader-related h3 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+
+      .related-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+      }
+
+      .related-card {
+        padding: 1.25rem;
+        border-radius: 12px;
+        background: var(--hover-color, #f3f4f6);
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .related-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      }
+
+      .related-category {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .related-card h4 {
+        font-size: 1rem;
+        margin: 0.5rem 0;
+        color: var(--text-primary);
+      }
+
+      .related-card p {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        margin: 0;
+      }
+
+      @media (max-width: 768px) {
+        .reader-container {
+          padding: 1.5rem 1.25rem 3rem;
+        }
+        .reader-title {
+          font-size: 1.6rem;
+        }
+        .reader-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
     `,
   ],
 })
@@ -1288,12 +1692,19 @@ export class BlogComponent implements OnInit {
   public blogService = inject(BlogService);
   private analytics = inject(AnalyticsService);
   private router = inject(Router);
+  private sanitizer = inject(DomSanitizer);
 
   // Component state
   searchQuery = "";
   selectedCategory = "";
   selectedSort: BlogSortBy = "publishedAt";
   newsletterEmail = "";
+
+  // Article reader state
+  selectedPost = signal<BlogPost | null>(null);
+  renderedContent = signal<SafeHtml>('');
+  readingProgress = signal(0);
+  private scrollHandler: (() => void) | null = null;
 
   // Preview mode (show top posts only)
   previewMode = true;
@@ -1405,8 +1816,79 @@ export class BlogComponent implements OnInit {
       },
     });
 
-    // Open Rails blog (full content hosted externally)
-    window.open(this.railsBlogUrl, "_blank", "noopener");
+    // Render markdown and show inline reader
+    this.selectedPost.set(post);
+    this.renderedContent.set(this.renderMarkdown(post.content));
+    document.body.style.overflow = 'hidden';
+
+    // Track reading progress
+    this.readingProgress.set(0);
+  }
+
+  closePost(): void {
+    this.selectedPost.set(null);
+    this.renderedContent.set('');
+    document.body.style.overflow = 'auto';
+  }
+
+  getRelatedPosts(): BlogPost[] {
+    const post = this.selectedPost();
+    if (!post) return [];
+    return this.blogService.getRelatedPosts(post.id, 3);
+  }
+
+  onReaderScroll(event: Event): void {
+    const el = event.target as HTMLElement;
+    const progress = (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100;
+    this.readingProgress.set(Math.min(100, Math.max(0, progress)));
+  }
+
+  private renderMarkdown(content: string): SafeHtml {
+    let html = content.trim();
+
+    // Code blocks (``` ... ```)
+    html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_match: string, lang: string, code: string) => {
+      const escapedCode = code.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const langClass = lang ? ` class="language-${lang}"` : '';
+      const langLabel = lang ? `<span class="code-lang">${lang}</span>` : '';
+      return `<div class="code-block">${langLabel}<pre><code${langClass}>${escapedCode}</code></pre></div>`;
+    });
+
+    // Inline code
+    html = html.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
+
+    // Headers
+    html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+    html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+    html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+
+    // Bold and italic
+    html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+    // Ordered lists
+    html = html.replace(/^(\d+)\. (.+)$/gm, '<li class="ordered">$2</li>');
+
+    // Unordered lists
+    html = html.replace(/^- (.+)$/gm, '<li>$1</li>');
+
+    // Wrap consecutive <li> in <ul>/<ol>
+    html = html.replace(/((?:<li class="ordered">.*<\/li>\n?)+)/g, '<ol>$1</ol>');
+    html = html.replace(/((?:<li>.*<\/li>\n?)+)/g, '<ul>$1</ul>');
+
+    // Links
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+
+    // Horizontal rules
+    html = html.replace(/^---$/gm, '<hr>');
+
+    // Paragraphs (wrap remaining text blocks)
+    html = html.replace(/^(?!<[h|u|o|p|d|l|b|c|a|hr])((?!\s*$).+)$/gm, '<p>$1</p>');
+
+    // Clean up empty paragraphs
+    html = html.replace(/<p>\s*<\/p>/g, '');
+
+    return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
   openRailsBlog(): void {

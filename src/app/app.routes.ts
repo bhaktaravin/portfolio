@@ -107,6 +107,45 @@ export const routes: Routes = [
     },
   },
   {
+    path: "playground",
+    loadComponent: () =>
+      import("./playground/playground.component").then(
+        (m) => m.PlaygroundComponent,
+      ),
+    title: "Code Playground - Ravin Bhakta",
+    data: {
+      description:
+        "Interactive live code playground — write HTML, CSS & JavaScript and see instant results.",
+      animation: "fadeIn",
+    },
+  },
+  {
+    path: "dashboard",
+    loadComponent: () =>
+      import("./dashboard/analytics-dashboard.component").then(
+        (m) => m.AnalyticsDashboardComponent,
+      ),
+    title: "Analytics Dashboard - Ravin Bhakta",
+    data: {
+      description:
+        "Real-time visitor analytics and interaction metrics.",
+      animation: "fadeIn",
+    },
+  },
+  {
+    path: "terminal",
+    loadComponent: () =>
+      import("./terminal/terminal.component").then(
+        (m) => m.TerminalComponent,
+      ),
+    title: "Terminal - Ravin Bhakta",
+    data: {
+      description:
+        "Interactive CLI-style portfolio — explore with terminal commands.",
+      animation: "fadeIn",
+    },
+  },
+  {
     path: "404",
     loadComponent: () =>
       import("./not-found/not-found.component").then(
@@ -125,15 +164,5 @@ export const routes: Routes = [
         (m) => m.NotFoundComponent,
       ),
     title: "404 - Page Not Found",
-  },
-
-  // In app.routes.ts
-  {
-    path: "dashboard",
-    loadComponent: () =>
-      import("./dashboard/dashboard.component").then(
-        (m) => m.DashboardComponent,
-      ),
-    title: "Dashboard - Ravin Bhakta",
   },
 ];

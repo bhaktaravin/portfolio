@@ -1,0 +1,60 @@
+<section class="terminal-section">
+  <a routerLink="/" class="back-link">← Back to Portfolio</a>
+
+  <div class="terminal-window">
+    <!-- Title Bar -->
+    <div class="terminal-titlebar">
+      <div class="terminal-dots">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+      </div>
+      <span class="terminal-title">ravin@portfolio ~ zsh</span>
+      <div class="terminal-actions">
+        <button class="terminal-btn" (click)="clearTerminal()" aria-label="Clear terminal">clear</button>
+      </div>
+    </div>
+
+    <!-- Terminal Output -->
+    <div class="terminal-body" #terminalBody (click)="focusInput()">
+      <!-- Welcome Message -->
+      <div class="terminal-output welcome" *ngIf="showWelcome">
+        <pre class="ascii-art">{{ asciiArt }}</pre>
+        <p class="welcome-text">Welcome to Ravin Bhakta's interactive terminal portfolio!</p>
+        <p class="welcome-hint">Type <span class="cmd-highlight">help</span> to see available commands, or try <span class="cmd-highlight">about</span> to learn more.</p>
+      </div>
+
+      <!-- Command History -->
+      <div *ngFor="let entry of history" class="terminal-entry">
+        <div class="terminal-prompt-line">
+          <span class="prompt">{{ prompt }}</span>
+          <span class="command-text">{{ entry.command }}</span>
+        </div>
+        <div class="terminal-response" [innerHTML]="entry.response"></div>
+      </div>
+
+      <!-- Current Input -->
+      <div class="terminal-input-line">
+        <span class="prompt">{{ prompt }}</span>
+        <input
+          #terminalInput
+          type="text"
+          class="terminal-input"
+          [(ngModel)]="currentCommand"
+          (keydown)="onKeyDown($event)"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Terminal input"
+        />
+        <span class="cursor-blink">█</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="terminal-hints">
+    <span class="hint-label">Quick commands:</span>
+    <button *ngFor="let cmd of quickCommands" class="hint-chip" (click)="executeQuickCommand(cmd)">
+      {{ cmd }}
+    </button>
+  </div>
+</section>

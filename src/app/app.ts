@@ -1,6 +1,7 @@
-import { Component } from "@angular/core";
+import { Component, signal, OnInit, OnDestroy } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { RouterOutlet, RouterModule } from "@angular/router";
+import { RouterOutlet, RouterModule, Router, NavigationEnd } from "@angular/router";
+import { filter, Subscription } from "rxjs";
 import { FormsModule } from "@angular/forms";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
@@ -23,6 +24,9 @@ import { GitHubIntegrationComponent } from "./shared/components/github-integrati
 import { ToastComponent } from "./shared/components/toast/toast.component";
 import { ScrollToTopComponent } from "./shared/scroll-to-top.component";
 import { SmoothScrollSectionDirective } from "./shared/directives/smooth-scroll-section.directive";
+import { ChatbotComponent } from "./shared/components/chatbot/chatbot.component";
+import { EggTrackerComponent } from "./shared/components/egg-tracker/egg-tracker.component";
+import { EasterEggsService } from "./services/easter-eggs.service";
 
 import { MissionControlComponent } from "./mission-control/mission-control.component";
 
@@ -94,24 +98,49 @@ export interface Education {
     ScrollToTopComponent,
     MissionControlComponent,
     SmoothScrollSectionDirective,
+    ChatbotComponent,
+    EggTrackerComponent,
   ],
   templateUrl: "./app.html",
   styleUrls: ["./app.css"],
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   title = "Portfolio";
+
+  // Standalone pages that render via router-outlet (not inline sections)
+  private readonly standaloneRoutes = ['/playground', '/dashboard', '/terminal'];
+  isSubPage = signal(false);
+  private routerSub?: Subscription;
 
   constructor(
     public themeServiceInstance: ThemeService,
     private analytics: AnalyticsService,
     private performance: PerformanceService,
     private toastService: ToastService,
+    private router: Router,
+    private easterEggs: EasterEggsService,
   ) {
     // Initialize analytics
     this.analytics.trackPageView("/", "Portfolio Home");
 
     // Set up performance monitoring
     this.setupPerformanceMonitoring();
+  }
+
+  ngOnInit(): void {
+    // Detect standalone sub-pages
+    this.checkRoute(this.router.url);
+    this.routerSub = this.router.events
+      .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
+      .subscribe(e => this.checkRoute(e.urlAfterRedirects));
+  }
+
+  ngOnDestroy(): void {
+    this.routerSub?.unsubscribe();
+  }
+
+  private checkRoute(url: string): void {
+    this.isSubPage.set(this.standaloneRoutes.some(r => url.startsWith(r)));
   }
 
   certifications: Certification[] = [

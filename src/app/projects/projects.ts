@@ -43,10 +43,13 @@ interface Project {
     improvement?: string;
   }[];
   caseStudy?: {
+    overview: string;
     problem: string;
     solution: string;
     process: string[];
     outcome: string;
+    challenges: string[];
+    lessons: string[];
   };
   tags?: string[];
 }
@@ -191,6 +194,7 @@ export class ProjectsComponent implements OnInit {
   selectedProject: Project | null = null;
   showProjectModal = false;
   activeModalTab = "overview";
+  activeCaseStudySection = "overview";
 
   hoveredCard: string | null = null;
 
@@ -244,6 +248,33 @@ export class ProjectsComponent implements OnInit {
           improvement: "Average session time",
         },
       ],
+      caseStudy: {
+        overview: 'A comprehensive manga reading platform built with Angular that delivers a fast, immersive reading experience across all devices. The project focused on solving critical performance bottlenecks with large image-heavy content while maintaining a smooth, app-like user experience.',
+        problem: 'Existing manga readers suffered from slow page loads, poor mobile experience, and excessive data consumption. Users were frustrated with layout shifts, unresponsive controls, and the inability to read offline. The challenge was to create a reading experience that felt as natural as reading a physical book.',
+        solution: 'Built a Progressive Web App with Angular featuring intelligent image preloading, responsive design with touch gestures, and an efficient caching mechanism. Implemented lazy loading strategies that prioritize visible content while pre-fetching upcoming pages in the background.',
+        process: [
+          'Researched competitor platforms and identified key UX pain points',
+          'Designed a component architecture optimized for performance',
+          'Implemented lazy loading with Intersection Observer API',
+          'Built custom touch gesture handlers for natural page navigation',
+          'Created an offline-first caching strategy using Service Workers',
+          'Optimized images with responsive srcsets and WebP format',
+          'Conducted performance audits and achieved 95/100 Lighthouse score',
+        ],
+        outcome: 'Delivered a production-ready manga reader with 50% faster page loads, zero layout shift, and seamless offline reading. The responsive design provides an identical experience across desktop and mobile devices.',
+        challenges: [
+          'Large image files causing bandwidth issues on mobile networks',
+          'Creating smooth swipe-to-navigate without jank',
+          'Managing memory efficiently with hundreds of images loaded',
+          'Implementing accurate reading progress tracking across sessions',
+        ],
+        lessons: [
+          'Intersection Observer API is critical for performance-sensitive apps',
+          'Service Workers require careful cache invalidation strategies',
+          'Touch gesture detection needs debouncing to prevent false triggers',
+          'Progressive enhancement ensures functionality across browsers',
+        ],
+      },
     },
     // Python Job Recommender
     {
@@ -303,6 +334,33 @@ export class ProjectsComponent implements OnInit {
           improvement: "Optimized FastAPI endpoints",
         },
       ],
+      caseStudy: {
+        overview: 'An automated job scraping and recommendation engine that collects 50,000+ job listings daily and matches them to user profiles using intelligent filtering and preference analysis. Built with Python, Flask, and FastAPI for high-performance data processing.',
+        problem: 'Job seekers spend hours daily browsing multiple platforms to find relevant positions. Manual searching is inefficient, and most job platforms use generic matching that misses nuanced preferences like remote work, specific tech stacks, or company culture fit.',
+        solution: 'Designed a two-tier architecture: Flask handles core business logic and data management, while FastAPI powers the high-performance API endpoints. Implemented an async scraping pipeline with aiohttp and built a recommendation algorithm using user profiling with Pandas.',
+        process: [
+          'Analyzed job platform APIs and identified scraping strategies',
+          'Designed database schema with SQLAlchemy for efficient querying',
+          'Built asynchronous scraping pipeline with rate limiting',
+          'Implemented user preference profiling and matching algorithm',
+          'Created RESTful API endpoints with FastAPI for sub-200ms responses',
+          'Added automated daily cron jobs for continuous data collection',
+          'Built A/B testing framework to improve recommendation accuracy',
+        ],
+        outcome: 'Achieved 85% recommendation accuracy based on user feedback, processing 50K+ jobs daily with 200ms API response times. The modular architecture allows easy scaling and integration with new job platforms.',
+        challenges: [
+          'Handling rate limits and anti-scraping measures from job platforms',
+          'Normalizing job data from different sources into a unified schema',
+          'Balancing recommendation precision vs. recall for diverse users',
+          'Maintaining data freshness with expired and updated listings',
+        ],
+        lessons: [
+          'Async I/O dramatically improves scraping throughput',
+          'User feedback loops are essential for recommendation quality',
+          'SQLAlchemy migrations need careful planning for schema evolution',
+          'Separating Flask (admin) and FastAPI (API) improved maintainability',
+        ],
+      },
     },
     {
       id: "pokemon-quiz",
@@ -363,6 +421,34 @@ export class ProjectsComponent implements OnInit {
         },
         { label: "Load Time", value: "0.8s", improvement: "Initial game load" },
       ],
+      caseStudy: {
+        overview: 'An engaging web-based quiz game challenging players to identify all 151 original Pokemon through multiple game modes. Built with React and TypeScript, featuring smooth animations, persistent leaderboards with Firebase, and responsive design for mobile gaming.',
+        problem: 'Pokemon fan communities lacked a modern, polished quiz experience. Existing trivia apps were outdated, slow, and didn\'t leverage modern web capabilities like real-time leaderboards, adaptive difficulty, or mobile-optimized gameplay.',
+        solution: 'Created a React application with Vite for blazing-fast builds and Tailwind CSS for responsive styling. Integrated PokeAPI for accurate Pokemon data, implemented Firebase for real-time leaderboards and authentication, and designed multiple game modes to keep players engaged.',
+        process: [
+          'Designed game mechanics and user flow wireframes',
+          'Set up React + Vite + TypeScript project with Tailwind',
+          'Built efficient PokeAPI data layer with caching',
+          'Implemented multiple quiz modes (timed, endless, difficulty-based)',
+          'Added Firebase Authentication and Firestore leaderboards',
+          'Created smooth CSS animations and transitions',
+          'Optimized for mobile with touch-friendly controls',
+          'Deployed to Vercel with CI/CD pipeline',
+        ],
+        outcome: 'Launched to strong engagement with 1000+ daily game sessions, 68% quiz completion rate, and an active player community. The 0.8s initial load time ensures players start gaming immediately.',
+        challenges: [
+          'Managing API rate limits for PokeAPI with 151 Pokemon',
+          'Creating engaging game mechanics that encourage replay',
+          'Real-time leaderboard updates without Firebase costs spiraling',
+          'Ensuring responsive game UI works well on small screens',
+        ],
+        lessons: [
+          'Vite dramatically speeds up the development experience',
+          'Firebase Firestore rules need careful security planning',
+          'Gamification elements (streaks, scores) greatly improve retention',
+          'Tailwind CSS utility classes speed up responsive design iteration',
+        ],
+      },
     },
   ];
 
@@ -488,6 +574,13 @@ export class ProjectsComponent implements OnInit {
 
   setActiveTab(tab: string) {
     this.activeModalTab = tab;
+    if (tab === 'casestudy') {
+      this.activeCaseStudySection = 'overview';
+    }
+  }
+
+  setCaseStudySection(section: string) {
+    this.activeCaseStudySection = section;
   }
 
   toggleFilters() {
