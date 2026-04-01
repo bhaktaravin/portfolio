@@ -24,7 +24,10 @@
       <img *ngIf="project.image" [src]="project.image" [alt]="project.title + ' thumbnail'" class="project-thumbnail" loading="lazy"
            (error)="onImgError($event)" />
       <div class="project-info">
-        <h3 class="project-title">{{ project.title }}</h3>
+        <div class="project-title-row">
+          <h3 class="project-title">{{ project.title }}</h3>
+          <span *ngIf="project.featured" class="featured-badge">⭐ Featured</span>
+        </div>
         <p class="project-description">{{ project.description }}</p>
         <div class="project-tech">
           <span
@@ -67,7 +70,10 @@
     />
 
     <div class="modal-body">
-      <h2 class="modal-title">{{ selectedProject()!.title }}</h2>
+      <div class="project-title-row">
+        <h2 class="modal-title">{{ selectedProject()!.title }}</h2>
+        <span *ngIf="selectedProject()!.featured" class="featured-badge">⭐ Featured</span>
+      </div>
       <p class="modal-description">{{ selectedProject()!.description }}</p>
 
       <div class="modal-tech">

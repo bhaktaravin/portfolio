@@ -8,6 +8,7 @@ interface Project {
   image?: string;
   liveUrl?: string;
   githubUrl?: string;
+  featured?: boolean;
 }
 
 // SVG icon mapping for common techs
@@ -77,6 +78,7 @@ export class ProjectsComponent {
       githubUrl: "https://github.com/ravinbhakta/mangaviewer",
       liveUrl: "https://mangaviewer-rust-angular.vercel.app/home",
       image: "assets/mangaviewer.png",
+      featured: true,
     },
     {
       title: "Flutter Personal Finance Tracker",
@@ -129,6 +131,7 @@ export class ProjectsComponent {
       githubUrl: "https://github.com/bhaktaravin/flight-deals-api",
       liveUrl: "https://flight-deals-api-production.up.railway.app/",
       image: "assets/flight-aggregator.png",
+      featured: true,
     },
   ];
 
