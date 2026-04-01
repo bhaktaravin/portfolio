@@ -36,4 +36,18 @@ export const environment = {
 
 const outPath = path.resolve(__dirname, "../src/environments/environment.ts");
 fs.writeFileSync(outPath, content);
+
+const outProdPath = path.resolve(__dirname, "../src/environments/environment.prod.ts");
+fs.writeFileSync(outProdPath, content.replace(
+  "production: false",
+  "production: true"
+).replace(
+  "debugMode: true",
+  "debugMode: false"
+).replace(
+  'logLevel: "debug"',
+  'logLevel: "error"'
+));
+
 console.log("✅ environment.ts generated");
+console.log("✅ environment.prod.ts generated");
