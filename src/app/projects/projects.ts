@@ -104,6 +104,7 @@ export class ProjectsComponent {
       githubUrl: "https://github.com/bhaktaravin/poke-pal-quiz",
       liveUrl: "https://poke-pal-quiz.vercel.app",
       image: "assets/poke-pal-quiz.png",
+      featured: true
     },
     {
       title: "YouTube Clone",
@@ -113,7 +114,9 @@ export class ProjectsComponent {
       githubUrl: "https://github.com/bhaktaravin/youtube-clone",
       liveUrl: "",
       image: "assets/nothumbnail.jpg",
+      featured: true
     },
+    
     {
       title: "Flight Deals Finder",
       description:
