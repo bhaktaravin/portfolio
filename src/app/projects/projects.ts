@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, computed, signal, HostListener } from "@angular/core";
 import { CommonModule } from "@angular/common";
 
 interface Project {
@@ -28,6 +28,40 @@ const techIcons: Record<string, string> = {
   styleUrls: ["./projects.css"],
 })
 export class ProjectsComponent {
+  activeFilter = signal<string>("All");
+
+  allTags = computed(() => {
+    const tags = new Set<string>();
+    this.projects.forEach((p) => p.technologies.forEach((t) => tags.add(t)));
+    return ["All", ...Array.from(tags)];
+  });
+
+  filteredProjects = computed(() => {
+    const filter = this.activeFilter();
+    if (filter === "All") return this.projects;
+    return this.projects.filter((p) => p.technologies.includes(filter));
+  });
+
+  setFilter(tag: string) {
+    this.activeFilter.set(tag);
+  }
+
+  selectedProject = signal<Project | null>(null);
+
+  openModal(project: Project) {
+    this.selectedProject.set(project);
+    document.body.style.overflow = "hidden";
+  }
+
+  closeModal() {
+    this.selectedProject.set(null);
+    document.body.style.overflow = "";
+  }
+
+  @HostListener("document:keydown.escape")
+  onEscape() {
+    this.closeModal();
+  }
   projects: Project[] = [
     {
       title: "MangaViewer",
@@ -66,8 +100,35 @@ export class ProjectsComponent {
         "Shadcn/ui",
       ],
       githubUrl: "https://github.com/bhaktaravin/poke-pal-quiz",
-      liveUrl: "https://pokemon-palace-quest.lovable.app",
+      liveUrl: "https://poke-pal-quiz.vercel.app",
       image: "assets/poke-pal-quiz.png",
+    },
+    {
+      title: "YouTube Clone",
+      description:
+        "A YouTube-inspired video browsing application built with React and Vite. Features a responsive UI mimicking YouTube's layout including a sidebar, video grid, and video player page.",
+      technologies: ["React", "Vite", "JavaScript", "CSS3", "HTML5"],
+      githubUrl: "https://github.com/bhaktaravin/youtube-clone",
+      liveUrl: "",
+      image: "assets/nothumbnail.jpg",
+    },
+    {
+      title: "Flight Deals Finder",
+      description:
+        "Full-stack flight search application with real-time pricing, airport autocomplete, and automated price alerts. Features background job processing for hourly price monitoring, Redis caching for API optimization, and comprehensive search history tracking. Deployed on Railway with PostgreSQL and Redis.",
+      technologies: [
+        "NestJS",
+        "TypeScript",
+        "PostgreSQL",
+        "Redis",
+        "Prisma ORM",
+        "Bull Queue",
+        "Amadeus API",
+        "Railway",
+      ],
+      githubUrl: "https://github.com/bhaktaravin/flight-deals-api",
+      liveUrl: "https://flight-deals-api-production.up.railway.app/",
+      image: "assets/flight-aggregator.png",
     },
   ];
 

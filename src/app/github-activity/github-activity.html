@@ -1,0 +1,75 @@
+<div class="github-activity-container">
+  <div class="activity-content">
+    <!-- Recent Activity Section -->
+    <div class="recent-activity">
+      <h3 class="activity-subtitle">Recent Activity</h3>
+      
+      <div *ngIf="loading" class="loading">
+        <div class="spinner"></div>
+      </div>
+
+      <div *ngIf="!loading" class="events-list">
+        <div *ngFor="let event of recentEvents" class="event-item">
+          <div class="event-content">
+            <div class="event-title">{{ event.title }}</div>
+            <div class="event-repo">{{ event.repo }}</div>
+          </div>
+          <div class="event-time">{{ event.timeAgo }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contribution Activity Section -->
+    <div class="contribution-section">
+      <div class="contribution-header">
+        <h3 class="contribution-title">Contribution Activity</h3>
+        <div class="total-commits">{{ stats.totalCommits }} total commits</div>
+      </div>
+
+      <!-- Stats Row -->
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-value">{{ stats.currentStreak }}</div>
+          <div class="stat-label">CURRENT<br>STREAK</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">{{ stats.longestStreak }}</div>
+          <div class="stat-label">LONGEST<br>STREAK</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">{{ stats.thisWeek }}</div>
+          <div class="stat-label">THIS<br>WEEK</div>
+        </div>
+      </div>
+
+      <!-- Contribution Graph -->
+      <div class="contribution-graph">
+        <div class="graph-header">
+          <span class="graph-title">Last 12 weeks</span>
+          <div class="graph-legend">
+            <span>Less</span>
+            <div class="legend-colors">
+              <div class="legend-box" [style.background-color]="getContributionColor(0)"></div>
+              <div class="legend-box" [style.background-color]="getContributionColor(1)"></div>
+              <div class="legend-box" [style.background-color]="getContributionColor(2)"></div>
+              <div class="legend-box" [style.background-color]="getContributionColor(3)"></div>
+              <div class="legend-box" [style.background-color]="getContributionColor(4)"></div>
+            </div>
+            <span>More</span>
+          </div>
+        </div>
+
+        <div class="graph-grid">
+          <div *ngFor="let week of contributionGrid" class="graph-column">
+            <div 
+              *ngFor="let day of week" 
+              class="graph-cell"
+              [style.background-color]="getContributionColor(day.level)"
+              [title]="day.count + ' contributions on ' + (day.date | date:'mediumDate')"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

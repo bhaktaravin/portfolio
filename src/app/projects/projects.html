@@ -1,27 +1,93 @@
 <section class="projects">
   <h2 class="section-title">Featured Projects</h2>
+
+  <!-- Filter bar -->
+  <div class="filter-bar">
+    <button
+      *ngFor="let tag of allTags()"
+      class="filter-btn"
+      [class.active]="activeFilter() === tag"
+      (click)="setFilter(tag)"
+    >{{ tag }}</button>
+  </div>
+
   <div class="projects-grid">
-    <div class="project-card" *ngFor="let project of projects">
+    <div
+      class="project-card"
+      *ngFor="let project of filteredProjects()"
+      (click)="openModal(project)"
+      role="button"
+      tabindex="0"
+      (keydown.enter)="openModal(project)"
+      [attr.aria-label]="'View details for ' + project.title"
+    >
       <img *ngIf="project.image" [src]="project.image" [alt]="project.title + ' thumbnail'" class="project-thumbnail" loading="lazy"
            (error)="onImgError($event)" />
       <div class="project-info">
         <h3 class="project-title">{{ project.title }}</h3>
         <p class="project-description">{{ project.description }}</p>
         <div class="project-tech">
-          <span class="tech-tag" *ngFor="let tech of project.technologies">
+          <span
+            class="tech-tag"
+            *ngFor="let tech of project.technologies"
+            [class.highlighted]="activeFilter() === tech"
+          >
             <span class="tech-icon" [innerHTML]="getTechIcon(tech)"></span>
             {{ tech }}
           </span>
         </div>
-        <div class="project-links">
+        <div class="project-links" (click)="$event.stopPropagation()">
           <a *ngIf="project.liveUrl" class="project-link btn-link" [href]="project.liveUrl" target="_blank" rel="noopener">
-            <i class="fa fa-external-link-alt"></i> Live Demo
+            🔗 Live Demo
           </a>
-          <a *ngIf="project.githubUrl" class="project-link btn-link" [href]="project.githubUrl" target="_blank" rel="noopener">
-            <i class="fab fa-github"></i> GitHub
+          <a *ngIf="project.githubUrl" class="project-link btn-link secondary" [href]="project.githubUrl" target="_blank" rel="noopener">
+            🐙 GitHub
           </a>
         </div>
       </div>
     </div>
+
+    <div *ngIf="filteredProjects().length === 0" class="no-results">
+      No projects found for "{{ activeFilter() }}"
+    </div>
   </div>
 </section>
+
+<!-- Modal -->
+<div class="modal-overlay" *ngIf="selectedProject()" (click)="closeModal()" role="dialog" aria-modal="true">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closeModal()" aria-label="Close modal">✕</button>
+
+    <img
+      *ngIf="selectedProject()!.image"
+      [src]="selectedProject()!.image"
+      [alt]="selectedProject()!.title"
+      class="modal-image"
+      (error)="onImgError($event)"
+    />
+
+    <div class="modal-body">
+      <h2 class="modal-title">{{ selectedProject()!.title }}</h2>
+      <p class="modal-description">{{ selectedProject()!.description }}</p>
+
+      <div class="modal-tech">
+        <span
+          class="tech-tag"
+          *ngFor="let tech of selectedProject()!.technologies"
+        >
+          <span class="tech-icon" [innerHTML]="getTechIcon(tech)"></span>
+          {{ tech }}
+        </span>
+      </div>
+
+      <div class="modal-links">
+        <a *ngIf="selectedProject()!.liveUrl" class="btn-link" [href]="selectedProject()!.liveUrl" target="_blank" rel="noopener">
+          🔗 Live Demo
+        </a>
+        <a *ngIf="selectedProject()!.githubUrl" class="btn-link secondary" [href]="selectedProject()!.githubUrl" target="_blank" rel="noopener">
+          🐙 GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

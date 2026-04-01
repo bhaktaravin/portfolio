@@ -1,21 +1,65 @@
 <div class="contact-section">
   <h2>Contact Me</h2>
-  <form (ngSubmit)="submitContact()" #contactForm="ngForm" class="contact-form">
+
+  <!-- Toast notification -->
+  <div *ngIf="toast" class="toast" [class.success]="toast.type === 'success'" [class.error]="toast.type === 'error'">
+    {{ toast.message }}
+  </div>
+
+  <form (ngSubmit)="submitContact(contactForm)" #contactForm="ngForm" class="contact-form" novalidate>
+
+    <!-- Honeypot: hidden from humans, bots fill it out -->
+    <div class="hp-field" aria-hidden="true">
+      <input name="website" [(ngModel)]="honeypot" tabindex="-1" autocomplete="off" />
+    </div>
+
     <div class="form-group">
       <label for="name">Name</label>
-      <input id="name" name="name" [(ngModel)]="contact.name" required />
+      <input
+        id="name" name="name"
+        [(ngModel)]="contact.name"
+        required minlength="2"
+        #name="ngModel"
+        [class.invalid]="name.invalid && name.touched"
+        placeholder="Your name"
+      />
+      <span class="field-error" *ngIf="name.touched && name.errors?.['required']">Name is required.</span>
+      <span class="field-error" *ngIf="name.touched && name.errors?.['minlength']">At least 2 characters.</span>
     </div>
+
     <div class="form-group">
       <label for="email">Email</label>
-      <input id="email" name="email" type="email" [(ngModel)]="contact.email" required />
+      <input
+        id="email" name="email" type="email"
+        [(ngModel)]="contact.email"
+        required email
+        #emailField="ngModel"
+        [class.invalid]="emailField.invalid && emailField.touched"
+        placeholder="your@email.com"
+      />
+      <span class="field-error" *ngIf="emailField.touched && emailField.errors?.['required']">Email is required.</span>
+      <span class="field-error" *ngIf="emailField.touched && emailField.errors?.['email']">Enter a valid email.</span>
     </div>
+
     <div class="form-group">
       <label for="message">Message</label>
-      <textarea id="message" name="message" [(ngModel)]="contact.message" rows="5" required></textarea>
+      <textarea
+        id="message" name="message"
+        [(ngModel)]="contact.message"
+        required minlength="10"
+        #message="ngModel"
+        [class.invalid]="message.invalid && message.touched"
+        rows="5"
+        placeholder="What's on your mind?"
+      ></textarea>
+      <span class="field-error" *ngIf="message.touched && message.errors?.['required']">Message is required.</span>
+      <span class="field-error" *ngIf="message.touched && message.errors?.['minlength']">At least 10 characters.</span>
     </div>
-    <button type="submit" [disabled]="contactForm.invalid">Send</button>
+
+    <button type="submit" [disabled]="isSubmitting" class="submit-btn">
+      <span *ngIf="!isSubmitting">Send Message</span>
+      <span *ngIf="isSubmitting" class="spinner">Sending...</span>
+    </button>
+
   </form>
-  <div *ngIf="submitted" class="contact-success">
-    Thank you for reaching out! I will get back to you soon.
-  </div>
 </div>

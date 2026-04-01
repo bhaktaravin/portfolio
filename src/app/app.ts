@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit, OnDestroy, HostListener } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterOutlet, RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
@@ -16,6 +16,7 @@ import { EducationComponent } from "./education/education";
 import { CertificationsComponent } from "./certifications/certifications";
 import { ContactComponent } from "./contact/contact";
 import { TestimonialsComponent } from "./testimonials/testimonials";
+import { GitHubActivityComponent } from "./github-activity/github-activity";
 
 // --- Interfaces ---
 export interface Certification {
@@ -71,13 +72,74 @@ export interface Education {
     CertificationsComponent,
     ContactComponent,
     TestimonialsComponent,
+    GitHubActivityComponent,
   ],
   templateUrl: "./app.html",
   styleUrls: ["./app.css"],
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   title = "Portfolio";
   isDarkMode = false;
+  activeSection = "home";
+  showBackToTop = false;
+  menuOpen = false;
+
+  private observer!: IntersectionObserver;
+
+  readonly sections = ["home", "about", "experience", "skills", "projects", "github", "education", "certifications", "contact"];
+
+  ngOnInit() {
+    // Load saved theme
+    this.isDarkMode = localStorage.getItem("theme") === "dark";
+    this.applyTheme();
+
+    // Intersection Observer for active nav
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            this.activeSection = entry.target.id;
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    this.sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) this.observer.observe(el);
+    });
+  }
+
+  ngOnDestroy() {
+    this.observer?.disconnect();
+  }
+
+  @HostListener("window:scroll")
+  onScroll() {
+    this.showBackToTop = window.scrollY > 400;
+  }
+
+  toggleDarkMode() {
+    this.isDarkMode = !this.isDarkMode;
+    localStorage.setItem("theme", this.isDarkMode ? "dark" : "light");
+    this.applyTheme();
+  }
+
+  private applyTheme() {
+    document.body.classList.toggle("light-mode", !this.isDarkMode);
+  }
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  closeMenu() {
+    this.menuOpen = false;
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
   certifications: Certification[] = [
     {

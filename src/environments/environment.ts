@@ -1,5 +1,10 @@
 export const environment = {
   production: false,
+  emailjs: {
+    serviceId: "service_w8c3wrr",
+    templateId: "template_c0xfi54",
+    publicKey: "84qVYcuKUDLfGcmEH",
+  },
   firebase: {
     apiKey: "AIzaSyD8o5pjZEF5vAHVpiiaR5sVlB04ieytAO4",
     authDomain: "portfolio-testim.firebaseapp.com",
