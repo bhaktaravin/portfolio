@@ -1,75 +1,102 @@
 <div class="github-activity-container">
-  <div class="activity-content">
-    <!-- Recent Activity Section -->
-    <div class="recent-activity">
-      <h3 class="activity-subtitle">Recent Activity</h3>
-      
-      <div *ngIf="loading" class="loading">
-        <div class="spinner"></div>
-      </div>
 
-      <div *ngIf="!loading" class="events-list">
-        <div *ngFor="let event of recentEvents" class="event-item">
-          <div class="event-content">
-            <div class="event-title">{{ event.title }}</div>
-            <div class="event-repo">{{ event.repo }}</div>
-          </div>
-          <div class="event-time">{{ event.timeAgo }}</div>
-        </div>
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Fetching GitHub data...</p>
+  </div>
+
+  <div *ngIf="!loading" class="activity-content">
+
+    <!-- Stats bar -->
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-value">{{ stats.totalRepos }}</span>
+        <span class="stat-label">Repos</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">{{ stats.totalStars }}</span>
+        <span class="stat-label">Stars</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">{{ stats.currentStreak }}</span>
+        <span class="stat-label">Day Streak</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">{{ stats.thisWeek }}</span>
+        <span class="stat-label">This Week</span>
       </div>
     </div>
 
-    <!-- Contribution Activity Section -->
-    <div class="contribution-section">
-      <div class="contribution-header">
-        <h3 class="contribution-title">Contribution Activity</h3>
-        <div class="total-commits">{{ stats.totalCommits }} total commits</div>
-      </div>
+    <div class="two-col">
 
-      <!-- Stats Row -->
-      <div class="stats-row">
-        <div class="stat-item">
-          <div class="stat-value">{{ stats.currentStreak }}</div>
-          <div class="stat-label">CURRENT<br>STREAK</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value">{{ stats.longestStreak }}</div>
-          <div class="stat-label">LONGEST<br>STREAK</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-value">{{ stats.thisWeek }}</div>
-          <div class="stat-label">THIS<br>WEEK</div>
-        </div>
-      </div>
-
-      <!-- Contribution Graph -->
-      <div class="contribution-graph">
-        <div class="graph-header">
-          <span class="graph-title">Last 12 weeks</span>
-          <div class="graph-legend">
-            <span>Less</span>
-            <div class="legend-colors">
-              <div class="legend-box" [style.background-color]="getContributionColor(0)"></div>
-              <div class="legend-box" [style.background-color]="getContributionColor(1)"></div>
-              <div class="legend-box" [style.background-color]="getContributionColor(2)"></div>
-              <div class="legend-box" [style.background-color]="getContributionColor(3)"></div>
-              <div class="legend-box" [style.background-color]="getContributionColor(4)"></div>
+      <!-- Recent commits -->
+      <div class="panel">
+        <h3 class="panel-title">Recent Commits</h3>
+        <div class="events-list">
+          <div *ngFor="let event of recentEvents" class="event-item">
+            <div class="event-dot"></div>
+            <div class="event-content">
+              <div class="event-title">{{ event.title }}</div>
+              <div class="event-meta">
+                <span class="event-repo">{{ event.repo }}</span>
+                <span class="event-time">{{ event.timeAgo }}</span>
+              </div>
             </div>
-            <span>More</span>
           </div>
-        </div>
-
-        <div class="graph-grid">
-          <div *ngFor="let week of contributionGrid" class="graph-column">
-            <div 
-              *ngFor="let day of week" 
-              class="graph-cell"
-              [style.background-color]="getContributionColor(day.level)"
-              [title]="day.count + ' contributions on ' + (day.date | date:'mediumDate')"
-            ></div>
-          </div>
+          <div *ngIf="recentEvents.length === 0" class="empty">No recent commits found.</div>
         </div>
       </div>
+
+      <!-- Top repos -->
+      <div class="panel">
+        <h3 class="panel-title">Top Repositories</h3>
+        <div class="repos-list">
+          <a *ngFor="let repo of topRepos" [href]="repo.html_url" target="_blank" rel="noopener" class="repo-item">
+            <div class="repo-name">{{ repo.name }}</div>
+            <div class="repo-desc">{{ repo.description }}</div>
+            <div class="repo-meta">
+              <span *ngIf="repo.language" class="repo-lang">
+                <span class="lang-dot" [style.background]="getLangColor(repo.language)"></span>
+                {{ repo.language }}
+              </span>
+              <span class="repo-stars">⭐ {{ repo.stargazers_count }}</span>
+              <span class="repo-forks">🍴 {{ repo.forks_count }}</span>
+            </div>
+          </a>
+          <div *ngIf="topRepos.length === 0" class="empty">No repos found.</div>
+        </div>
+      </div>
+
     </div>
+
+    <!-- Contribution grid -->
+    <div class="panel contribution-panel">
+      <div class="contribution-header">
+        <h3 class="panel-title">Contribution Activity</h3>
+        <div class="graph-legend">
+          <span>Less</span>
+          <div class="legend-colors">
+            <div class="legend-box" *ngFor="let l of [0,1,2,3,4]" [style.background]="getContributionColor(l)"></div>
+          </div>
+          <span>More</span>
+        </div>
+      </div>
+      <div class="graph-grid">
+        <div *ngFor="let week of contributionGrid" class="graph-column">
+          <div
+            *ngFor="let day of week"
+            class="graph-cell"
+            [style.background]="getContributionColor(day.level)"
+            [title]="day.count + ' pushes on ' + (day.date | date:'mediumDate')"
+          ></div>
+        </div>
+      </div>
+      <div class="graph-footer">
+        <a [href]="'https://github.com/' + username" target="_blank" rel="noopener" class="gh-link">
+          View full profile on GitHub →
+        </a>
+      </div>
+    </div>
+
   </div>
 </div>
