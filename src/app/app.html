@@ -1,3 +1,6 @@
+<!-- Scroll Progress Bar -->
+<div class="scroll-progress-bar" [style.width.%]="scrollProgress"></div>
+
 <!-- Navigation -->
 <nav class="navbar">
   <div class="nav-container">
@@ -13,9 +16,15 @@
       </li>
     </ul>
     <div class="nav-actions">
-      <button class="theme-toggle" (click)="toggleDarkMode()" [attr.aria-label]="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'">
-        {{ isDarkMode ? '☀️' : '🌙' }}
-      </button>
+      <div class="resume-dropdown">
+        <button class="resume-btn" (click)="toggleResumeDropdown()" aria-label="Download resume">
+          📄 Resume
+        </button>
+        <div class="dropdown-menu" *ngIf="showResumeDropdown">
+          <button (click)="downloadResume('pdf')">Download PDF</button>
+          <button (click)="downloadResume('docx')">Download DOCX</button>
+        </div>
+      </div>
       <button class="hamburger" (click)="toggleMenu()" aria-label="Toggle menu">
         <span [class.open]="menuOpen"></span>
         <span [class.open]="menuOpen"></span>

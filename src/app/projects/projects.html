@@ -21,13 +21,13 @@
       (keydown.enter)="openModal(project)"
       [attr.aria-label]="'View details for ' + project.title"
     >
-      <img *ngIf="project.image" [src]="project.image" [alt]="project.title + ' thumbnail'" class="project-thumbnail" loading="lazy"
-           (error)="onImgError($event)" />
+      <div class="project-image-container">
+        <img *ngIf="project.image" [src]="project.image" [alt]="project.title + ' thumbnail'" class="project-thumbnail" loading="lazy"
+             (error)="onImgError($event)" />
+        <span *ngIf="project.featured" class="featured-badge">⭐ Featured</span>
+      </div>
       <div class="project-info">
-        <div class="project-title-row">
-          <h3 class="project-title">{{ project.title }}</h3>
-          <span *ngIf="project.featured" class="featured-badge">⭐ Featured</span>
-        </div>
+        <h3 class="project-title">{{ project.title }}</h3>
         <p class="project-description">{{ project.description }}</p>
         <div class="project-tech">
           <span

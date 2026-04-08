@@ -14,6 +14,11 @@ interface SkillCategory {
   styleUrls: ["./skills.css"],
 })
 export class SkillsComponent {
+  currentlyLearning = [
+    { name: "Rust", progress: 45, icon: "🦀" },
+    { name: "GraphQL", progress: 60, icon: "🔷" },
+    { name: "Kubernetes", progress: 35, icon: "☸️" },
+  ];
   programmingLanguages: string[] = [
     "JavaScript",
     "TypeScript",
