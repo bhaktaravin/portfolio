@@ -1,8 +1,51 @@
 <div class="github-activity-container">
 
   <div *ngIf="loading" class="loading-state">
-    <div class="spinner"></div>
-    <p>Fetching GitHub data...</p>
+    <!-- Skeleton Stats Bar -->
+    <div class="stats-bar skeleton-stats">
+      <div class="stat-item skeleton">
+        <div class="skeleton-box skeleton-value"></div>
+        <div class="skeleton-box skeleton-label"></div>
+      </div>
+      <div class="stat-item skeleton">
+        <div class="skeleton-box skeleton-value"></div>
+        <div class="skeleton-box skeleton-label"></div>
+      </div>
+      <div class="stat-item skeleton">
+        <div class="skeleton-box skeleton-value"></div>
+        <div class="skeleton-box skeleton-label"></div>
+      </div>
+      <div class="stat-item skeleton">
+        <div class="skeleton-box skeleton-value"></div>
+        <div class="skeleton-box skeleton-label"></div>
+      </div>
+    </div>
+
+    <!-- Skeleton Two Column -->
+    <div class="two-col">
+      <div class="panel skeleton">
+        <div class="skeleton-box skeleton-title"></div>
+        <div class="skeleton-list">
+          <div class="skeleton-item" *ngFor="let i of [1,2,3,4,5,6]"></div>
+        </div>
+      </div>
+      <div class="panel skeleton">
+        <div class="skeleton-box skeleton-title"></div>
+        <div class="skeleton-list">
+          <div class="skeleton-item" *ngFor="let i of [1,2,3,4]"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skeleton Contribution Grid -->
+    <div class="panel skeleton">
+      <div class="skeleton-box skeleton-title"></div>
+      <div class="skeleton-contribution-grid">
+        <div class="skeleton-contribution-col" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]">
+          <div class="skeleton-contribution-cell" *ngFor="let j of [1,2,3,4,5,6,7]"></div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div *ngIf="!loading" class="activity-content">

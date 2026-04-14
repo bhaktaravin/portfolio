@@ -197,7 +197,7 @@
 .modal {
   background: #1e2130;
   border-radius: 20px;
-  max-width: 600px;
+  max-width: 700px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
@@ -263,6 +263,71 @@
   flex-wrap: wrap;
 }
 
+/* Case Study Styles */
+.case-study {
+  background: rgba(79, 140, 255, 0.05);
+  border: 1px solid rgba(79, 140, 255, 0.15);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.case-study-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.case-study-section {
+  margin-bottom: 1.25rem;
+}
+
+.case-study-section:last-child {
+  margin-bottom: 0;
+}
+
+.case-study-section h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #4f8cff;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.case-study-section p {
+  color: #d1d5db;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.highlights-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.highlights-list li {
+  color: #d1d5db;
+  line-height: 1.7;
+  padding-left: 1.5rem;
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+.highlights-list li:before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #4f8cff;
+  font-weight: bold;
+}
+
 .btn-link.secondary {
   background: #23272f;
   border: 1px solid #374151;
@@ -314,4 +379,34 @@
   .projects-grid {
     grid-template-columns: 1fr;
   }
+}
+
+
+/* Lazy Load Image Styles */
+.project-thumbnail.lazy-loading {
+  opacity: 0;
+  background: #23272f;
+}
+
+.project-thumbnail.lazy-loaded {
+  animation: fade-in-image 0.4s ease-in forwards;
+}
+
+.project-thumbnail.lazy-error {
+  opacity: 0.3;
+}
+
+@keyframes fade-in-image {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-image {
+  animation: fade-in-image 0.3s ease-in;
 }

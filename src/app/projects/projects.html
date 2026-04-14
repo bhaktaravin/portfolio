@@ -22,7 +22,7 @@
       [attr.aria-label]="'View details for ' + project.title"
     >
       <div class="project-image-container">
-        <img *ngIf="project.image" [src]="project.image" [alt]="project.title + ' thumbnail'" class="project-thumbnail" loading="lazy"
+        <img *ngIf="project.image" [appLazyLoad]="project.image" [alt]="project.title + ' thumbnail'" class="project-thumbnail"
              (error)="onImgError($event)" />
         <span *ngIf="project.featured" class="featured-badge">⭐ Featured</span>
       </div>
@@ -84,6 +84,35 @@
           <span class="tech-icon" [innerHTML]="getTechIcon(tech)"></span>
           {{ tech }}
         </span>
+      </div>
+
+      <!-- Case Study Section -->
+      <div class="case-study" *ngIf="selectedProject()!.caseStudy">
+        <h3 class="case-study-title">📋 Case Study</h3>
+        
+        <div class="case-study-section">
+          <h4>🎯 Problem</h4>
+          <p>{{ selectedProject()!.caseStudy!.problem }}</p>
+        </div>
+
+        <div class="case-study-section">
+          <h4>💡 Solution</h4>
+          <p>{{ selectedProject()!.caseStudy!.solution }}</p>
+        </div>
+
+        <div class="case-study-section">
+          <h4>📈 Impact</h4>
+          <p>{{ selectedProject()!.caseStudy!.impact }}</p>
+        </div>
+
+        <div class="case-study-section">
+          <h4>✨ Key Highlights</h4>
+          <ul class="highlights-list">
+            <li *ngFor="let highlight of selectedProject()!.caseStudy!.highlights">
+              {{ highlight }}
+            </li>
+          </ul>
+        </div>
       </div>
 
       <div class="modal-links">
