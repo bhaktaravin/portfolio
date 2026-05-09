@@ -72,6 +72,35 @@ export class ProjectsComponent {
   }
   projects: Project[] = [
     {
+      title: "Career Copilot",
+      description:
+        "AI-assisted job application assistant for resume and interview prep—resume analysis, JD alignment, and mock-style practice. Built and hosted on Replit with a public live demo; source available on GitHub.",
+      technologies: [
+        "React",
+        "TypeScript",
+        "Tailwindcss",
+        "Vite",
+        "Replit",
+      ],
+      liveUrl: "https://job-application-assistant-ravinbhakta.replit.app",
+      githubUrl: "https://github.com/bhaktaravin/careercopilot",
+      image: "assets/nothumbnail.jpg",
+      featured: true,
+      caseStudy: {
+        problem:
+          "Job seekers need fast, actionable feedback on resumes and interviews, but generic advice rarely maps to real roles, ATS expectations, or specific job descriptions.",
+        solution:
+          "Built a focused toolset for resume analysis, JD alignment, and interview practice with React and TypeScript, developed and deployed end-to-end on Replit for fast iteration and an always-on public URL.",
+        impact:
+          "Visitors can run through the full workflow on the live Replit-hosted app—showing end-to-end delivery of an AI-assisted career tool in production.",
+        highlights: [
+          "Role-aware resume and JD analysis workflows",
+          "Interview-style flows tailored to common tech and business roles",
+          "Live deployment on Replit with a responsive UI",
+        ],
+      },
+    },
+    {
       title: "MangaViewer",
       description:
         "Modern manga reading application built with Angular and TypeScript, featuring responsive design, chapter navigation, and optimized image loading for seamless reading experience.",
