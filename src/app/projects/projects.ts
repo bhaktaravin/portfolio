@@ -217,6 +217,29 @@ export class ProjectsComponent {
         ]
       }
     },
+    {
+      title: "Orbit Shell",
+      description:
+        "Cross-platform interactive shell in Rust: built-ins (cd, ls, help, …), ANSI terminal styling with NO_COLOR support, and OS-native command execution (cmd on Windows, POSIX sh elsewhere). GitHub Actions CI on Linux, macOS, and Windows.",
+      technologies: ["Rust", "CLI"],
+      githubUrl: "https://github.com/bhaktaravin/orbit-shell",
+      liveUrl: "",
+      image: "assets/orbit-shell.png",
+      featured: true,
+      caseStudy: {
+        problem:
+          "A portfolio-grade systems project needs clear cross-platform behavior and maintainable delivery—not a one-off script that only runs on one machine.",
+        solution:
+          "Built orbit-shell in Rust with cfg-gated process spawning, native builtins, styled output that respects NO_COLOR, and a CI matrix running fmt, clippy, build, and test on three operating systems.",
+        impact:
+          "Shows practical Rust, CLI tooling, and disciplined shipping for developer-facing software.",
+        highlights: [
+          "Cross-platform execution via cmd vs /bin/sh",
+          "Built-in commands and polished terminal UX",
+          "CI on Ubuntu, macOS, and Windows",
+        ],
+      },
+    },
   ];
 
   getTechIcon(tech: string): string | null {
