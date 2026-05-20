@@ -218,38 +218,6 @@ export class ProjectsComponent {
         ]
       }
     },
-    
-    {
-      title: "Flight Deals Finder",
-      description:
-        "Full-stack flight search with intelligent price monitoring, airport autocomplete, and automated alerts. Background jobs, Redis caching, and PostgreSQL on Railway—data-driven deal discovery at scale.",
-      technologies: [
-        "NestJS",
-        "TypeScript",
-        "PostgreSQL",
-        "Redis",
-        "Prisma ORM",
-        "Bull Queue",
-        "Amadeus API",
-        "Railway",
-      ],
-      githubUrl: "https://github.com/bhaktaravin/flight-deals-api",
-      liveUrl: "https://flight-deals-api-production.up.railway.app/",
-      image: "assets/flight-aggregator.png",
-      featured: true,
-      caseStudy: {
-        problem: "Travelers need to monitor flight prices constantly to find the best deals, but manually checking multiple times per day is time-consuming and inefficient.",
-        solution: "Built a NestJS platform with intelligent price monitoring via Bull Queue, Redis-backed caching, and fuzzy airport search—turning raw Amadeus API data into actionable deal alerts.",
-        impact: "Users automate hours of manual price checking; Redis caching cut API costs by 70% while keeping alerts accurate and timely.",
-        highlights: [
-          "Intelligent background price monitoring with Bull Queue",
-          "Redis caching layer reducing API calls by 70%",
-          "Fuzzy airport autocomplete for smarter search UX",
-          "Comprehensive search history and analytics",
-          "Production deployment on Railway with PostgreSQL and Redis"
-        ]
-      }
-    },
     {
       title: "Orbit Shell",
       description:
