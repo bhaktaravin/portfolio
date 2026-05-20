@@ -114,7 +114,7 @@ export class ProjectsComponent {
       ],
       liveUrl: "https://main.dbe3ycstvczq3.amplifyapp.com/",
       githubUrl: "https://github.com/bhaktaravin/hetalascherteachingconsultion",
-      image: "assets/nothumbnail.jpg",
+      image: "assets/hetalascher.png",
       featured: true,
     },
     {
