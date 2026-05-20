@@ -49,8 +49,9 @@ export class ProductsComponent {
       name: "Blast From The Past — Self-host kit",
       price: "$5",
       url: "https://ravinspire34.gumroad.com/l/qotujr",
+      image: "assets/instant-messenger.png",
       description:
-        "Self-host kit—digital download to run Blast From The Past on your own infrastructure.",
+        "Self-host kit for Instant Messenger (Blast From The Past)—Rust + egui + WASM retro chat you can deploy on your own infrastructure.",
       category: "tech",
     },
   ];

@@ -219,6 +219,15 @@ export class ProjectsComponent {
       }
     },
     {
+      title: "Instant Messenger — Blast From The Past",
+      description:
+        "Retro Matrix-style instant messenger—“You've Got Mail. The world is online.” Built with Rust, egui, and WebAssembly: sign-in, WebSocket chat, and a nostalgic terminal aesthetic.",
+      technologies: ["Rust", "WebAssembly", "egui", "WebSockets"],
+      githubUrl: "https://github.com/bhaktaravin/blast-from-the-past-messenger",
+      image: "assets/instant-messenger.png",
+      featured: true,
+    },
+    {
       title: "Orbit Shell",
       description:
         "Cross-platform interactive shell in Rust: built-ins (cd, ls, help, …), ANSI terminal styling with NO_COLOR support, and OS-native command execution (cmd on Windows, POSIX sh elsewhere). GitHub Actions CI on Linux, macOS, and Windows.",
