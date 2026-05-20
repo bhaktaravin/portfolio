@@ -38,8 +38,11 @@ export class ProductsComponent {
       name: "Arthurian Legend Adventure Novel",
       price: "$2.99",
       url: "https://ravinspire34.gumroad.com/l/llfsq",
+      format: "PDF · ebook",
+      image: "assets/arthurian-legend-cover.png",
+      tagline: "A quest through myth and chivalry",
       description:
-        "Arthurian legend adventure novel—digital ebook with instant Gumroad delivery.",
+        "By Ravin Bhakta. An Arthurian legend adventure—knights, myth, and chivalry in a full-length digital novel. Instant Gumroad download.",
       category: "fiction",
     },
     {
