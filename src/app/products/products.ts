@@ -7,6 +7,8 @@ interface GumroadProduct {
   url: string;
   description: string;
   format?: string;
+  image?: string;
+  tagline?: string;
   category: "fiction" | "tech";
 }
 
@@ -26,8 +28,10 @@ export class ProductsComponent {
       price: "$2",
       url: "https://ravinspire34.gumroad.com/l/cabbc",
       format: "PDF · 12 chapters",
+      image: "assets/witness-protection-cover.png",
+      tagline: "A mystery romance with hidden motives",
       description:
-        "Witness-protection thriller: Lena wakes with a new name, a handler’s rules she can’t question, and a small town that remembers too much—while her past starts calling back. PDF novel; instant Gumroad download.",
+        "By Ravin Bhakta. Lena wakes with a new name, a handler’s rules she can’t question, and a small town that remembers too much—while her past starts calling back. PDF novel; instant Gumroad download.",
       category: "fiction",
     },
     {

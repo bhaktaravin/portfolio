@@ -24,6 +24,33 @@
   margin: 0 auto 2rem;
 }
 
+.product-card--has-cover {
+  padding-top: 0;
+  overflow: hidden;
+}
+
+.product-cover-link {
+  display: block;
+  margin: 0 -1.5rem 0;
+  line-height: 0;
+}
+
+.product-cover {
+  width: 100%;
+  height: auto;
+  max-height: 320px;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.product-tagline {
+  margin: -0.25rem 0 0;
+  font-size: 0.9rem;
+  font-style: italic;
+  opacity: 0.75;
+  line-height: 1.4;
+}
+
 .product-card {
   position: relative;
   padding: 1.5rem 1.5rem 1.25rem;

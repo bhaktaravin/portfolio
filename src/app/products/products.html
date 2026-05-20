@@ -13,9 +13,26 @@
         *ngFor="let product of products"
         class="product-card"
         [class.product-card--tech]="product.category === 'tech'"
+        [class.product-card--has-cover]="product.image"
       >
+        <a
+          *ngIf="product.image"
+          class="product-cover-link"
+          [href]="product.url"
+          target="_blank"
+          rel="noopener"
+          [attr.aria-label]="'View ' + product.name + ' on Gumroad'"
+        >
+          <img
+            class="product-cover"
+            [src]="product.image"
+            [alt]="product.name + ' cover'"
+            loading="lazy"
+          />
+        </a>
         <span class="product-badge">{{ product.category === "tech" ? "Dev kit" : "Fiction" }}</span>
         <h3 class="product-name">{{ product.name }}</h3>
+        <p class="product-tagline" *ngIf="product.tagline">{{ product.tagline }}</p>
         <p class="product-format" *ngIf="product.format">{{ product.format }}</p>
         <p class="product-description">{{ product.description }}</p>
         <div class="product-footer">
