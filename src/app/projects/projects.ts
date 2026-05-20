@@ -221,8 +221,9 @@ export class ProjectsComponent {
     {
       title: "Instant Messenger — Blast From The Past",
       description:
-        "Retro Matrix-style instant messenger—“You've Got Mail. The world is online.” Built with Rust, egui, and WebAssembly: sign-in, WebSocket chat, and a nostalgic terminal aesthetic.",
-      technologies: ["Rust", "WebAssembly", "egui", "WebSockets"],
+        "Retro Matrix-style instant messenger—“You've Got Mail. The world is online.” Rust, egui, and WebAssembly with WebSocket chat; live web demo on AWS Amplify.",
+      technologies: ["Rust", "WebAssembly", "egui", "WebSockets", "AWS Amplify"],
+      liveUrl: "https://main.d3krtfrp4s3ts2.amplifyapp.com/",
       githubUrl: "https://github.com/bhaktaravin/blast-from-the-past-messenger",
       image: "assets/instant-messenger.png",
       featured: true,
