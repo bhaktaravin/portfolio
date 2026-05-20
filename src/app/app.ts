@@ -16,6 +16,7 @@ import { CertificationsComponent } from "./certifications/certifications";
 import { ContactComponent } from "./contact/contact";
 import { TestimonialsComponent } from "./testimonials/testimonials";
 import { GitHubActivityComponent } from "./github-activity/github-activity";
+import { ProductsComponent } from "./products/products";
 
 export interface Certification { name: string; issuer: string; year: string; }
 export interface Stat { value: string; label: string; }
@@ -32,6 +33,7 @@ export interface Education { degree: string; institution: string; period: string
     HeroComponent, AboutComponent, SkillsComponent, ExperienceComponent,
     ProjectsComponent, EducationComponent, CertificationsComponent,
     ContactComponent, TestimonialsComponent, GitHubActivityComponent,
+    ProductsComponent,
   ],
   templateUrl: "./app.html",
   styleUrls: ["./app.css"],
@@ -46,12 +48,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private observer!: IntersectionObserver;
 
-  readonly sections = ["home", "about", "experience", "skills", "projects", "github", "education", "certifications", "contact"];
+  readonly sections = ["home", "about", "experience", "skills", "projects", "products", "github", "education", "certifications", "contact"];
 
   fullName = "Ravin Bhakta";
-  jobTitle = "Full-Stack Engineer – Enterprise & Cloud Applications";
-  heroDescription = "Full-Stack Engineer with 5+ years of experience building enterprise APIs, internal tools, and scalable cloud solutions. Known for technical depth in full-stack web apps and system optimization.";
-  aboutDescription = "I build and scale enterprise-grade web applications, specializing in full-stack development (React, Angular, Java Spring, Python/Django) and cloud integration (AWS, Heroku, SAP). My focus is on delivering robust APIs, optimizing system performance, and supporting business growth through technical leadership.";
+  jobTitle = "AI-Assisted Full-Stack Engineer – Intelligent Apps & Cloud Systems";
+  heroDescription = "Full-stack engineer with 5+ years building enterprise APIs and AI-assisted products. Co-founder at a stealth startup; ships LLM-powered tools, intelligent workflows, and scalable cloud applications.";
+  aboutDescription = "I build AI-enabled web applications and backend systems—LLM integration, React/Angular frontends, and cloud-native APIs on AWS. From Career Copilot to enterprise platforms, I focus on turning AI capabilities into reliable, production-ready user experiences.";
   email = "ravin.bhakta@gmail.com";
   phone = "5107557264";
   location = "Fremont, CA";
@@ -77,23 +79,36 @@ export class AppComponent implements OnInit, OnDestroy {
   ];
 
   skillCategories: SkillCategory[] = [
-    { name: "Frontend", skills: ["Angular", "React", "Spring Boot (Thymeleaf)"] },
-    { name: "Backend", skills: ["Java (Spring)", "Python (Django)", "Ruby on Rails"] },
-    { name: "Cloud", skills: ["AWS", "Heroku", "SAP"] },
+    { name: "AI & LLM", skills: ["LLM Integration", "Prompt Engineering", "AI-Assisted UX", "OpenAI API"] },
+    { name: "Frontend", skills: ["Angular", "React", "TypeScript", "Tailwind CSS"] },
+    { name: "Backend", skills: ["NestJS", "Node.js", "Java (Spring)", "Python (Django)"] },
+    { name: "Cloud", skills: ["AWS", "AWS Amplify", "Vercel", "Railway"] },
   ];
 
   workExperience: WorkExperience[] = [
     {
+      title: "Co-Founder",
+      company: "Stealth Startup",
+      period: "January 2026 - Present",
+      description: "Co-founding an AI-enabled software platform with API-driven architecture, LLM-integrated workflows, and scalable backend infrastructure for intelligent automation.",
+    },
+    {
+      title: "Senior Software Engineer — Self-Employed",
+      company: "Self Employed",
+      period: "July 2025 - Present",
+      description: "Independent AI-assisted full-stack development: shipped Career Copilot (LLM resume/JD/interview tools), client web platforms on AWS Amplify and Vercel, and production React/TypeScript applications.",
+    },
+    {
       title: "Operations Associate Applications Developer",
       company: "Blue Shield of California",
       period: "July 2021 - June 2025",
-      description: "Focused on enterprise APIs, internal tools, and system optimization. Automated key workflows using VBA and PowerShell, reducing manual processing time by 30% and minimizing errors in enterprise operations. Debugged and optimized REST APIs, decreasing incident resolution time by 40% and improving system reliability for 1,000+ users. Led version control best practices (SVN/Git), enabling faster team collaboration and reducing deployment issues.",
+      description: "Enterprise APIs, intelligent workflow automation, and system optimization. Automated processes with VBA and PowerShell (30% time savings); debugged REST APIs (40% faster incident resolution) for 1,000+ users. Led Git/SVN practices for reliable, data-driven delivery in healthcare.",
     },
     {
       title: "Software Developer",
       company: "Entappia",
       period: "August 2019 - June 2021",
-      description: "Specialized in full-stack web apps and cloud integration. Designed and launched RESTful APIs, boosting system integration speed by 50% and supporting seamless data exchange across platforms. Integrated SAP Open Connectors with cloud databases (Firebase, DynamoDB), improving scalability and reducing data latency by 25%. Modernized legacy codebases, cutting maintenance costs by 20% and increasing feature delivery velocity.",
+      description: "Full-stack and cloud integration with API-first architecture. Launched RESTful APIs (50% faster integration); connected SAP Open Connectors to Firebase and DynamoDB (25% lower latency). Modernized legacy systems for scalable, event-driven data flows.",
     },
     {
       title: "Quality Assurance Intern",
@@ -106,6 +121,7 @@ export class AppComponent implements OnInit, OnDestroy {
   socialLinks: SocialLink[] = [
     { platform: "GitHub", url: "https://github.com/bhaktaravin", icon: "🐙" },
     { platform: "LinkedIn", url: "https://www.linkedin.com/in/ravin-rohitbhai-bhakta", icon: "🔗" },
+    { platform: "Gumroad", url: "https://ravinspire34.gumroad.com/", icon: "🛒" },
     { platform: "Email", url: "mailto:ravin.bhakta@gmail.com", icon: "✉️" },
     { platform: "Phone", url: "tel:5107557264", icon: "📞" },
   ];

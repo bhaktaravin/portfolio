@@ -15,9 +15,18 @@ interface SkillCategory {
 })
 export class SkillsComponent {
   currentlyLearning = [
+    { name: "LLM Agents", progress: 70, icon: "🤖" },
     { name: "Rust", progress: 45, icon: "🦀" },
-    { name: "GraphQL", progress: 60, icon: "🔷" },
-    { name: "Kubernetes", progress: 35, icon: "☸️" },
+    { name: "RAG Pipelines", progress: 55, icon: "🔍" },
+  ];
+
+  aiAndLlm: string[] = [
+    "LLM Integration",
+    "Prompt Engineering",
+    "AI-Assisted UX",
+    "OpenAI API",
+    "Generative AI",
+    "RAG",
   ];
   programmingLanguages: string[] = [
     "JavaScript",
@@ -112,6 +121,7 @@ export class SkillsComponent {
 
   // Skills Array
   skills: string[] = [
+    ...this.aiAndLlm,
     ...this.programmingLanguages,
     ...this.frameworks,
     ...this.tools,
@@ -120,6 +130,10 @@ export class SkillsComponent {
   ];
 
   skillCategories: SkillCategory[] = [
+    {
+      name: "AI & LLM",
+      skills: this.aiAndLlm,
+    },
     {
       name: "Programming Languages",
       skills: this.programmingLanguages,

@@ -74,12 +74,13 @@ export class ProjectsComponent {
     {
       title: "Career Copilot",
       description:
-        "AI-assisted job application assistant for resume and interview prep—resume analysis, JD alignment, and mock-style practice. Built and hosted on Replit with a public live demo; source available on GitHub.",
+        "AI-powered job application copilot with LLM-driven resume analysis, job-description matching, interview practice, and application pipeline tracking. Built on Replit with a live demo and open source on GitHub.",
       technologies: [
         "React",
         "TypeScript",
+        "LLM Integration",
+        "AI/ML",
         "Tailwindcss",
-        "Vite",
         "Replit",
       ],
       liveUrl: "https://job-application-assistant-ravinbhakta.replit.app",
@@ -90,40 +91,72 @@ export class ProjectsComponent {
         problem:
           "Job seekers need fast, actionable feedback on resumes and interviews, but generic advice rarely maps to real roles, ATS expectations, or specific job descriptions.",
         solution:
-          "Built a focused toolset for resume analysis, JD alignment, and interview practice with React and TypeScript, developed and deployed end-to-end on Replit for fast iteration and an always-on public URL.",
+          "Architected an AI-first career workflow with LLM-backed resume scoring, JD gap analysis, and interview prep—React and TypeScript on Replit for rapid iteration and always-on deployment.",
         impact:
-          "Visitors can run through the full workflow on the live Replit-hosted app—showing end-to-end delivery of an AI-assisted career tool in production.",
+          "Delivers production-grade AI product UX: users get actionable, role-specific feedback in one session instead of generic career advice.",
         highlights: [
-          "Role-aware resume and JD analysis workflows",
-          "Interview-style flows tailored to common tech and business roles",
-          "Live deployment on Replit with a responsive UI",
+          "LLM-powered resume analysis and ATS-style scoring",
+          "AI job-description matching with keyword gap insights",
+          "Mock interview flows with intelligent, role-aware feedback",
+          "Application pipeline dashboard with live Replit deployment",
         ],
       },
     },
     {
+      title: "Hetal Ascher Consulting",
+      description:
+        "Educational consulting site supporting schools, educators, and multilingual learners—workshops, coaching, and consultation booking. Next.js with Neon serverless Postgres, deployed on AWS Amplify.",
+      technologies: [
+        "Next.js",
+        "TypeScript",
+        "Neon Postgres",
+        "AWS Amplify",
+      ],
+      liveUrl: "https://main.dbe3ycstvczq3.amplifyapp.com/",
+      githubUrl: "https://github.com/bhaktaravin/hetalascherteachingconsultion",
+      image: "assets/nothumbnail.jpg",
+      featured: true,
+    },
+    {
+      title: "NAGGA — North American Gujarati Golf Association",
+      description:
+        "Full-stack membership and events platform—registration, member directory, leaderboards, and JWT-authenticated dashboards. Next.js, Prisma, and Neon Postgres on Vercel.",
+      technologies: [
+        "Next.js",
+        "TypeScript",
+        "Prisma",
+        "Neon Postgres",
+        "Vercel",
+      ],
+      liveUrl: "https://nagagolftournamentsite.vercel.app/",
+      githubUrl: "https://github.com/bhaktaravin/nagagolftournamentsite",
+      image: "assets/nothumbnail.jpg",
+      featured: true,
+    },
+    {
       title: "MangaViewer",
       description:
-        "Modern manga reading application built with Angular and TypeScript, featuring responsive design, chapter navigation, and optimized image loading for seamless reading experience.",
+        "Modern manga reading app with AI-powered search, chapter navigation, favorites, and progress tracking—Angular and TypeScript with optimized image loading for a seamless reading experience.",
       technologies: [
         "Angular",
         "TypeScript",
+        "AI-Powered Search",
         "CSS3",
         "HTML5",
-        "Responsive Design",
       ],
       githubUrl: "https://github.com/ravinbhakta/mangaviewer",
       liveUrl: "https://mangaviewer-rust-angular.vercel.app/home",
       image: "assets/mangaviewer.png",
       featured: true,
       caseStudy: {
-        problem: "Manga readers often struggle with clunky interfaces, slow image loading, and poor mobile experiences. Existing solutions lacked smooth navigation and responsive design.",
-        solution: "Built a modern Angular application with optimized image lazy loading, intuitive chapter navigation, and mobile-first responsive design. Implemented efficient state management and caching strategies.",
-        impact: "Achieved sub-second page loads, 60fps smooth scrolling, and seamless experience across all devices. Reduced bandwidth usage by 40% through smart image optimization.",
+        problem: "Manga readers need fast discovery and smooth reading—generic search and clunky UIs make it hard to find titles and track progress across devices.",
+        solution: "Built an Angular app with AI-powered search, lazy-loaded chapters, favorites, and progress tracking—combining intelligent discovery with performance-first image delivery.",
+        impact: "Sub-second loads, smooth scrolling, and AI-assisted discovery that helps users find and resume manga faster than traditional catalog browsing.",
         highlights: [
+          "AI-powered search for intelligent title discovery",
           "Lazy loading with intersection observer for optimal performance",
-          "Responsive design adapting to all screen sizes",
-          "Keyboard shortcuts for power users",
-          "Chapter bookmarking and reading progress tracking"
+          "Favorites and reading progress tracking across sessions",
+          "Responsive design with keyboard shortcuts for power users",
         ]
       }
     },
@@ -138,9 +171,9 @@ export class ProjectsComponent {
       image: "assets/nothumbnail.jpg",
     },
     {
-      title: "Pokemon Palace Quest",
+      title: "PokéQuiz — Who's That Pokémon?",
       description:
-        "A Fun Quiz web application that allows Users to choose options to guess the Gen 1 aka - The Original 151 pokemon- using the Pokemon Api.",
+        "Interactive Gen 1 Pokémon quiz with silhouette guessing, real-time scoring, and API-driven question generation—engaging, mobile-first UX built with React and TypeScript.",
       technologies: [
         "ReactJS",
         "Vite",
@@ -189,7 +222,7 @@ export class ProjectsComponent {
     {
       title: "Flight Deals Finder",
       description:
-        "Full-stack flight search application with real-time pricing, airport autocomplete, and automated price alerts. Features background job processing for hourly price monitoring, Redis caching for API optimization, and comprehensive search history tracking. Deployed on Railway with PostgreSQL and Redis.",
+        "Full-stack flight search with intelligent price monitoring, airport autocomplete, and automated alerts. Background jobs, Redis caching, and PostgreSQL on Railway—data-driven deal discovery at scale.",
       technologies: [
         "NestJS",
         "TypeScript",
@@ -206,12 +239,12 @@ export class ProjectsComponent {
       featured: true,
       caseStudy: {
         problem: "Travelers need to monitor flight prices constantly to find the best deals, but manually checking multiple times per day is time-consuming and inefficient.",
-        solution: "Built a full-stack NestJS application with automated price monitoring using Bull Queue for background jobs, Redis caching to optimize API calls, and PostgreSQL for data persistence. Integrated Amadeus API for real-time flight data.",
-        impact: "Users can set up price alerts and receive notifications when prices drop, saving hours of manual searching. Redis caching reduced API costs by 70% while maintaining real-time accuracy.",
+        solution: "Built a NestJS platform with intelligent price monitoring via Bull Queue, Redis-backed caching, and fuzzy airport search—turning raw Amadeus API data into actionable deal alerts.",
+        impact: "Users automate hours of manual price checking; Redis caching cut API costs by 70% while keeping alerts accurate and timely.",
         highlights: [
-          "Background job processing with Bull Queue for hourly price checks",
+          "Intelligent background price monitoring with Bull Queue",
           "Redis caching layer reducing API calls by 70%",
-          "Airport autocomplete with fuzzy search",
+          "Fuzzy airport autocomplete for smarter search UX",
           "Comprehensive search history and analytics",
           "Production deployment on Railway with PostgreSQL and Redis"
         ]

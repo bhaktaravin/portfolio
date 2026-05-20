@@ -4,10 +4,10 @@ export const routes: Routes = [
   {
     path: "",
     pathMatch: "full",
-    title: "Ravin Bhakta - Full-Stack Engineer",
+    title: "Ravin Bhakta - AI-Assisted Full-Stack Engineer",
     data: {
       description:
-        "Full-Stack Engineer with 5+ years of experience building enterprise APIs, internal tools, and scalable cloud solutions.",
+        "AI-assisted full-stack engineer building LLM-powered applications, intelligent workflows, and scalable cloud solutions.",
     },
     children: [],
   },

@@ -11,9 +11,9 @@ import { CommonModule } from "@angular/common";
 export class AboutComponent {
   fullName = "Ravin Bhakta";
   jobTitle =
-    "Mid-Level Software Engineer | Full-Stack Developer | JavaScript, TypeScript, Node.js, React | Building Scalable Web Apps | AWS | Agile";
+    "Senior Software Engineer | AI-Assisted Full-Stack Developer | LLM Integration, React, TypeScript, Angular | Building Intelligent Web Apps | AWS | Agile";
   heroDescription =
-    "Skilled Software Engineer with robust experience in Rust and Java development, API integration, and agile methodologies. Demonstrates proven expertise in building and maintaining scalable enterprise solutions, optimizing system performance, and collaborating with cross-functional teams.";
+    "Software engineer specializing in AI-assisted applications, LLM integration, and scalable full-stack systems. Co-founder building API-driven platforms; ships production tools like Career Copilot with intelligent resume and interview workflows.";
   resumeLink = "assets/ravinbhaktaresume.pdf";
 
   get initials(): string {
@@ -24,7 +24,7 @@ export class AboutComponent {
   }
 
   aboutDescription =
-    "Skilled Software Engineer with robust experience in Rust and Java development, API integration, and agile methodologies. Demonstrates proven expertise in building and maintaining scalable enterprise solutions, optimizing system performance, and collaborating with cross-functional teams. Bringing strong debugging, SQL, and full-stack development proficiency to deliver efficient, modern applications.";
+    "I design and ship AI-enabled web applications—from LLM-powered career tools and intelligent search to enterprise APIs and cloud-native backends. Experienced across React, Angular, TypeScript, Rust, and AWS, with a focus on turning AI capabilities into reliable, user-facing product features.";
 
   stats = [
     { value: "5+", label: "Years Experience" },
@@ -36,12 +36,12 @@ export class AboutComponent {
   location = "Fremont, CA";
 
   techStack = [
-    "Angular",
+    "LLM Integration",
     "React",
-    "Java Spring",
-    "Python/Django",
-    "AWS",
+    "Angular",
     "TypeScript",
+    "AWS",
+    "NestJS",
   ];
 
   downloadResume(format: string): void {

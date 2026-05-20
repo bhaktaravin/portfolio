@@ -10,9 +10,9 @@ import { CommonModule } from '@angular/common';
 })
 export class HeroComponent {
   fullName = 'Ravin Bhakta';
-  jobTitle = 'Full-Stack Engineer';
-  tagline = 'Building Enterprise APIs & Scalable Cloud Solutions';
-  description = 'Full-Stack Engineer with 5+ years of experience building enterprise APIs, internal tools, and scalable cloud solutions. Specialized in Angular, React, Java Spring, Python/Django, and AWS.';
+  jobTitle = 'AI-Assisted Full-Stack Engineer';
+  tagline = 'Building Intelligent Apps, LLM Workflows & Scalable Cloud Systems';
+  description = 'Full-stack engineer with 5+ years shipping enterprise APIs and AI-assisted products—from LLM-powered career tools to scalable React and Angular applications on AWS and cloud-native stacks.';
   location = 'Fremont, CA';
 
   stats = [
@@ -36,6 +36,12 @@ export class HeroComponent {
       ariaLabel: 'Connect with me on LinkedIn'
     },
     {
+      platform: 'Gumroad',
+      url: 'https://ravinspire34.gumroad.com/',
+      icon: '🛒',
+      ariaLabel: 'Visit my Gumroad store'
+    },
+    {
       platform: 'Email',
       url: 'mailto:ravin.bhakta@gmail.com',
       icon: '✉️',
@@ -44,12 +50,12 @@ export class HeroComponent {
   ];
 
   techStack = [
-    'Angular',
+    'LLM Integration',
     'React',
-    'Java Spring',
-    'Python/Django',
+    'Angular',
+    'TypeScript',
     'AWS',
-    'TypeScript'
+    'NestJS'
   ];
 
   // Get initials for avatar

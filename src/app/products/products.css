@@ -1,0 +1,131 @@
+.products-section {
+  padding: 3rem 0 4rem;
+}
+
+.products-section .section-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.products-section .section-subtitle a {
+  color: var(--accent, #4f8cff);
+  text-decoration: none;
+}
+
+.products-section .section-subtitle a:hover {
+  text-decoration: underline;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto 2rem;
+}
+
+.product-card {
+  position: relative;
+  padding: 1.5rem 1.5rem 1.25rem;
+  background: var(--card-bg, #232a36);
+  color: var(--card-text, #e0e6f7);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.product-card--tech {
+  border: 1px solid rgba(79, 140, 255, 0.25);
+}
+
+.product-badge {
+  align-self: flex-start;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  background: rgba(255, 144, 232, 0.15);
+  color: #ff90e8;
+}
+
+.product-card--tech .product-badge {
+  background: rgba(79, 140, 255, 0.15);
+  color: #4f8cff;
+}
+
+.product-name {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.product-description {
+  margin: 0;
+  flex: 1;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  opacity: 0.9;
+}
+
+.product-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.product-price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ff90e8;
+}
+
+.product-card--tech .product-price {
+  color: #4f8cff;
+}
+
+.btn-product {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent, #4f8cff);
+  text-decoration: none;
+}
+
+.btn-product:hover {
+  text-decoration: underline;
+}
+
+.products-store-cta {
+  text-align: center;
+}
+
+.btn-store {
+  display: inline-block;
+  padding: 0.85rem 1.75rem;
+  background: linear-gradient(135deg, #ff90e8 0%, #ff424d 100%);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-store:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 66, 77, 0.35);
+}

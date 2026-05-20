@@ -1,0 +1,47 @@
+<section class="products-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Digital Products</h2>
+      <p class="section-subtitle">
+        Fiction and developer resources on
+        <a [href]="storeUrl" target="_blank" rel="noopener">Gumroad</a>
+      </p>
+    </div>
+
+    <div class="products-grid">
+      <article
+        *ngFor="let product of products"
+        class="product-card"
+        [class.product-card--tech]="product.category === 'tech'"
+      >
+        <span class="product-badge">{{ product.category === "tech" ? "Dev kit" : "Fiction" }}</span>
+        <h3 class="product-name">{{ product.name }}</h3>
+        <p class="product-description">{{ product.description }}</p>
+        <div class="product-footer">
+          <span class="product-price">{{ product.price }}</span>
+          <a
+            class="btn-product"
+            [href]="product.url"
+            target="_blank"
+            rel="noopener"
+            [attr.aria-label]="'Buy ' + product.name + ' on Gumroad'"
+          >
+            View on Gumroad →
+          </a>
+        </div>
+      </article>
+    </div>
+
+    <div class="products-store-cta">
+      <a
+        class="btn-store"
+        [href]="storeUrl"
+        target="_blank"
+        rel="noopener"
+        aria-label="Visit full Gumroad store"
+      >
+        Browse all products on Gumroad →
+      </a>
+    </div>
+  </div>
+</section>
