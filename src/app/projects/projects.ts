@@ -130,7 +130,7 @@ export class ProjectsComponent {
       ],
       liveUrl: "https://nagagolftournamentsite.vercel.app/",
       githubUrl: "https://github.com/bhaktaravin/nagagolftournamentsite",
-      image: "assets/nothumbnail.jpg",
+      image: "assets/nagga.png",
       featured: true,
     },
     {
