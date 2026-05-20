@@ -6,6 +6,7 @@ interface GumroadProduct {
   price: string;
   url: string;
   description: string;
+  format?: string;
   category: "fiction" | "tech";
 }
 
@@ -24,8 +25,9 @@ export class ProductsComponent {
       name: "Witness Protection In Small Town",
       price: "$2",
       url: "https://ravinspire34.gumroad.com/l/cabbc",
+      format: "PDF · 12 chapters",
       description:
-        "Digital fiction ebook—available for instant download on Gumroad.",
+        "Witness-protection thriller: Lena wakes with a new name, a handler’s rules she can’t question, and a small town that remembers too much—while her past starts calling back. PDF novel; instant Gumroad download.",
       category: "fiction",
     },
     {
