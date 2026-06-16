@@ -165,3 +165,39 @@
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(255, 66, 77, 0.35);
 }
+
+@media (max-width: 768px) {
+  .products-section {
+    padding: 3rem 0;
+  }
+
+  .products-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .product-card {
+    padding: 1.25rem;
+  }
+
+  .product-cover-link {
+    margin: 0 -1.25rem 0;
+  }
+
+  .product-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .btn-product {
+    text-align: center;
+  }
+
+  .btn-store {
+    display: block;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}

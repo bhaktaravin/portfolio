@@ -375,9 +375,86 @@
   z-index: 1;
 }
 
-@media (max-width: 640px) {
+.projects {
+  padding: 0 clamp(1rem, 4vw, 2rem);
+}
+
+@media (max-width: 768px) {
   .projects-grid {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .filter-bar {
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .filter-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter-btn {
+    flex-shrink: 0;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.85rem;
+  }
+
+  .project-links {
+    flex-direction: column;
+  }
+
+  .btn-link {
+    width: 100%;
+    justify-content: center;
+    margin-right: 0;
+  }
+
+  .modal-body {
+    padding: 1.25rem 1rem 1.5rem;
+  }
+
+  .modal-title {
+    font-size: 1.35rem;
+  }
+
+  .modal-links {
+    flex-direction: column;
+  }
+
+  .modal-links .btn-link {
+    text-align: center;
+  }
+
+  .case-study {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-image-container {
+    height: 160px;
+  }
+
+  .modal-overlay {
+    padding: 0.5rem;
+    align-items: flex-end;
+  }
+
+  .modal {
+    max-height: 92vh;
+    max-height: 92dvh;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .modal-image {
+    height: 160px;
   }
 }
 
