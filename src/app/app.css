@@ -603,11 +603,31 @@ a,
   box-shadow: 0 0 10px rgba(79, 140, 255, 0.5);
 }
 
-/* Nav actions (resume + hamburger) */
+/* Nav actions (theme + resume + hamburger) */
 .nav-actions {
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.theme-toggle {
+  background: transparent;
+  border: 1px solid rgba(79, 140, 255, 0.3);
+  border-radius: 8px;
+  padding: 0.4rem 0.6rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  line-height: 1;
+}
+
+.theme-toggle:hover {
+  border-color: rgba(79, 140, 255, 0.6);
+  background: rgba(79, 140, 255, 0.1);
+}
+
+body.light-mode .theme-toggle {
+  border-color: rgba(37, 99, 235, 0.3);
 }
 
 /* Resume dropdown */

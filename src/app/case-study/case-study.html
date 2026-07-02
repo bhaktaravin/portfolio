@@ -1,0 +1,68 @@
+<div class="case-study-page" *ngIf="project; else notFound">
+  <a routerLink="/" fragment="projects" class="back-link">← Back to projects</a>
+
+  <header class="cs-header">
+    <img
+      *ngIf="project.image"
+      [appLazyLoad]="project.image"
+      [alt]="project.title"
+      class="cs-hero-image"
+      (error)="onImgError($event)"
+    />
+    <div class="cs-header-text">
+      <span *ngIf="project.featured" class="featured-badge">⭐ Featured</span>
+      <h1>{{ project.title }}</h1>
+      <p class="cs-description">{{ project.description }}</p>
+      <div class="cs-tech">
+        <span class="tech-tag" *ngFor="let tech of project.technologies">{{ tech }}</span>
+      </div>
+      <div class="cs-links">
+        <a *ngIf="project.liveUrl" [href]="project.liveUrl" target="_blank" rel="noopener" class="btn-link">
+          🔗 Live Demo
+        </a>
+        <a *ngIf="project.githubUrl" [href]="project.githubUrl" target="_blank" rel="noopener" class="btn-link secondary">
+          🐙 GitHub
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="cs-body" *ngIf="project.caseStudy">
+    <section class="cs-section">
+      <h2>🎯 Problem</h2>
+      <p>{{ project.caseStudy.problem }}</p>
+    </section>
+    <section class="cs-section">
+      <h2>💡 Solution</h2>
+      <p>{{ project.caseStudy.solution }}</p>
+    </section>
+    <section class="cs-section">
+      <h2>📈 Impact</h2>
+      <p>{{ project.caseStudy.impact }}</p>
+    </section>
+    <section class="cs-section">
+      <h2>✨ Key Highlights</h2>
+      <ul>
+        <li *ngFor="let h of project.caseStudy.highlights">{{ h }}</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="cs-no-study" *ngIf="!project.caseStudy">
+    <p>Detailed case study coming soon. Check out the live demo or source code above.</p>
+  </div>
+
+  <div class="cs-cta">
+    <p>Interested in something similar?</p>
+    <a routerLink="/" fragment="contact" class="cta-btn">Start a project</a>
+    <a routerLink="/" fragment="book" class="cta-btn secondary">Book a call</a>
+  </div>
+</div>
+
+<ng-template #notFound>
+  <div class="case-study-page">
+    <a routerLink="/" fragment="projects" class="back-link">← Back to projects</a>
+    <h1>Project not found</h1>
+    <p>This case study doesn't exist.</p>
+  </div>
+</ng-template>
