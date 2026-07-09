@@ -1,24 +1,10 @@
-import { Component, computed, signal, HostListener } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { LazyLoadDirective } from "../directives/lazy-load.directive";
+import { Component, computed, signal, HostListener } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { LazyLoadDirective } from '../directives/lazy-load.directive';
+import { PROJECTS } from '../data/portfolio.data';
+import type { Project } from '../data/portfolio.data';
 
-interface Project {
-  title: string;
-  description: string;
-  technologies: string[];
-  image?: string;
-  liveUrl?: string;
-  githubUrl?: string;
-  featured?: boolean;
-  caseStudy?: {
-    problem: string;
-    solution: string;
-    impact: string;
-    highlights: string[];
-  };
-}
-
-// SVG icon mapping for common techs
 const techIcons: Record<string, string> = {
   Angular: `<svg width="20" height="20" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M128 0L256 48L232 208L128 256L24 208L0 48L128 0Z" fill="#DD0031"/><path d="M128 0V256L232 208L256 48L128 0Z" fill="#C3002F"/><path d="M128 32L208 64L192 192L128 224L64 192L48 64L128 32Z" fill="white"/><path d="M128 32V224L192 192L208 64L128 32Z" fill="#B3002D"/><path d="M128 64L160 192H144L136 160H120L112 192H96L128 64ZM128 96L116 144H140L128 96Z" fill="#DD0031"/></svg>`,
   React: `<svg width="20" height="20" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg"><g><ellipse rx="50" ry="130" cx="128" cy="128" fill="none" stroke="#61DAFB" stroke-width="16"/><ellipse rx="130" ry="50" cx="128" cy="128" fill="none" stroke="#61DAFB" stroke-width="16"/><ellipse rx="50" ry="130" cx="128" cy="128" fill="none" stroke="#61DAFB" stroke-width="16" transform="rotate(60 128 128)"/><ellipse rx="130" ry="50" cx="128" cy="128" fill="none" stroke="#61DAFB" stroke-width="16" transform="rotate(60 128 128)"/><ellipse rx="50" ry="130" cx="128" cy="128" fill="none" stroke="#61DAFB" stroke-width="16" transform="rotate(120 128 128)"/><ellipse rx="130" ry="50" cx="128" cy="128" fill="none" stroke="#61DAFB" stroke-width="16" transform="rotate(120 128 128)"/><circle cx="128" cy="128" r="28" fill="#61DAFB"/></g></svg>`,
@@ -29,41 +15,39 @@ const techIcons: Record<string, string> = {
 };
 
 @Component({
-  selector: "app-projects",
+  selector: 'app-projects',
   standalone: true,
-  imports: [CommonModule, LazyLoadDirective],
-  templateUrl: "./projects.html",
-  styleUrls: ["./projects.css"],
+  imports: [CommonModule, LazyLoadDirective, RouterModule],
+  templateUrl: './projects.html',
+  styleUrls: ['./projects.css'],
 })
 export class ProjectsComponent {
-  activeFilter = signal<string>("All");
+  readonly projects = PROJECTS;
+  activeFilter = signal<string>('All');
+  selectedProject = signal<Project | null>(null);
 
   allTags = computed(() => {
     const tags = new Set<string>();
     this.projects.forEach((p) => p.technologies.forEach((t) => tags.add(t)));
-    return ["All", ...Array.from(tags)];
+    return ['All', ...Array.from(tags)];
   });
 
   filteredProjects = computed(() => {
     const filter = this.activeFilter();
-    if (filter === "All") return this.projects;
+    if (filter === 'All') return this.projects;
     return this.projects.filter((p) => p.technologies.includes(filter));
   });
 
-  setFilter(tag: string) {
-    this.activeFilter.set(tag);
-  }
+  setFilter(tag: string): void { this.activeFilter.set(tag); }
 
-  selectedProject = signal<Project | null>(null);
-
-  openModal(project: Project) {
+  openModal(project: Project): void {
     this.selectedProject.set(project);
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
   }
 
-  closeModal() {
+  closeModal(): void {
     this.selectedProject.set(null);
-    document.body.style.overflow = "";
+    document.body.style.overflow = '';
   }
 
   @HostListener("document:keydown.escape")
@@ -280,22 +264,20 @@ export class ProjectsComponent {
       },
     },
   ];
+  @HostListener('document:keydown.escape')
+  onEscape(): void { this.closeModal(); }
 
   getTechIcon(tech: string): string | null {
-    // Normalize for common variants
-    if (tech.toLowerCase() === "typescript") return techIcons["TypeScript"];
-    if (tech.toLowerCase() === "javascript") return techIcons["JavaScript"];
-    if (tech.toLowerCase() === "reactjs" || tech.toLowerCase() === "react")
-      return techIcons["React"];
-    if (tech.toLowerCase() === "angularjs" || tech.toLowerCase() === "angular")
-      return techIcons["Angular"];
-    if (tech.toLowerCase() === "css3" || tech.toLowerCase() === "css")
-      return techIcons["CSS3"];
-    if (tech.toLowerCase() === "html5" || tech.toLowerCase() === "html")
-      return techIcons["HTML5"];
+    if (tech.toLowerCase() === 'typescript') return techIcons['TypeScript'];
+    if (tech.toLowerCase() === 'javascript') return techIcons['JavaScript'];
+    if (tech.toLowerCase() === 'reactjs' || tech.toLowerCase() === 'react') return techIcons['React'];
+    if (tech.toLowerCase() === 'angularjs' || tech.toLowerCase() === 'angular') return techIcons['Angular'];
+    if (tech.toLowerCase() === 'css3' || tech.toLowerCase() === 'css') return techIcons['CSS3'];
+    if (tech.toLowerCase() === 'html5' || tech.toLowerCase() === 'html') return techIcons['HTML5'];
     return techIcons[tech] || null;
   }
-  onImgError(event: Event) {
-    (event.target as HTMLImageElement).src = "assets/placeholder.svg";
+
+  onImgError(event: Event): void {
+    (event.target as HTMLImageElement).src = 'assets/placeholder.svg';
   }
 }

@@ -1,0 +1,27 @@
+<section class="blog-preview">
+  <div class="section-header">
+    <h2 class="section-title">Writing</h2>
+    <p class="section-subtitle">Notes on shipping client work, AI integration, and web development.</p>
+  </div>
+
+  <div class="blog-grid">
+    <article class="blog-card" *ngFor="let post of posts">
+      <div class="blog-meta">
+        <time>{{ post.date }}</time>
+        <span class="read-time">{{ post.readTime }} read</span>
+      </div>
+      <h3>
+        <a [routerLink]="['/blog', post.slug]">{{ post.title }}</a>
+      </h3>
+      <p class="blog-excerpt">{{ post.excerpt }}</p>
+      <div class="blog-tags">
+        <span class="blog-tag" *ngFor="let tag of post.tags">{{ tag }}</span>
+      </div>
+      <a [routerLink]="['/blog', post.slug]" class="read-more">Read article →</a>
+    </article>
+  </div>
+
+  <div class="blog-cta">
+    <a routerLink="/blog" class="view-all-btn">View all posts</a>
+  </div>
+</section>

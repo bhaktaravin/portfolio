@@ -1,22 +1,13 @@
-import { Component } from "@angular/core";
-import { CommonModule } from "@angular/common";
-
-interface Experience {
-  company: string;
-  title: string;
-  location: string;
-  start: string;
-  end: string;
-  details: string[];
-  companyUrl: string;
-}
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { EXPERIENCES } from '../data/portfolio.data';
 
 @Component({
-  selector: "app-experience",
+  selector: 'app-experience',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: "./experience.html",
-  styleUrls: ["./experience.css"],
+  templateUrl: './experience.html',
+  styleUrls: ['./experience.css'],
 })
 export class ExperienceComponent {
   experiences: Experience[] = [
@@ -86,4 +77,5 @@ export class ExperienceComponent {
       companyUrl: "",
     },
   ];
+  readonly experiences = EXPERIENCES;
 }

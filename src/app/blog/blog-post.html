@@ -1,0 +1,31 @@
+<div class="blog-page" *ngIf="post; else notFound">
+  <a routerLink="/blog" class="back-link">← All posts</a>
+
+  <article class="blog-article">
+    <header class="article-header">
+      <div class="blog-meta">
+        <time>{{ post.date }}</time>
+        <span class="read-time">{{ post.readTime }} read</span>
+      </div>
+      <h1>{{ post.title }}</h1>
+      <div class="blog-tags">
+        <span class="blog-tag" *ngFor="let tag of post.tags">{{ tag }}</span>
+      </div>
+    </header>
+
+    <div class="article-body">
+      <ng-container *ngFor="let p of paragraphs">
+        <h2 *ngIf="isHeading(p)">{{ headingText(p) }}</h2>
+        <p *ngIf="!isHeading(p)">{{ p }}</p>
+      </ng-container>
+    </div>
+  </article>
+</div>
+
+<ng-template #notFound>
+  <div class="blog-page">
+    <a routerLink="/blog" class="back-link">← All posts</a>
+    <h1>Post not found</h1>
+    <p>The article you're looking for doesn't exist.</p>
+  </div>
+</ng-template>

@@ -1,0 +1,95 @@
+.booking-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.booking-content {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.booking-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.info-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.info-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.info-item h4 {
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.info-item p {
+  color: #b3c6ff;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.booking-external {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #4f8cff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.booking-external:hover {
+  text-decoration: underline;
+}
+
+.booking-embed {
+  background: rgba(35, 42, 54, 0.8);
+  border: 1px solid rgba(79, 140, 255, 0.15);
+  border-radius: 12px;
+  overflow: hidden;
+  min-height: 600px;
+}
+
+.booking-embed iframe {
+  width: 100%;
+  height: 600px;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .booking-content {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-embed {
+    min-height: 500px;
+  }
+
+  .booking-embed iframe {
+    height: 500px;
+  }
+}
+
+:host-context(body.light-mode) .info-item h4 {
+  color: #111827;
+}
+
+:host-context(body.light-mode) .info-item p {
+  color: #4b5563;
+}
+
+:host-context(body.light-mode) .booking-embed {
+  background: #fff;
+  border-color: rgba(37, 99, 235, 0.15);
+}

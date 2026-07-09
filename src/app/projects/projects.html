@@ -46,6 +46,14 @@
           <a *ngIf="project.githubUrl" class="project-link btn-link secondary" [href]="project.githubUrl" target="_blank" rel="noopener">
             🐙 GitHub
           </a>
+          <a
+            *ngIf="project.caseStudy"
+            class="project-link btn-link case-study-link"
+            [routerLink]="['/projects', project.slug]"
+            (click)="$event.stopPropagation()"
+          >
+            📋 Case Study
+          </a>
         </div>
       </div>
     </div>
@@ -121,6 +129,13 @@
         </a>
         <a *ngIf="selectedProject()!.githubUrl" class="btn-link secondary" [href]="selectedProject()!.githubUrl" target="_blank" rel="noopener">
           🐙 GitHub
+        </a>
+        <a
+          *ngIf="selectedProject()!.caseStudy"
+          class="btn-link case-study-link"
+          [routerLink]="['/projects', selectedProject()!.slug]"
+        >
+          📋 Full Case Study
         </a>
       </div>
     </div>
