@@ -52,7 +52,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   fullName = "Ravin Bhakta";
   jobTitle = "AI-Assisted Full-Stack Engineer – Intelligent Apps & Cloud Systems";
-  heroDescription = "Full-stack engineer with 5+ years building enterprise APIs and AI-assisted products. Co-founder at a stealth startup; ships LLM-powered tools, intelligent workflows, and scalable cloud applications.";
+  heroDescription = "Full-stack engineer with 5+ years building enterprise APIs and AI-assisted products. Co-founder at Wov3; ships production web platforms, LLM-powered tools, and scalable cloud applications.";
   aboutDescription = "I build AI-enabled web applications and backend systems—LLM integration, React/Angular frontends, and cloud-native APIs on AWS. From Career Copilot to enterprise platforms, I focus on turning AI capabilities into reliable, production-ready user experiences.";
   email = "ravin.bhakta@gmail.com";
   phone = "5107557264";
@@ -88,9 +88,9 @@ export class AppComponent implements OnInit, OnDestroy {
   workExperience: WorkExperience[] = [
     {
       title: "Co-Founder",
-      company: "Stealth Startup",
+      company: "Wov3",
       period: "January 2026 - Present",
-      description: "Co-founding an AI-enabled software platform with API-driven architecture, LLM-integrated workflows, and scalable backend infrastructure for intelligent automation.",
+      description: "Co-founding Wov3 — recovery footwear engineered with 3D-printed lattice structures. Building the production web platform, e-commerce flows, and athlete onboarding experience at wov3.com.",
     },
     {
       title: "Senior Software Engineer — Self-Employed",

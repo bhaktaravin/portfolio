@@ -21,17 +21,17 @@ interface Experience {
 export class ExperienceComponent {
   experiences: Experience[] = [
     {
-      company: "Stealth Startup",
+      company: "Wov3",
       title: "Co-Founder",
       location: "Remote",
       start: "Jan 2026",
       end: "Present",
       details: [
-        "Co-founding and architecting a stealth-stage AI-enabled software platform focused on API-driven systems, intelligent automation, and scalable backend infrastructure.",
-        "Designing LLM-integrated workflows and RESTful services that connect product features to reliable, observable backend pipelines.",
-        "Driving technical direction across full-stack delivery, from prompt-aware product flows to production-ready APIs and deployment strategy.",
+        "Co-founding Wov3 — recovery footwear with 3D-printed lattice structures customized per athlete through foot scanning, gait capture, and discipline-specific tuning.",
+        "Building the production e-commerce and fitting platform at wov3.com on React and Vercel — scan-to-print storytelling, Calendly booking, and athlete social proof.",
+        "Partnering with TU/e Sports Lab and 30+ semi-pro and pro athletes to validate pressure mapping, lattice generations, and recovery-focused product design.",
       ],
-      companyUrl: "",
+      companyUrl: "https://www.wov3.com/",
     },
     {
       company: "Self Employed",

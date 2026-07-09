@@ -72,6 +72,34 @@ export class ProjectsComponent {
   }
   projects: Project[] = [
     {
+      title: "Wov3",
+      description:
+        "Recovery footwear engineered around how athletes load, unload, and reset—3D-printed lattice tuned per discipline via foot scanning and gait analysis. Production e-commerce and fitting platform deployed on Vercel.",
+      technologies: [
+        "React",
+        "JavaScript",
+        "Vercel",
+        "E-commerce",
+      ],
+      liveUrl: "https://www.wov3.com/",
+      image: "assets/wov3.png",
+      featured: true,
+      caseStudy: {
+        problem:
+          "Athletes need recovery footwear matched to their biomechanics—not generic foam slides that ignore how they land, load, and reset between training blocks.",
+        solution:
+          "Co-founded Wov3 with a scan-to-print pipeline: structured-light foot capture, gait analysis, and 3D-printed lattice footwear—paired with a React e-commerce site for storytelling, fitting bookings, and athlete testimonials.",
+        impact:
+          "30+ semi-pro and pro athletes onboarded; co-developed with TU/e Sports Lab and validated through pressure mapping and force-plate testing before shipping.",
+        highlights: [
+          "3D-printed lattice tuned per athlete and discipline",
+          "Foot scanning and gait capture integrated into the product story",
+          "Production React site on Vercel with Calendly fitting flows",
+          "Partnerships with TU/e Sports Lab, Mol PT, and collegiate athletes",
+        ],
+      },
+    },
+    {
       title: "Career Copilot",
       description:
         "AI-powered job application copilot with LLM-driven resume analysis, job-description matching, interview practice, and application pipeline tracking. Built on Replit with a live demo and open source on GitHub.",
