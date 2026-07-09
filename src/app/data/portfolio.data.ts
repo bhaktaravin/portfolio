@@ -232,6 +232,30 @@ export const PRICING_TIERS: PricingTier[] = [
 
 export const PROJECTS: Project[] = [
   {
+    slug: 'wov3',
+    title: 'Wov3',
+    description:
+      'Recovery footwear engineered around how athletes load, unload, and reset—3D-printed lattice tuned per discipline via foot scanning and gait analysis. Production e-commerce and fitting platform deployed on Vercel.',
+    technologies: ['React', 'JavaScript', 'Vercel', 'E-commerce'],
+    liveUrl: 'https://www.wov3.com/',
+    image: 'assets/wov3.png',
+    featured: true,
+    caseStudy: {
+      problem:
+        'Athletes need recovery footwear matched to their biomechanics—not generic foam slides that ignore how they land, load, and reset between training blocks.',
+      solution:
+        'Co-founded Wov3 with a scan-to-print pipeline: structured-light foot capture, gait analysis, and 3D-printed lattice footwear—paired with a React e-commerce site for storytelling, fitting bookings, and athlete testimonials.',
+      impact:
+        '30+ semi-pro and pro athletes onboarded; co-developed with TU/e Sports Lab and validated through pressure mapping and force-plate testing before shipping.',
+      highlights: [
+        '3D-printed lattice tuned per athlete and discipline',
+        'Foot scanning and gait capture integrated into the product story',
+        'Production React site on Vercel with Calendly fitting flows',
+        'Partnerships with TU/e Sports Lab, Mol PT, and collegiate athletes',
+      ],
+    },
+  },
+  {
     slug: 'hetal-ascher-consulting',
     title: 'Hetal Ascher Consulting',
     description: 'Client project: educational consulting site for schools and educators—workshops, coaching, and consultation booking. Next.js with Neon Postgres, deployed on AWS Amplify.',
@@ -376,17 +400,17 @@ export const PROJECTS: Project[] = [
 
 export const EXPERIENCES: ExperienceEntry[] = [
   {
-    company: 'Stealth Startup',
+    company: 'Wov3',
     title: 'Co-Founder',
     location: 'Remote',
     start: 'Jan 2026',
     end: 'Present',
     details: [
-      'Co-founding and architecting a stealth-stage AI-enabled software platform focused on API-driven systems, intelligent automation, and scalable backend infrastructure.',
-      'Designing LLM-integrated workflows and RESTful services that connect product features to reliable, observable backend pipelines.',
-      'Driving technical direction across full-stack delivery, from prompt-aware product flows to production-ready APIs and deployment strategy.',
+      'Co-founding Wov3 — recovery footwear with 3D-printed lattice structures customized per athlete through foot scanning, gait capture, and discipline-specific tuning.',
+      'Building the production e-commerce and fitting platform at wov3.com on React and Vercel — scan-to-print storytelling, Calendly booking, and athlete social proof.',
+      'Partnering with TU/e Sports Lab and 30+ semi-pro and pro athletes to validate pressure mapping, lattice generations, and recovery-focused product design.',
     ],
-    companyUrl: '',
+    companyUrl: 'https://www.wov3.com/',
   },
   {
     company: 'Self Employed',
