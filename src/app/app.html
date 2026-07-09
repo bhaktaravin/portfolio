@@ -1,21 +1,74 @@
+<!-- Scroll Progress Bar -->
+<div class="scroll-progress-bar" [style.width.%]="scrollProgress"></div>
+
 <!-- Navigation -->
 <nav class="navbar">
   <div class="nav-container">
-    <div class="logo">{{ fullName }}</div>
-    <ul class="nav-links" [class.open]="menuOpen">
-      <li *ngFor="let section of sections">
+    <a class="logo" routerLink="/" aria-label="Back to top">
+      {{ fullName }}
+    </a>
+    <ul class="nav-links" [class.open]="menuOpen" *ngIf="isHome">
+      <li *ngFor="let link of primaryNav">
         <a
           routerLink="/"
-          [fragment]="section"
-          [class.active]="activeSection === section"
+          [fragment]="link.id"
+          [class.active]="activeSection === link.id"
           (click)="closeMenu()"
-        >{{ section | titlecase }}</a>
+        >{{ link.label }}</a>
+      </li>
+      <li class="nav-more">
+        <button
+          type="button"
+          class="nav-more-btn"
+          [class.active]="isMoreSectionActive()"
+          (click)="toggleMoreMenu()"
+          [attr.aria-expanded]="showMoreMenu"
+          aria-haspopup="true"
+        >
+          More <span class="nav-chevron" aria-hidden="true">▾</span>
+        </button>
+        <ul class="nav-more-menu" *ngIf="showMoreMenu">
+          <li *ngFor="let link of moreNav">
+            <a
+              routerLink="/"
+              [fragment]="link.id"
+              [class.active]="activeSection === link.id"
+              (click)="closeMenu()"
+            >{{ link.label }}</a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-mobile-divider" aria-hidden="true"></li>
+      <li *ngFor="let link of moreNav" class="nav-mobile-more">
+        <a
+          routerLink="/"
+          [fragment]="link.id"
+          [class.active]="activeSection === link.id"
+          (click)="closeMenu()"
+        >{{ link.label }}</a>
       </li>
     </ul>
+    <ul class="nav-links" *ngIf="!isHome">
+      <li><a routerLink="/">Portfolio</a></li>
+      <li><a routerLink="/blog">Blog</a></li>
+    </ul>
     <div class="nav-actions">
-      <button class="theme-toggle" (click)="toggleDarkMode()" [attr.aria-label]="isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'">
-        {{ isDarkMode ? '☀️' : '🌙' }}
+      <button
+        class="theme-toggle"
+        (click)="theme.toggle()"
+        [attr.aria-label]="theme.isLight() ? 'Switch to dark mode' : 'Switch to light mode'"
+      >
+        {{ theme.isLight() ? '🌙' : '☀️' }}
       </button>
+      <div class="resume-dropdown">
+        <button class="resume-btn" (click)="toggleResumeDropdown()" aria-label="Download resume">
+          📄 Resume
+        </button>
+        <div class="dropdown-menu" *ngIf="showResumeDropdown">
+          <button (click)="downloadResume('pdf')">Download PDF</button>
+          <button (click)="downloadResume('docx')">Download DOCX</button>
+        </div>
+      </div>
       <button class="hamburger" (click)="toggleMenu()" aria-label="Toggle menu">
         <span [class.open]="menuOpen"></span>
         <span [class.open]="menuOpen"></span>
@@ -25,85 +78,33 @@
   </div>
 </nav>
 
-<!-- Hero Section -->
-<section id="home" class="hero section">
-  <app-hero></app-hero>
-</section>
-
-<main>
-  <!-- About Section -->
-  <section id="about" class="about section">
-    <app-about></app-about>
-  </section>
-
-  <!-- Experience Section -->
-  <section id="experience" class="experience section">
-    <app-experience></app-experience>
-  </section>
-
-  <!-- Skills Section -->
-  <section id="skills" class="skills section">
-    <app-skills></app-skills>
-  </section>
-
-  <!-- Projects Section -->
-  <section id="projects" class="projects section">
-    <app-projects></app-projects>
-  </section>
-
-  <!-- GitHub Activity Section -->
-  <section id="github" class="github-activity section">
-    <div class="section-header">
-      <h2 class="section-title">GitHub Activity</h2>
-      <p class="section-subtitle">My recent contributions and coding activity</p>
-    </div>
-    <app-github-activity></app-github-activity>
-  </section>
-
-  <!-- Education Section -->
-  <section id="education" class="education section">
-    <app-education></app-education>
-  </section>
-
-  <!-- Certifications Section -->
-  <section id="certifications" class="certifications section">
-    <app-certifications></app-certifications>
-  </section>
-
-  <!-- Testimonials Section -->
-  <section id="testimonials" class="testimonials section">
-    <app-testimonials></app-testimonials>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="contact section">
-    <app-contact></app-contact>
-  </section>
-</main>
+<router-outlet></router-outlet>
 
 <!-- Back to Top -->
 <button class="back-to-top" [class.visible]="showBackToTop" (click)="scrollToTop()" aria-label="Back to top">
   ↑
 </button>
 
-<!-- Footer -->
-
 <footer class="footer">
-  <div class="container">
-    <div class="social-links">
+  <div class="footer-inner">
+    <nav class="footer-nav" aria-label="Additional site sections">
+      <a *ngFor="let link of footerNav" routerLink="/" [fragment]="link.id">{{ link.label }}</a>
+      <a routerLink="/blog">Blog</a>
+    </nav>
+
+    <div class="footer-social">
       <a
         *ngFor="let social of socialLinks"
         [href]="social.url"
         target="_blank"
-        class="social-link"
+        rel="noopener noreferrer"
+        class="footer-social-link"
         [title]="social.platform"
-        style="font-size: 1.5em; margin: 0 0.5em; text-decoration: none"
       >
-        <span [attr.aria-label]="social.platform" role="img"
-          >{{ social.icon }}</span
-        >
+        <span [attr.aria-label]="social.platform" role="img">{{ social.icon }}</span>
       </a>
     </div>
-    <p>&copy; {{ currentYear }} {{ fullName }}. All rights reserved.</p>
+
+    <p class="footer-copy">&copy; {{ currentYear }} {{ fullName }}. All rights reserved.</p>
   </div>
 </footer>

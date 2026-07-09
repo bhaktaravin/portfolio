@@ -136,3 +136,49 @@
   from { opacity: 0; transform: translateY(30px);}
   to { opacity: 1; transform: translateY(0);}
 }
+
+@media (max-width: 768px) {
+  .education-section {
+    padding: 2em clamp(1rem, 4vw, 1.5em);
+    padding-left: 2em;
+  }
+
+  .education-section::before {
+    left: 0.35em;
+  }
+
+  .education-card {
+    margin-left: 0.75em;
+    padding: 1.5rem 1.25rem;
+  }
+
+  .education-card::before {
+    left: -1.35em;
+  }
+
+  .education-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35em;
+  }
+
+  .education-dates {
+    font-size: 0.9em;
+  }
+
+  .print-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .education-section {
+    padding-left: 1.5em;
+  }
+
+  .education-card::before {
+    left: -1.1em;
+    width: 8px;
+    height: 8px;
+  }
+}

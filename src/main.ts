@@ -1,5 +1,4 @@
 import { bootstrapApplication } from "@angular/platform-browser";
-import { importProvidersFrom } from "@angular/core";
 import {
   provideRouter,
   withEnabledBlockingInitialNavigation,
@@ -36,10 +35,8 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(withInterceptorsFromDi()),
 
     // Firebase providers
-    importProvidersFrom([
-      provideFirebaseApp(() => initializeApp(environment.firebase)),
-      provideFirestore(() => getFirestore()),
-    ]),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
 
     // Service Worker for PWA
     provideServiceWorker("ngsw-worker.js", {

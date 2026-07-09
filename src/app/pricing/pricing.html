@@ -1,0 +1,42 @@
+<section class="pricing-section">
+  <div class="section-header">
+    <h2 class="section-title">Services & Pricing</h2>
+    <p class="section-subtitle">
+      Transparent starting points for common engagements. Every project is scoped to your needs.
+    </p>
+  </div>
+
+  <div class="services-overview">
+    <div class="service-card" *ngFor="let service of services">
+      <span class="service-icon">{{ service.icon }}</span>
+      <h3>{{ service.title }}</h3>
+      <p>{{ service.description }}</p>
+    </div>
+  </div>
+
+  <div class="pricing-grid">
+    <div
+      class="pricing-card"
+      *ngFor="let tier of tiers"
+      [class.highlighted]="tier.highlighted"
+    >
+      <div class="pricing-badge" *ngIf="tier.highlighted">Most Popular</div>
+      <h3 class="pricing-name">{{ tier.name }}</h3>
+      <p class="pricing-price">{{ tier.price }}</p>
+      <p class="pricing-desc">{{ tier.description }}</p>
+      <ul class="pricing-features">
+        <li *ngFor="let feature of tier.features">{{ feature }}</li>
+      </ul>
+      <button
+        class="pricing-cta"
+        [class.primary]="tier.highlighted"
+        (click)="tier.highlighted ? scrollToBook() : scrollToContact()"
+      >{{ tier.cta }}</button>
+    </div>
+  </div>
+
+  <p class="pricing-note">
+    Not sure which fits? <a href="#book" (click)="scrollToBook(); $event.preventDefault()">Book a free 30-min call</a>
+    or <a href="#contact" (click)="scrollToContact(); $event.preventDefault()">send a message</a>.
+  </p>
+</section>

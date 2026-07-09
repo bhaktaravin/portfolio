@@ -1,6 +1,29 @@
 <!-- Skills section -->
 <div class="skills-section">
   <h2 class="skills-title">Skills & Technologies</h2>
+
+  <!-- Currently Learning Widget -->
+  <div class="currently-learning">
+    <div class="learning-header">
+      <h3 class="learning-title">📚 Currently Learning</h3>
+    </div>
+    <div class="learning-books">
+      <div *ngFor="let item of currentlyLearning" class="book-card">
+        <div class="book-spine"></div>
+        <div class="book-cover">
+          <div class="book-icon">{{ item.icon }}</div>
+          <div class="book-title">{{ item.name }}</div>
+          <div class="book-progress-wrapper">
+            <div class="book-progress-bar">
+              <div class="book-progress-fill" [style.width.%]="item.progress"></div>
+            </div>
+            <span class="book-progress-text">{{ item.progress }}%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="skills-grid">
     <div class="skill-card" *ngFor="let category of skillCategories">
       <h3 class="skill-category">{{ category.name }}</h3>

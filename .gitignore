@@ -46,3 +46,6 @@ src/environments/environment.ts
 src/environments/environment.production.ts
 src/environments/environment.prod.ts
 .env
+
+# Wov3 lives in its own repository
+/wov3

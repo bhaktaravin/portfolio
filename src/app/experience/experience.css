@@ -105,21 +105,51 @@ li {
   background: #3566b5;
 }
 
-/* Responsive Design */
-@media (max-width: 700px) {
-  .experience-card {
-    padding: 1em;
+@media (max-width: 768px) {
+  .experience-section {
+    padding: 2em clamp(1rem, 4vw, 1.5em);
   }
+
+  .experience-card {
+    padding: 1.25em;
+  }
+
   .experience-header {
     flex-direction: column;
-    gap: 0.2em;
+    gap: 0.35em;
+    align-items: flex-start;
   }
+
+  .experience-location {
+    margin-left: 0;
+  }
+
   .experience-entry {
-    flex-direction: column;
+    flex-direction: row;
     margin-bottom: 1.5em;
   }
+
   .experience-timeline-dot {
-    margin: 0 0 12px 0;
-    align-self: center;
+    margin-right: 16px;
+    margin-top: 8px;
+  }
+
+  ul {
+    padding-left: 1.25em;
+  }
+
+  .download-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .experience-entry {
+    flex-direction: column;
+  }
+
+  .experience-timeline-dot {
+    margin: 0 0 8px 0;
+    align-self: flex-start;
   }
 }

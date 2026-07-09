@@ -1,0 +1,46 @@
+<section class="booking-section">
+  <div class="section-header">
+    <h2 class="section-title">Book a Call</h2>
+    <p class="section-subtitle">
+      {{ profile.availability }} — schedule a free 30-minute intro call to discuss your project.
+    </p>
+  </div>
+
+  <div class="booking-content">
+    <div class="booking-info">
+      <div class="info-item">
+        <span class="info-icon">📅</span>
+        <div>
+          <h4>30-minute intro</h4>
+          <p>Walk through your goals, timeline, and budget. No commitment required.</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="info-icon">💬</span>
+        <div>
+          <h4>What we'll cover</h4>
+          <p>Project scope, tech stack recommendations, and a rough timeline estimate.</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="info-icon">🚀</span>
+        <div>
+          <h4>Next steps</h4>
+          <p>You'll get a written proposal within 48 hours if we're a good fit.</p>
+        </div>
+      </div>
+      <a [href]="profile.calLink" target="_blank" rel="noopener noreferrer" class="booking-external">
+        Open in new tab ↗
+      </a>
+    </div>
+
+    <div class="booking-embed" *ngIf="calEmbedUrl">
+      <iframe
+        [src]="calEmbedUrl"
+        title="Schedule a call with Ravin Bhakta"
+        frameborder="0"
+        allow="camera; microphone; fullscreen"
+      ></iframe>
+    </div>
+  </div>
+</section>
