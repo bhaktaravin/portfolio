@@ -63,6 +63,15 @@ export class AppComponent implements OnInit, OnDestroy {
     window.removeEventListener('section-change', this.sectionListener);
   }
 
+  fullName = "Ravin Bhakta";
+  jobTitle = "AI-Assisted Full-Stack Engineer – Intelligent Apps & Cloud Systems";
+  heroDescription = "Full-stack engineer with 5+ years building enterprise APIs and AI-assisted products. Co-founder at Wov3; ships production web platforms, LLM-powered tools, and scalable cloud applications.";
+  aboutDescription = "I build AI-enabled web applications and backend systems—LLM integration, React/Angular frontends, and cloud-native APIs on AWS. From Career Copilot to enterprise platforms, I focus on turning AI capabilities into reliable, production-ready user experiences.";
+  email = "ravin.bhakta@gmail.com";
+  phone = "5107557264";
+  location = "Fremont, CA";
+  resumeLink = "assets/resume.pdf";
+  currentYear = new Date().getFullYear();
   @HostListener('window:scroll')
   onScroll(): void {
     this.showBackToTop = window.scrollY > 400;
@@ -78,6 +87,90 @@ export class AppComponent implements OnInit, OnDestroy {
     if (!target.closest('.nav-more')) this.showMoreMenu = false;
   }
 
+  certifications: Certification[] = [
+    { name: "AWS Certified Solutions Architect – Associate", issuer: "Amazon Web Services", year: "2024" },
+    { name: "Certified Kubernetes Application Developer (CKAD)", issuer: "Cloud Native Computing Foundation", year: "2023" },
+    { name: "SAP Certified Application Associate", issuer: "SAP", year: "2022" },
+    { name: "CompTIA Security+", issuer: "CompTIA", year: "2021" },
+  ];
+
+  stats: Stat[] = [
+    { value: "5+", label: "Years Experience" },
+    { value: "10+", label: "Projects Completed" },
+    { value: "3", label: "Companies Worked" },
+    { value: "15+", label: "Technologies" },
+  ];
+
+  skillCategories: SkillCategory[] = [
+    { name: "AI & LLM", skills: ["LLM Integration", "Prompt Engineering", "AI-Assisted UX", "OpenAI API"] },
+    { name: "Frontend", skills: ["Angular", "React", "TypeScript", "Tailwind CSS"] },
+    { name: "Backend", skills: ["NestJS", "Node.js", "Java (Spring)", "Python (Django)"] },
+    { name: "Cloud", skills: ["AWS", "AWS Amplify", "Vercel", "Railway"] },
+  ];
+
+  workExperience: WorkExperience[] = [
+    {
+      title: "Co-Founder",
+      company: "Wov3",
+      period: "January 2026 - Present",
+      description: "Co-founding Wov3 — recovery footwear engineered with 3D-printed lattice structures. Building the production web platform, e-commerce flows, and athlete onboarding experience at wov3.com.",
+    },
+    {
+      title: "Senior Software Engineer — Self-Employed",
+      company: "Self Employed",
+      period: "July 2025 - Present",
+      description: "Independent AI-assisted full-stack development: shipped Career Copilot (LLM resume/JD/interview tools), client web platforms on AWS Amplify and Vercel, and production React/TypeScript applications.",
+    },
+    {
+      title: "Operations Associate Applications Developer",
+      company: "Blue Shield of California",
+      period: "July 2021 - June 2025",
+      description: "Enterprise APIs, intelligent workflow automation, and system optimization. Automated processes with VBA and PowerShell (30% time savings); debugged REST APIs (40% faster incident resolution) for 1,000+ users. Led Git/SVN practices for reliable, data-driven delivery in healthcare.",
+    },
+    {
+      title: "Software Developer",
+      company: "Entappia",
+      period: "August 2019 - June 2021",
+      description: "Full-stack and cloud integration with API-first architecture. Launched RESTful APIs (50% faster integration); connected SAP Open Connectors to Firebase and DynamoDB (25% lower latency). Modernized legacy systems for scalable, event-driven data flows.",
+    },
+    {
+      title: "Quality Assurance Intern",
+      company: "Los Angeles Housing Authority",
+      period: "August 2018 - April 2019",
+      description: "Contributed to enterprise tooling and automation. Migrated data storage from XML to C#, accelerating processing speed by 3x and supporting faster applicant onboarding. Revamped user portal UI with C#, Bootstrap, and KendoUI, increasing user satisfaction and reducing support tickets. Redesigned housing authority portal (ASP.NET MVC, SQL Server), enabling secure, scalable access for thousands of tenants.",
+    },
+  ];
+
+  socialLinks: SocialLink[] = [
+    { platform: "GitHub", url: "https://github.com/bhaktaravin", icon: "🐙" },
+    { platform: "LinkedIn", url: "https://www.linkedin.com/in/ravin-rohitbhai-bhakta", icon: "🔗" },
+    { platform: "Gumroad", url: "https://ravinspire34.gumroad.com/", icon: "🛒" },
+    { platform: "Email", url: "mailto:ravin.bhakta@gmail.com", icon: "✉️" },
+    { platform: "Phone", url: "tel:5107557264", icon: "📞" },
+  ];
+
+  education: Education[] = [
+    {
+      degree: "Bachelor of Science in Computer Science",
+      institution: "California State University, Los Angeles",
+      period: "August 2015 - April 2019",
+      location: "Los Angeles, CA",
+    },
+  ];
+
+  ngOnInit() {
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) this.activeSection = entry.target.id;
+        });
+      },
+      { threshold: 0.3 }
+    );
+    this.sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) this.observer.observe(el);
+    });
   toggleMenu(): void { this.menuOpen = !this.menuOpen; }
 
   closeMenu(): void {
