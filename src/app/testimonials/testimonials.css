@@ -18,6 +18,17 @@
   color: #fff;
   box-shadow: 0 2px 8px rgba(0,0,0,0.10);
 }
+.submit-message {
+  text-align: center;
+  color: #86efac;
+  background: rgba(57, 211, 83, 0.1);
+  border: 1px solid rgba(57, 211, 83, 0.25);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin: 0 auto 1.5rem;
+  max-width: 520px;
+  font-size: 0.95rem;
+}
 .container {
   background: var(--bg-main);
   padding: 2.5rem 0;

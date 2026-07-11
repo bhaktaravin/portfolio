@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="section-header">
+    <h2 class="section-title">How I Work</h2>
+    <p class="section-subtitle">A clear process from first call to launch — no surprises</p>
+  </div>
+
+  <div class="process-grid">
+    <div class="process-step" *ngFor="let step of workProcess">
+      <span class="process-number">{{ step.step }}</span>
+      <h3>{{ step.title }}</h3>
+      <p>{{ step.description }}</p>
+    </div>
+  </div>
+
+  <div class="section-header faq-header">
+    <h2 class="section-title">FAQ</h2>
+    <p class="section-subtitle">Common questions before we start a project</p>
+  </div>
+
+  <div class="faq-list">
+    <div
+      class="faq-item"
+      *ngFor="let item of faqItems; let i = index"
+      [class.open]="isOpen(i)"
+    >
+      <button
+        type="button"
+        class="faq-question"
+        (click)="toggle(i)"
+        [attr.aria-expanded]="isOpen(i)"
+      >
+        <span>{{ item.question }}</span>
+        <span class="faq-chevron" aria-hidden="true">{{ isOpen(i) ? '−' : '+' }}</span>
+      </button>
+      <div class="faq-answer" *ngIf="isOpen(i)">
+        <p>{{ item.answer }}</p>
+      </div>
+    </div>
+  </div>
+</div>

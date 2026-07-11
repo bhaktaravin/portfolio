@@ -1,0 +1,70 @@
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.client-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: #23272f;
+  border: 1px solid rgba(79, 140, 255, 0.15);
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.client-card:hover {
+  border-color: rgba(79, 140, 255, 0.45);
+  transform: translateY(-2px);
+}
+
+.client-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.client-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.client-name {
+  font-weight: 600;
+  color: #fff;
+}
+
+.client-tagline {
+  font-size: 0.85rem;
+  color: #8b92a7;
+}
+
+.client-link {
+  color: var(--primary-blue);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+body.light-mode .client-card {
+  background: #f8fafc;
+  border-color: rgba(37, 99, 235, 0.15);
+}
+
+body.light-mode .client-name {
+  color: #1e293b;
+}
+
+body.light-mode .client-tagline {
+  color: #64748b;
+}

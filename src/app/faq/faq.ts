@@ -1,0 +1,24 @@
+import { Component, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FAQ_ITEMS, WORK_PROCESS } from '../data/portfolio.data';
+
+@Component({
+  selector: 'app-faq',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './faq.html',
+  styleUrls: ['./faq.css'],
+})
+export class FaqComponent {
+  readonly faqItems = FAQ_ITEMS;
+  readonly workProcess = WORK_PROCESS;
+  readonly openIndex = signal<number | null>(0);
+
+  toggle(index: number): void {
+    this.openIndex.set(this.openIndex() === index ? null : index);
+  }
+
+  isOpen(index: number): boolean {
+    return this.openIndex() === index;
+  }
+}

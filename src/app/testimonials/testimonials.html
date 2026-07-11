@@ -1,20 +1,28 @@
 <div class="container">
-  <h2 class="section-title">Testimonials
-    <button class="add-btn" (click)="showForm = !showForm" title="Add Testimonial">+</button>
-  </h2>
+  <div class="section-header">
+    <h2 class="section-title">
+      Client Reviews
+      <button class="add-btn" (click)="showForm = !showForm" title="Leave a review">+</button>
+    </h2>
+    <p class="section-subtitle">Verified testimonials from clients and collaborators — new reviews are moderated before publishing</p>
+  </div>
+
+  <p class="submit-message" *ngIf="submitMessage">{{ submitMessage }}</p>
+
   <div *ngIf="showForm" class="testimonial-form-wrapper">
     <form (ngSubmit)="submitTestimonial()" #testimonialForm="ngForm">
       <input type="text" name="name" [(ngModel)]="newTestimonial.name" placeholder="Your Name" required />
       <input type="email" name="email" [(ngModel)]="newTestimonial.email" placeholder="Email (for Gravatar)" />
       <input type="text" name="title" [(ngModel)]="newTestimonial.title" placeholder="Your Title/Role" required />
       <input type="text" name="date" [(ngModel)]="newTestimonial.date" placeholder="Date (e.g. Dec 2025)" required />
-      <input type="text" name="relationship" [(ngModel)]="newTestimonial.relationship" placeholder="Relationship (e.g. Colleague)" required />
-      <textarea name="text" [(ngModel)]="newTestimonial.text" placeholder="Your Testimonial" required></textarea>
+      <input type="text" name="relationship" [(ngModel)]="newTestimonial.relationship" placeholder="Relationship (e.g. Client)" required />
+      <textarea name="text" [(ngModel)]="newTestimonial.text" placeholder="Your testimonial" required></textarea>
       <input type="text" name="image" [(ngModel)]="newTestimonial.image" placeholder="Image URL (optional)" />
-      <button type="submit" [disabled]="testimonialForm.invalid">Submit</button>
+      <button type="submit" [disabled]="testimonialForm.invalid">Submit for review</button>
       <button type="button" (click)="showForm = false">Cancel</button>
     </form>
   </div>
+
   <div class="testimonials-grid">
     <div class="testimonial-card" *ngFor="let testimonial of testimonials$ | async">
       <div class="testimonial-header">
@@ -28,8 +36,6 @@
           <span class="testimonial-date">{{ testimonial.date }}</span>
           <span class="testimonial-relationship">{{ testimonial.relationship }}</span>
         </div>
-        <button class="delete-btn" *ngIf="testimonial.id" (click)="deleteTestimonial(testimonial.id)" title="Delete Testimonial">x</button>
-
       </div>
       <div class="testimonial-content">
         <p class="testimonial-text">{{ testimonial.text }}</p>

@@ -8,7 +8,11 @@ export class ThemeService {
 
   constructor() {
     const stored = localStorage.getItem(STORAGE_KEY);
-    const prefersLight = stored === 'light';
+    if (stored === 'light' || stored === 'dark') {
+      this.apply(stored === 'light');
+      return;
+    }
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
     this.apply(prefersLight);
   }
 

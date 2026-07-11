@@ -6,11 +6,10 @@ import {
   collection,
   addDoc,
   collectionData,
-  deleteDoc,
-  doc,
 } from "@angular/fire/firestore";
 import { Query } from "firebase/firestore";
 import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
 interface NewTestimonial {
   name: string;
@@ -24,6 +23,7 @@ interface NewTestimonial {
 
 interface Testimonial extends NewTestimonial {
   id?: string;
+  approved?: boolean;
 }
 
 // Minimal MD5 implementation for Gravatar (not cryptographically secure, but fine for avatars)
@@ -224,6 +224,7 @@ export class TestimonialsComponent {
   testimonials$: Observable<Testimonial[]>;
 
   showForm = false;
+  submitMessage: string | null = null;
   newTestimonial: NewTestimonial = {
     name: "",
     email: "",
@@ -236,12 +237,11 @@ export class TestimonialsComponent {
 
   constructor() {
     const testimonialsRef = collection(this.firestore, "testimonials");
-    this.testimonials$ = collectionData(testimonialsRef as unknown as Query, {
+    this.testimonials$ = (collectionData(testimonialsRef as unknown as Query, {
       idField: "id",
-    }) as Observable<Testimonial[]>;
-    this.testimonials$.subscribe((data: Testimonial[]) => {
-      console.log("Firestore testimonials:", data);
-    });
+    }) as Observable<Testimonial[]>).pipe(
+      map((items) => items.filter((t) => t.approved !== false)),
+    );
   }
 
   gravatarUrl(email?: string, size: number = 120): string {
@@ -260,7 +260,10 @@ export class TestimonialsComponent {
       return;
     }
     const testimonialsRef = collection(this.firestore, "testimonials");
-    await addDoc(testimonialsRef, { ...this.newTestimonial });
+    await addDoc(testimonialsRef, { ...this.newTestimonial, approved: false });
+    this.submitMessage =
+      "Thanks! Your review was submitted and will appear after I verify it.";
+    setTimeout(() => (this.submitMessage = null), 6000);
     this.newTestimonial = {
       name: "",
       email: "",
@@ -271,10 +274,5 @@ export class TestimonialsComponent {
       image: "",
     };
     this.showForm = false;
-  }
-
-  async deleteTestimonial(id: string) {
-    const testimonialsRef = collection(this.firestore, "testimonials");
-    await deleteDoc(doc(testimonialsRef, id));
   }
 }

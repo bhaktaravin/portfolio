@@ -122,6 +122,24 @@ export interface ResumeCertification {
   year: string;
 }
 
+export interface TrustedClient {
+  name: string;
+  tagline: string;
+  url?: string;
+  logo?: string;
+}
+
+export interface WorkProcessStep {
+  step: number;
+  title: string;
+  description: string;
+}
+
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
 export const PROFILE = {
   fullName: 'Ravin Bhakta',
   jobTitle: 'Freelance Full-Stack & AI Web Developer',
@@ -135,9 +153,90 @@ export const PROFILE = {
   phone: '5107557264',
   location: 'Fremont, CA',
   availability: 'Available for freelance',
+  availabilityStatus: 'available' as const,
+  siteUrl: 'https://ravinbhaktaresume.netlify.app',
+  siteDescription:
+    'Freelance full-stack and AI web developer. I build and deploy client websites, web apps, and LLM-powered marketing tools.',
   resumeLink: 'assets/resume.pdf',
   calLink: 'https://cal.com/ravinbhakta/30min',
 };
+
+export const TRUSTED_CLIENTS: TrustedClient[] = [
+  {
+    name: 'Wov3, Inc',
+    tagline: 'Recovery footwear · E-commerce platform',
+    url: 'https://www.wov3.com/',
+    logo: 'assets/wov3.png',
+  },
+  {
+    name: 'Hetal Ascher Consulting',
+    tagline: 'Educational consulting · Next.js on AWS Amplify',
+    url: 'https://main.dbe3ycstvczq3.amplifyapp.com/',
+    logo: 'assets/hetalascher.png',
+  },
+  {
+    name: 'NAGGA',
+    tagline: 'Golf association · Membership platform on Vercel',
+    url: 'https://nagagolftournamentsite.vercel.app/',
+    logo: 'assets/nagga.png',
+  },
+];
+
+export const WORK_PROCESS: WorkProcessStep[] = [
+  {
+    step: 1,
+    title: 'Discovery call',
+    description: 'We align on goals, audience, timeline, and budget. You leave with a clear scope — no vague SOWs.',
+  },
+  {
+    step: 2,
+    title: 'Scope & quote',
+    description: 'I send a fixed or phased quote with deliverables, milestones, and what “done” looks like.',
+  },
+  {
+    step: 3,
+    title: 'Build & review',
+    description: 'Weekly check-ins, staging URLs you can share, and async feedback. AI assists copy and content where it helps.',
+  },
+  {
+    step: 4,
+    title: 'Launch & handoff',
+    description: 'Production deploy, DNS/domain help, docs, and a short post-launch support window.',
+  },
+];
+
+export const FAQ_ITEMS: FaqItem[] = [
+  {
+    question: 'What types of projects do you take on?',
+    answer:
+      'Marketing sites, full-stack web apps (auth, dashboards, databases), and AI features — copy generation, chat, document analysis, and workflow automation. I work with founders, small businesses, and associations.',
+  },
+  {
+    question: 'How much does a typical project cost?',
+    answer:
+      'Landing pages start around $1,500, full-stack apps from $4,000, and AI integrations from $2,500. Every project is scoped to your needs — book a free call or send a message for a tailored quote.',
+  },
+  {
+    question: 'How long does a project take?',
+    answer:
+      'A marketing site is often 2–4 weeks. Full-stack apps run 4–8+ weeks depending on scope. I give realistic timelines upfront and ship staging links early so you can review as we go.',
+  },
+  {
+    question: 'Do you use AI in client work?',
+    answer:
+      'Yes — for marketing copy drafts, content variations, and product features (LLM chat, summarization, smart search). You always review final copy; AI speeds iteration, not replaces your voice.',
+  },
+  {
+    question: 'What do I get at handoff?',
+    answer:
+      'A live production URL, source code (or repo access), deployment docs, and basic training on updates. You own what we build.',
+  },
+  {
+    question: 'How do we communicate during a project?',
+    answer:
+      'Email, async Loom/video updates, and scheduled calls. US-based, remote-friendly, and responsive across Pacific time.',
+  },
+];
 
 export const STATS: Stat[] = [
   { value: '3+', label: 'Live Client Sites' },
@@ -678,6 +777,7 @@ export const PRIMARY_NAV: NavLink[] = [
 ];
 
 export const MORE_NAV: NavLink[] = [
+  { id: 'faq', label: 'FAQ' },
   { id: 'experience', label: 'Experience' },
   { id: 'education', label: 'Education' },
   { id: 'certifications', label: 'Certifications' },
@@ -691,8 +791,8 @@ export const FOOTER_NAV: NavLink[] = [
 ];
 
 export const PAGE_SECTIONS = [
-  'home', 'about', 'projects', 'services', 'testimonials', 'skills',
-  'experience', 'contact', 'book', 'blog', 'products', 'github',
+  'home', 'about', 'projects', 'clients', 'services', 'ai-demo', 'testimonials', 'skills',
+  'experience', 'faq', 'contact', 'book', 'blog', 'products', 'github',
   'education', 'certifications',
 ];
 

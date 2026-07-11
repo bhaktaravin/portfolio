@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="section-header">
+    <h2 class="section-title">Trusted By</h2>
+    <p class="section-subtitle">Live sites and platforms I've built and deployed for clients and co-founded ventures</p>
+  </div>
+
+  <div class="clients-grid">
+    <a
+      *ngFor="let client of clients"
+      class="client-card"
+      [href]="client.url"
+      target="_blank"
+      rel="noopener noreferrer"
+      [attr.aria-label]="'Visit ' + client.name"
+    >
+      <img
+        *ngIf="client.logo"
+        [src]="client.logo"
+        [alt]="client.name + ' logo'"
+        class="client-logo"
+        loading="lazy"
+      />
+      <div class="client-info">
+        <span class="client-name">{{ client.name }}</span>
+        <span class="client-tagline">{{ client.tagline }}</span>
+      </div>
+      <span class="client-link" aria-hidden="true">↗</span>
+    </a>
+  </div>
+</div>

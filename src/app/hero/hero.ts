@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  PROFILE, STATS, SOCIAL_LINKS, HERO_TECH_STACK,
+import { PROFILE, STATS, SOCIAL_LINKS, HERO_TECH_STACK,
 } from '../data/portfolio.data';
 
 @Component({
@@ -16,7 +15,9 @@ export class HeroComponent {
   readonly jobTitle = PROFILE.jobTitle;
   readonly tagline = PROFILE.tagline;
   readonly description = PROFILE.heroDescription;
-  readonly location = `${PROFILE.location} · ${PROFILE.availability}`;
+  readonly location = PROFILE.location;
+  readonly availability = PROFILE.availability;
+  readonly isAvailable = PROFILE.availabilityStatus === 'available';
   readonly stats = STATS;
   readonly socialLinks = SOCIAL_LINKS.filter((s) => s.platform !== 'Phone');
   readonly techStack = HERO_TECH_STACK;

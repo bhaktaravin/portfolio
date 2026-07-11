@@ -1,9 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { Title } from '@angular/platform-browser';
-import { getBlogPostBySlug } from '../data/portfolio.data';
+import { getBlogPostBySlug, PROFILE } from '../data/portfolio.data';
 import type { BlogPost } from '../data/portfolio.data';
+import { MetaService } from '../services/meta.service';
 
 @Component({
   selector: 'app-blog-post',
@@ -14,7 +14,7 @@ import type { BlogPost } from '../data/portfolio.data';
 })
 export class BlogPostComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
-  private readonly title = inject(Title);
+  private readonly meta = inject(MetaService);
 
   post: BlogPost | undefined;
 
@@ -22,7 +22,11 @@ export class BlogPostComponent implements OnInit {
     const slug = this.route.snapshot.paramMap.get('slug') ?? '';
     this.post = getBlogPostBySlug(slug);
     if (this.post) {
-      this.title.setTitle(`${this.post.title} - Ravin Bhakta`);
+      this.meta.update({
+        title: this.post.title,
+        description: this.post.excerpt,
+        url: `${PROFILE.siteUrl}/blog/${this.post.slug}`,
+      });
     }
   }
 

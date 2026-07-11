@@ -7,6 +7,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 
 import { ThemeService } from './services/theme.service';
+import { MetaService } from './services/meta.service';
 import {
   PROFILE,
   SOCIAL_LINKS,
@@ -29,6 +30,7 @@ import {
 export class AppComponent implements OnInit, OnDestroy {
   private readonly router = inject(Router);
   readonly theme = inject(ThemeService);
+  private readonly meta = inject(MetaService);
 
   activeSection = 'home';
   showBackToTop = false;
@@ -54,9 +56,12 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.events
       .pipe(filter((e) => e instanceof NavigationEnd))
       .subscribe(() => {
-        this.isHome = this.router.url === '/' || this.router.url === '';
+        const onHome = this.router.url === '/' || this.router.url === '';
+        this.isHome = onHome;
+        if (onHome) this.meta.reset();
       });
     this.isHome = this.router.url === '/' || this.router.url === '';
+    if (this.isHome) this.meta.reset();
   }
 
   ngOnDestroy(): void {

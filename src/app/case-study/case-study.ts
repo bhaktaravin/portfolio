@@ -1,10 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { Title } from '@angular/platform-browser';
 import { LazyLoadDirective } from '../directives/lazy-load.directive';
-import { getProjectBySlug } from '../data/portfolio.data';
+import { getProjectBySlug, PROFILE } from '../data/portfolio.data';
 import type { Project } from '../data/portfolio.data';
+import { MetaService } from '../services/meta.service';
 
 @Component({
   selector: 'app-case-study',
@@ -15,7 +15,7 @@ import type { Project } from '../data/portfolio.data';
 })
 export class CaseStudyComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
-  private readonly title = inject(Title);
+  private readonly meta = inject(MetaService);
 
   project: Project | undefined;
 
@@ -23,7 +23,12 @@ export class CaseStudyComponent implements OnInit {
     const slug = this.route.snapshot.paramMap.get('slug') ?? '';
     this.project = getProjectBySlug(slug);
     if (this.project) {
-      this.title.setTitle(`${this.project.title} - Case Study | Ravin Bhakta`);
+      this.meta.update({
+        title: `${this.project.title} — Case Study`,
+        description: this.project.description,
+        image: this.project.image ? `${PROFILE.siteUrl}/${this.project.image}` : undefined,
+        url: `${PROFILE.siteUrl}/projects/${this.project.slug}`,
+      });
     }
   }
 

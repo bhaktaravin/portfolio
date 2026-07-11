@@ -158,6 +158,41 @@
   color: var(--accent, #4f8cff);
 }
 
+.availability-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  margin-bottom: 0.75rem;
+  border-radius: 999px;
+  background: rgba(57, 211, 83, 0.12);
+  border: 1px solid rgba(57, 211, 83, 0.35);
+  color: #86efac;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.availability-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #39d353;
+  box-shadow: 0 0 0 0 rgba(57, 211, 83, 0.5);
+  animation: availability-pulse 2s infinite;
+}
+
+@keyframes availability-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(57, 211, 83, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(57, 211, 83, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(57, 211, 83, 0);
+  }
+}
+
 .hero-tagline {
   font-size: 1.3rem;
   font-weight: 500;
