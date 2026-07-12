@@ -257,7 +257,80 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  margin: 2.5rem 0;
+  margin: 2.5rem 0 1rem;
+}
+
+.hero-secondary-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1.5rem;
+  font-size: 0.95rem;
+  color: #9ca3af;
+}
+
+.hero-text-link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #b3c6ff;
+  font-size: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+
+.hero-text-link:hover {
+  color: #4f8cff;
+}
+
+.hero-text-sep {
+  opacity: 0.5;
+  user-select: none;
+}
+
+.hero-email-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+}
+
+.hero-email {
+  color: #b3c6ff;
+  text-decoration: none;
+}
+
+.hero-email:hover {
+  color: #4f8cff;
+  text-decoration: underline;
+}
+
+.hero-copy-btn {
+  background: rgba(79, 140, 255, 0.12);
+  border: 1px solid rgba(79, 140, 255, 0.35);
+  color: #b3c6ff;
+  border-radius: 6px;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.78rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.hero-copy-btn:hover {
+  background: rgba(79, 140, 255, 0.22);
+  color: #fff;
+}
+
+.hero-response-time {
+  color: #9ca3af;
+  font-size: 0.82rem;
 }
 
 .btn {
@@ -285,6 +358,20 @@
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(79, 140, 255, 0.6);
+}
+
+.btn-accent {
+  background: transparent;
+  color: #f5f6fa;
+  border: 2px solid rgba(79, 140, 255, 0.65);
+  box-shadow: 0 0 0 0 rgba(79, 140, 255, 0.2);
+}
+
+.btn-accent:hover {
+  background: rgba(79, 140, 255, 0.12);
+  border-color: #4f8cff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(79, 140, 255, 0.25);
 }
 
 .btn-secondary {
@@ -367,12 +454,21 @@
   align-items: center;
   gap: 2rem;
   animation: slideInRight 1s ease-out;
+  width: 100%;
+}
+
+.hero-visual-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  width: 100%;
 }
 
 /* Avatar */
 .hero-avatar {
   position: relative;
-  margin-bottom: 1rem;
+  flex-shrink: 0;
 }
 
 .avatar-container {
@@ -400,6 +496,16 @@
   font-size: 3rem;
   font-weight: 700;
   color: white;
+  z-index: 2;
+}
+
+.avatar-photo {
+  position: absolute;
+  inset: 8px;
+  width: calc(100% - 16px);
+  height: calc(100% - 16px);
+  object-fit: cover;
+  border-radius: 50%;
   z-index: 2;
 }
 
@@ -432,8 +538,9 @@
 .hero-stats {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  margin-top: 1rem;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 420px;
 }
 
 .stat-item {
@@ -472,16 +579,17 @@
 
 /* Code Snippet */
 .code-snippet {
-  position: absolute;
-  top: 20%;
-  right: -20px;
-  width: 300px;
-  background: rgba(0, 0, 0, 0.8);
+  position: relative;
+  width: min(240px, 38vw);
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.85);
   border: 1px solid rgba(79, 140, 255, 0.3);
   border-radius: 8px;
   overflow: hidden;
   backdrop-filter: blur(10px);
-  animation: float 6s ease-in-out infinite;
+  animation: codeFloat 6s ease-in-out infinite;
+  transform: rotate(-3deg);
+  align-self: center;
 }
 
 .code-header {
@@ -686,10 +794,24 @@
   }
 }
 
+@keyframes codeFloat {
+  0%,
+  100% {
+    transform: rotate(-3deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-3deg) translateY(-8px);
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .code-snippet {
     display: none;
+  }
+
+  .hero-visual-top {
+    justify-content: center;
   }
 
   .hero-content {
@@ -721,6 +843,15 @@
     order: -1;
   }
 
+  .hero-visual-top {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .hero-stats {
+    max-width: none;
+  }
+
   .avatar-container {
     width: 150px;
     height: 150px;
@@ -740,6 +871,14 @@
     justify-content: center;
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .hero-secondary-actions {
+    justify-content: center;
+  }
+
+  .hero-email-row {
+    justify-content: center;
   }
 
   .btn {

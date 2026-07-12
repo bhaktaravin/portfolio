@@ -54,6 +54,16 @@
     </ul>
     <div class="nav-actions">
       <button
+        type="button"
+        class="command-trigger"
+        (click)="commandPalette.open()"
+        aria-label="Open command menu (Ctrl+K or Cmd+K)"
+      >
+        <span class="command-trigger-icon" aria-hidden="true">⌕</span>
+        <span class="command-trigger-label">Search</span>
+        <kbd class="command-trigger-kbd">⌘K</kbd>
+      </button>
+      <button
         class="theme-toggle"
         (click)="theme.toggle()"
         [attr.aria-label]="theme.isLight() ? 'Switch to dark mode' : 'Switch to light mode'"
@@ -80,8 +90,27 @@
 
 <router-outlet></router-outlet>
 
+<app-command-palette></app-command-palette>
+
+<!-- Sticky CTA (home page, after hero scroll) -->
+<div
+  class="sticky-cta"
+  [class.visible]="showStickyCta && isHome"
+  role="region"
+  aria-label="Quick actions"
+>
+  <span class="sticky-cta-status" *ngIf="isAvailable">
+    <span class="sticky-cta-dot" aria-hidden="true"></span>
+    {{ availability }}
+  </span>
+  <div class="sticky-cta-actions">
+    <a routerLink="/" fragment="projects" class="sticky-cta-link">View work</a>
+    <a routerLink="/" fragment="book" class="sticky-cta-btn">Book a call</a>
+  </div>
+</div>
+
 <!-- Back to Top -->
-<button class="back-to-top" [class.visible]="showBackToTop" (click)="scrollToTop()" aria-label="Back to top">
+<button class="back-to-top" [class.visible]="showBackToTop" [class.above-cta]="showStickyCta && isHome" (click)="scrollToTop()" aria-label="Back to top">
   ↑
 </button>
 

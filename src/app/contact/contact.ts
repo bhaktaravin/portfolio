@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, NgForm } from "@angular/forms";
 import emailjs from "@emailjs/browser";
 import { environment } from "../../environments/environment";
+import { CONTACT_INTENTS, PROFILE } from "../data/portfolio.data";
 
 @Component({
   selector: "app-contact",
@@ -12,12 +13,27 @@ import { environment } from "../../environments/environment";
   styleUrls: ["./contact.css"],
 })
 export class ContactComponent {
-  contact = { name: "", email: "", message: "" };
-  honeypot = ""; // must stay empty — bots fill this
+  readonly email = PROFILE.email;
+  readonly responseTime = PROFILE.responseTime;
+  readonly intentOptions = CONTACT_INTENTS;
+
+  contact = { name: "", email: "", message: "", intent: "" };
+  honeypot = "";
   toast: { message: string; type: "success" | "error" } | null = null;
   isSubmitting = false;
+  emailCopied = false;
 
   private formLoadedAt = Date.now();
+
+  async copyEmail(): Promise<void> {
+    try {
+      await navigator.clipboard.writeText(this.email);
+      this.emailCopied = true;
+      setTimeout(() => (this.emailCopied = false), 2000);
+    } catch {
+      window.location.href = `mailto:${this.email}`;
+    }
+  }
 
   async submitContact(form: NgForm) {
     if (form.invalid) {
@@ -26,12 +42,15 @@ export class ContactComponent {
     }
 
     if (this.isSpam()) {
-      // Silently pretend it worked so bots don't retry
       this.showToast("Message sent! I'll get back to you soon.", "success");
       form.resetForm();
-      this.contact = { name: "", email: "", message: "" };
+      this.resetContact();
       return;
     }
+
+    const intentLabel =
+      this.intentOptions.find((o) => o.value === this.contact.intent)?.label ??
+      this.contact.intent;
 
     this.isSubmitting = true;
     try {
@@ -41,13 +60,14 @@ export class ContactComponent {
         {
           from_name: this.contact.name,
           from_email: this.contact.email,
-          message: this.contact.message,
+          intent: intentLabel,
+          message: `Interest: ${intentLabel}\n\n${this.contact.message}`,
         },
         environment.emailjs.publicKey
       );
       this.showToast("Message sent! I'll get back to you soon.", "success");
       form.resetForm();
-      this.contact = { name: "", email: "", message: "" };
+      this.resetContact();
     } catch {
       this.showToast("Something went wrong. Please try again.", "error");
     } finally {
@@ -55,24 +75,23 @@ export class ContactComponent {
     }
   }
 
-  private isSpam(): boolean {
-    // 1. Honeypot — bot filled the hidden field
-    if (this.honeypot.trim().length > 0) return true;
+  private resetContact(): void {
+    this.contact = { name: "", email: "", message: "", intent: "" };
+  }
 
-    // 2. Time check — submitted in under 2 seconds
+  private isSpam(): boolean {
+    if (this.honeypot.trim().length > 0) return true;
     if (Date.now() - this.formLoadedAt < 2000) return true;
 
-    // 3. Content checks
     const { name, email, message } = this.contact;
     const urlPattern = /https?:\/\/|www\./i;
-    const repeatedChars = /(.)\1{6,}/; // e.g. "aaaaaaa"
+    const repeatedChars = /(.)\1{6,}/;
     const spamKeywords = /\b(viagra|casino|crypto|click here|free money|winner|congratulations)\b/i;
 
     if (urlPattern.test(name)) return true;
     if (repeatedChars.test(message)) return true;
     if (spamKeywords.test(message)) return true;
 
-    // 4. Suspicious email patterns (disposable domains)
     const disposableDomains = ["mailinator.com", "guerrillamail.com", "trashmail.com", "tempmail.com", "10minutemail.com"];
     const emailDomain = email.split("@")[1]?.toLowerCase();
     if (disposableDomains.includes(emailDomain)) return true;

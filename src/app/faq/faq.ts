@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FAQ_ITEMS, WORK_PROCESS } from '../data/portfolio.data';
+import { FAQ_ITEMS } from '../data/portfolio.data';
 
 @Component({
   selector: 'app-faq',
@@ -11,7 +11,6 @@ import { FAQ_ITEMS, WORK_PROCESS } from '../data/portfolio.data';
 })
 export class FaqComponent {
   readonly faqItems = FAQ_ITEMS;
-  readonly workProcess = WORK_PROCESS;
   readonly openIndex = signal<number | null>(0);
 
   toggle(index: number): void {

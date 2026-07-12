@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="section-header">
+    <h2 class="section-title">How I Work</h2>
+    <p class="section-subtitle">
+      A clear path from first call to launch — staging links early, no surprise scope creep.
+    </p>
+  </div>
+
+  <div class="process-timeline">
+    <div class="process-track" aria-hidden="true"></div>
+    <div class="process-step" *ngFor="let step of steps; let last = last">
+      <div class="process-marker">
+        <span class="process-number">{{ step.step }}</span>
+      </div>
+      <div class="process-card">
+        <h3>{{ step.title }}</h3>
+        <p>{{ step.description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="process-cta">
+    <p>Ready to start?</p>
+    <button type="button" class="process-cta-btn" (click)="scrollToBook()">
+      Book a free 30-min call
+    </button>
+  </div>
+</div>

@@ -16,14 +16,34 @@ export class HeroComponent {
   readonly tagline = PROFILE.tagline;
   readonly description = PROFILE.heroDescription;
   readonly location = PROFILE.location;
+  readonly email = PROFILE.email;
+  readonly responseTime = PROFILE.responseTime;
   readonly availability = PROFILE.availability;
   readonly isAvailable = PROFILE.availabilityStatus === 'available';
+  readonly profilePhoto = PROFILE.profilePhoto;
   readonly stats = STATS;
   readonly socialLinks = SOCIAL_LINKS.filter((s) => s.platform !== 'Phone');
   readonly techStack = HERO_TECH_STACK;
 
+  showPhoto = !!PROFILE.profilePhoto;
+  emailCopied = false;
+
   get initials(): string {
     return this.fullName.split(' ').map((n) => n.charAt(0)).join('');
+  }
+
+  onPhotoError(): void {
+    this.showPhoto = false;
+  }
+
+  async copyEmail(): Promise<void> {
+    try {
+      await navigator.clipboard.writeText(this.email);
+      this.emailCopied = true;
+      setTimeout(() => (this.emailCopied = false), 2000);
+    } catch {
+      window.location.href = `mailto:${this.email}`;
+    }
   }
 
   scrollTo(sectionId: string): void {
@@ -40,5 +60,6 @@ export class HeroComponent {
   }
 
   viewProjects(): void { this.scrollTo('projects'); }
+  startProject(): void { this.scrollTo('book'); }
   contactMe(): void { this.scrollTo('contact'); }
 }

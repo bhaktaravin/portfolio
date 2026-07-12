@@ -1,10 +1,17 @@
 <div class="container">
   <div class="section-header">
-    <h2 class="section-title">
-      Client Reviews
-      <button class="add-btn" (click)="showForm = !showForm" title="Leave a review">+</button>
-    </h2>
-    <p class="section-subtitle">Verified testimonials from clients and collaborators — new reviews are moderated before publishing</p>
+    <h2 class="section-title">Colleague Recommendations</h2>
+    <p class="section-subtitle">
+      What managers and teammates I've worked with have said on LinkedIn — real feedback from past roles, not paid testimonials.
+    </p>
+    <a
+      class="linkedin-badge"
+      [href]="linkedInUrl"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      View on LinkedIn ↗
+    </a>
   </div>
 
   <p class="submit-message" *ngIf="submitMessage">{{ submitMessage }}</p>
@@ -15,8 +22,8 @@
       <input type="email" name="email" [(ngModel)]="newTestimonial.email" placeholder="Email (for Gravatar)" />
       <input type="text" name="title" [(ngModel)]="newTestimonial.title" placeholder="Your Title/Role" required />
       <input type="text" name="date" [(ngModel)]="newTestimonial.date" placeholder="Date (e.g. Dec 2025)" required />
-      <input type="text" name="relationship" [(ngModel)]="newTestimonial.relationship" placeholder="Relationship (e.g. Client)" required />
-      <textarea name="text" [(ngModel)]="newTestimonial.text" placeholder="Your testimonial" required></textarea>
+      <input type="text" name="relationship" [(ngModel)]="newTestimonial.relationship" placeholder="Relationship (e.g. Colleague, Manager)" required />
+      <textarea name="text" [(ngModel)]="newTestimonial.text" placeholder="Your recommendation" required></textarea>
       <input type="text" name="image" [(ngModel)]="newTestimonial.image" placeholder="Image URL (optional)" />
       <button type="submit" [disabled]="testimonialForm.invalid">Submit for review</button>
       <button type="button" (click)="showForm = false">Cancel</button>
@@ -33,8 +40,10 @@
         <div class="testimonial-meta">
           <span class="testimonial-name">{{ testimonial.name }}</span>
           <span class="testimonial-title">{{ testimonial.title }}</span>
-          <span class="testimonial-date">{{ testimonial.date }}</span>
-          <span class="testimonial-relationship">{{ testimonial.relationship }}</span>
+          <div class="testimonial-details">
+            <span class="testimonial-relationship">{{ testimonial.relationship }}</span>
+            <span class="testimonial-date">{{ testimonial.date }}</span>
+          </div>
         </div>
       </div>
       <div class="testimonial-content">
@@ -42,4 +51,11 @@
       </div>
     </div>
   </div>
+
+  <p class="testimonials-footer">
+    Worked with me on a project?
+    <button type="button" class="testimonials-footer-link" (click)="showForm = !showForm">
+      {{ showForm ? 'Cancel' : 'Leave a recommendation' }}
+    </button>
+  </p>
 </div>

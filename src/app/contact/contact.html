@@ -1,5 +1,20 @@
 <div class="contact-section">
   <h2>Contact Me</h2>
+  <p class="contact-intro">
+    Have a project in mind or just want to connect? Send a message — {{ responseTime | lowercase }}.
+  </p>
+
+  <div class="contact-email-bar">
+    <a class="contact-email" [href]="'mailto:' + email">{{ email }}</a>
+    <button
+      type="button"
+      class="contact-copy-btn"
+      (click)="copyEmail()"
+      [attr.aria-label]="emailCopied ? 'Email copied' : 'Copy email address'"
+    >
+      {{ emailCopied ? 'Copied!' : 'Copy email' }}
+    </button>
+  </div>
 
   <!-- Toast notification -->
   <div *ngIf="toast" class="toast" [class.success]="toast.type === 'success'" [class.error]="toast.type === 'error'">
@@ -11,6 +26,24 @@
     <!-- Honeypot: hidden from humans, bots fill it out -->
     <div class="hp-field" aria-hidden="true">
       <input name="website" [(ngModel)]="honeypot" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="form-group">
+      <label for="intent">I'm interested in…</label>
+      <select
+        id="intent"
+        name="intent"
+        [(ngModel)]="contact.intent"
+        required
+        #intent="ngModel"
+        [class.invalid]="intent.invalid && intent.touched"
+      >
+        <option value="" disabled>Select one</option>
+        <option *ngFor="let option of intentOptions" [value]="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+      <span class="field-error" *ngIf="intent.touched && intent.errors?.['required']">Please choose an option.</span>
     </div>
 
     <div class="form-group">
@@ -50,7 +83,7 @@
         #message="ngModel"
         [class.invalid]="message.invalid && message.touched"
         rows="5"
-        placeholder="What's on your mind?"
+        placeholder="Tell me about your project, role, or question…"
       ></textarea>
       <span class="field-error" *ngIf="message.touched && message.errors?.['required']">Message is required.</span>
       <span class="field-error" *ngIf="message.touched && message.errors?.['minlength']">At least 10 characters.</span>

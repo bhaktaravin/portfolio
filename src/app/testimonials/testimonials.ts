@@ -10,6 +10,7 @@ import {
 import { Query } from "firebase/firestore";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { SOCIAL_LINKS } from "../data/portfolio.data";
 
 interface NewTestimonial {
   name: string;
@@ -222,6 +223,8 @@ function md5(str: string): string {
 export class TestimonialsComponent {
   private readonly firestore: Firestore = inject(Firestore);
   testimonials$: Observable<Testimonial[]>;
+  readonly linkedInUrl =
+    SOCIAL_LINKS.find((s) => s.platform === "LinkedIn")?.url ?? "#";
 
   showForm = false;
   submitMessage: string | null = null;

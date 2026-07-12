@@ -159,7 +159,15 @@ export const PROFILE = {
     'Freelance full-stack and AI web developer. I build and deploy client websites, web apps, and LLM-powered marketing tools.',
   resumeLink: 'assets/resume.pdf',
   calLink: 'https://cal.com/ravinbhakta/30min',
+  profilePhoto: 'assets/profile.jpg',
+  responseTime: 'Usually reply within 24 hours',
 };
+
+export const CONTACT_INTENTS = [
+  { value: 'project', label: 'Start a project' },
+  { value: 'hiring', label: 'Hiring / job opportunity' },
+  { value: 'general', label: 'General question' },
+] as const;
 
 export const TRUSTED_CLIENTS: TrustedClient[] = [
   {
@@ -770,13 +778,13 @@ Dark/light mode toggle, Cal.com booking, and a proper PWA setup. The foundation 
 export const PRIMARY_NAV: NavLink[] = [
   { id: 'about', label: 'About' },
   { id: 'projects', label: 'Work' },
-  { id: 'services', label: 'Services' },
-  { id: 'testimonials', label: 'Reviews' },
   { id: 'skills', label: 'Skills' },
   { id: 'contact', label: 'Contact' },
 ];
 
 export const MORE_NAV: NavLink[] = [
+  { id: 'services', label: 'Services' },
+  { id: 'testimonials', label: 'Recommendations' },
   { id: 'faq', label: 'FAQ' },
   { id: 'experience', label: 'Experience' },
   { id: 'education', label: 'Education' },
@@ -791,7 +799,7 @@ export const FOOTER_NAV: NavLink[] = [
 ];
 
 export const PAGE_SECTIONS = [
-  'home', 'about', 'projects', 'clients', 'services', 'ai-demo', 'testimonials', 'skills',
+  'home', 'about', 'projects', 'clients', 'testimonials', 'process', 'services', 'ai-demo', 'skills',
   'experience', 'faq', 'contact', 'book', 'blog', 'products', 'github',
   'education', 'certifications',
 ];

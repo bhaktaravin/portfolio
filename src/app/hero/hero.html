@@ -47,34 +47,48 @@
           </div>
         </div>
 
-        <!-- Action Buttons -->
+        <!-- Primary CTAs -->
         <div class="hero-actions" data-aos="fade-up" data-aos-delay="400">
           <button
             class="btn btn-primary"
             (click)="viewProjects()"
-            [attr.aria-label]="'View my projects'"
+            aria-label="See my work"
           >
-            <span class="btn-text">View My Work</span>
-            <span class="btn-icon">🚀</span>
+            <span class="btn-text">See my work</span>
+            <span class="btn-icon" aria-hidden="true">🚀</span>
           </button>
 
           <button
-            class="btn btn-secondary"
-            (click)="downloadResume()"
-            [attr.aria-label]="'Download my resume'"
+            class="btn btn-accent"
+            (click)="startProject()"
+            aria-label="Start a project — book a call"
           >
-            <span class="btn-text">Download Resume</span>
-            <span class="btn-icon">📄</span>
+            <span class="btn-text">Start a project</span>
+            <span class="btn-icon" aria-hidden="true">📅</span>
           </button>
+        </div>
 
-          <button
-            class="btn btn-outline"
-            (click)="contactMe()"
-            [attr.aria-label]="'Contact me'"
-          >
-            <span class="btn-text">Let's Connect</span>
-            <span class="btn-icon">💬</span>
+        <p class="hero-secondary-actions" data-aos="fade-up" data-aos-delay="450">
+          <button type="button" class="hero-text-link" (click)="downloadResume()">
+            Download resume
           </button>
+          <span class="hero-text-sep" aria-hidden="true">·</span>
+          <button type="button" class="hero-text-link" (click)="contactMe()">
+            Send a message
+          </button>
+        </p>
+
+        <div class="hero-email-row" data-aos="fade-up" data-aos-delay="475">
+          <a class="hero-email" [href]="'mailto:' + email">{{ email }}</a>
+          <button
+            type="button"
+            class="hero-copy-btn"
+            (click)="copyEmail()"
+            [attr.aria-label]="emailCopied ? 'Email copied' : 'Copy email address'"
+          >
+            {{ emailCopied ? 'Copied!' : 'Copy' }}
+          </button>
+          <span class="hero-response-time">{{ responseTime }}</span>
         </div>
 
         <!-- Social Links -->
@@ -98,18 +112,60 @@
 
       <!-- Right Side - Avatar & Stats -->
       <div class="hero-visual" data-aos="fade-left" data-aos-delay="200">
-        <!-- Avatar Section -->
-        <div class="hero-avatar">
-          <div class="avatar-container">
-            <div class="avatar-bg"></div>
-            <div class="avatar-initials">{{ initials }}</div>
-            <div class="avatar-ring"></div>
+        <div class="hero-visual-top">
+          <!-- Avatar Section -->
+          <div class="hero-avatar">
+            <div class="avatar-container">
+              <div class="avatar-bg"></div>
+              <img
+                *ngIf="showPhoto"
+                [src]="profilePhoto"
+                [alt]="fullName + ' profile photo'"
+                class="avatar-photo"
+                (error)="onPhotoError()"
+              />
+              <div class="avatar-initials" *ngIf="!showPhoto">{{ initials }}</div>
+              <div class="avatar-ring"></div>
+            </div>
+
+            <!-- Location Badge -->
+            <div class="location-badge">
+              <span class="location-icon">📍</span>
+              <span class="location-text">{{ location }}</span>
+            </div>
           </div>
 
-          <!-- Location Badge -->
-          <div class="location-badge">
-            <span class="location-icon">📍</span>
-            <span class="location-text">{{ location }}</span>
+          <!-- Code Snippet -->
+          <div class="code-snippet" data-aos="zoom-in" data-aos-delay="800">
+            <div class="code-header">
+              <div class="code-dots">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+              </div>
+              <span class="code-title">ravin.dev</span>
+            </div>
+            <div class="code-content">
+              <span class="code-comment"
+                >// Building the future, one line at a time</span
+              >
+              <span class="code-line">
+                <span class="code-keyword">const</span>
+                <span class="code-variable">developer</span> = {{ '{' }}
+              </span>
+              <span class="code-line code-indent">
+                name: <span class="code-string">'{{ fullName }}'</span>,
+              </span>
+              <span class="code-line code-indent">
+                skills:
+                <span class="code-array">['Full-Stack', 'Cloud', 'APIs']</span>,
+              </span>
+              <span class="code-line code-indent">
+                passion:
+                <span class="code-string">'Building great software'</span>
+              </span>
+              <span class="code-line">{{ '}' }};</span>
+            </div>
           </div>
         </div>
 
@@ -124,39 +180,6 @@
             <span class="stat-label">{{ stat.label }}</span>
           </div>
         </div>
-
-        <!-- Floating Code Snippet -->
-        <div class="code-snippet" data-aos="zoom-in" data-aos-delay="800">
-          <div class="code-header">
-            <div class="code-dots">
-              <span class="dot dot-red"></span>
-              <span class="dot dot-yellow"></span>
-              <span class="dot dot-green"></span>
-            </div>
-            <span class="code-title">ravin.dev</span>
-          </div>
-          <div class="code-content">
-            <span class="code-comment"
-              >// Building the future, one line at a time</span
-            >
-            <span class="code-line">
-              <span class="code-keyword">const</span>
-              <span class="code-variable">developer</span> = {{ '{' }}
-            </span>
-            <span class="code-line code-indent">
-              name: <span class="code-string">'{{ fullName }}'</span>,
-            </span>
-            <span class="code-line code-indent">
-              skills:
-              <span class="code-array">['Full-Stack', 'Cloud', 'APIs']</span>,
-            </span>
-            <span class="code-line code-indent">
-              passion:
-              <span class="code-string">'Building great software'</span>
-            </span>
-            <span class="code-line">{{ '}' }};</span>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -164,8 +187,8 @@
     <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="1000">
       <button
         class="scroll-btn"
-        (click)="scrollTo('about')"
-        [attr.aria-label]="'Scroll to about section'"
+        (click)="scrollTo('projects')"
+        aria-label="Scroll to featured projects"
       >
         <span class="scroll-text">Scroll to explore</span>
         <div class="scroll-arrow">
