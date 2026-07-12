@@ -11,9 +11,11 @@ import { FAQ_ITEMS } from '../data/portfolio.data';
 })
 export class FaqComponent {
   readonly faqItems = FAQ_ITEMS;
-  readonly openIndex = signal<number | null>(0);
+  readonly openIndex = signal<number | null>(null);
 
-  toggle(index: number): void {
+  toggle(event: Event, index: number): void {
+    event.preventDefault();
+    event.stopPropagation();
     this.openIndex.set(this.openIndex() === index ? null : index);
   }
 

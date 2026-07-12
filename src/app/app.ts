@@ -100,6 +100,17 @@ export class AppComponent implements OnInit, OnDestroy {
 
   scrollToTop(): void { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
+  scrollToSection(event: MouseEvent, sectionId: string): void {
+    if (!this.isHome) return;
+    event.preventDefault();
+    this.closeMenu();
+    const el = document.getElementById(sectionId);
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    history.replaceState(null, '', `#${sectionId}`);
+    this.activeSection = sectionId;
+  }
+
   toggleResumeDropdown(): void {
     this.showResumeDropdown = !this.showResumeDropdown;
     this.showMoreMenu = false;

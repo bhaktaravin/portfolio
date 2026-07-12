@@ -158,7 +158,7 @@ export const PROFILE = {
   siteDescription:
     'Freelance full-stack and AI web developer. I build and deploy client websites, web apps, and LLM-powered marketing tools.',
   resumeLink: 'assets/resume.pdf',
-  calLink: 'https://cal.com/ravinbhakta/30min',
+  calLink: 'https://cal.com/ravin-bhakta-kedtde/30min',
   profilePhoto: 'assets/profile.jpg',
   responseTime: 'Usually reply within 24 hours',
 };

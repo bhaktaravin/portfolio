@@ -13,7 +13,7 @@
           routerLink="/"
           [fragment]="link.id"
           [class.active]="activeSection === link.id"
-          (click)="closeMenu()"
+          (click)="scrollToSection($event, link.id)"
         >{{ link.label }}</a>
       </li>
       <li class="nav-more">
@@ -33,7 +33,7 @@
               routerLink="/"
               [fragment]="link.id"
               [class.active]="activeSection === link.id"
-              (click)="closeMenu()"
+              (click)="scrollToSection($event, link.id)"
             >{{ link.label }}</a>
           </li>
         </ul>
@@ -44,7 +44,7 @@
           routerLink="/"
           [fragment]="link.id"
           [class.active]="activeSection === link.id"
-          (click)="closeMenu()"
+          (click)="scrollToSection($event, link.id)"
         >{{ link.label }}</a>
       </li>
     </ul>
@@ -104,8 +104,8 @@
     {{ availability }}
   </span>
   <div class="sticky-cta-actions">
-    <a routerLink="/" fragment="projects" class="sticky-cta-link">View work</a>
-    <a routerLink="/" fragment="book" class="sticky-cta-btn">Book a call</a>
+    <a routerLink="/" fragment="projects" class="sticky-cta-link" (click)="scrollToSection($event, 'projects')">View work</a>
+    <a routerLink="/" fragment="book" class="sticky-cta-btn" (click)="scrollToSection($event, 'book')">Book a call</a>
   </div>
 </div>
 
@@ -117,7 +117,7 @@
 <footer class="footer">
   <div class="footer-inner">
     <nav class="footer-nav" aria-label="Additional site sections">
-      <a *ngFor="let link of footerNav" routerLink="/" [fragment]="link.id">{{ link.label }}</a>
+      <a *ngFor="let link of footerNav" routerLink="/" [fragment]="link.id" (click)="scrollToSection($event, link.id)">{{ link.label }}</a>
       <a routerLink="/blog">Blog</a>
     </nav>
 

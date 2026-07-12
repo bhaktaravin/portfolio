@@ -13,14 +13,16 @@
       <button
         type="button"
         class="faq-question"
-        (click)="toggle(i)"
+        (click)="toggle($event, i)"
         [attr.aria-expanded]="isOpen(i)"
       >
         <span>{{ item.question }}</span>
         <span class="faq-chevron" aria-hidden="true">{{ isOpen(i) ? '−' : '+' }}</span>
       </button>
-      <div class="faq-answer" *ngIf="isOpen(i)">
-        <p>{{ item.answer }}</p>
+      <div class="faq-answer" [class.open]="isOpen(i)">
+        <div class="faq-answer-inner">
+          <p>{{ item.answer }}</p>
+        </div>
       </div>
     </div>
   </div>
