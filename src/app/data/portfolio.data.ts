@@ -232,6 +232,30 @@ export const PRICING_TIERS: PricingTier[] = [
 
 export const PROJECTS: Project[] = [
   {
+    slug: 'orbit',
+    title: 'Orbit — GitHub as a Space Station',
+    description:
+      'A personal Three.js scene that turns your GitHub profile into an explorable space station — repos become docking modules, your contribution calendar becomes a ring of running lights, and followers orbit as satellites.',
+    technologies: ['Next.js', 'TypeScript', 'Three.js', 'React Three Fiber', 'GitHub API'],
+    liveUrl: 'https://orbit-station-nu.vercel.app',
+    image: 'assets/orbit-station.jpg',
+    featured: true,
+    caseStudy: {
+      problem:
+        'Contribution graphs and profile stats are static and easy to ignore — they don\'t make years of GitHub activity feel like anything.',
+      solution:
+        'Built a procedural Three.js scene fed entirely by the live GitHub REST API: docking modules sized and colored per repo (stars, language), a rotating instanced ring built from the real contribution calendar, solar arrays that glow with current streak, and satellites for followers — wrapped in a sci-fi terminal boot sequence.',
+      impact:
+        'Turns any GitHub profile into an explorable 3D artifact instead of a page of numbers — no backend or auth, just live data rendered on load.',
+      highlights: [
+        'Procedural station geometry driven entirely by the GitHub REST API',
+        'Contribution calendar rendered as an instanced ring of colored cells',
+        'Level / "station class" progression computed from contributions and stars',
+        'Deployed on Vercel, fetches fresh data on every visit',
+      ],
+    },
+  },
+  {
     slug: 'wov3',
     title: 'Wov3',
     description:
