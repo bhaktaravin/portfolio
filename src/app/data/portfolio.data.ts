@@ -238,6 +238,7 @@ export const PROJECTS: Project[] = [
       'A personal Three.js scene that turns your GitHub profile into an explorable space station — repos become docking modules, your contribution calendar becomes a ring of running lights, and followers orbit as satellites.',
     technologies: ['Next.js', 'TypeScript', 'Three.js', 'React Three Fiber', 'GitHub API'],
     liveUrl: 'https://orbit-station-nu.vercel.app',
+    githubUrl: 'https://github.com/bhaktaravin/orbit-station',
     image: 'assets/orbit-station.jpg',
     featured: true,
     caseStudy: {
