@@ -379,18 +379,21 @@
 
 .location-badge {
   position: absolute;
-  bottom: -10px;
-  right: -10px;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 0.3rem;
-  padding: 0.3rem 0.8rem;
-  background: rgba(255, 255, 255, 0.1);
+  padding: 0.35rem 0.9rem;
+  background: rgba(35, 42, 54, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 15px;
   backdrop-filter: blur(10px);
   font-size: 0.8rem;
   color: #d1d5db;
+  white-space: nowrap;
+  z-index: 3;
 }
 
 /* Stats Grid */
@@ -446,7 +449,7 @@
   border-radius: 8px;
   overflow: hidden;
   backdrop-filter: blur(10px);
-  animation: float 6s ease-in-out infinite;
+  animation: codeFloat 6s ease-in-out infinite;
 }
 
 .code-header {
@@ -635,6 +638,16 @@
   }
 }
 
+@keyframes codeFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
 @keyframes bounce {
   0%,
   20%,
@@ -759,8 +772,7 @@
   .location-badge {
     font-size: 0.7rem;
     padding: 0.25rem 0.5rem;
-    right: 0;
-    bottom: -8px;
+    bottom: -10px;
   }
 
   .hero-stats {
