@@ -17,10 +17,10 @@
         <span class="tech-tag" *ngFor="let tech of project.technologies">{{ tech }}</span>
       </div>
       <div class="cs-links">
-        <a *ngIf="project.liveUrl" [href]="project.liveUrl" target="_blank" rel="noopener" class="btn-link">
+        <a *ngIf="project.liveUrl" [href]="project.liveUrl" target="_blank" rel="noopener" class="btn-link" data-umami-event="project-live" [attr.data-umami-event-project]="project.slug">
           🔗 Live Demo
         </a>
-        <a *ngIf="project.githubUrl" [href]="project.githubUrl" target="_blank" rel="noopener" class="btn-link secondary">
+        <a *ngIf="project.githubUrl" [href]="project.githubUrl" target="_blank" rel="noopener" class="btn-link secondary" data-umami-event="project-github" [attr.data-umami-event-project]="project.slug">
           🐙 GitHub
         </a>
       </div>

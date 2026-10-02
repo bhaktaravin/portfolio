@@ -40,6 +40,8 @@
           <a
             class="btn-product"
             [href]="product.url"
+            data-umami-event="product-click"
+            [attr.data-umami-event-product]="product.name"
             target="_blank"
             rel="noopener"
             [attr.aria-label]="'Buy ' + product.name + ' on Gumroad'"
@@ -54,6 +56,7 @@
       <a
         class="btn-store"
         [href]="storeUrl"
+        data-umami-event="product-store-click"
         target="_blank"
         rel="noopener"
         aria-label="Visit full Gumroad store"

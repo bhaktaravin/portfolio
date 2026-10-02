@@ -31,6 +31,8 @@
         class="pricing-cta"
         [class.primary]="tier.highlighted"
         (click)="tier.highlighted ? scrollToBook() : scrollToContact()"
+        data-umami-event="pricing-cta"
+        [attr.data-umami-event-tier]="tier.name"
       >{{ tier.cta }}</button>
     </div>
   </div>
