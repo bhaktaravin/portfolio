@@ -53,13 +53,6 @@
       <li><a routerLink="/blog">Blog</a></li>
     </ul>
     <div class="nav-actions">
-      <button
-        class="theme-toggle"
-        (click)="theme.toggle()"
-        [attr.aria-label]="theme.isLight() ? 'Switch to dark mode' : 'Switch to light mode'"
-      >
-        {{ theme.isLight() ? '🌙' : '☀️' }}
-      </button>
       <div class="resume-dropdown">
         <button class="resume-btn" (click)="toggleResumeDropdown()" aria-label="Download resume">
           📄 Resume

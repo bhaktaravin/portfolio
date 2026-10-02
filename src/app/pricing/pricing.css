@@ -166,22 +166,3 @@
   text-decoration: underline;
 }
 
-:host-context(body.light-mode) .service-card,
-:host-context(body.light-mode) .pricing-card {
-  background: #fff;
-  border-color: rgba(37, 99, 235, 0.15);
-}
-
-:host-context(body.light-mode) .service-card h3,
-:host-context(body.light-mode) .pricing-name {
-  color: #111827;
-}
-
-:host-context(body.light-mode) .service-card p,
-:host-context(body.light-mode) .pricing-desc {
-  color: #4b5563;
-}
-
-:host-context(body.light-mode) .pricing-features li {
-  color: #374151;
-}

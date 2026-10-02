@@ -81,15 +81,3 @@
   }
 }
 
-:host-context(body.light-mode) .info-item h4 {
-  color: #111827;
-}
-
-:host-context(body.light-mode) .info-item p {
-  color: #4b5563;
-}
-
-:host-context(body.light-mode) .booking-embed {
-  background: #fff;
-  border-color: rgba(37, 99, 235, 0.15);
-}

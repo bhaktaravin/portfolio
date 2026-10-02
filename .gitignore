@@ -49,3 +49,6 @@ src/environments/environment.prod.ts
 
 # Wov3 lives in its own repository
 /wov3
+
+# Generated at build time
+/public/sitemap.xml
