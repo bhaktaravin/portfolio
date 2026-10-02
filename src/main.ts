@@ -10,8 +10,6 @@ import {
   withInterceptorsFromDi,
 } from "@angular/common/http";
 import { provideServiceWorker } from "@angular/service-worker";
-import { provideFirebaseApp, initializeApp } from "@angular/fire/app";
-import { provideFirestore, getFirestore } from "@angular/fire/firestore";
 import AOS from "aos";
 
 import { AppComponent } from "./app/app";
@@ -33,10 +31,6 @@ bootstrapApplication(AppComponent, {
     // Core providers
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
-
-    // Firebase providers
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore()),
 
     // Service Worker for PWA
     provideServiceWorker("ngsw-worker.js", {
