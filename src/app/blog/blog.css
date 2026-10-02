@@ -158,24 +158,3 @@
   margin-bottom: 1rem;
 }
 
-:host-context(body.light-mode) .blog-card {
-  background: #fff;
-  border-color: rgba(37, 99, 235, 0.15);
-}
-
-:host-context(body.light-mode) .blog-card h2 a,
-:host-context(body.light-mode) .blog-card h3 a,
-:host-context(body.light-mode) .blog-page-header h1,
-:host-context(body.light-mode) .blog-article h1,
-:host-context(body.light-mode) .article-body h2 {
-  color: #111827;
-}
-
-:host-context(body.light-mode) .blog-excerpt,
-:host-context(body.light-mode) .blog-page-header p {
-  color: #4b5563;
-}
-
-:host-context(body.light-mode) .article-body p {
-  color: #374151;
-}

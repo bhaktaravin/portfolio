@@ -6,7 +6,6 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 
-import { ThemeService } from './services/theme.service';
 import {
   PROFILE,
   SOCIAL_LINKS,
@@ -28,7 +27,6 @@ import {
 })
 export class AppComponent implements OnInit, OnDestroy {
   private readonly router = inject(Router);
-  readonly theme = inject(ThemeService);
 
   activeSection = 'home';
   showBackToTop = false;

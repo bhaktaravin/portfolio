@@ -666,16 +666,6 @@ a,
   display: none;
 }
 
-body.light-mode .nav-more-btn {
-  color: #111827;
-}
-
-body.light-mode .nav-more-menu {
-  background: #ffffff;
-  border-color: rgba(37, 99, 235, 0.2);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-}
-
 /* Scroll progress bar */
 .scroll-progress-bar {
   position: fixed;
@@ -693,26 +683,6 @@ body.light-mode .nav-more-menu {
   display: flex;
   align-items: center;
   gap: 1rem;
-}
-
-.theme-toggle {
-  background: transparent;
-  border: 1px solid rgba(79, 140, 255, 0.3);
-  border-radius: 8px;
-  padding: 0.4rem 0.6rem;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
-  line-height: 1;
-}
-
-.theme-toggle:hover {
-  border-color: rgba(79, 140, 255, 0.6);
-  background: rgba(79, 140, 255, 0.1);
-}
-
-body.light-mode .theme-toggle {
-  border-color: rgba(37, 99, 235, 0.3);
 }
 
 /* Resume dropdown */
@@ -823,59 +793,6 @@ body.light-mode .theme-toggle {
   transform: translateY(-3px);
 }
 
-/* Light mode overrides */
-body.light-mode,
-body.light-mode .section,
-body.light-mode main,
-body.light-mode .navbar,
-body.light-mode .footer {
-  background: #f5f6fa !important;
-  color: #111827 !important;
-}
-
-body.light-mode .navbar {
-  background: #ffffff !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
-}
-
-body.light-mode .nav-links a,
-body.light-mode a {
-  color: #111827 !important;
-}
-
-body.light-mode .nav-links a.active {
-  color: #2563eb !important;
-  border-bottom-color: #2563eb;
-}
-
-body.light-mode .card,
-body.light-mode .project-card,
-body.light-mode .experience-item,
-body.light-mode .education-item,
-body.light-mode .certification-card,
-body.light-mode .stat,
-body.light-mode .skill-category {
-  background: #ffffff !important;
-  color: #111827 !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
-}
-
-body.light-mode .section-title {
-  color: #111827 !important;
-}
-
-body.light-mode .section-subtitle {
-  color: #4b5563;
-}
-
-body.light-mode .logo {
-  color: #2563eb;
-}
-
-body.light-mode .hamburger span {
-  background: #111827;
-}
-
 /* Smooth scroll */
 html {
   scroll-behavior: smooth;
@@ -967,11 +884,6 @@ html {
     display: block;
     padding: 0.85rem 1.5rem;
     min-height: 44px;
-  }
-
-  body.light-mode .nav-links {
-    background: #ffffff;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   }
 
   .hero-content,
