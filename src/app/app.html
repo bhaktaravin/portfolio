@@ -58,8 +58,8 @@
           📄 Resume
         </button>
         <div class="dropdown-menu" *ngIf="showResumeDropdown">
-          <button (click)="downloadResume('pdf')">Download PDF</button>
-          <button (click)="downloadResume('docx')">Download DOCX</button>
+          <button (click)="downloadResume('pdf')" data-umami-event="resume-download" data-umami-event-format="pdf" data-umami-event-location="navbar">Download PDF</button>
+          <button (click)="downloadResume('docx')" data-umami-event="resume-download" data-umami-event-format="docx" data-umami-event-location="navbar">Download DOCX</button>
         </div>
       </div>
       <button class="hamburger" (click)="toggleMenu()" aria-label="Toggle menu">
@@ -92,6 +92,9 @@
         target="_blank"
         rel="noopener noreferrer"
         class="footer-social-link"
+        data-umami-event="social-click"
+        [attr.data-umami-event-platform]="social.platform"
+        data-umami-event-location="footer"
         [title]="social.platform"
       >
         <span [attr.aria-label]="social.platform" role="img">{{ social.icon }}</span>

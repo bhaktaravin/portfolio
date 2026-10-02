@@ -40,10 +40,10 @@
           </span>
         </div>
         <div class="project-links" (click)="$event.stopPropagation()">
-          <a *ngIf="project.liveUrl" class="project-link btn-link" [href]="project.liveUrl" target="_blank" rel="noopener">
+          <a *ngIf="project.liveUrl" class="project-link btn-link" [href]="project.liveUrl" target="_blank" rel="noopener" data-umami-event="project-live" [attr.data-umami-event-project]="project.slug">
             🔗 Live Demo
           </a>
-          <a *ngIf="project.githubUrl" class="project-link btn-link secondary" [href]="project.githubUrl" target="_blank" rel="noopener">
+          <a *ngIf="project.githubUrl" class="project-link btn-link secondary" [href]="project.githubUrl" target="_blank" rel="noopener" data-umami-event="project-github" [attr.data-umami-event-project]="project.slug">
             🐙 GitHub
           </a>
           <a
@@ -124,10 +124,10 @@
       </div>
 
       <div class="modal-links">
-        <a *ngIf="selectedProject()!.liveUrl" class="btn-link" [href]="selectedProject()!.liveUrl" target="_blank" rel="noopener">
+        <a *ngIf="selectedProject()!.liveUrl" class="btn-link" [href]="selectedProject()!.liveUrl" target="_blank" rel="noopener" data-umami-event="project-live" [attr.data-umami-event-project]="selectedProject()!.slug">
           🔗 Live Demo
         </a>
-        <a *ngIf="selectedProject()!.githubUrl" class="btn-link secondary" [href]="selectedProject()!.githubUrl" target="_blank" rel="noopener">
+        <a *ngIf="selectedProject()!.githubUrl" class="btn-link secondary" [href]="selectedProject()!.githubUrl" target="_blank" rel="noopener" data-umami-event="project-github" [attr.data-umami-event-project]="selectedProject()!.slug">
           🐙 GitHub
         </a>
         <a

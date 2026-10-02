@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, NgForm } from "@angular/forms";
 import emailjs from "@emailjs/browser";
 import { environment } from "../../environments/environment";
+import { trackEvent } from "../analytics";
 
 @Component({
   selector: "app-contact",
@@ -45,6 +46,7 @@ export class ContactComponent {
         },
         environment.emailjs.publicKey
       );
+      trackEvent("contact-sent");
       this.showToast("Message sent! I'll get back to you soon.", "success");
       form.resetForm();
       this.contact = { name: "", email: "", message: "" };
