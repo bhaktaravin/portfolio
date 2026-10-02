@@ -92,9 +92,11 @@ export class AppComponent implements OnInit, OnDestroy {
     return this.moreNav.some((link) => link.id === this.activeSection);
   }
 
-  async downloadResume(type: 'pdf' | 'docx'): Promise<void> {
+  downloadResume(type: 'pdf' | 'docx'): void {
     this.showResumeDropdown = false;
-    const { generateResume } = await import('./resume-generator');
-    await generateResume(type);
+    const link = document.createElement('a');
+    link.href = type === 'pdf' ? PROFILE.resumeLink : 'assets/resume.docx';
+    link.download = `Ravin_Bhakta_Resume.${type}`;
+    link.click();
   }
 }

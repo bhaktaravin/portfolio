@@ -102,26 +102,6 @@ export interface BlogPost {
   content: string;
 }
 
-export interface ResumeExperience {
-  title: string;
-  company: string;
-  period: string;
-  description: string;
-}
-
-export interface ResumeEducation {
-  degree: string;
-  institution: string;
-  period: string;
-  location: string;
-}
-
-export interface ResumeCertification {
-  name: string;
-  issuer: string;
-  year: string;
-}
-
 export const PROFILE = {
   fullName: 'Ravin Bhakta',
   jobTitle: 'Freelance Full-Stack & AI Web Developer',
@@ -588,13 +568,6 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
   { name: 'Cloud Platforms', skills: CLOUD_PLATFORMS },
 ];
 
-export const RESUME_SKILL_CATEGORIES: SkillCategory[] = [
-  { name: 'AI & LLM', skills: ['LLM Integration', 'Prompt Engineering', 'AI-Assisted UX', 'OpenAI API'] },
-  { name: 'Frontend', skills: ['Angular', 'React', 'TypeScript', 'Tailwind CSS'] },
-  { name: 'Backend', skills: ['NestJS', 'Node.js', 'Java (Spring)', 'Python (Django)'] },
-  { name: 'Cloud', skills: ['AWS', 'AWS Amplify', 'Vercel', 'Railway'] },
-];
-
 export interface Testimonial {
   name: string;
   title: string;
@@ -767,30 +740,4 @@ export function getProjectBySlug(slug: string): Project | undefined {
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
   return BLOG_POSTS.find((p) => p.slug === slug);
-}
-
-export function experiencesToResume(): ResumeExperience[] {
-  return EXPERIENCES.map((exp) => ({
-    title: exp.title,
-    company: exp.company,
-    period: `${exp.start} - ${exp.end}`,
-    description: exp.details.join(' '),
-  }));
-}
-
-export function educationToResume(): ResumeEducation[] {
-  return EDUCATION.map((edu) => ({
-    degree: `${edu.degree} in ${edu.field}${edu.end === 'Present' ? ' (In progress)' : ''}`,
-    institution: edu.institution,
-    period: `${edu.start} - ${edu.end}`,
-    location: edu.location,
-  }));
-}
-
-export function certificationsToResume(): ResumeCertification[] {
-  return CERTIFICATIONS.map((cert) => ({
-    name: cert.title,
-    issuer: cert.issuer,
-    year: cert.date,
-  }));
 }
