@@ -440,10 +440,8 @@
 
 /* Code Snippet */
 .code-snippet {
-  position: absolute;
-  top: 20%;
-  right: -20px;
-  width: 300px;
+  width: 100%;
+  max-width: 360px;
   background: rgba(0, 0, 0, 0.8);
   border: 1px solid rgba(79, 140, 255, 0.3);
   border-radius: 8px;
