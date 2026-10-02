@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "node scripts/generate-env.js && ng build",
-    "build:prod": "node scripts/generate-env.js && npx ng build --configuration production",
+    "build": "node scripts/generate-env.js && node scripts/generate-sitemap.js && ng build",
+    "build:prod": "node scripts/generate-env.js && node scripts/generate-sitemap.js && npx ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:coverage": "ng test --code-coverage",
