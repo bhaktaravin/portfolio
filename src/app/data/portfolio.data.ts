@@ -595,6 +595,46 @@ export const RESUME_SKILL_CATEGORIES: SkillCategory[] = [
   { name: 'Cloud', skills: ['AWS', 'AWS Amplify', 'Vercel', 'Railway'] },
 ];
 
+export interface Testimonial {
+  name: string;
+  title: string;
+  relationship: string;
+  date: string;
+  text: string;
+}
+
+// Originally collected in Firestore; kept as static data so visitors can't edit them.
+export const TESTIMONIALS: Testimonial[] = [
+  {
+    name: 'Joe Apicella',
+    title: 'Senior Application Developer',
+    relationship: 'Colleague',
+    date: 'July 11, 2025',
+    text: 'I worked with Ravin during his time on our team, supporting him on several projects. He brought a positive attitude, was receptive to feedback, and showed persistence in his efforts. He often volunteered to take on tasks to support others and even assisted across multiple teams when needed. Ravin was a positive and supportive team member, and I appreciated his contributions.',
+  },
+  {
+    name: 'Jesika Goni',
+    title: 'Software Configuration Engineer – AWS.Automation Scripting | Katalon Studio.Build & Deployment Automation | CI/CD.Driving  Software Releases| Version Control | Bridging Development and Deployment with Scalable Automation',
+    relationship: 'Colleague',
+    date: 'May 28, 2025',
+    text: 'I had the privilege of working closely with Ravin Bhakta as we were in the same team, and he consistently impressed me with his technical expertise.  \nWhat truly sets Ravin apart is his calm and composed presence, even under pressure. No matter the challenge or timeline, he remained focused and solution-oriented. He is the kind of teammate who always has your back—quick to respond, eager to help, and genuinely committed to making things easier for everyone around them.\nHis technical contributions, especially in building internal tools that streamlined our processes, saved countless hours and made a lasting impact.\nAny team would be fortunate to have someone as capable, thoughtful, and reliable as Ravin. I’m grateful for the opportunity to have worked alongside him.',
+  },
+  {
+    name: 'Maksim (Max) Melekhau',
+    title: 'Software/Application Developer',
+    relationship: 'Colleague',
+    date: 'May 6, 2025',
+    text: 'I\'ve had the chance to work with Ravin Bhakta and was consistently impressed by his reliability, quick thinking, and willingness to take on new challenges. He’s a solid developer with strong skills in Oracle SQL, PowerShell, Git, and more. He’s always ready to learn something new when the task calls for it.\n\nRavin is a great team player, easy to work with, clear in his communication, and always supportive of others. He asks thoughtful questions, picks up new tools quickly, and never hesitates to step up, even when the work is unfamiliar. His ability to stay calm and focused under pressure makes him a real asset on any team.\n\nI’d happily work with him again and recommend him without hesitation.',
+  },
+  {
+    name: 'Jason Slavich',
+    title: 'Driving Innovation and Continuous Improvement | Certified SAFe 6 Product Owner/Product Manager',
+    relationship: 'Manager',
+    date: 'May 12, 2025',
+    text: 'Ravin has been great to work with. He\'s always positive, gets along with his teammates, and takes critical feedback well.',
+  },
+];
+
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'shipping-client-sites-on-aws-amplify',
