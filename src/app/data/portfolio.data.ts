@@ -249,7 +249,7 @@ export const PROJECTS: Project[] = [
       problem:
         'Athletes need recovery footwear matched to their biomechanics—not generic foam slides that ignore how they land, load, and reset between training blocks.',
       solution:
-        'Co-founded Wov3 with a scan-to-print pipeline: structured-light foot capture, gait analysis, and 3D-printed lattice footwear—paired with a React e-commerce site for storytelling, fitting bookings, and athlete testimonials.',
+        'Built the web platform for Wov3\'s scan-to-print pipeline (structured-light foot capture, gait analysis, and 3D-printed lattice footwear): a React e-commerce site for storytelling, fitting bookings, and athlete testimonials.',
       impact:
         '30+ semi-pro and pro athletes onboarded; co-developed with TU/e Sports Lab and validated through pressure mapping and force-plate testing before shipping.',
       highlights: [
@@ -406,14 +406,14 @@ export const PROJECTS: Project[] = [
 export const EXPERIENCES: ExperienceEntry[] = [
   {
     company: 'Wov3, Inc',
-    title: 'Co-Founder & Chief Technical Officer',
+    title: 'Senior Full-Stack Engineer (Contract)',
     location: 'Remote',
     start: 'Jan 2026',
     end: 'Present',
     details: [
-      'Co-founding Wov3, Inc — recovery footwear with 3D-printed lattice structures customized per athlete through foot scanning, gait capture, and discipline-specific tuning.',
-      'Leading engineering for the production e-commerce and fitting platform at wov3.com — React on Vercel, scan-to-print storytelling, Calendly booking, and athlete social proof.',
-      'Partnering with TU/e Sports Lab and 30+ semi-pro and pro athletes to validate pressure mapping, lattice generations, and recovery-focused product design.',
+      'Contract engineering for Wov3, Inc — recovery footwear with 3D-printed lattice structures customized per athlete through foot scanning, gait capture, and discipline-specific tuning.',
+      'Building the production e-commerce and fitting platform at wov3.com — React on Vercel, scan-to-print storytelling, Calendly booking, and athlete social proof.',
+      'Supporting the product\'s validation with TU/e Sports Lab and 30+ semi-pro and pro athletes — pressure mapping, lattice generations, and recovery-focused design.',
     ],
     companyUrl: 'https://www.wov3.com/',
   },
