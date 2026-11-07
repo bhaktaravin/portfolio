@@ -58,6 +58,20 @@
   color: #b3c6ff;
 }
 
+/* Linked title and company: match the surrounding text instead of browser-default link blue */
+.experience-title a,
+.experience-company a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.experience-title a:hover,
+.experience-company a:hover {
+  color: #4f8cff;
+  text-decoration: underline;
+}
+
 .experience-location {
   color: #aaa;
   font-size: 0.95em;
