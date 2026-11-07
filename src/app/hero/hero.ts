@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { PROFILE, STATS, SOCIAL_LINKS, HERO_TECH_STACK,
 } from '../data/portfolio.data';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './hero.html',
   styleUrls: ['./hero.css'],
 })

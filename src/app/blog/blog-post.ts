@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { getBlogPostBySlug, PROFILE } from '../data/portfolio.data';
 import type { BlogPost } from '../data/portfolio.data';
@@ -8,7 +8,7 @@ import { MetaService } from '../services/meta.service';
 @Component({
   selector: 'app-blog-post',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   templateUrl: './blog-post.html',
   styleUrls: ['./blog.css'],
 })

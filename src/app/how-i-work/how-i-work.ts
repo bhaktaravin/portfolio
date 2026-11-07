@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { WORK_PROCESS } from '../data/portfolio.data';
 
 @Component({
   selector: 'app-how-i-work',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './how-i-work.html',
   styleUrls: ['./how-i-work.css'],
 })

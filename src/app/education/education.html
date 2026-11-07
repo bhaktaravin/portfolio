@@ -1,24 +1,32 @@
 <div class="education-section">
   <h2>Education</h2>
-  <div *ngFor="let edu of educationList" class="education-card">
-    <div class="education-header">
-      <div>
-        <span class="education-institution">
-          <i class="fa fa-graduation-cap"></i>
-          <a *ngIf="edu.institutionUrl" [href]="edu.institutionUrl" target="_blank" rel="noopener">
-            {{ edu.institution }}
-          </a>
-          <span *ngIf="!edu.institutionUrl">{{ edu.institution }}</span>
-          <span class="education-location">, {{ edu.location }}</span>
-        </span>
-        <div class="education-degree">
-          <strong>{{ edu.degree }}</strong>
-          <span *ngIf="edu.field"> in <em>{{ edu.field }}</em></span>
+  @for (edu of educationList; track edu) {
+    <div class="education-card">
+      <div class="education-header">
+        <div>
+          <span class="education-institution">
+            <i class="fa fa-graduation-cap"></i>
+            @if (edu.institutionUrl) {
+              <a [href]="edu.institutionUrl" target="_blank" rel="noopener">
+                {{ edu.institution }}
+              </a>
+            }
+            @if (!edu.institutionUrl) {
+              <span>{{ edu.institution }}</span>
+            }
+            <span class="education-location">, {{ edu.location }}</span>
+          </span>
+          <div class="education-degree">
+            <strong>{{ edu.degree }}</strong>
+            @if (edu.field) {
+              <span> in <em>{{ edu.field }}</em></span>
+            }
+          </div>
         </div>
+        <span class="education-dates">
+          {{ edu.start }} — {{ edu.end }}
+        </span>
       </div>
-      <span class="education-dates">
-        {{ edu.start }} — {{ edu.end }}
-      </span>
     </div>
-  </div>
+  }
 </div>

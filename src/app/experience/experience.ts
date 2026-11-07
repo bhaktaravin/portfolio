@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { EXPERIENCES } from '../data/portfolio.data';
 
 @Component({
   selector: 'app-experience',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './experience.html',
   styleUrls: ['./experience.css'],
 })

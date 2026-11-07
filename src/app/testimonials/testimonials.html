@@ -9,47 +9,56 @@
       [href]="linkedInUrl"
       target="_blank"
       rel="noopener noreferrer"
-    >
+      >
       View on LinkedIn ↗
     </a>
   </div>
 
-  <p class="submit-message" *ngIf="submitMessage">{{ submitMessage }}</p>
+  @if (submitMessage) {
+    <p class="submit-message">{{ submitMessage }}</p>
+  }
 
-  <div *ngIf="showForm" class="testimonial-form-wrapper">
-    <form (ngSubmit)="submitTestimonial()" #testimonialForm="ngForm">
-      <input type="text" name="name" [(ngModel)]="newTestimonial.name" placeholder="Your Name" required />
-      <input type="email" name="email" [(ngModel)]="newTestimonial.email" placeholder="Email (for Gravatar)" />
-      <input type="text" name="title" [(ngModel)]="newTestimonial.title" placeholder="Your Title/Role" required />
-      <input type="text" name="date" [(ngModel)]="newTestimonial.date" placeholder="Date (e.g. Dec 2025)" required />
-      <input type="text" name="relationship" [(ngModel)]="newTestimonial.relationship" placeholder="Relationship (e.g. Colleague, Manager)" required />
-      <textarea name="text" [(ngModel)]="newTestimonial.text" placeholder="Your recommendation" required></textarea>
-      <input type="text" name="image" [(ngModel)]="newTestimonial.image" placeholder="Image URL (optional)" />
-      <button type="submit" [disabled]="testimonialForm.invalid">Submit for review</button>
-      <button type="button" (click)="showForm = false">Cancel</button>
-    </form>
-  </div>
+  @if (showForm) {
+    <div class="testimonial-form-wrapper">
+      <form (ngSubmit)="submitTestimonial()" #testimonialForm="ngForm">
+        <input type="text" name="name" [(ngModel)]="newTestimonial.name" placeholder="Your Name" required />
+        <input type="email" name="email" [(ngModel)]="newTestimonial.email" placeholder="Email (for Gravatar)" />
+        <input type="text" name="title" [(ngModel)]="newTestimonial.title" placeholder="Your Title/Role" required />
+        <input type="text" name="date" [(ngModel)]="newTestimonial.date" placeholder="Date (e.g. Dec 2025)" required />
+        <input type="text" name="relationship" [(ngModel)]="newTestimonial.relationship" placeholder="Relationship (e.g. Colleague, Manager)" required />
+        <textarea name="text" [(ngModel)]="newTestimonial.text" placeholder="Your recommendation" required></textarea>
+        <input type="text" name="image" [(ngModel)]="newTestimonial.image" placeholder="Image URL (optional)" />
+        <button type="submit" [disabled]="testimonialForm.invalid">Submit for review</button>
+        <button type="button" (click)="showForm = false">Cancel</button>
+      </form>
+    </div>
+  }
 
   <div class="testimonials-grid">
-    <div class="testimonial-card" *ngFor="let testimonial of testimonials$ | async">
-      <div class="testimonial-header">
-        <img *ngIf="testimonial.image; else gravatarBlock" [src]="testimonial.image" class="testimonial-avatar" alt="{{testimonial.name}}" />
-        <ng-template #gravatarBlock>
-          <img *ngIf="testimonial.email" [src]="gravatarUrl(testimonial.email)" class="testimonial-avatar" alt="{{testimonial.name}}" />
-        </ng-template>
-        <div class="testimonial-meta">
-          <span class="testimonial-name">{{ testimonial.name }}</span>
-          <span class="testimonial-title">{{ testimonial.title }}</span>
-          <div class="testimonial-details">
-            <span class="testimonial-relationship">{{ testimonial.relationship }}</span>
-            <span class="testimonial-date">{{ testimonial.date }}</span>
+    @for (testimonial of testimonials$ | async; track testimonial) {
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          @if (testimonial.image) {
+            <img [src]="testimonial.image" class="testimonial-avatar" alt="{{testimonial.name}}" />
+          } @else {
+            @if (testimonial.email) {
+              <img [src]="gravatarUrl(testimonial.email)" class="testimonial-avatar" alt="{{testimonial.name}}" />
+            }
+          }
+          <div class="testimonial-meta">
+            <span class="testimonial-name">{{ testimonial.name }}</span>
+            <span class="testimonial-title">{{ testimonial.title }}</span>
+            <div class="testimonial-details">
+              <span class="testimonial-relationship">{{ testimonial.relationship }}</span>
+              <span class="testimonial-date">{{ testimonial.date }}</span>
+            </div>
           </div>
         </div>
+        <div class="testimonial-content">
+          <p class="testimonial-text">{{ testimonial.text }}</p>
+        </div>
       </div>
-      <div class="testimonial-content">
-        <p class="testimonial-text">{{ testimonial.text }}</p>
-      </div>
-    </div>
+    }
   </div>
 
   <p class="testimonials-footer">

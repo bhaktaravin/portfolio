@@ -1,5 +1,5 @@
 import { Component, inject, effect } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PROFILE } from '../data/portfolio.data';
 import { ThemeService } from '../services/theme.service';
@@ -7,7 +7,7 @@ import { ThemeService } from '../services/theme.service';
 @Component({
   selector: 'app-booking',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './booking.html',
   styleUrls: ['./booking.css'],
 })

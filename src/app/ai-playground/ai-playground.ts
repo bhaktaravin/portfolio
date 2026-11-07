@@ -1,5 +1,5 @@
 import { Component, signal, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 
 type Tone = 'professional' | 'friendly' | 'bold';
@@ -14,7 +14,7 @@ interface PlaygroundInput {
 @Component({
   selector: 'app-ai-playground',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   templateUrl: './ai-playground.html',
   styleUrls: ['./ai-playground.css'],
 })

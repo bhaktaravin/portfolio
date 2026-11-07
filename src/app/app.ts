@@ -1,10 +1,7 @@
 import { Component, OnInit, OnDestroy, HostListener, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterOutlet, RouterModule, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-import { Document, Packer, Paragraph, TextRun } from 'docx';
 
 import { ThemeService } from './services/theme.service';
 import { MetaService } from './services/meta.service';
@@ -25,7 +22,7 @@ import {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterModule, CommandPaletteComponent],
+  imports: [RouterOutlet, RouterModule, CommandPaletteComponent],
   templateUrl: './app.html',
   styleUrls: ['./app.css'],
 })
@@ -133,6 +130,12 @@ export class AppComponent implements OnInit, OnDestroy {
     const skillCategories = RESUME_SKILL_CATEGORIES;
 
     if (type === 'pdf') {
+      // Loaded on demand: pdfmake + fonts are ~1 MB and only needed here.
+      const [{ default: pdfMake }, { default: vfs }] = await Promise.all([
+        import('pdfmake/build/pdfmake'),
+        import('pdfmake/build/vfs_fonts'),
+      ]);
+      pdfMake.addVirtualFileSystem(vfs);
       const docDefinition = {
         content: [
           { text: PROFILE.fullName, style: 'header' },
@@ -172,6 +175,7 @@ export class AppComponent implements OnInit, OnDestroy {
       };
       pdfMake.createPdf(docDefinition).download(`${PROFILE.fullName}-Resume.pdf`);
     } else {
+      const { Document, Packer, Paragraph, TextRun } = await import('docx');
       const doc = new Document({
         sections: [{
           properties: {},

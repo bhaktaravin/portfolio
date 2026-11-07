@@ -8,15 +8,17 @@
 
   <div class="process-timeline">
     <div class="process-track" aria-hidden="true"></div>
-    <div class="process-step" *ngFor="let step of steps; let last = last">
-      <div class="process-marker">
-        <span class="process-number">{{ step.step }}</span>
+    @for (step of steps; track step; let last = $last) {
+      <div class="process-step">
+        <div class="process-marker">
+          <span class="process-number">{{ step.step }}</span>
+        </div>
+        <div class="process-card">
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.description }}</p>
+        </div>
       </div>
-      <div class="process-card">
-        <h3>{{ step.title }}</h3>
-        <p>{{ step.description }}</p>
-      </div>
-    </div>
+    }
   </div>
 
   <div class="process-cta">

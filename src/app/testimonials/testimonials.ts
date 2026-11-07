@@ -30,8 +30,6 @@ interface Testimonial extends NewTestimonial {
 // Minimal MD5 implementation for Gravatar (not cryptographically secure, but fine for avatars)
 function md5(str: string): string {
   // Source: https://stackoverflow.com/a/16573331
-  let xl;
-  let k, AA, BB, CC, DD, a, b, c, d;
   function cmn(
     q: number,
     a: number,
@@ -88,9 +86,9 @@ function md5(str: string): string {
     return cmn(c ^ (b | ~d), a, b, x, s, t);
   }
   function md51(s: string) {
-    let n = s.length,
-      state = [1732584193, -271733879, -1732584194, 271733878],
-      i;
+    const n = s.length;
+    const state = [1732584193, -271733879, -1732584194, 271733878];
+    let i;
     for (i = 64; i <= n; i += 64) {
       md5cycle(state, md5blk(s.substring(i - 64, i)));
     }
@@ -108,8 +106,8 @@ function md5(str: string): string {
     return state;
   }
   function md5blk(s: string) {
-    let md5blks = [],
-      i;
+    const md5blks: number[] = [];
+    let i;
     for (i = 0; i < 64; i += 4) {
       md5blks[i >> 2] =
         s.charCodeAt(i) +
@@ -247,7 +245,7 @@ export class TestimonialsComponent {
     );
   }
 
-  gravatarUrl(email?: string, size: number = 120): string {
+  gravatarUrl(email?: string, size = 120): string {
     if (!email) return "";
     return `https://www.gravatar.com/avatar/${md5(email.trim().toLowerCase())}?s=${size}&d=identicon`;
   }

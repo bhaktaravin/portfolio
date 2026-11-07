@@ -24,7 +24,9 @@
       <label>
         Tone
         <select [(ngModel)]="input.tone" name="tone">
-          <option *ngFor="let t of tones" [value]="t.value">{{ t.label }}</option>
+          @for (t of tones; track t) {
+            <option [value]="t.value">{{ t.label }}</option>
+          }
         </select>
       </label>
       <button type="submit" class="generate-btn" [disabled]="!hasInput()">
@@ -36,51 +38,54 @@
     </form>
 
     <div class="playground-output">
-      <ng-container *ngIf="hasInput(); else emptyState">
+      @if (hasInput()) {
         <div class="output-block">
           <div class="output-header">
             <h3>Headlines</h3>
           </div>
-          <div class="output-item" *ngFor="let line of headlines(); let i = index">
-            <p>{{ line }}</p>
-            <button type="button" class="copy-btn" (click)="copyText(line, 'h' + i)">
-              {{ copied() === 'h' + i ? 'Copied!' : 'Copy' }}
-            </button>
-          </div>
+          @for (line of headlines(); track line; let i = $index) {
+            <div class="output-item">
+              <p>{{ line }}</p>
+              <button type="button" class="copy-btn" (click)="copyText(line, 'h' + i)">
+                {{ copied() === 'h' + i ? 'Copied!' : 'Copy' }}
+              </button>
+            </div>
+          }
         </div>
-
         <div class="output-block">
           <div class="output-header">
             <h3>Social posts</h3>
           </div>
-          <div class="output-item" *ngFor="let post of socialPosts(); let i = index">
-            <pre>{{ post }}</pre>
-            <button type="button" class="copy-btn" (click)="copyText(post, 's' + i)">
-              {{ copied() === 's' + i ? 'Copied!' : 'Copy' }}
-            </button>
-          </div>
+          @for (post of socialPosts(); track post; let i = $index) {
+            <div class="output-item">
+              <pre>{{ post }}</pre>
+              <button type="button" class="copy-btn" (click)="copyText(post, 's' + i)">
+                {{ copied() === 's' + i ? 'Copied!' : 'Copy' }}
+              </button>
+            </div>
+          }
         </div>
-
         <div class="output-block">
           <div class="output-header">
             <h3>Ad copy</h3>
           </div>
-          <div class="output-item" *ngFor="let ad of adCopy(); let i = index">
-            <pre>{{ ad }}</pre>
-            <button type="button" class="copy-btn" (click)="copyText(ad, 'a' + i)">
-              {{ copied() === 'a' + i ? 'Copied!' : 'Copy' }}
-            </button>
-          </div>
+          @for (ad of adCopy(); track ad; let i = $index) {
+            <div class="output-item">
+              <pre>{{ ad }}</pre>
+              <button type="button" class="copy-btn" (click)="copyText(ad, 'a' + i)">
+                {{ copied() === 'a' + i ? 'Copied!' : 'Copy' }}
+              </button>
+            </div>
+          }
         </div>
-      </ng-container>
-
-      <ng-template #emptyState>
+      } @else {
         <div class="empty-state">
           <span class="empty-icon">🤖</span>
           <p>Enter your business details to preview AI-assisted marketing copy.</p>
           <p class="empty-hint">This demo runs client-side — real client work connects to LLMs with guardrails and approval flows.</p>
         </div>
-      </ng-template>
+      }
+
     </div>
   </div>
 </div>

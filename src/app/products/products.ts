@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { CommonModule } from "@angular/common";
+
 
 interface GumroadProduct {
   name: string;
@@ -15,7 +15,7 @@ interface GumroadProduct {
 @Component({
   selector: "app-products",
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: "./products.html",
   styleUrls: ["./products.css"],
 })

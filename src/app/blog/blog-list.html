@@ -7,19 +7,23 @@
   </header>
 
   <div class="blog-grid">
-    <article class="blog-card" *ngFor="let post of posts">
-      <div class="blog-meta">
-        <time>{{ post.date }}</time>
-        <span class="read-time">{{ post.readTime }} read</span>
-      </div>
-      <h2>
-        <a [routerLink]="['/blog', post.slug]">{{ post.title }}</a>
-      </h2>
-      <p class="blog-excerpt">{{ post.excerpt }}</p>
-      <div class="blog-tags">
-        <span class="blog-tag" *ngFor="let tag of post.tags">{{ tag }}</span>
-      </div>
-      <a [routerLink]="['/blog', post.slug]" class="read-more">Read article →</a>
-    </article>
+    @for (post of posts; track post) {
+      <article class="blog-card">
+        <div class="blog-meta">
+          <time>{{ post.date }}</time>
+          <span class="read-time">{{ post.readTime }} read</span>
+        </div>
+        <h2>
+          <a [routerLink]="['/blog', post.slug]">{{ post.title }}</a>
+        </h2>
+        <p class="blog-excerpt">{{ post.excerpt }}</p>
+        <div class="blog-tags">
+          @for (tag of post.tags; track tag) {
+            <span class="blog-tag">{{ tag }}</span>
+          }
+        </div>
+        <a [routerLink]="['/blog', post.slug]" class="read-more">Read article →</a>
+      </article>
+    }
   </div>
 </div>

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { PRICING_TIERS, SERVICES, PROFILE } from '../data/portfolio.data';
 
 @Component({
   selector: 'app-pricing',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './pricing.html',
   styleUrls: ['./pricing.css'],
 })

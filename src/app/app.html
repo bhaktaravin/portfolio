@@ -7,28 +7,10 @@
     <a class="logo" routerLink="/" aria-label="Back to top">
       {{ fullName }}
     </a>
-    <ul class="nav-links" [class.open]="menuOpen" *ngIf="isHome">
-      <li *ngFor="let link of primaryNav">
-        <a
-          routerLink="/"
-          [fragment]="link.id"
-          [class.active]="activeSection === link.id"
-          (click)="scrollToSection($event, link.id)"
-        >{{ link.label }}</a>
-      </li>
-      <li class="nav-more">
-        <button
-          type="button"
-          class="nav-more-btn"
-          [class.active]="isMoreSectionActive()"
-          (click)="toggleMoreMenu()"
-          [attr.aria-expanded]="showMoreMenu"
-          aria-haspopup="true"
-        >
-          More <span class="nav-chevron" aria-hidden="true">▾</span>
-        </button>
-        <ul class="nav-more-menu" *ngIf="showMoreMenu">
-          <li *ngFor="let link of moreNav">
+    @if (isHome) {
+      <ul class="nav-links" [class.open]="menuOpen">
+        @for (link of primaryNav; track link) {
+          <li>
             <a
               routerLink="/"
               [fragment]="link.id"
@@ -36,29 +18,59 @@
               (click)="scrollToSection($event, link.id)"
             >{{ link.label }}</a>
           </li>
-        </ul>
-      </li>
-      <li class="nav-mobile-divider" aria-hidden="true"></li>
-      <li *ngFor="let link of moreNav" class="nav-mobile-more">
-        <a
-          routerLink="/"
-          [fragment]="link.id"
-          [class.active]="activeSection === link.id"
-          (click)="scrollToSection($event, link.id)"
-        >{{ link.label }}</a>
-      </li>
-    </ul>
-    <ul class="nav-links" *ngIf="!isHome">
-      <li><a routerLink="/">Portfolio</a></li>
-      <li><a routerLink="/blog">Blog</a></li>
-    </ul>
+        }
+        <li class="nav-more">
+          <button
+            type="button"
+            class="nav-more-btn"
+            [class.active]="isMoreSectionActive()"
+            (click)="toggleMoreMenu()"
+            [attr.aria-expanded]="showMoreMenu"
+            aria-haspopup="true"
+            >
+            More <span class="nav-chevron" aria-hidden="true">▾</span>
+          </button>
+          @if (showMoreMenu) {
+            <ul class="nav-more-menu">
+              @for (link of moreNav; track link) {
+                <li>
+                  <a
+                    routerLink="/"
+                    [fragment]="link.id"
+                    [class.active]="activeSection === link.id"
+                    (click)="scrollToSection($event, link.id)"
+                  >{{ link.label }}</a>
+                </li>
+              }
+            </ul>
+          }
+        </li>
+        <li class="nav-mobile-divider" aria-hidden="true"></li>
+        @for (link of moreNav; track link) {
+          <li class="nav-mobile-more">
+            <a
+              routerLink="/"
+              [fragment]="link.id"
+              [class.active]="activeSection === link.id"
+              (click)="scrollToSection($event, link.id)"
+            >{{ link.label }}</a>
+          </li>
+        }
+      </ul>
+    }
+    @if (!isHome) {
+      <ul class="nav-links">
+        <li><a routerLink="/">Portfolio</a></li>
+        <li><a routerLink="/blog">Blog</a></li>
+      </ul>
+    }
     <div class="nav-actions">
       <button
         type="button"
         class="command-trigger"
         (click)="commandPalette.open()"
         aria-label="Open command menu (Ctrl+K or Cmd+K)"
-      >
+        >
         <span class="command-trigger-icon" aria-hidden="true">⌕</span>
         <span class="command-trigger-label">Search</span>
         <kbd class="command-trigger-kbd">⌘K</kbd>
@@ -67,17 +79,19 @@
         class="theme-toggle"
         (click)="theme.toggle()"
         [attr.aria-label]="theme.isLight() ? 'Switch to dark mode' : 'Switch to light mode'"
-      >
+        >
         {{ theme.isLight() ? '🌙' : '☀️' }}
       </button>
       <div class="resume-dropdown">
         <button class="resume-btn" (click)="toggleResumeDropdown()" aria-label="Download resume">
           📄 Resume
         </button>
-        <div class="dropdown-menu" *ngIf="showResumeDropdown">
-          <button (click)="downloadResume('pdf')">Download PDF</button>
-          <button (click)="downloadResume('docx')">Download DOCX</button>
-        </div>
+        @if (showResumeDropdown) {
+          <div class="dropdown-menu">
+            <button (click)="downloadResume('pdf')">Download PDF</button>
+            <button (click)="downloadResume('docx')">Download DOCX</button>
+          </div>
+        }
       </div>
       <button class="hamburger" (click)="toggleMenu()" aria-label="Toggle menu">
         <span [class.open]="menuOpen"></span>
@@ -98,11 +112,13 @@
   [class.visible]="showStickyCta && isHome"
   role="region"
   aria-label="Quick actions"
->
-  <span class="sticky-cta-status" *ngIf="isAvailable">
-    <span class="sticky-cta-dot" aria-hidden="true"></span>
-    {{ availability }}
-  </span>
+  >
+  @if (isAvailable) {
+    <span class="sticky-cta-status">
+      <span class="sticky-cta-dot" aria-hidden="true"></span>
+      {{ availability }}
+    </span>
+  }
   <div class="sticky-cta-actions">
     <a routerLink="/" fragment="projects" class="sticky-cta-link" (click)="scrollToSection($event, 'projects')">View work</a>
     <a routerLink="/" fragment="book" class="sticky-cta-btn" (click)="scrollToSection($event, 'book')">Book a call</a>
@@ -117,21 +133,24 @@
 <footer class="footer">
   <div class="footer-inner">
     <nav class="footer-nav" aria-label="Additional site sections">
-      <a *ngFor="let link of footerNav" routerLink="/" [fragment]="link.id" (click)="scrollToSection($event, link.id)">{{ link.label }}</a>
+      @for (link of footerNav; track link) {
+        <a routerLink="/" [fragment]="link.id" (click)="scrollToSection($event, link.id)">{{ link.label }}</a>
+      }
       <a routerLink="/blog">Blog</a>
     </nav>
 
     <div class="footer-social">
-      <a
-        *ngFor="let social of socialLinks"
-        [href]="social.url"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="footer-social-link"
-        [title]="social.platform"
-      >
-        <span [attr.aria-label]="social.platform" role="img">{{ social.icon }}</span>
-      </a>
+      @for (social of socialLinks; track social) {
+        <a
+          [href]="social.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="footer-social-link"
+          [title]="social.platform"
+          >
+          <span [attr.aria-label]="social.platform" role="img">{{ social.icon }}</span>
+        </a>
+      }
     </div>
 
     <p class="footer-copy">&copy; {{ currentYear }} {{ fullName }}. All rights reserved.</p>

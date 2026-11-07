@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FAQ_ITEMS } from '../data/portfolio.data';
 
 @Component({
   selector: 'app-faq',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './faq.html',
   styleUrls: ['./faq.css'],
 })

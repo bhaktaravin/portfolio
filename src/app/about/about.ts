@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {
   PROFILE, ABOUT_STATS, SERVICES, TECH_STACK,
 } from '../data/portfolio.data';
@@ -7,7 +7,7 @@ import {
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './about.html',
   styleUrls: ['./about.css'],
 })

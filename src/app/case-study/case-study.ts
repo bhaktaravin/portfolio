@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { LazyLoadDirective } from '../directives/lazy-load.directive';
 import { getProjectBySlug, PROFILE } from '../data/portfolio.data';
@@ -9,7 +9,7 @@ import { MetaService } from '../services/meta.service';
 @Component({
   selector: 'app-case-study',
   standalone: true,
-  imports: [CommonModule, RouterModule, LazyLoadDirective],
+  imports: [RouterModule, LazyLoadDirective],
   templateUrl: './case-study.html',
   styleUrls: ['./case-study.css'],
 })

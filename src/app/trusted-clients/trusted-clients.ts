@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { TRUSTED_CLIENTS } from '../data/portfolio.data';
 
 @Component({
   selector: 'app-trusted-clients',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './trusted-clients.html',
   styleUrls: ['./trusted-clients.css'],
 })
