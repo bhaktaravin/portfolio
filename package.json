@@ -37,7 +37,6 @@
     "@angular/platform-browser": "^21.2.6",
     "@angular/platform-browser-dynamic": "^21.2.6",
     "@angular/router": "^21.2.6",
-    "@angular/service-worker": "^21.2.6",
     "@emailjs/browser": "^4.4.1",
     "aos": "^2.3.4",
     "docx": "^9.5.1",

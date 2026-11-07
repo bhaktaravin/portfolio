@@ -17,7 +17,6 @@ export const environment = {
   },
   apiUrl: "http://localhost:3000",
   enableAnalytics: false,
-  enableServiceWorker: false,
   cacheTimeout: 30000,
   version: "1.0.0",
   debugMode: true,

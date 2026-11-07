@@ -26,7 +26,6 @@ export const environment = {
   },
   apiUrl: "${process.env.API_URL || "http://localhost:3000"}",
   enableAnalytics: false,
-  enableServiceWorker: ${process.env.NODE_ENV === "production"},
   cacheTimeout: 30000,
   version: "1.0.0",
   debugMode: ${process.env.NODE_ENV !== "production"},
