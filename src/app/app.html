@@ -75,21 +75,14 @@
         <span class="command-trigger-label">Search</span>
         <kbd class="command-trigger-kbd">⌘K</kbd>
       </button>
-      <button
-        class="theme-toggle"
-        (click)="theme.toggle()"
-        [attr.aria-label]="theme.isLight() ? 'Switch to dark mode' : 'Switch to light mode'"
-        >
-        {{ theme.isLight() ? '🌙' : '☀️' }}
-      </button>
       <div class="resume-dropdown">
         <button class="resume-btn" (click)="toggleResumeDropdown()" aria-label="Download resume">
           📄 Resume
         </button>
         @if (showResumeDropdown) {
           <div class="dropdown-menu">
-            <button (click)="downloadResume('pdf')">Download PDF</button>
-            <button (click)="downloadResume('docx')">Download DOCX</button>
+            <button (click)="downloadResume('pdf')" data-umami-event="resume-download" data-umami-event-format="pdf" data-umami-event-location="navbar">Download PDF</button>
+            <button (click)="downloadResume('docx')" data-umami-event="resume-download" data-umami-event-format="docx" data-umami-event-location="navbar">Download DOCX</button>
           </div>
         }
       </div>
@@ -146,6 +139,9 @@
           target="_blank"
           rel="noopener noreferrer"
           class="footer-social-link"
+          data-umami-event="social-click"
+          [attr.data-umami-event-platform]="social.platform"
+          data-umami-event-location="footer"
           [title]="social.platform"
           >
           <span [attr.aria-label]="social.platform" role="img">{{ social.icon }}</span>

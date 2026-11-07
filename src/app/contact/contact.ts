@@ -4,6 +4,7 @@ import { FormsModule, NgForm } from "@angular/forms";
 import emailjs from "@emailjs/browser";
 import { environment } from "../../environments/environment";
 import { CONTACT_INTENTS, PROFILE } from "../data/portfolio.data";
+import { trackEvent } from "../analytics";
 
 @Component({
   selector: "app-contact",
@@ -65,6 +66,7 @@ export class ContactComponent {
         },
         environment.emailjs.publicKey
       );
+      trackEvent("contact-sent", { intent: this.contact.intent });
       this.showToast("Message sent! I'll get back to you soon.", "success");
       form.resetForm();
       this.resetContact();

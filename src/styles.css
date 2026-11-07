@@ -219,6 +219,13 @@ button,
   padding: 0;
   box-sizing: border-box;
 }
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
 /* You can add global styles to this file, and also import other style files */
 
 /* Enhanced dark mode overrides for readability */

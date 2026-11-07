@@ -175,25 +175,3 @@
   color: #4f8cff;
 }
 
-:host-context(body.light-mode) .cs-header h1,
-:host-context(body.light-mode) .cs-section h2 {
-  color: #111827;
-}
-
-:host-context(body.light-mode) .cs-description {
-  color: #4b5563;
-}
-
-:host-context(body.light-mode) .cs-section p,
-:host-context(body.light-mode) .cs-section li {
-  color: #374151;
-}
-
-:host-context(body.light-mode) .cs-cta {
-  background: #fff;
-  border-color: rgba(37, 99, 235, 0.15);
-}
-
-:host-context(body.light-mode) .cs-cta p {
-  color: #4b5563;
-}

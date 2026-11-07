@@ -152,25 +152,3 @@
   max-width: 360px;
 }
 
-body.light-mode .playground-form,
-body.light-mode .output-block,
-body.light-mode .empty-state {
-  background: #f8fafc;
-  border-color: rgba(37, 99, 235, 0.15);
-}
-
-body.light-mode .playground-form input,
-body.light-mode .playground-form select {
-  background: #fff;
-  border-color: #e2e8f0;
-  color: #1e293b;
-}
-
-body.light-mode .output-header h3 {
-  color: #1e293b;
-}
-
-body.light-mode .output-item p,
-body.light-mode .output-item pre {
-  color: #475569;
-}

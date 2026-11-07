@@ -102,26 +102,6 @@ export interface BlogPost {
   content: string;
 }
 
-export interface ResumeExperience {
-  title: string;
-  company: string;
-  period: string;
-  description: string;
-}
-
-export interface ResumeEducation {
-  degree: string;
-  institution: string;
-  period: string;
-  location: string;
-}
-
-export interface ResumeCertification {
-  name: string;
-  issuer: string;
-  year: string;
-}
-
 export interface TrustedClient {
   name: string;
   tagline: string;
@@ -338,6 +318,31 @@ export const PRICING_TIERS: PricingTier[] = [
 ];
 
 export const PROJECTS: Project[] = [
+  {
+    slug: 'orbit',
+    title: 'Orbit — GitHub as a Space Station',
+    description:
+      'A personal Three.js scene that turns your GitHub profile into an explorable space station — repos become docking modules, your contribution calendar becomes a ring of running lights, and followers orbit as satellites.',
+    technologies: ['Next.js', 'TypeScript', 'Three.js', 'React Three Fiber', 'GitHub API'],
+    liveUrl: 'https://orbit-station-nu.vercel.app',
+    githubUrl: 'https://github.com/bhaktaravin/orbit-station',
+    image: 'assets/orbit-station.jpg',
+    featured: true,
+    caseStudy: {
+      problem:
+        'Contribution graphs and profile stats are static and easy to ignore — they don\'t make years of GitHub activity feel like anything.',
+      solution:
+        'Built a procedural Three.js scene fed entirely by the live GitHub REST API: docking modules sized and colored per repo (stars, language), a rotating instanced ring built from the real contribution calendar, solar arrays that glow with current streak, and satellites for followers — wrapped in a sci-fi terminal boot sequence.',
+      impact:
+        'Turns any GitHub profile into an explorable 3D artifact instead of a page of numbers — no backend or auth, just live data rendered on load.',
+      highlights: [
+        'Procedural station geometry driven entirely by the GitHub REST API',
+        'Contribution calendar rendered as an instanced ring of colored cells',
+        'Level / "station class" progression computed from contributions and stars',
+        'Deployed on Vercel, fetches fresh data on every visit',
+      ],
+    },
+  },
   {
     slug: 'wov3',
     title: 'Wov3',
@@ -670,13 +675,6 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
   { name: 'Cloud Platforms', skills: CLOUD_PLATFORMS },
 ];
 
-export const RESUME_SKILL_CATEGORIES: SkillCategory[] = [
-  { name: 'AI & LLM', skills: ['LLM Integration', 'Prompt Engineering', 'AI-Assisted UX', 'OpenAI API'] },
-  { name: 'Frontend', skills: ['Angular', 'React', 'TypeScript', 'Tailwind CSS'] },
-  { name: 'Backend', skills: ['NestJS', 'Node.js', 'Java (Spring)', 'Python (Django)'] },
-  { name: 'Cloud', skills: ['AWS', 'AWS Amplify', 'Vercel', 'Railway'] },
-];
-
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'shipping-client-sites-on-aws-amplify',
@@ -810,30 +808,4 @@ export function getProjectBySlug(slug: string): Project | undefined {
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
   return BLOG_POSTS.find((p) => p.slug === slug);
-}
-
-export function experiencesToResume(): ResumeExperience[] {
-  return EXPERIENCES.map((exp) => ({
-    title: exp.title,
-    company: exp.company,
-    period: `${exp.start} - ${exp.end}`,
-    description: exp.details.join(' '),
-  }));
-}
-
-export function educationToResume(): ResumeEducation[] {
-  return EDUCATION.map((edu) => ({
-    degree: `${edu.degree} in ${edu.field}${edu.end === 'Present' ? ' (In progress)' : ''}`,
-    institution: edu.institution,
-    period: `${edu.start} - ${edu.end}`,
-    location: edu.location,
-  }));
-}
-
-export function certificationsToResume(): ResumeCertification[] {
-  return CERTIFICATIONS.map((cert) => ({
-    name: cert.title,
-    issuer: cert.issuer,
-    year: cert.date,
-  }));
 }

@@ -113,28 +113,6 @@
   box-shadow: 0 4px 16px rgba(79, 140, 255, 0.4);
 }
 
-body.light-mode .process-card {
-  background: #f8fafc;
-  border-color: rgba(37, 99, 235, 0.12);
-}
-
-body.light-mode .process-card h3 {
-  color: #1e293b;
-}
-
-body.light-mode .process-card p {
-  color: #64748b;
-}
-
-body.light-mode .process-cta {
-  background: rgba(37, 99, 235, 0.06);
-  border-color: rgba(37, 99, 235, 0.15);
-}
-
-body.light-mode .process-cta p {
-  color: #334155;
-}
-
 @media (max-width: 900px) {
   .process-timeline {
     grid-template-columns: 1fr;

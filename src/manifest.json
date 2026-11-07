@@ -82,21 +82,5 @@
       "url": "/assets/resume.pdf",
       "icons": [{ "src": "assets/icons/icon-96x96.png", "sizes": "96x96" }]
     }
-  ],
-  "screenshots": [
-    {
-      "src": "assets/screenshots/desktop-home.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Portfolio home page on desktop"
-    },
-    {
-      "src": "assets/screenshots/mobile-home.png",
-      "sizes": "390x844",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Portfolio home page on mobile"
-    }
   ]
 }

@@ -55,6 +55,7 @@
           <button
             class="btn btn-primary"
             (click)="viewProjects()"
+            data-umami-event="hero-view-work"
             aria-label="See my work"
             >
             <span class="btn-text">See my work</span>
@@ -64,6 +65,7 @@
           <button
             class="btn btn-accent"
             (click)="startProject()"
+            data-umami-event="hero-start-project"
             aria-label="Start a project — book a call"
             >
             <span class="btn-text">Start a project</span>
@@ -72,11 +74,11 @@
         </div>
 
         <p class="hero-secondary-actions" data-aos="fade-up" data-aos-delay="450">
-          <button type="button" class="hero-text-link" (click)="downloadResume()">
+          <button type="button" class="hero-text-link" (click)="downloadResume()" data-umami-event="resume-download" data-umami-event-format="pdf" data-umami-event-location="hero">
             Download resume
           </button>
           <span class="hero-text-sep" aria-hidden="true">·</span>
-          <button type="button" class="hero-text-link" (click)="contactMe()">
+          <button type="button" class="hero-text-link" (click)="contactMe()" data-umami-event="hero-contact">
             Send a message
           </button>
         </p>
@@ -103,6 +105,9 @@
                 [href]="social.url"
                 target="_blank"
                 class="social-link"
+                data-umami-event="social-click"
+                [attr.data-umami-event-platform]="social.platform"
+                data-umami-event-location="hero"
                 [attr.aria-label]="social.ariaLabel"
                 [title]="social.platform"
                 >

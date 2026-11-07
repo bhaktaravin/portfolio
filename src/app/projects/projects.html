@@ -47,12 +47,12 @@
           </div>
           <div class="project-links" role="presentation" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
             @if (project.liveUrl) {
-              <a class="project-link btn-link" [href]="project.liveUrl" target="_blank" rel="noopener">
+              <a class="project-link btn-link" [href]="project.liveUrl" target="_blank" rel="noopener" data-umami-event="project-live" [attr.data-umami-event-project]="project.slug">
                 🔗 Live Demo
               </a>
             }
             @if (project.githubUrl) {
-              <a class="project-link btn-link secondary" [href]="project.githubUrl" target="_blank" rel="noopener">
+              <a class="project-link btn-link secondary" [href]="project.githubUrl" target="_blank" rel="noopener" data-umami-event="project-github" [attr.data-umami-event-project]="project.slug">
                 🐙 GitHub
               </a>
             }
@@ -139,12 +139,12 @@
         }
         <div class="modal-links">
           @if (selectedProject()!.liveUrl) {
-            <a class="btn-link" [href]="selectedProject()!.liveUrl" target="_blank" rel="noopener">
+            <a class="btn-link" [href]="selectedProject()!.liveUrl" target="_blank" rel="noopener" data-umami-event="project-live" [attr.data-umami-event-project]="selectedProject()!.slug">
               🔗 Live Demo
             </a>
           }
           @if (selectedProject()!.githubUrl) {
-            <a class="btn-link secondary" [href]="selectedProject()!.githubUrl" target="_blank" rel="noopener">
+            <a class="btn-link secondary" [href]="selectedProject()!.githubUrl" target="_blank" rel="noopener" data-umami-event="project-github" [attr.data-umami-event-project]="selectedProject()!.slug">
               🐙 GitHub
             </a>
           }

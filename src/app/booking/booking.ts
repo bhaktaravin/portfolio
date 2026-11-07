@@ -1,8 +1,7 @@
-import { Component, inject, effect } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PROFILE } from '../data/portfolio.data';
-import { ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-booking',
@@ -13,16 +12,9 @@ import { ThemeService } from '../services/theme.service';
 })
 export class BookingComponent {
   private readonly sanitizer = inject(DomSanitizer);
-  private readonly theme = inject(ThemeService);
 
   readonly profile = PROFILE;
-  calEmbedUrl: SafeResourceUrl | null = null;
-
-  constructor() {
-    effect(() => {
-      const themeParam = this.theme.isLight() ? 'light' : 'dark';
-      const embedUrl = `${PROFILE.calLink}?embed=true&theme=${themeParam}&layout=month_view`;
-      this.calEmbedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
-    });
-  }
+  readonly calEmbedUrl: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+    `${PROFILE.calLink}?embed=true&theme=dark&layout=month_view`,
+  );
 }

@@ -23,12 +23,12 @@
         </div>
         <div class="cs-links">
           @if (project.liveUrl) {
-            <a [href]="project.liveUrl" target="_blank" rel="noopener" class="btn-link">
+            <a [href]="project.liveUrl" target="_blank" rel="noopener" class="btn-link" data-umami-event="project-live" [attr.data-umami-event-project]="project.slug">
               🔗 Live Demo
             </a>
           }
           @if (project.githubUrl) {
-            <a [href]="project.githubUrl" target="_blank" rel="noopener" class="btn-link secondary">
+            <a [href]="project.githubUrl" target="_blank" rel="noopener" class="btn-link secondary" data-umami-event="project-github" [attr.data-umami-event-project]="project.slug">
               🐙 GitHub
             </a>
           }

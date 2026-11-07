@@ -56,15 +56,3 @@
   flex-shrink: 0;
 }
 
-body.light-mode .client-card {
-  background: #f8fafc;
-  border-color: rgba(37, 99, 235, 0.15);
-}
-
-body.light-mode .client-name {
-  color: #1e293b;
-}
-
-body.light-mode .client-tagline {
-  color: #64748b;
-}

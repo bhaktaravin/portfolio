@@ -103,18 +103,3 @@
   padding: 0 1.25rem 1.15rem;
 }
 
-body.light-mode .process-step,
-body.light-mode .faq-item {
-  background: #f8fafc;
-  border-color: rgba(37, 99, 235, 0.12);
-}
-
-body.light-mode .process-step h3,
-body.light-mode .faq-question {
-  color: #1e293b;
-}
-
-body.light-mode .process-step p,
-body.light-mode .faq-answer-inner p {
-  color: #64748b;
-}
