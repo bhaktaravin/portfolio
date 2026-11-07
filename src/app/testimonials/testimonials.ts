@@ -6,10 +6,10 @@ import {
   collection,
   addDoc,
   collectionData,
+  query,
+  where,
 } from "@angular/fire/firestore";
-import { Query } from "firebase/firestore";
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
 import { SOCIAL_LINKS } from "../data/portfolio.data";
 
 interface NewTestimonial {
@@ -238,11 +238,11 @@ export class TestimonialsComponent {
 
   constructor() {
     const testimonialsRef = collection(this.firestore, "testimonials");
-    this.testimonials$ = (collectionData(testimonialsRef as unknown as Query, {
+    // Firestore rules don't filter: the query itself must only match approved docs.
+    const approved = query(testimonialsRef, where("approved", "==", true));
+    this.testimonials$ = collectionData(approved, {
       idField: "id",
-    }) as Observable<Testimonial[]>).pipe(
-      map((items) => items.filter((t) => t.approved !== false)),
-    );
+    }) as Observable<Testimonial[]>;
   }
 
   gravatarUrl(email?: string, size = 120): string {
