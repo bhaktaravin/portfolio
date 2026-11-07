@@ -9,7 +9,8 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from "@angular/common/http";
-import { provideServiceWorker } from "@angular/service-worker";
+import { provideFirebaseApp, initializeApp } from "@angular/fire/app";
+import { provideFirestore, getFirestore } from "@angular/fire/firestore";
 import AOS from "aos";
 
 import { AppComponent } from "./app/app";
@@ -23,7 +24,7 @@ bootstrapApplication(AppComponent, {
       routes,
       withEnabledBlockingInitialNavigation(),
       withInMemoryScrolling({
-        scrollPositionRestoration: "top",
+        scrollPositionRestoration: "enabled",
         anchorScrolling: "enabled",
       }),
     ),
@@ -32,11 +33,9 @@ bootstrapApplication(AppComponent, {
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
 
-    // Service Worker for PWA
-    provideServiceWorker("ngsw-worker.js", {
-      enabled: environment.production,
-      registrationStrategy: "registerWhenStable:30000",
-    }),
+    // Firebase providers
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
   ],
 }).catch((err) => console.error(err));
 

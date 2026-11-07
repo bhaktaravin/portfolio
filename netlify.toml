@@ -3,4 +3,6 @@
   publish = "dist/portfolio"
 
 [build.environment]
-  NODE_ENV = "development"
+  # NODE_ENV=production is set in the Netlify UI, which makes npm skip
+  # devDependencies (including @angular/cli). Install them anyway.
+  NPM_FLAGS = "--include=dev"

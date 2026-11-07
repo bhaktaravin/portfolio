@@ -1,16 +1,14 @@
-import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, Renderer2, inject } from '@angular/core';
 
 @Directive({
   selector: 'img[appLazyLoad]',
   standalone: true
 })
 export class LazyLoadDirective implements OnInit {
-  @Input() appLazyLoad: string = '';
+  private el = inject<ElementRef<HTMLImageElement>>(ElementRef);
+  private renderer = inject(Renderer2);
 
-  constructor(
-    private el: ElementRef<HTMLImageElement>,
-    private renderer: Renderer2
-  ) {}
+  @Input() appLazyLoad = '';
 
   ngOnInit() {
     // Add loading class for fade-in effect

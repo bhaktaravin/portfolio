@@ -60,10 +60,12 @@
 
         <div class="about-stats">
           <div class="stat-grid">
-            <div *ngFor="let stat of stats" class="stat">
-              <span class="stat-number">{{ stat.value }}</span>
-              <span class="stat-label">{{ stat.label }}</span>
-            </div>
+            @for (stat of stats; track stat) {
+              <div class="stat">
+                <span class="stat-number">{{ stat.value }}</span>
+                <span class="stat-label">{{ stat.label }}</span>
+              </div>
+            }
           </div>
         </div>
 
@@ -90,13 +92,15 @@
           <div class="profile-skills">
             <h4>Core Technologies</h4>
             <div class="skill-tags">
-              <span *ngFor="let tech of techStack" class="skill-tag"
-                >{{ tech }}</span
-              >
+              @for (tech of techStack; track tech) {
+                <span class="skill-tag"
+                  >{{ tech }}</span
+                  >
+                }
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>

@@ -1,23 +1,20 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PROFILE } from '../data/portfolio.data';
 
 @Component({
   selector: 'app-booking',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './booking.html',
   styleUrls: ['./booking.css'],
 })
-export class BookingComponent implements OnInit {
+export class BookingComponent {
   private readonly sanitizer = inject(DomSanitizer);
 
   readonly profile = PROFILE;
-  calEmbedUrl: SafeResourceUrl | null = null;
-
-  ngOnInit(): void {
-    const embedUrl = `${PROFILE.calLink}?embed=true&theme=dark`;
-    this.calEmbedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
-  }
+  readonly calEmbedUrl: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+    `${PROFILE.calLink}?embed=true&theme=dark&layout=month_view`,
+  );
 }

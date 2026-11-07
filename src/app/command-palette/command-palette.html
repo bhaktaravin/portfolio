@@ -1,0 +1,60 @@
+@if (isOpen()) {
+  <div
+    class="palette-overlay"
+    (click)="$event.target === $event.currentTarget && close()"
+    (keydown.escape)="close()"
+    role="presentation"
+    >
+    <div
+      class="palette-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Command menu"
+      >
+      <div class="palette-search">
+        <span class="palette-icon" aria-hidden="true">⌕</span>
+        <input
+          #searchInput
+          type="search"
+          class="palette-input"
+          [(ngModel)]="query"
+          (ngModelChange)="onQueryChange()"
+          placeholder="Jump to a section, project, or blog post…"
+          aria-label="Search commands"
+          autocomplete="off"
+          />
+        <kbd class="palette-kbd">esc</kbd>
+      </div>
+      @if (filteredItems.length) {
+        <div class="palette-results">
+          @for (group of groupedItems | keyvalue; track group) {
+            <div class="palette-group">
+              <p class="palette-group-label">{{ group.key }}</p>
+              @for (item of group.value; track item) {
+                <button
+                  type="button"
+                  class="palette-item"
+                  [class.selected]="isSelected(item)"
+                  (click)="selectItem(item)"
+                  (mouseenter)="selectedIndex = flatIndex(item)"
+                  >
+                  <span class="palette-item-label">{{ item.label }}</span>
+                  @if (item.hint) {
+                    <span class="palette-item-hint">{{ item.hint }}</span>
+                  }
+                </button>
+              }
+            </div>
+          }
+        </div>
+      } @else {
+        <p class="palette-empty">No matches for “{{ query }}”</p>
+      }
+      <div class="palette-footer">
+        <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+        <span><kbd>↵</kbd> go</span>
+        <span><kbd>⌘K</kbd> toggle</span>
+      </div>
+    </div>
+  </div>
+}

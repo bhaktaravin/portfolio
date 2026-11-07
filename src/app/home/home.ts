@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 import { HeroComponent } from '../hero/hero';
 import { AboutComponent } from '../about/about';
@@ -15,17 +15,34 @@ import { ProductsComponent } from '../products/products';
 import { PricingComponent } from '../pricing/pricing';
 import { BookingComponent } from '../booking/booking';
 import { BlogPreviewComponent } from '../blog/blog-preview';
+import { TrustedClientsComponent } from '../trusted-clients/trusted-clients';
+import { HowIWorkComponent } from '../how-i-work/how-i-work';
+import { FaqComponent } from '../faq/faq';
+import { AiPlaygroundComponent } from '../ai-playground/ai-playground';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
-    CommonModule,
-    HeroComponent, AboutComponent, SkillsComponent, ExperienceComponent,
-    ProjectsComponent, EducationComponent, CertificationsComponent,
-    ContactComponent, TestimonialsComponent, GitHubActivityComponent,
-    ProductsComponent, PricingComponent, BookingComponent, BlogPreviewComponent,
-  ],
+    HeroComponent,
+    AboutComponent,
+    SkillsComponent,
+    ExperienceComponent,
+    ProjectsComponent,
+    EducationComponent,
+    CertificationsComponent,
+    ContactComponent,
+    TestimonialsComponent,
+    GitHubActivityComponent,
+    ProductsComponent,
+    PricingComponent,
+    BookingComponent,
+    BlogPreviewComponent,
+    TrustedClientsComponent,
+    FaqComponent,
+    AiPlaygroundComponent,
+    HowIWorkComponent
+],
   templateUrl: './home.html',
 })
 export class HomeComponent implements OnInit, OnDestroy {
@@ -35,8 +52,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   };
 
   private readonly pageSections = [
-    'home', 'about', 'projects', 'services', 'testimonials', 'skills',
-    'experience', 'contact', 'book', 'blog', 'products', 'github',
+    'home', 'about', 'projects', 'clients', 'testimonials', 'process', 'services', 'ai-demo', 'skills',
+    'experience', 'faq', 'contact', 'book', 'blog', 'products', 'github',
     'education', 'certifications',
   ];
 

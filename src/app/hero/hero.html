@@ -24,6 +24,13 @@
 
         <h2 class="hero-title">{{ jobTitle }}</h2>
 
+        @if (isAvailable) {
+          <div class="availability-badge">
+            <span class="availability-dot" aria-hidden="true"></span>
+            <span>{{ availability }}</span>
+          </div>
+        }
+
         <p class="hero-tagline">{{ tagline }}</p>
 
         <p class="hero-description">{{ description }}</p>
@@ -32,150 +39,176 @@
         <div class="tech-stack" data-aos="fade-up" data-aos-delay="300">
           <span class="stack-label">Tech Stack:</span>
           <div class="tech-pills">
-            <span
-              *ngFor="let tech of techStack; let i = index"
-              class="tech-pill"
-              [style.animation-delay.ms]="(i * 100) + 400"
-            >
-              {{ tech }}
-            </span>
+            @for (tech of techStack; track tech; let i = $index) {
+              <span
+                class="tech-pill"
+                [style.animation-delay.ms]="(i * 100) + 400"
+                >
+                {{ tech }}
+              </span>
+            }
           </div>
         </div>
 
-        <!-- Action Buttons -->
+        <!-- Primary CTAs -->
         <div class="hero-actions" data-aos="fade-up" data-aos-delay="400">
           <button
             class="btn btn-primary"
             (click)="viewProjects()"
             data-umami-event="hero-view-work"
-            [attr.aria-label]="'View my projects'"
-          >
-            <span class="btn-text">View My Work</span>
-            <span class="btn-icon">🚀</span>
+            aria-label="See my work"
+            >
+            <span class="btn-text">See my work</span>
+            <span class="btn-icon" aria-hidden="true">🚀</span>
           </button>
 
           <button
-            class="btn btn-secondary"
-            (click)="downloadResume()"
-            data-umami-event="resume-download"
-            data-umami-event-format="pdf"
-            data-umami-event-location="hero"
-            [attr.aria-label]="'Download my resume'"
-          >
-            <span class="btn-text">Download Resume</span>
-            <span class="btn-icon">📄</span>
+            class="btn btn-accent"
+            (click)="startProject()"
+            data-umami-event="hero-start-project"
+            aria-label="Start a project — book a call"
+            >
+            <span class="btn-text">Start a project</span>
+            <span class="btn-icon" aria-hidden="true">📅</span>
           </button>
+        </div>
 
-          <button
-            class="btn btn-outline"
-            (click)="contactMe()"
-            data-umami-event="hero-contact"
-            [attr.aria-label]="'Contact me'"
-          >
-            <span class="btn-text">Let's Connect</span>
-            <span class="btn-icon">💬</span>
+        <p class="hero-secondary-actions" data-aos="fade-up" data-aos-delay="450">
+          <button type="button" class="hero-text-link" (click)="downloadResume()" data-umami-event="resume-download" data-umami-event-format="pdf" data-umami-event-location="hero">
+            Download resume
           </button>
+          <span class="hero-text-sep" aria-hidden="true">·</span>
+          <button type="button" class="hero-text-link" (click)="contactMe()" data-umami-event="hero-contact">
+            Send a message
+          </button>
+        </p>
+
+        <div class="hero-email-row" data-aos="fade-up" data-aos-delay="475">
+          <a class="hero-email" [href]="'mailto:' + email">{{ email }}</a>
+          <button
+            type="button"
+            class="hero-copy-btn"
+            (click)="copyEmail()"
+            [attr.aria-label]="emailCopied ? 'Email copied' : 'Copy email address'"
+            >
+            {{ emailCopied ? 'Copied!' : 'Copy' }}
+          </button>
+          <span class="hero-response-time">{{ responseTime }}</span>
         </div>
 
         <!-- Social Links -->
         <div class="hero-social" data-aos="fade-up" data-aos-delay="500">
           <span class="social-label">Find me on:</span>
           <div class="social-links">
-            <a
-              *ngFor="let social of socialLinks"
-              [href]="social.url"
-              target="_blank"
-              class="social-link"
-              data-umami-event="social-click"
-              [attr.data-umami-event-platform]="social.platform"
-              data-umami-event-location="hero"
-              [attr.aria-label]="social.ariaLabel"
-              [title]="social.platform"
-            >
-              <span class="social-icon">{{ social.icon }}</span>
-              <span class="social-text">{{ social.platform }}</span>
-            </a>
+            @for (social of socialLinks; track social) {
+              <a
+                [href]="social.url"
+                target="_blank"
+                class="social-link"
+                data-umami-event="social-click"
+                [attr.data-umami-event-platform]="social.platform"
+                data-umami-event-location="hero"
+                [attr.aria-label]="social.ariaLabel"
+                [title]="social.platform"
+                >
+                <span class="social-icon">{{ social.icon }}</span>
+                <span class="social-text">{{ social.platform }}</span>
+              </a>
+            }
           </div>
         </div>
       </div>
 
       <!-- Right Side - Avatar & Stats -->
       <div class="hero-visual" data-aos="fade-left" data-aos-delay="200">
-        <!-- Avatar Section -->
-        <div class="hero-avatar">
-          <div class="avatar-container">
-            <div class="avatar-bg"></div>
-            <div class="avatar-initials">{{ initials }}</div>
-            <div class="avatar-ring"></div>
-          </div>
-
-          <!-- Location Badge -->
-          <div class="location-badge">
-            <span class="location-icon">📍</span>
-            <span class="location-text">{{ location }}</span>
-          </div>
-        </div>
-
-        <!-- Stats Grid -->
-        <div class="hero-stats" data-aos="fade-up" data-aos-delay="600">
-          <div
-            *ngFor="let stat of stats; let i = index"
-            class="stat-item"
-            [style.animation-delay.ms]="(i * 100) + 700"
-          >
-            <span class="stat-value">{{ stat.value }}</span>
-            <span class="stat-label">{{ stat.label }}</span>
-          </div>
-        </div>
-
-        <!-- Floating Code Snippet -->
-        <div class="code-snippet" data-aos="zoom-in" data-aos-delay="800">
-          <div class="code-header">
-            <div class="code-dots">
-              <span class="dot dot-red"></span>
-              <span class="dot dot-yellow"></span>
-              <span class="dot dot-green"></span>
+        <div class="hero-visual-top">
+          <!-- Avatar Section -->
+          <div class="hero-avatar">
+            <div class="avatar-container">
+              <div class="avatar-bg"></div>
+              @if (showPhoto) {
+                <img
+                  [src]="profilePhoto"
+                  [alt]="fullName + ' profile photo'"
+                  class="avatar-photo"
+                  (error)="onPhotoError()"
+                  />
+              }
+              @if (!showPhoto) {
+                <div class="avatar-initials">{{ initials }}</div>
+              }
+              <div class="avatar-ring"></div>
             </div>
-            <span class="code-title">ravin.dev</span>
+
+            <!-- Location Badge -->
+            <div class="location-badge">
+              <span class="location-icon">📍</span>
+              <span class="location-text">{{ location }}</span>
+            </div>
           </div>
-          <div class="code-content">
-            <span class="code-comment"
-              >// Building the future, one line at a time</span
-            >
-            <span class="code-line">
-              <span class="code-keyword">const</span>
-              <span class="code-variable">developer</span> = {{ '{' }}
-            </span>
-            <span class="code-line code-indent">
-              name: <span class="code-string">'{{ fullName }}'</span>,
-            </span>
-            <span class="code-line code-indent">
-              skills:
-              <span class="code-array">['Full-Stack', 'Cloud', 'APIs']</span>,
-            </span>
-            <span class="code-line code-indent">
-              passion:
-              <span class="code-string">'Building great software'</span>
-            </span>
-            <span class="code-line">{{ '}' }};</span>
+
+          <!-- Code Snippet -->
+          <div class="code-snippet" data-aos="zoom-in" data-aos-delay="800">
+            <div class="code-header">
+              <div class="code-dots">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+              </div>
+              <span class="code-title">ravin.dev</span>
+            </div>
+            <div class="code-content">
+              <span class="code-comment"
+                >// Building the future, one line at a time</span
+                >
+                <span class="code-line">
+                  <span class="code-keyword">const</span>
+                  <span class="code-variable">developer</span> = {{ '{' }}
+                </span>
+                <span class="code-line code-indent">
+                  name: <span class="code-string">'{{ fullName }}'</span>,
+                </span>
+                <span class="code-line code-indent">
+                  skills:
+                  <span class="code-array">['Full-Stack', 'Cloud', 'APIs']</span>,
+                </span>
+                <span class="code-line code-indent">
+                  passion:
+                  <span class="code-string">'Building great software'</span>
+                </span>
+                <span class="code-line">{{ '}' }};</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="hero-stats" data-aos="fade-up" data-aos-delay="600">
+            @for (stat of stats; track stat; let i = $index) {
+              <div
+                class="stat-item"
+                [style.animation-delay.ms]="(i * 100) + 700"
+                >
+                <span class="stat-value">{{ stat.value }}</span>
+                <span class="stat-label">{{ stat.label }}</span>
+              </div>
+            }
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Scroll Indicator -->
-    <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="1000">
-      <button
-        class="scroll-btn"
-        (click)="scrollTo('about')"
-        [attr.aria-label]="'Scroll to about section'"
-      >
-        <span class="scroll-text">Scroll to explore</span>
-        <div class="scroll-arrow">
-          <span class="arrow-line"></span>
-          <span class="arrow-point">↓</span>
-        </div>
-      </button>
+      <!-- Scroll Indicator -->
+      <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="1000">
+        <button
+          class="scroll-btn"
+          (click)="scrollTo('projects')"
+          aria-label="Scroll to featured projects"
+          >
+          <span class="scroll-text">Scroll to explore</span>
+          <div class="scroll-arrow">
+            <span class="arrow-line"></span>
+            <span class="arrow-point">↓</span>
+          </div>
+        </button>
+      </div>
     </div>
-  </div>
-</section>
+  </section>

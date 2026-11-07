@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { CURRENTLY_LEARNING, SKILL_CATEGORIES } from '../data/portfolio.data';
 
 @Component({
   selector: 'app-skills',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './skills.html',
   styleUrls: ['./skills.css'],
 })

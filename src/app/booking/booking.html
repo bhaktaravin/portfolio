@@ -30,17 +30,20 @@
         </div>
       </div>
       <a [href]="profile.calLink" target="_blank" rel="noopener noreferrer" class="booking-external" data-umami-event="booking-open-cal">
-        Open in new tab ↗
+        Prefer the full Cal.com page? Open in new tab ↗
       </a>
     </div>
 
-    <div class="booking-embed" *ngIf="calEmbedUrl">
-      <iframe
-        [src]="calEmbedUrl"
-        title="Schedule a call with Ravin Bhakta"
-        frameborder="0"
-        allow="camera; microphone; fullscreen"
-      ></iframe>
-    </div>
+    @if (calEmbedUrl) {
+      <div class="booking-embed">
+        <iframe
+          [src]="calEmbedUrl"
+          title="Schedule a call with Ravin Bhakta"
+          frameborder="0"
+          allow="camera; microphone; fullscreen"
+          loading="lazy"
+        ></iframe>
+      </div>
+    }
   </div>
 </section>

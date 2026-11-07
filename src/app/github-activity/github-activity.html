@@ -1,145 +1,163 @@
 <div class="github-activity-container">
 
-  <div *ngIf="loading" class="loading-state">
-    <!-- Skeleton Stats Bar -->
-    <div class="stats-bar skeleton-stats">
-      <div class="stat-item skeleton">
-        <div class="skeleton-box skeleton-value"></div>
-        <div class="skeleton-box skeleton-label"></div>
+  @if (loading) {
+    <div class="loading-state">
+      <!-- Skeleton Stats Bar -->
+      <div class="stats-bar skeleton-stats">
+        <div class="stat-item skeleton">
+          <div class="skeleton-box skeleton-value"></div>
+          <div class="skeleton-box skeleton-label"></div>
+        </div>
+        <div class="stat-item skeleton">
+          <div class="skeleton-box skeleton-value"></div>
+          <div class="skeleton-box skeleton-label"></div>
+        </div>
+        <div class="stat-item skeleton">
+          <div class="skeleton-box skeleton-value"></div>
+          <div class="skeleton-box skeleton-label"></div>
+        </div>
+        <div class="stat-item skeleton">
+          <div class="skeleton-box skeleton-value"></div>
+          <div class="skeleton-box skeleton-label"></div>
+        </div>
       </div>
-      <div class="stat-item skeleton">
-        <div class="skeleton-box skeleton-value"></div>
-        <div class="skeleton-box skeleton-label"></div>
+      <!-- Skeleton Two Column -->
+      <div class="two-col">
+        <div class="panel skeleton">
+          <div class="skeleton-box skeleton-title"></div>
+          <div class="skeleton-list">
+            @for (i of [1,2,3,4,5,6]; track i) {
+              <div class="skeleton-item"></div>
+            }
+          </div>
+        </div>
+        <div class="panel skeleton">
+          <div class="skeleton-box skeleton-title"></div>
+          <div class="skeleton-list">
+            @for (i of [1,2,3,4]; track i) {
+              <div class="skeleton-item"></div>
+            }
+          </div>
+        </div>
       </div>
-      <div class="stat-item skeleton">
-        <div class="skeleton-box skeleton-value"></div>
-        <div class="skeleton-box skeleton-label"></div>
-      </div>
-      <div class="stat-item skeleton">
-        <div class="skeleton-box skeleton-value"></div>
-        <div class="skeleton-box skeleton-label"></div>
-      </div>
-    </div>
-
-    <!-- Skeleton Two Column -->
-    <div class="two-col">
+      <!-- Skeleton Contribution Grid -->
       <div class="panel skeleton">
         <div class="skeleton-box skeleton-title"></div>
-        <div class="skeleton-list">
-          <div class="skeleton-item" *ngFor="let i of [1,2,3,4,5,6]"></div>
-        </div>
-      </div>
-      <div class="panel skeleton">
-        <div class="skeleton-box skeleton-title"></div>
-        <div class="skeleton-list">
-          <div class="skeleton-item" *ngFor="let i of [1,2,3,4]"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Skeleton Contribution Grid -->
-    <div class="panel skeleton">
-      <div class="skeleton-box skeleton-title"></div>
-      <div class="skeleton-contribution-grid">
-        <div class="skeleton-contribution-col" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]">
-          <div class="skeleton-contribution-cell" *ngFor="let j of [1,2,3,4,5,6,7]"></div>
+        <div class="skeleton-contribution-grid">
+          @for (i of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]; track i) {
+            <div class="skeleton-contribution-col">
+              @for (j of [1,2,3,4,5,6,7]; track j) {
+                <div class="skeleton-contribution-cell"></div>
+              }
+            </div>
+          }
         </div>
       </div>
     </div>
-  </div>
+  }
 
-  <div *ngIf="!loading" class="activity-content">
-
-    <!-- Stats bar -->
-    <div class="stats-bar">
-      <div class="stat-item">
-        <span class="stat-value">{{ stats.totalRepos }}</span>
-        <span class="stat-label">Repos</span>
+  @if (!loading) {
+    <div class="activity-content">
+      <!-- Stats bar -->
+      <div class="stats-bar">
+        <div class="stat-item">
+          <span class="stat-value">{{ stats.totalRepos }}</span>
+          <span class="stat-label">Repos</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ stats.totalStars }}</span>
+          <span class="stat-label">Stars</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ stats.currentStreak }}</span>
+          <span class="stat-label">Day Streak</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ stats.thisWeek }}</span>
+          <span class="stat-label">This Week</span>
+        </div>
       </div>
-      <div class="stat-item">
-        <span class="stat-value">{{ stats.totalStars }}</span>
-        <span class="stat-label">Stars</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-value">{{ stats.currentStreak }}</span>
-        <span class="stat-label">Day Streak</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-value">{{ stats.thisWeek }}</span>
-        <span class="stat-label">This Week</span>
-      </div>
-    </div>
-
-    <div class="two-col">
-
-      <!-- Recent commits -->
-      <div class="panel">
-        <h3 class="panel-title">Recent Commits</h3>
-        <div class="events-list">
-          <div *ngFor="let event of recentEvents" class="event-item">
-            <div class="event-dot"></div>
-            <div class="event-content">
-              <div class="event-title">{{ event.title }}</div>
-              <div class="event-meta">
-                <span class="event-repo">{{ event.repo }}</span>
-                <span class="event-time">{{ event.timeAgo }}</span>
+      <div class="two-col">
+        <!-- Recent commits -->
+        <div class="panel">
+          <h3 class="panel-title">Recent Commits</h3>
+          <div class="events-list">
+            @for (event of recentEvents; track event) {
+              <div class="event-item">
+                <div class="event-dot"></div>
+                <div class="event-content">
+                  <div class="event-title">{{ event.title }}</div>
+                  <div class="event-meta">
+                    <span class="event-repo">{{ event.repo }}</span>
+                    <span class="event-time">{{ event.timeAgo }}</span>
+                  </div>
+                </div>
               </div>
-            </div>
+            }
+            @if (recentEvents.length === 0) {
+              <div class="empty">No recent commits found.</div>
+            }
           </div>
-          <div *ngIf="recentEvents.length === 0" class="empty">No recent commits found.</div>
+        </div>
+        <!-- Top repos -->
+        <div class="panel">
+          <h3 class="panel-title">Top Repositories</h3>
+          <div class="repos-list">
+            @for (repo of topRepos; track repo) {
+              <a [href]="repo.html_url" target="_blank" rel="noopener" class="repo-item">
+                <div class="repo-name">{{ repo.name }}</div>
+                <div class="repo-desc">{{ repo.description }}</div>
+                <div class="repo-meta">
+                  @if (repo.language) {
+                    <span class="repo-lang">
+                      <span class="lang-dot" [style.background]="getLangColor(repo.language)"></span>
+                      {{ repo.language }}
+                    </span>
+                  }
+                  <span class="repo-stars">⭐ {{ repo.stargazers_count }}</span>
+                  <span class="repo-forks">🍴 {{ repo.forks_count }}</span>
+                </div>
+              </a>
+            }
+            @if (topRepos.length === 0) {
+              <div class="empty">No repos found.</div>
+            }
+          </div>
         </div>
       </div>
-
-      <!-- Top repos -->
-      <div class="panel">
-        <h3 class="panel-title">Top Repositories</h3>
-        <div class="repos-list">
-          <a *ngFor="let repo of topRepos" [href]="repo.html_url" target="_blank" rel="noopener" class="repo-item">
-            <div class="repo-name">{{ repo.name }}</div>
-            <div class="repo-desc">{{ repo.description }}</div>
-            <div class="repo-meta">
-              <span *ngIf="repo.language" class="repo-lang">
-                <span class="lang-dot" [style.background]="getLangColor(repo.language)"></span>
-                {{ repo.language }}
-              </span>
-              <span class="repo-stars">⭐ {{ repo.stargazers_count }}</span>
-              <span class="repo-forks">🍴 {{ repo.forks_count }}</span>
+      <!-- Contribution grid -->
+      <div class="panel contribution-panel">
+        <div class="contribution-header">
+          <h3 class="panel-title">Contribution Activity</h3>
+          <div class="graph-legend">
+            <span>Less</span>
+            <div class="legend-colors">
+              @for (l of [0,1,2,3,4]; track l) {
+                <div class="legend-box" [style.background]="getContributionColor(l)"></div>
+              }
             </div>
+            <span>More</span>
+          </div>
+        </div>
+        <div class="graph-grid">
+          @for (week of contributionGrid; track week) {
+            <div class="graph-column">
+              @for (day of week; track day) {
+                <div
+                  class="graph-cell"
+                  [style.background]="getContributionColor(day.level)"
+                  [title]="day.count + ' pushes on ' + (day.date | date:'mediumDate')"
+                ></div>
+              }
+            </div>
+          }
+        </div>
+        <div class="graph-footer">
+          <a [href]="'https://github.com/' + username" target="_blank" rel="noopener" class="gh-link">
+            View full profile on GitHub →
           </a>
-          <div *ngIf="topRepos.length === 0" class="empty">No repos found.</div>
         </div>
-      </div>
-
-    </div>
-
-    <!-- Contribution grid -->
-    <div class="panel contribution-panel">
-      <div class="contribution-header">
-        <h3 class="panel-title">Contribution Activity</h3>
-        <div class="graph-legend">
-          <span>Less</span>
-          <div class="legend-colors">
-            <div class="legend-box" *ngFor="let l of [0,1,2,3,4]" [style.background]="getContributionColor(l)"></div>
-          </div>
-          <span>More</span>
-        </div>
-      </div>
-      <div class="graph-grid">
-        <div *ngFor="let week of contributionGrid" class="graph-column">
-          <div
-            *ngFor="let day of week"
-            class="graph-cell"
-            [style.background]="getContributionColor(day.level)"
-            [title]="day.count + ' pushes on ' + (day.date | date:'mediumDate')"
-          ></div>
-        </div>
-      </div>
-      <div class="graph-footer">
-        <a [href]="'https://github.com/' + username" target="_blank" rel="noopener" class="gh-link">
-          View full profile on GitHub →
-        </a>
       </div>
     </div>
-
-  </div>
+  }
 </div>

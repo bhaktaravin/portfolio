@@ -1,8 +1,11 @@
 import { Component, OnInit, OnDestroy, HostListener, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterOutlet, RouterModule, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
+import { MetaService } from './services/meta.service';
+import { CommandPaletteService } from './services/command-palette.service';
+import { CommandPaletteComponent } from './command-palette/command-palette';
 import {
   PROFILE,
   SOCIAL_LINKS,
@@ -14,15 +17,18 @@ import {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterModule],
+  imports: [RouterOutlet, RouterModule, CommandPaletteComponent],
   templateUrl: './app.html',
   styleUrls: ['./app.css'],
 })
 export class AppComponent implements OnInit, OnDestroy {
   private readonly router = inject(Router);
+  private readonly meta = inject(MetaService);
+  readonly commandPalette = inject(CommandPaletteService);
 
   activeSection = 'home';
   showBackToTop = false;
+  showStickyCta = false;
   menuOpen = false;
   scrollProgress = 0;
   showResumeDropdown = false;
@@ -30,6 +36,8 @@ export class AppComponent implements OnInit, OnDestroy {
   isHome = true;
 
   readonly fullName = PROFILE.fullName;
+  readonly availability = PROFILE.availability;
+  readonly isAvailable = PROFILE.availabilityStatus === 'available';
   readonly socialLinks = SOCIAL_LINKS;
   readonly primaryNav = PRIMARY_NAV;
   readonly moreNav = MORE_NAV;
@@ -45,9 +53,12 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.events
       .pipe(filter((e) => e instanceof NavigationEnd))
       .subscribe(() => {
-        this.isHome = this.router.url === '/' || this.router.url === '';
+        const onHome = this.router.url === '/' || this.router.url === '';
+        this.isHome = onHome;
+        if (onHome) this.meta.reset();
       });
     this.isHome = this.router.url === '/' || this.router.url === '';
+    if (this.isHome) this.meta.reset();
   }
 
   ngOnDestroy(): void {
@@ -56,7 +67,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   @HostListener('window:scroll')
   onScroll(): void {
-    this.showBackToTop = window.scrollY > 400;
+    const scrollY = window.scrollY;
+    this.showBackToTop = scrollY > 400;
+    this.showStickyCta = scrollY > 520;
     const winScroll = document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     this.scrollProgress = height > 0 ? (winScroll / height) * 100 : 0;
@@ -77,6 +90,17 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   scrollToTop(): void { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+  scrollToSection(event: MouseEvent, sectionId: string): void {
+    if (!this.isHome) return;
+    event.preventDefault();
+    this.closeMenu();
+    const el = document.getElementById(sectionId);
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    history.replaceState(null, '', `#${sectionId}`);
+    this.activeSection = sectionId;
+  }
 
   toggleResumeDropdown(): void {
     this.showResumeDropdown = !this.showResumeDropdown;

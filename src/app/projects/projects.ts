@@ -1,5 +1,5 @@
 import { Component, computed, signal, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { LazyLoadDirective } from '../directives/lazy-load.directive';
 import { PROJECTS } from '../data/portfolio.data';
@@ -18,7 +18,7 @@ const techIcons: Record<string, string> = {
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [CommonModule, LazyLoadDirective, RouterModule],
+  imports: [LazyLoadDirective, RouterModule],
   templateUrl: './projects.html',
   styleUrls: ['./projects.css'],
 })

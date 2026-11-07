@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { forkJoin, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 interface GitHubEvent {
   type: string;
@@ -35,6 +35,8 @@ interface ContributionDay {
   styleUrls: ['./github-activity.css']
 })
 export class GitHubActivityComponent implements OnInit {
+  private http = inject(HttpClient);
+
   username = 'bhaktaravin';
   loading = true;
 
@@ -43,8 +45,6 @@ export class GitHubActivityComponent implements OnInit {
   contributionGrid: ContributionDay[][] = [];
 
   stats = { totalRepos: 0, totalStars: 0, currentStreak: 0, thisWeek: 0 };
-
-  constructor(private http: HttpClient) {}
 
   ngOnInit() {
     forkJoin({

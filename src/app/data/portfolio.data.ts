@@ -102,6 +102,24 @@ export interface BlogPost {
   content: string;
 }
 
+export interface TrustedClient {
+  name: string;
+  tagline: string;
+  url?: string;
+  logo?: string;
+}
+
+export interface WorkProcessStep {
+  step: number;
+  title: string;
+  description: string;
+}
+
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
 export const PROFILE = {
   fullName: 'Ravin Bhakta',
   jobTitle: 'Freelance Full-Stack & AI Web Developer',
@@ -115,9 +133,98 @@ export const PROFILE = {
   phone: '5107557264',
   location: 'Fremont, CA',
   availability: 'Available for freelance',
+  availabilityStatus: 'available' as const,
+  siteUrl: 'https://ravinbhaktaresume.netlify.app',
+  siteDescription:
+    'Freelance full-stack and AI web developer. I build and deploy client websites, web apps, and LLM-powered marketing tools.',
   resumeLink: 'assets/resume.pdf',
-  calLink: 'https://cal.com/ravinbhakta/30min',
+  calLink: 'https://cal.com/ravin-bhakta-kedtde/30min',
+  profilePhoto: 'assets/profile.jpg',
+  responseTime: 'Usually reply within 24 hours',
 };
+
+export const CONTACT_INTENTS = [
+  { value: 'project', label: 'Start a project' },
+  { value: 'hiring', label: 'Hiring / job opportunity' },
+  { value: 'general', label: 'General question' },
+] as const;
+
+export const TRUSTED_CLIENTS: TrustedClient[] = [
+  {
+    name: 'Wov3, Inc',
+    tagline: 'Recovery footwear · E-commerce platform',
+    url: 'https://www.wov3.com/',
+    logo: 'assets/wov3.png',
+  },
+  {
+    name: 'Hetal Ascher Consulting',
+    tagline: 'Educational consulting · Next.js on AWS Amplify',
+    url: 'https://main.dbe3ycstvczq3.amplifyapp.com/',
+    logo: 'assets/hetalascher.png',
+  },
+  {
+    name: 'NAGGA',
+    tagline: 'Golf association · Membership platform on Vercel',
+    url: 'https://nagagolftournamentsite.vercel.app/',
+    logo: 'assets/nagga.png',
+  },
+];
+
+export const WORK_PROCESS: WorkProcessStep[] = [
+  {
+    step: 1,
+    title: 'Discovery call',
+    description: 'We align on goals, audience, timeline, and budget. You leave with a clear scope — no vague SOWs.',
+  },
+  {
+    step: 2,
+    title: 'Scope & quote',
+    description: 'I send a fixed or phased quote with deliverables, milestones, and what “done” looks like.',
+  },
+  {
+    step: 3,
+    title: 'Build & review',
+    description: 'Weekly check-ins, staging URLs you can share, and async feedback. AI assists copy and content where it helps.',
+  },
+  {
+    step: 4,
+    title: 'Launch & handoff',
+    description: 'Production deploy, DNS/domain help, docs, and a short post-launch support window.',
+  },
+];
+
+export const FAQ_ITEMS: FaqItem[] = [
+  {
+    question: 'What types of projects do you take on?',
+    answer:
+      'Marketing sites, full-stack web apps (auth, dashboards, databases), and AI features — copy generation, chat, document analysis, and workflow automation. I work with founders, small businesses, and associations.',
+  },
+  {
+    question: 'How much does a typical project cost?',
+    answer:
+      'Landing pages start around $1,500, full-stack apps from $4,000, and AI integrations from $2,500. Every project is scoped to your needs — book a free call or send a message for a tailored quote.',
+  },
+  {
+    question: 'How long does a project take?',
+    answer:
+      'A marketing site is often 2–4 weeks. Full-stack apps run 4–8+ weeks depending on scope. I give realistic timelines upfront and ship staging links early so you can review as we go.',
+  },
+  {
+    question: 'Do you use AI in client work?',
+    answer:
+      'Yes — for marketing copy drafts, content variations, and product features (LLM chat, summarization, smart search). You always review final copy; AI speeds iteration, not replaces your voice.',
+  },
+  {
+    question: 'What do I get at handoff?',
+    answer:
+      'A live production URL, source code (or repo access), deployment docs, and basic training on updates. You own what we build.',
+  },
+  {
+    question: 'How do we communicate during a project?',
+    answer:
+      'Email, async Loom/video updates, and scheduled calls. US-based, remote-friendly, and responsive across Pacific time.',
+  },
+];
 
 export const STATS: Stat[] = [
   { value: '3+', label: 'Live Client Sites' },
@@ -568,46 +675,6 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
   { name: 'Cloud Platforms', skills: CLOUD_PLATFORMS },
 ];
 
-export interface Testimonial {
-  name: string;
-  title: string;
-  relationship: string;
-  date: string;
-  text: string;
-}
-
-// Originally collected in Firestore; kept as static data so visitors can't edit them.
-export const TESTIMONIALS: Testimonial[] = [
-  {
-    name: 'Joe Apicella',
-    title: 'Senior Application Developer',
-    relationship: 'Colleague',
-    date: 'July 11, 2025',
-    text: 'I worked with Ravin during his time on our team, supporting him on several projects. He brought a positive attitude, was receptive to feedback, and showed persistence in his efforts. He often volunteered to take on tasks to support others and even assisted across multiple teams when needed. Ravin was a positive and supportive team member, and I appreciated his contributions.',
-  },
-  {
-    name: 'Jesika Goni',
-    title: 'Software Configuration Engineer – AWS.Automation Scripting | Katalon Studio.Build & Deployment Automation | CI/CD.Driving  Software Releases| Version Control | Bridging Development and Deployment with Scalable Automation',
-    relationship: 'Colleague',
-    date: 'May 28, 2025',
-    text: 'I had the privilege of working closely with Ravin Bhakta as we were in the same team, and he consistently impressed me with his technical expertise.  \nWhat truly sets Ravin apart is his calm and composed presence, even under pressure. No matter the challenge or timeline, he remained focused and solution-oriented. He is the kind of teammate who always has your back—quick to respond, eager to help, and genuinely committed to making things easier for everyone around them.\nHis technical contributions, especially in building internal tools that streamlined our processes, saved countless hours and made a lasting impact.\nAny team would be fortunate to have someone as capable, thoughtful, and reliable as Ravin. I’m grateful for the opportunity to have worked alongside him.',
-  },
-  {
-    name: 'Maksim (Max) Melekhau',
-    title: 'Software/Application Developer',
-    relationship: 'Colleague',
-    date: 'May 6, 2025',
-    text: 'I\'ve had the chance to work with Ravin Bhakta and was consistently impressed by his reliability, quick thinking, and willingness to take on new challenges. He’s a solid developer with strong skills in Oracle SQL, PowerShell, Git, and more. He’s always ready to learn something new when the task calls for it.\n\nRavin is a great team player, easy to work with, clear in his communication, and always supportive of others. He asks thoughtful questions, picks up new tools quickly, and never hesitates to step up, even when the work is unfamiliar. His ability to stay calm and focused under pressure makes him a real asset on any team.\n\nI’d happily work with him again and recommend him without hesitation.',
-  },
-  {
-    name: 'Jason Slavich',
-    title: 'Driving Innovation and Continuous Improvement | Certified SAFe 6 Product Owner/Product Manager',
-    relationship: 'Manager',
-    date: 'May 12, 2025',
-    text: 'Ravin has been great to work with. He\'s always positive, gets along with his teammates, and takes critical feedback well.',
-  },
-];
-
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: 'shipping-client-sites-on-aws-amplify',
@@ -709,13 +776,14 @@ Dark/light mode toggle, Cal.com booking, and a proper PWA setup. The foundation 
 export const PRIMARY_NAV: NavLink[] = [
   { id: 'about', label: 'About' },
   { id: 'projects', label: 'Work' },
-  { id: 'services', label: 'Services' },
-  { id: 'testimonials', label: 'Reviews' },
   { id: 'skills', label: 'Skills' },
   { id: 'contact', label: 'Contact' },
 ];
 
 export const MORE_NAV: NavLink[] = [
+  { id: 'services', label: 'Services' },
+  { id: 'testimonials', label: 'Recommendations' },
+  { id: 'faq', label: 'FAQ' },
   { id: 'experience', label: 'Experience' },
   { id: 'education', label: 'Education' },
   { id: 'certifications', label: 'Certifications' },
@@ -729,8 +797,8 @@ export const FOOTER_NAV: NavLink[] = [
 ];
 
 export const PAGE_SECTIONS = [
-  'home', 'about', 'projects', 'services', 'testimonials', 'skills',
-  'experience', 'contact', 'book', 'blog', 'products', 'github',
+  'home', 'about', 'projects', 'clients', 'testimonials', 'process', 'services', 'ai-demo', 'skills',
+  'experience', 'faq', 'contact', 'book', 'blog', 'products', 'github',
   'education', 'certifications',
 ];
 

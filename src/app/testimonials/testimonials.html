@@ -1,18 +1,70 @@
 <div class="container">
-  <h2 class="section-title">Testimonials</h2>
+  <div class="section-header">
+    <h2 class="section-title">Colleague Recommendations</h2>
+    <p class="section-subtitle">
+      What managers and teammates I've worked with have said on LinkedIn — real feedback from past roles, not paid testimonials.
+    </p>
+    <a
+      class="linkedin-badge"
+      [href]="linkedInUrl"
+      target="_blank"
+      rel="noopener noreferrer"
+      >
+      View on LinkedIn ↗
+    </a>
+  </div>
+
+  @if (submitMessage) {
+    <p class="submit-message">{{ submitMessage }}</p>
+  }
+
+  @if (showForm) {
+    <div class="testimonial-form-wrapper">
+      <form (ngSubmit)="submitTestimonial()" #testimonialForm="ngForm">
+        <input type="text" name="name" [(ngModel)]="newTestimonial.name" placeholder="Your Name" required />
+        <input type="email" name="email" [(ngModel)]="newTestimonial.email" placeholder="Email (for Gravatar)" />
+        <input type="text" name="title" [(ngModel)]="newTestimonial.title" placeholder="Your Title/Role" required />
+        <input type="text" name="date" [(ngModel)]="newTestimonial.date" placeholder="Date (e.g. Dec 2025)" required />
+        <input type="text" name="relationship" [(ngModel)]="newTestimonial.relationship" placeholder="Relationship (e.g. Colleague, Manager)" required />
+        <textarea name="text" [(ngModel)]="newTestimonial.text" placeholder="Your recommendation" required></textarea>
+        <input type="text" name="image" [(ngModel)]="newTestimonial.image" placeholder="Image URL (optional)" />
+        <button type="submit" [disabled]="testimonialForm.invalid">Submit for review</button>
+        <button type="button" (click)="showForm = false">Cancel</button>
+      </form>
+    </div>
+  }
+
   <div class="testimonials-grid">
-    <div class="testimonial-card" *ngFor="let testimonial of testimonials">
-      <div class="testimonial-header">
-        <div class="testimonial-meta">
-          <span class="testimonial-name">{{ testimonial.name }}</span>
-          <span class="testimonial-title">{{ testimonial.title }}</span>
-          <span class="testimonial-date">{{ testimonial.date }}</span>
-          <span class="testimonial-relationship">{{ testimonial.relationship }}</span>
+    @for (testimonial of testimonials$ | async; track testimonial) {
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          @if (testimonial.image) {
+            <img [src]="testimonial.image" class="testimonial-avatar" alt="{{testimonial.name}}" />
+          } @else {
+            @if (testimonial.email) {
+              <img [src]="gravatarUrl(testimonial.email)" class="testimonial-avatar" alt="{{testimonial.name}}" />
+            }
+          }
+          <div class="testimonial-meta">
+            <span class="testimonial-name">{{ testimonial.name }}</span>
+            <span class="testimonial-title">{{ testimonial.title }}</span>
+            <div class="testimonial-details">
+              <span class="testimonial-relationship">{{ testimonial.relationship }}</span>
+              <span class="testimonial-date">{{ testimonial.date }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-content">
+          <p class="testimonial-text">{{ testimonial.text }}</p>
         </div>
       </div>
-      <div class="testimonial-content">
-        <p class="testimonial-text">{{ testimonial.text }}</p>
-      </div>
-    </div>
+    }
   </div>
+
+  <p class="testimonials-footer">
+    Worked with me on a project?
+    <button type="button" class="testimonials-footer-link" (click)="showForm = !showForm">
+      {{ showForm ? 'Cancel' : 'Leave a recommendation' }}
+    </button>
+  </p>
 </div>
