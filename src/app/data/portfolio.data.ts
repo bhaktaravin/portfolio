@@ -152,7 +152,7 @@ export const CONTACT_INTENTS = [
 export const TRUSTED_CLIENTS: TrustedClient[] = [
   {
     name: 'Wov3, Inc',
-    tagline: 'Recovery footwear · E-commerce platform',
+    tagline: 'Recovery footwear · Shopify SEO',
     url: 'https://www.wov3.com/',
     logo: 'assets/wov3.png',
   },
@@ -347,25 +347,11 @@ export const PROJECTS: Project[] = [
     slug: 'wov3',
     title: 'Wov3',
     description:
-      'Recovery footwear engineered around how athletes load, unload, and reset—3D-printed lattice tuned per discipline via foot scanning and gait analysis. Production e-commerce and fitting platform deployed on Vercel.',
-    technologies: ['React', 'JavaScript', 'Vercel', 'E-commerce'],
+      'Contract SEO work on the Shopify store for Wov3, a startup making 3D-printed recovery footwear for athletes: on-page optimization, metadata, and search visibility.',
+    technologies: ['Shopify', 'SEO'],
     liveUrl: 'https://www.wov3.com/',
     image: 'assets/wov3.png',
-    featured: true,
-    caseStudy: {
-      problem:
-        'Athletes need recovery footwear matched to their biomechanics—not generic foam slides that ignore how they land, load, and reset between training blocks.',
-      solution:
-        'Built the web platform for Wov3\'s scan-to-print pipeline (structured-light foot capture, gait analysis, and 3D-printed lattice footwear): a React e-commerce site for storytelling, fitting bookings, and athlete testimonials.',
-      impact:
-        '30+ semi-pro and pro athletes onboarded; co-developed with TU/e Sports Lab and validated through pressure mapping and force-plate testing before shipping.',
-      highlights: [
-        '3D-printed lattice tuned per athlete and discipline',
-        'Foot scanning and gait capture integrated into the product story',
-        'Production React site on Vercel with Calendly fitting flows',
-        'Partnerships with TU/e Sports Lab, Mol PT, and collegiate athletes',
-      ],
-    },
+    featured: false,
   },
   {
     slug: 'hetal-ascher-consulting',
@@ -518,9 +504,8 @@ export const EXPERIENCES: ExperienceEntry[] = [
     start: 'Jan 2026',
     end: 'Present',
     details: [
-      'Contract engineering for Wov3, Inc — recovery footwear with 3D-printed lattice structures customized per athlete through foot scanning, gait capture, and discipline-specific tuning.',
-      'Building the production e-commerce and fitting platform at wov3.com — React on Vercel, scan-to-print storytelling, Calendly booking, and athlete social proof.',
-      'Supporting the product\'s validation with TU/e Sports Lab and 30+ semi-pro and pro athletes — pressure mapping, lattice generations, and recovery-focused design.',
+      'Part-time contract work on wov3.com, the Shopify store for a startup building 3D-printed recovery footwear for athletes.',
+      'SEO optimization across the store — page titles, meta descriptions, and on-page content to improve search visibility.',
     ],
     companyUrl: 'https://www.wov3.com/',
   },
