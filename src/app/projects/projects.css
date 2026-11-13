@@ -71,6 +71,18 @@
   overflow: hidden;
 }
 
+/* Measurable outcome: the line a skimming reader should remember */
+.project-result {
+  margin: 0.25rem 0 0;
+  padding: 0.4rem 0.65rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #a7f3d0;
+  background: rgba(16, 185, 129, 0.1);
+  border-left: 3px solid #10b981;
+  border-radius: 4px;
+}
+
 .project-tech {
   display: flex;
   flex-wrap: wrap;

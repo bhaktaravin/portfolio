@@ -49,6 +49,8 @@ export interface Project {
   liveUrl?: string;
   githubUrl?: string;
   featured?: boolean;
+  /** One measurable outcome shown on the card, e.g. "Cut page load 40%". */
+  result?: string;
   caseStudy?: CaseStudy;
 }
 
@@ -352,6 +354,7 @@ export const PROJECTS: Project[] = [
     liveUrl: 'https://www.wov3.com/',
     image: 'assets/wov3.png',
     featured: false,
+    result: 'Improved the store\'s visibility in search results',
   },
   {
     slug: 'hetal-ascher-consulting',
@@ -362,6 +365,7 @@ export const PROJECTS: Project[] = [
     githubUrl: 'https://github.com/bhaktaravin/hetalascherteachingconsultion',
     image: 'assets/hetalascher.png',
     featured: true,
+    result: 'Replaced the client\'s outdated site with a modern Next.js build',
   },
   {
     slug: 'nagga',
@@ -372,6 +376,7 @@ export const PROJECTS: Project[] = [
     githubUrl: 'https://github.com/bhaktaravin/nagagolftournamentsite',
     image: 'assets/nagga.png',
     featured: true,
+    result: 'Modernized the association\'s site with up-to-date member and event information',
   },
   {
     slug: 'instant-messenger',
@@ -382,6 +387,7 @@ export const PROJECTS: Project[] = [
     githubUrl: 'https://github.com/bhaktaravin/blast-from-the-past-messenger',
     image: 'assets/instant-messenger.png',
     featured: true,
+    result: 'Designed, built, and deployed solo: a modern take on classic AOL-style chat',
   },
   {
     slug: 'career-copilot',
@@ -416,7 +422,7 @@ export const PROJECTS: Project[] = [
     caseStudy: {
       problem: 'Manga readers need fast discovery and smooth reading—generic search and clunky UIs make it hard to find titles and track progress across devices.',
       solution: 'Built an Angular app with AI-powered search, lazy-loaded chapters, favorites, and progress tracking—combining intelligent discovery with performance-first image delivery.',
-      impact: 'Sub-second loads, smooth scrolling, and AI-assisted discovery that helps users find and resume manga faster than traditional catalog browsing.',
+      impact: 'Fast, smooth reading with AI-assisted search, favorites, and saved progress, so readers can find new manga and pick up where they left off.',
       highlights: [
         'AI-powered search for intelligent title discovery',
         'Lazy loading with intersection observer for optimal performance',
@@ -446,7 +452,7 @@ export const PROJECTS: Project[] = [
     caseStudy: {
       problem: 'Pokemon fans wanted an engaging way to test their knowledge of Gen 1 Pokemon, but existing quizzes were either too simple or had poor UX.',
       solution: 'Created an interactive quiz application using React and the Pokemon API, featuring multiple-choice questions, real-time scoring, and beautiful UI with Shadcn components and Tailwind CSS.',
-      impact: 'Delivered an engaging quiz experience with instant feedback, smooth animations, and mobile-responsive design that works flawlessly across all devices.',
+      impact: 'An engaging quiz with instant feedback, smooth animations, and a responsive layout built for both mobile and desktop.',
       highlights: [
         'Real-time API integration with Pokemon database',
         'Responsive design with Tailwind CSS',
